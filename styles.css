@@ -1,19 +1,25 @@
 /* ============================================
    GRACE FU PORTFOLIO - STYLES
-   Editorial, soft, airy aesthetic
+   Editorial · Organic · Ocean & Sand
    ============================================ */
 
 /* CSS Variables */
 :root {
-    /* Colors */
-    --bg-primary: #FAFAF7;
-    --bg-secondary: #F5F5F0;
-    --accent-blue: #B8D8E8;
-    --accent-green: #C8DDD0;
-    --accent-blush: #E8C4C4;
-    --text-primary: #1A1A2E;
-    --text-secondary: #4A4A5E;
-    --text-muted: #7A7A8E;
+    /* Colors — Ocean / Sand / Pewter palette */
+    --bg-primary: #EBE6DE;
+    --bg-secondary: #DED8CE;
+    --bg-dark: #1B3A4B;
+    --bg-dark-card: #234A5E;
+    --accent-blue: #648EC0;
+    --accent-blue-light: #B0D2EC;
+    --accent-teal: #8BACA3;
+    --accent-pewter: #849DBB;
+    --accent-brown: #513A32;
+    --text-primary: #2A2520;
+    --text-secondary: #5A524A;
+    --text-muted: #8A8278;
+    --text-light: #EBE6DE;
+    --text-light-muted: #9AABB8;
     --white: #FFFFFF;
 
     /* Typography */
@@ -32,10 +38,10 @@
     --transition-slow: 0.6s ease;
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(26, 26, 46, 0.06);
-    --shadow-md: 0 4px 20px rgba(26, 26, 46, 0.08);
-    --shadow-lg: 0 8px 40px rgba(26, 26, 46, 0.12);
-    --shadow-hover: 0 12px 48px rgba(26, 26, 46, 0.16);
+    --shadow-sm: 0 2px 8px rgba(27, 58, 75, 0.08);
+    --shadow-md: 0 4px 20px rgba(27, 58, 75, 0.12);
+    --shadow-lg: 0 8px 40px rgba(27, 58, 75, 0.16);
+    --shadow-hover: 0 12px 48px rgba(27, 58, 75, 0.22);
 }
 
 /* Reset & Base */
@@ -59,6 +65,22 @@ body {
     cursor: none;
 }
 
+/* Subtle film grain overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
 /* Hide custom cursor on touch devices */
 @media (pointer: coarse) {
     body {
@@ -71,8 +93,8 @@ body {
 
 /* Selection */
 ::selection {
-    background-color: var(--accent-blue);
-    color: var(--text-primary);
+    background-color: var(--accent-pewter);
+    color: var(--white);
 }
 
 /* ============================================
@@ -82,7 +104,7 @@ body {
     position: fixed;
     width: 20px;
     height: 20px;
-    background-color: rgba(184, 216, 232, 0.6);
+    background-color: rgba(100, 142, 192, 0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -94,7 +116,7 @@ body {
 .custom-cursor.hover {
     width: 40px;
     height: 40px;
-    background-color: rgba(200, 221, 208, 0.5);
+    background-color: rgba(139, 172, 163, 0.5);
 }
 
 /* ============================================
@@ -107,7 +129,7 @@ body {
     width: 48px;
     height: 48px;
     background-color: var(--white);
-    border: 1px solid rgba(26, 26, 46, 0.1);
+    border: 1px solid rgba(42, 37, 32, 0.12);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -129,7 +151,7 @@ body {
 }
 
 .back-to-top:hover {
-    background-color: var(--accent-blue);
+    background-color: var(--accent-teal);
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
 }
@@ -154,10 +176,10 @@ body {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    background-color: rgba(250, 250, 247, 0.85);
+    background-color: rgba(235, 230, 222, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(26, 26, 46, 0.05);
+    border-bottom: 1px solid rgba(42, 37, 32, 0.08);
 }
 
 .nav-container {
@@ -202,7 +224,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent-blue);
+    background-color: var(--accent-teal);
     transition: width var(--transition-fast);
 }
 
@@ -429,11 +451,9 @@ section {
 }
 
 .stat-card {
-    background: rgba(184, 216, 232, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(184, 216, 232, 0.4);
-    border-radius: 16px;
+    background: var(--bg-dark);
+    border: none;
+    border-radius: 0;
     padding: 1.5rem;
     text-align: center;
     opacity: 0;
@@ -448,7 +468,15 @@ section {
 
 .stat-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(184, 216, 232, 0.4);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card .stat-value {
+    color: var(--accent-blue-light);
+}
+
+.stat-card .stat-label {
+    color: var(--text-light-muted);
 }
 
 .stat-card:nth-child(1) { transition-delay: 0.1s; }
@@ -477,7 +505,12 @@ section {
    EXPERIENCE SECTION
    ============================================ */
 .experience {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.experience .section-label {
+    color: var(--text-light-muted);
 }
 
 .experience-list {
@@ -487,10 +520,10 @@ section {
 }
 
 .experience-card {
-    background-color: var(--white);
-    border-radius: 16px;
+    background-color: var(--bg-dark-card);
+    border-radius: 0;
     padding: 1.5rem 2rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
     transition: all var(--transition-medium);
     opacity: 0;
     transform: translateY(20px);
@@ -529,7 +562,7 @@ section {
 }
 
 .experience-card:hover {
-    box-shadow: var(--shadow-md);
+    background-color: #2A5570;
     transform: translateX(4px);
 }
 
@@ -545,14 +578,14 @@ section {
     font-family: var(--font-display);
     font-size: clamp(1.125rem, 2vw, 1.375rem);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-light);
     margin-bottom: 0.25rem;
 }
 
 .experience-company {
     font-family: var(--font-script);
     font-size: clamp(1rem, 1.5vw, 1.25rem);
-    color: var(--text-secondary);
+    color: var(--accent-blue-light);
     margin-bottom: 0.25rem;
 }
 
@@ -562,20 +595,20 @@ section {
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-light-muted);
 }
 
 .experience-content {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(26, 26, 46, 0.06);
+    border-top: 1px solid rgba(235, 230, 222, 0.1);
 }
 
 .experience-content p {
     font-family: var(--font-body);
     font-size: 0.9375rem;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: var(--text-light-muted);
 }
 
 /* Mobile Accordion */
@@ -598,7 +631,7 @@ section {
         max-height: 200px;
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(26, 26, 46, 0.06);
+        border-top: 1px solid rgba(235, 230, 222, 0.1);
         opacity: 1;
     }
 
@@ -642,8 +675,8 @@ section {
     font-size: 0.875rem;
     font-weight: 500;
     padding: 0.625rem 1.25rem;
-    border: 1px solid rgba(26, 26, 46, 0.1);
-    border-radius: 100px;
+    border: 1px solid rgba(42, 37, 32, 0.15);
+    border-radius: 0;
     background-color: transparent;
     color: var(--text-secondary);
     cursor: pointer;
@@ -651,15 +684,15 @@ section {
 }
 
 .filter-btn:hover {
-    background-color: rgba(184, 216, 232, 0.3);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-teal);
+    border-color: var(--accent-teal);
     color: var(--text-primary);
 }
 
 .filter-btn.active {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
-    color: var(--text-primary);
+    background-color: var(--accent-brown);
+    border-color: var(--accent-brown);
+    color: var(--text-light);
 }
 
 .projects-grid {
@@ -671,7 +704,7 @@ section {
 
 .project-card {
     background-color: var(--white);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-medium);
@@ -679,6 +712,7 @@ section {
     transform: translateY(20px);
     display: flex;
     flex-direction: column;
+    border-bottom: 3px solid var(--accent-teal);
 }
 
 .project-card.visible {
@@ -728,9 +762,9 @@ section {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 0.25rem 0.625rem;
-    background-color: rgba(184, 216, 232, 0.4);
-    color: var(--text-secondary);
-    border-radius: 100px;
+    background-color: var(--accent-pewter);
+    color: var(--white);
+    border-radius: 0;
 }
 
 .project-description {
@@ -755,7 +789,7 @@ section {
     padding: 0.375rem 0.75rem;
     background-color: var(--bg-secondary);
     color: var(--text-muted);
-    border-radius: 6px;
+    border-radius: 0;
 }
 
 /* GitHub Section */
@@ -771,15 +805,16 @@ section {
 
 .github-card {
     background-color: var(--bg-secondary);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 1.25rem;
     transition: all var(--transition-fast);
     text-decoration: none;
     display: block;
+    border-left: 3px solid var(--accent-pewter);
 }
 
 .github-card:hover {
-    background-color: rgba(184, 216, 232, 0.3);
+    background-color: var(--accent-teal);
     transform: translateY(-2px);
 }
 
@@ -815,7 +850,7 @@ section {
     font-weight: 500;
     padding: 0.25rem 0.5rem;
     background-color: var(--white);
-    border-radius: 4px;
+    border-radius: 0;
     color: var(--text-secondary);
 }
 
@@ -847,7 +882,12 @@ section {
    SKILLS SECTION
    ============================================ */
 .skills {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.skills .section-label {
+    color: var(--text-light-muted);
 }
 
 .skills-groups {
@@ -877,7 +917,7 @@ section {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--accent-blue-light);
     margin-bottom: 1rem;
 }
 
@@ -892,28 +932,31 @@ section {
     font-size: 0.9375rem;
     font-weight: 500;
     padding: 0.625rem 1.25rem;
-    background-color: rgba(184, 216, 232, 0.4);
-    color: var(--text-primary);
-    border-radius: 100px;
+    background-color: var(--bg-dark-card);
+    color: var(--text-light);
+    border-radius: 0;
+    border: 1px solid rgba(132, 157, 187, 0.3);
     transition: all var(--transition-fast);
     cursor: default;
 }
 
 .skill-pill:hover {
-    background-color: var(--accent-green);
+    background-color: var(--accent-pewter);
+    color: var(--white);
+    border-color: var(--accent-pewter);
     transform: scale(1.05);
 }
 
 .languages-spoken {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(26, 26, 46, 0.08);
+    border-top: 1px solid rgba(235, 230, 222, 0.1);
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-family: var(--font-body);
     font-size: 0.9375rem;
-    color: var(--text-secondary);
+    color: var(--text-light-muted);
 }
 
 .languages-icon {
@@ -935,7 +978,7 @@ section {
 
 .award-card {
     background-color: var(--white);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-medium);
@@ -943,6 +986,7 @@ section {
     transform: translateY(20px);
     position: relative;
     overflow: hidden;
+    border-top: 3px solid var(--accent-blue);
 }
 
 .award-card.visible {
@@ -1022,7 +1066,7 @@ section {
    CONTACT SECTION
    ============================================ */
 .contact {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(184, 216, 232, 0.3) 100%);
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--accent-teal) 100%);
     text-align: center;
     padding: calc(var(--section-padding) * 1.5) 0;
 }
@@ -1083,18 +1127,17 @@ section {
     font-size: 0.9375rem;
     font-weight: 500;
     padding: 0.875rem 1.75rem;
-    background-color: var(--white);
-    color: var(--text-primary);
-    border: 1px solid rgba(26, 26, 46, 0.1);
-    border-radius: 100px;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    border: none;
+    border-radius: 0;
     text-decoration: none;
     transition: all var(--transition-fast);
     box-shadow: var(--shadow-sm);
 }
 
 .contact-btn:hover {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-brown);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -1107,10 +1150,14 @@ section {
    FOOTER
    ============================================ */
 .footer {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-dark);
     padding: 2rem 0;
     text-align: center;
-    border-top: 1px solid rgba(26, 26, 46, 0.06);
+    border-top: none;
+}
+
+.footer p {
+    color: var(--text-light-muted);
 }
 
 .footer p {
@@ -1139,7 +1186,7 @@ section {
         top: 100%;
         left: 0;
         right: 0;
-        background-color: rgba(250, 250, 247, 0.95);
+        background-color: rgba(235, 230, 222, 0.95);
         backdrop-filter: blur(12px);
         flex-direction: column;
         padding: 1.5rem;

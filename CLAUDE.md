@@ -5,10 +5,11 @@ Personal portfolio site for Grace Fu, sophomore at WashU studying CS & Business 
 recruiting for SWE roles. Deployed at grcfu.github.io.
 
 ## Aesthetic & Vibe
-- Editorial/magazine meets tech portfolio
-- Soft, airy, personal — NOT corporate or dark mode
-- Color palette: cream #FAFAF7, sky blue #B8D8E8, sage green #C8DDD0, charcoal #1A1A2E
+- Editorial/magazine meets tech portfolio — organic, textural, not flat/clinical
+- Ocean & sand palette with dark sections for contrast
+- Color palette: warm sand #EBE6DE, silver lake blue #648EC0, pewter #849DBB, sage teal #8BACA3, royal brown #513A32, dark ocean #1B3A4B
 - Fonts: Playfair Display (display), Dancing Script (accents), DM Sans (body)
+- Sharp corners (border-radius: 0), subtle film grain overlay, no rounded "AI" look
 
 ## File Structure
 - `index.html` — all HTML structure
