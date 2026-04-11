@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of Grace Fu, CS & Business student at Washington University in St. Louis. ML researcher, startup founder, and 2024 Congressional App Challenge winner.">
+    <title>Grace Fu — CS & Business @ WashU</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Script -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Grace Fu</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#recognition">Recognition</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-handwritten">hi, since you're new here —</p>
+            <div class="hero-name-container">
+                <h1 class="hero-name">GRACE FU</h1>
+                <div class="hero-photo">
+                    <img src="gracefuheadshot.jpeg" alt="Grace Fu, CS & Business student at Washington University in St. Louis">
+                </div>
+            </div>
+            <p class="hero-subtitle">B.S. COMPUTER SCIENCE & BUSINESS · WASHU · CLASS OF 2029</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <p class="section-label">[ ABOUT ME ]</p>
+                <div class="about-grid">
+                    <div class="about-bio">
+                        <p>I'm Grace — a builder, researcher, and occasional baker. I'm a full-tuition Danforth Scholar at WashU studying CS & Business with a 4.0 GPA. I care deeply about using technology to solve real problems — from building ML pipelines that improve Child Protective Services investigations, to apps that won the Congressional App Challenge and got presented in D.C. When I'm not coding, I'm filming baking videos for my YouTube channel or playing violin.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <span class="stat-value">4.0</span>
+                            <span class="stat-label">GPA · Full Danforth Scholar</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">500+</span>
+                            <span class="stat-label">LinkedIn Connections</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">1,030+</span>
+                            <span class="stat-label">YouTube Subscribers</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">$3,500+</span>
+                            <span class="stat-label">Revenue · AmeriBakes Founder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience" id="experience">
+            <div class="container">
+                <p class="section-label">[ EXPERIENCE ]</p>
+                <div class="experience-list">
+                    <article class="experience-card" data-border="blue">
+                        <div class="experience-header">
+                            <h3 class="experience-role">Project Management Lead & AI/ML Software Engineer</h3>
+                            <p class="experience-company">Google Developers Group</p>
+                            <p class="experience-date">Sep 2025–Present</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Leading a team of 5 building healthxr.ai; architected HIPAA-compliant data pipelines and patient privacy frameworks for Health XR.</p>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" data-border="green">
+                        <div class="experience-header">
+                            <h3 class="experience-role">Teaching Assistant & Grading Lead</h3>
+                            <p class="experience-company">WashU CSE 2407: Data Structures & Algorithms</p>
+                            <p class="experience-date">Jan 2026–Present</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Manages a grading team for 200+ students; provides weekly mentorship in lab sessions.</p>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" data-border="blue">
+                        <div class="experience-header">
+                            <h3 class="experience-role">AI & ML Research Assistant</h3>
+                            <p class="experience-company">WashU McKelvey School of Engineering</p>
+                            <p class="experience-date">May 2025–Present</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Building a full ML pipeline in PyTorch + Scikit-learn to improve investigation prioritization for Child Protective Services.</p>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" data-border="green">
+                        <div class="experience-header">
+                            <h3 class="experience-role">Founder & Web Developer</h3>
+                            <p class="experience-company">AmeriBakes</p>
+                            <p class="experience-date">Feb 2024–May 2025</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Founded a D2C baking startup; built a responsive React frontend with custom product gallery; scaled to $3,500+ revenue and 150+ orders.</p>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" data-border="blue">
+                        <div class="experience-header">
+                            <h3 class="experience-role">ML & Bioinformatics Intern</h3>
+                            <p class="experience-company">Saint Louis University</p>
+                            <p class="experience-date">Dec 2022–May 2025</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Used deep learning to optimize warfarin dosing at 81% accuracy; co-authored a paper accepted to ICIBM 2025.</p>
+                        </div>
+                    </article>
+
+                    <article class="experience-card" data-border="green">
+                        <div class="experience-header">
+                            <h3 class="experience-role">Bank of America Student Leaders Intern</h3>
+                            <p class="experience-company">United Way of Greater St. Louis</p>
+                            <p class="experience-date">May 2024–Apr 2025</p>
+                        </div>
+                        <div class="experience-content">
+                            <p>Launched a literacy program; contributed to 33 DIY guides; attended national leadership summit in Washington D.C.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <p class="section-label">[ PROJECTS ]</p>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ml-ai">ML/AI</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="ios">iOS</button>
+                    <button class="filter-btn" data-filter="startup">Startup</button>
+                </div>
+
+                <div class="projects-grid">
+                    <article class="project-card" data-tags="web">
+                        <h3 class="project-name">WashU PointSwap</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Web</span>
+                        </div>
+                        <p class="project-description">Marketplace for WashU students to buy and sell MarketPoints (campus dining currency). Features Google OAuth restricted to @wustl.edu, JWT-authenticated API, and real-time marketplace feed.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">Next.js</span>
+                            <span class="stack-item">FastAPI</span>
+                            <span class="stack-item">Supabase</span>
+                            <span class="stack-item">Tailwind CSS</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-tags="ios">
+                        <h3 class="project-name">Crumb iOS App</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">iOS</span>
+                        </div>
+                        <p class="project-description">Native iOS baking assistant with hands-free Kitchen Mode using Speech Framework and AVKit. Smart pantry algorithm powered by Spoonacular API.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">SwiftUI</span>
+                            <span class="stack-item">MVVM</span>
+                            <span class="stack-item">Supabase</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-tags="web startup">
+                        <h3 class="project-name">Planetopia</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Web</span>
+                            <span class="project-tag">Startup</span>
+                        </div>
+                        <p class="project-description">App empowering users to build eco-friendly habits. Won 1st Place at the 2024 Congressional App Challenge; presented at House of Code in Washington D.C.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">React Native</span>
+                            <span class="stack-item">Figma</span>
+                            <span class="stack-item">Procreate</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-tags="startup">
+                        <h3 class="project-name">CoursePilot</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Startup</span>
+                        </div>
+                        <p class="project-description">Startup concept addressing college class registration chaos. Won 2nd Place and $1,250 at WashU Olin Elevator Pitch Contest.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">Concept</span>
+                            <span class="stack-item">Pitch</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-tags="web">
+                        <h3 class="project-name">Bubble Cup Web App</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Web</span>
+                        </div>
+                        <p class="project-description">Recipe translation and instant search app covering 100+ drinks for a multilingual team; reduced recipe lookup time by 90%.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">React</span>
+                            <span class="stack-item">Firebase</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-tags="startup">
+                        <h3 class="project-name">Chef Meow YouTube Channel</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Startup</span>
+                        </div>
+                        <p class="project-description">Recipe tutorial channel with 1,030+ subscribers. Handles all filming, editing, and graphic design independently.</p>
+                        <div class="project-stack">
+                            <span class="stack-item">iMovie</span>
+                            <span class="stack-item">Canva</span>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- GitHub Section -->
+                <div class="github-section">
+                    <p class="section-label">[ ALSO ON GITHUB ]</p>
+                    <div class="github-grid" id="githubGrid">
+                        <div class="github-loading">Loading repositories...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+            <div class="container">
+                <p class="section-label">[ SKILLS ]</p>
+
+                <div class="skills-groups">
+                    <div class="skill-group">
+                        <h3 class="skill-category">Languages & Frameworks</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">React.js</span>
+                            <span class="skill-pill">Next.js</span>
+                            <span class="skill-pill">FastAPI</span>
+                            <span class="skill-pill">Swift/SwiftUI</span>
+                            <span class="skill-pill">JavaScript</span>
+                            <span class="skill-pill">HTML5/CSS3</span>
+                            <span class="skill-pill">React Native</span>
+                            <span class="skill-pill">p5.js</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3 class="skill-category">Data & ML</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">PyTorch</span>
+                            <span class="skill-pill">TensorFlow</span>
+                            <span class="skill-pill">Scikit-learn</span>
+                            <span class="skill-pill">Pandas</span>
+                            <span class="skill-pill">NumPy</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3 class="skill-category">Tools & Platforms</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">Supabase</span>
+                            <span class="skill-pill">PostgreSQL</span>
+                            <span class="skill-pill">GitHub</span>
+                            <span class="skill-pill">Firebase</span>
+                            <span class="skill-pill">Tailwind CSS</span>
+                            <span class="skill-pill">Figma</span>
+                            <span class="skill-pill">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="languages-spoken">
+                    <span class="languages-icon">🌐</span>
+                    <span class="languages-text">Languages Spoken: English (Native) · Spanish (Bilingual) · Mandarin (Bilingual/Distinguished)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recognition Section -->
+        <section class="recognition" id="recognition">
+            <div class="container">
+                <p class="section-label">[ RECOGNITION ]</p>
+                <div class="awards-grid">
+                    <article class="award-card">
+                        <span class="award-icon">🏆</span>
+                        <h3 class="award-name">Congressional Award Gold Medal</h3>
+                        <p class="award-description">1,000+ hours of community service, personal development, and physical fitness</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🥇</span>
+                        <h3 class="award-name">2024 Congressional App Challenge</h3>
+                        <p class="award-description">1st Place, presented at House of Code in Washington D.C., received challenge coin from Congresswoman Ann Wagner</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🎓</span>
+                        <h3 class="award-name">Full-Tuition Danforth Scholar</h3>
+                        <p class="award-description">Washington University in St. Louis, Class of 2029</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🌟</span>
+                        <h3 class="award-name">Distinguished Young Woman of Missouri</h3>
+                        <p class="award-description">$5,750 in scholarships across five categories</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🏛️</span>
+                        <h3 class="award-name">MIT Women's Technology Program</h3>
+                        <p class="award-description">2024</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🔬</span>
+                        <h3 class="award-name">Missouri Scholars 100</h3>
+                        <p class="award-description">Top 100 of Missouri's graduating seniors</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🤝</span>
+                        <h3 class="award-name">Bank of America Student Leaders</h3>
+                        <p class="award-description">Selected from 7,000+ applicants, 300 chosen nationally</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">📰</span>
+                        <h3 class="award-name">St. Louis Post-Dispatch Scholar Athlete</h3>
+                        <p class="award-description">2025</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🛡️</span>
+                        <h3 class="award-name">National Cyber League</h3>
+                        <p class="award-description">Top 13% nationally</p>
+                    </article>
+
+                    <article class="award-card">
+                        <span class="award-icon">🎤</span>
+                        <h3 class="award-name">WashU Olin Elevator Pitch</h3>
+                        <p class="award-description">2nd Place, $1,250 (CoursePilot)</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2 class="contact-headline">Let's build something great.</h2>
+                <p class="contact-subtext">I'm always open to new opportunities, collabs, and conversations.</p>
+
+                <div class="contact-links">
+                    <a href="mailto:gracefu@wustl.edu" class="contact-btn">
+                        <span class="contact-icon">📧</span>
+                        <span>Email</span>
+                    </a>
+                    <a href="https://linkedin.com/in/grcfu" target="_blank" rel="noopener noreferrer" class="contact-btn">
+                        <span class="contact-icon">💼</span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer" class="contact-btn">
+                        <span class="contact-icon">🐱</span>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Grace Fu · Made with care</p>
+        </div>
+    </footer>
+</body>
+</html>
