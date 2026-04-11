@@ -109,25 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // HERO PARALLAX EFFECT
     // ============================================
-    const heroNameFirst = document.querySelector('.hero-name-first');
-    const heroNameLast = document.querySelector('.hero-name-last');
-    const heroPhoto = document.querySelector('.hero-photo');
-    const heroHandwritten = document.querySelector('.hero-handwritten');
+    const heroBanner = document.querySelector('.hero-banner');
 
-    if (heroNameLast) {
+    if (heroBanner) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            // "Fu" drifts up slower for layered feel
-            heroNameLast.style.transform = `translateY(${scrollY * 0.15}px)`;
-            // "Grace" drifts slightly differently
-            if (heroNameFirst) {
-                heroNameFirst.style.transform = `translateX(${scrollY * -0.08}px)`;
-            }
-            // Handwritten text fades out
-            if (heroHandwritten) {
-                const opacity = Math.max(0, 1 - scrollY / 400);
-                heroHandwritten.style.opacity = opacity;
-            }
+            // Subtle parallax on the banner image
+            heroBanner.style.transform = `translateY(${scrollY * 0.2}px)`;
         }, { passive: true });
     }
 
