@@ -28,53 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
-    // CUSTOM CURSOR
-    // ============================================
-    const customCursor = document.getElementById('customCursor');
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-    if (customCursor && !isTouchDevice) {
-        let cursorX = 0;
-        let cursorY = 0;
-        let currentX = 0;
-        let currentY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-        });
-
-        // Smooth cursor follow
-        function animateCursor() {
-            const dx = cursorX - currentX;
-            const dy = cursorY - currentY;
-
-            currentX += dx * 0.15;
-            currentY += dy * 0.15;
-
-            customCursor.style.left = `${currentX}px`;
-            customCursor.style.top = `${currentY}px`;
-
-            requestAnimationFrame(animateCursor);
-        }
-
-        animateCursor();
-
-        // Hover effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .project-card, .experience-card, .stat-card, .award-card, .skill-pill, .filter-btn');
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                customCursor.classList.add('hover');
-            });
-
-            el.addEventListener('mouseleave', () => {
-                customCursor.classList.remove('hover');
-            });
-        });
-    }
-
-    // ============================================
     // NAVBAR SCROLL BEHAVIOR
     // ============================================
     const navbar = document.getElementById('navbar');
@@ -156,20 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // HERO PARALLAX EFFECT
     // ============================================
-    const heroName = document.querySelector('.hero-name');
+    const heroNameFirst = document.querySelector('.hero-name-first');
+    const heroNameLast = document.querySelector('.hero-name-last');
     const heroPhoto = document.querySelector('.hero-photo');
     const heroHandwritten = document.querySelector('.hero-handwritten');
 
-    if (heroName) {
+    if (heroNameLast) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            // Name scrolls up faster — text recedes behind the photo
-            heroName.style.transform = `translateY(${scrollY * 0.4}px)`;
-            // Photo scrolls up slower — feels like it lingers
-            if (heroPhoto) {
-                heroPhoto.style.transform = `translateX(-50%) translateY(${scrollY * -0.15}px)`;
+            // "Fu" drifts up slower for layered feel
+            heroNameLast.style.transform = `translateY(${scrollY * 0.15}px)`;
+            // "Grace" drifts slightly differently
+            if (heroNameFirst) {
+                heroNameFirst.style.transform = `translateX(${scrollY * -0.08}px)`;
             }
-            // Handwritten text fades out as you scroll
+            // Handwritten text fades out
             if (heroHandwritten) {
                 const opacity = Math.max(0, 1 - scrollY / 400);
                 heroHandwritten.style.opacity = opacity;
