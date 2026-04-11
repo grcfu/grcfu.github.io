@@ -245,25 +245,27 @@ body {
     position: relative;
     background-color: var(--bg-primary);
     overflow: hidden;
-    padding: 2rem var(--container-padding);
+    padding: 2rem 1.5rem;
 }
 
 .hero-content {
     text-align: center;
     position: relative;
     width: 100%;
-    max-width: var(--container-max);
+    max-width: none;
 }
 
 .hero-handwritten {
     font-family: var(--font-script);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
     color: var(--text-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--transition-medium);
     transition-delay: 0.4s;
+    position: relative;
+    z-index: 3;
 }
 
 body.loaded .hero-handwritten {
@@ -276,21 +278,23 @@ body.loaded .hero-handwritten {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
 }
 
 .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(4rem, 18vw, 14rem);
-    font-weight: 700;
+    font-size: clamp(5rem, 22vw, 24rem);
+    font-weight: 900;
     color: var(--text-primary);
     letter-spacing: -0.03em;
-    line-height: 0.9;
+    line-height: 0.85;
     opacity: 0;
     transform: translateY(40px);
     transition: all var(--transition-slow);
     position: relative;
     z-index: 1;
+    white-space: nowrap;
 }
 
 body.loaded .hero-name {
@@ -301,40 +305,45 @@ body.loaded .hero-name {
 .hero-photo {
     position: absolute;
     z-index: 2;
-    width: clamp(200px, 30vw, 400px);
-    height: clamp(250px, 38vw, 500px);
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
+    width: clamp(240px, 30vw, 480px);
+    height: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
     opacity: 0;
-    transform: scale(0.95);
     transition: all var(--transition-slow);
     transition-delay: 0.2s;
+    overflow: visible;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 body.loaded .hero-photo {
     opacity: 1;
-    transform: scale(1);
+    transform: translateX(-50%) scale(1);
 }
 
 .hero-photo img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(15%) contrast(1.05);
 }
 
 .hero-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
     font-weight: 500;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-muted);
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--transition-medium);
     transition-delay: 0.6s;
+    position: relative;
+    z-index: 3;
 }
 
 body.loaded .hero-subtitle {
@@ -350,6 +359,7 @@ body.loaded .hero-subtitle {
     transform: translateX(-50%);
     color: var(--text-muted);
     animation: bounce 2s infinite;
+    z-index: 3;
 }
 
 @keyframes bounce {
@@ -1145,13 +1155,13 @@ section {
         display: flex;
     }
 
-    .hero-name-container {
-        flex-direction: column;
+    .hero-name {
+        font-size: clamp(4rem, 20vw, 8rem);
+        white-space: normal;
     }
 
     .hero-photo {
-        position: relative;
-        margin-top: -3rem;
+        width: clamp(200px, 55vw, 320px);
     }
 
     .about-grid {
@@ -1210,6 +1220,105 @@ section {
 
     .award-card {
         padding: 1.25rem;
+    }
+}
+
+/* ============================================
+   LARGE SCREENS
+   ============================================ */
+@media (min-width: 1440px) {
+    html {
+        font-size: 18px;
+    }
+
+    :root {
+        --container-max: 1400px;
+        --container-padding: 4rem;
+    }
+
+    .nav-links {
+        gap: 2.5rem;
+    }
+
+    .about-grid {
+        gap: 5rem;
+    }
+
+    .projects-grid {
+        gap: 2rem;
+    }
+
+    .experience-card {
+        padding: 2rem 2.5rem;
+    }
+
+    .project-card {
+        padding: 2rem;
+    }
+
+    .award-card {
+        padding: 2rem;
+    }
+
+    .stat-card {
+        padding: 2rem;
+    }
+
+    .awards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .skill-pills {
+        gap: 1rem;
+    }
+
+    .contact-btn {
+        padding: 1rem 2rem;
+    }
+
+    .contact-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    html {
+        font-size: 20px;
+    }
+
+    :root {
+        --container-max: 1600px;
+        --container-padding: 5rem;
+    }
+
+    .hero-photo {
+        width: clamp(240px, 28vw, 550px);
+    }
+
+    .about-grid {
+        gap: 6rem;
+    }
+
+    .experience-list {
+        gap: 2rem;
+    }
+
+    .projects-grid {
+        gap: 2.5rem;
+    }
+
+    .awards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .skills-groups {
+        gap: 3.5rem;
+    }
+
+    .github-grid {
+        gap: 1.5rem;
     }
 }
 

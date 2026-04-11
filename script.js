@@ -157,12 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // HERO PARALLAX EFFECT
     // ============================================
     const heroName = document.querySelector('.hero-name');
+    const heroPhoto = document.querySelector('.hero-photo');
+    const heroHandwritten = document.querySelector('.hero-handwritten');
 
     if (heroName) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            const parallaxOffset = scrollY * 0.6;
-            heroName.style.transform = `translateY(${parallaxOffset}px)`;
+            // Name scrolls up faster — text recedes behind the photo
+            heroName.style.transform = `translateY(${scrollY * 0.4}px)`;
+            // Photo scrolls up slower — feels like it lingers
+            if (heroPhoto) {
+                heroPhoto.style.transform = `translateX(-50%) translateY(${scrollY * -0.15}px)`;
+            }
+            // Handwritten text fades out as you scroll
+            if (heroHandwritten) {
+                const opacity = Math.max(0, 1 - scrollY / 400);
+                heroHandwritten.style.opacity = opacity;
+            }
         }, { passive: true });
     }
 
