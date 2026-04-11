@@ -1,25 +1,22 @@
 /* ============================================
    GRACE FU PORTFOLIO - STYLES
-   Editorial · Organic · Ocean & Sand
+   Editorial · Cream & Blush Pink
    ============================================ */
 
 /* CSS Variables */
 :root {
-    /* Colors — Ocean / Sand / Pewter palette */
-    --bg-primary: #EBE6DE;
-    --bg-secondary: #DED8CE;
-    --bg-dark: #1B3A4B;
-    --bg-dark-card: #234A5E;
-    --accent-blue: #648EC0;
-    --accent-blue-light: #B0D2EC;
-    --accent-teal: #8BACA3;
-    --accent-pewter: #849DBB;
-    --accent-brown: #513A32;
-    --text-primary: #2A2520;
-    --text-secondary: #5A524A;
-    --text-muted: #8A8278;
-    --text-light: #EBE6DE;
-    --text-light-muted: #9AABB8;
+    /* Colors — Cream / Blush / Espresso */
+    --bg-primary: #EEEBE7;
+    --bg-secondary: #E5E1DC;
+    --bg-dark: #3E2723;
+    --bg-dark-card: #5D4037;
+    --accent-pink: #F4C9D6;
+    --accent-pink-dark: #E8A6B8;
+    --text-primary: #3E2723;
+    --text-secondary: #6D5D53;
+    --text-muted: #9C8E84;
+    --text-light: #EEEBE7;
+    --text-light-muted: #C4B8AE;
     --white: #FFFFFF;
 
     /* Typography */
@@ -38,10 +35,10 @@
     --transition-slow: 0.6s ease;
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(27, 58, 75, 0.08);
-    --shadow-md: 0 4px 20px rgba(27, 58, 75, 0.12);
-    --shadow-lg: 0 8px 40px rgba(27, 58, 75, 0.16);
-    --shadow-hover: 0 12px 48px rgba(27, 58, 75, 0.22);
+    --shadow-sm: 0 2px 8px rgba(62, 39, 35, 0.08);
+    --shadow-md: 0 4px 20px rgba(62, 39, 35, 0.12);
+    --shadow-lg: 0 8px 40px rgba(62, 39, 35, 0.16);
+    --shadow-hover: 0 12px 48px rgba(62, 39, 35, 0.22);
 }
 
 /* Reset & Base */
@@ -82,8 +79,8 @@ body::after {
 
 /* Selection */
 ::selection {
-    background-color: var(--accent-pewter);
-    color: var(--white);
+    background-color: var(--accent-pink);
+    color: var(--text-primary);
 }
 
 /* ============================================
@@ -118,7 +115,7 @@ body::after {
 }
 
 .back-to-top:hover {
-    background-color: var(--accent-teal);
+    background-color: var(--accent-pink);
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
 }
@@ -143,10 +140,10 @@ body::after {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    background-color: rgba(235, 230, 222, 0.88);
+    background-color: rgba(238, 235, 231, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(42, 37, 32, 0.08);
+    border-bottom: 1px solid rgba(62, 39, 35, 0.08);
 }
 
 .nav-container {
@@ -191,7 +188,7 @@ body::after {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent-teal);
+    background-color: var(--accent-pink);
     transition: width var(--transition-fast);
 }
 
@@ -228,16 +225,13 @@ body::after {
 .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
     overflow: hidden;
     background-color: var(--bg-primary);
 }
 
 .hero-banner {
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
     display: block;
 }
 
@@ -362,7 +356,7 @@ section {
 }
 
 .stat-card .stat-value {
-    color: var(--accent-blue-light);
+    color: var(--accent-pink);
 }
 
 .stat-card .stat-label {
@@ -444,15 +438,15 @@ section {
 }
 
 .experience-card[data-border="blue"]::before {
-    background-color: var(--accent-blue);
+    background-color: var(--accent-pink);
 }
 
 .experience-card[data-border="green"]::before {
-    background-color: var(--accent-green);
+    background-color: var(--accent-pink-dark);
 }
 
 .experience-card:hover {
-    background-color: #2A5570;
+    background-color: #4E342E;
     transform: translateX(4px);
 }
 
@@ -475,7 +469,7 @@ section {
 .experience-company {
     font-family: var(--font-script);
     font-size: clamp(1rem, 1.5vw, 1.25rem);
-    color: var(--accent-blue-light);
+    color: var(--accent-pink);
     margin-bottom: 0.25rem;
 }
 
@@ -574,14 +568,14 @@ section {
 }
 
 .filter-btn:hover {
-    background-color: var(--accent-teal);
-    border-color: var(--accent-teal);
+    background-color: var(--accent-pink);
+    border-color: var(--accent-pink);
     color: var(--text-primary);
 }
 
 .filter-btn.active {
-    background-color: var(--accent-brown);
-    border-color: var(--accent-brown);
+    background-color: var(--bg-dark);
+    border-color: var(--bg-dark);
     color: var(--text-light);
 }
 
@@ -602,7 +596,7 @@ section {
     transform: translateY(20px);
     display: flex;
     flex-direction: column;
-    border-bottom: 3px solid var(--accent-teal);
+    border-bottom: 3px solid var(--accent-pink);
 }
 
 .project-card.visible {
@@ -652,8 +646,8 @@ section {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 0.25rem 0.625rem;
-    background-color: var(--accent-pewter);
-    color: var(--white);
+    background-color: var(--accent-pink);
+    color: var(--text-primary);
     border-radius: 0;
 }
 
@@ -700,11 +694,11 @@ section {
     transition: all var(--transition-fast);
     text-decoration: none;
     display: block;
-    border-left: 3px solid var(--accent-pewter);
+    border-left: 3px solid var(--accent-pink);
 }
 
 .github-card:hover {
-    background-color: var(--accent-teal);
+    background-color: var(--accent-pink);
     transform: translateY(-2px);
 }
 
@@ -807,7 +801,7 @@ section {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent-blue-light);
+    color: var(--accent-pink);
     margin-bottom: 1rem;
 }
 
@@ -825,15 +819,15 @@ section {
     background-color: var(--bg-dark-card);
     color: var(--text-light);
     border-radius: 0;
-    border: 1px solid rgba(132, 157, 187, 0.3);
+    border: 1px solid rgba(244, 201, 214, 0.3);
     transition: all var(--transition-fast);
     cursor: default;
 }
 
 .skill-pill:hover {
-    background-color: var(--accent-pewter);
-    color: var(--white);
-    border-color: var(--accent-pewter);
+    background-color: var(--accent-pink);
+    color: var(--text-primary);
+    border-color: var(--accent-pink);
     transform: scale(1.05);
 }
 
@@ -876,7 +870,7 @@ section {
     transform: translateY(20px);
     position: relative;
     overflow: hidden;
-    border-top: 3px solid var(--accent-blue);
+    border-top: 3px solid var(--accent-pink);
 }
 
 .award-card.visible {
@@ -956,7 +950,7 @@ section {
    CONTACT SECTION
    ============================================ */
 .contact {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--accent-teal) 100%);
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--accent-pink) 100%);
     text-align: center;
     padding: calc(var(--section-padding) * 1.5) 0;
 }
@@ -1027,7 +1021,7 @@ section {
 }
 
 .contact-btn:hover {
-    background-color: var(--accent-brown);
+    background-color: var(--accent-pink);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -1072,7 +1066,7 @@ section {
         top: 100%;
         left: 0;
         right: 0;
-        background-color: rgba(235, 230, 222, 0.95);
+        background-color: rgba(238, 235, 231, 0.95);
         backdrop-filter: blur(12px);
         flex-direction: column;
         padding: 1.5rem;
@@ -1088,12 +1082,8 @@ section {
         display: flex;
     }
 
-    .hero-banner {
-        object-position: 65% center;
-    }
-
     .hero-subtitle {
-        bottom: 5rem;
+        bottom: 1.5rem;
         left: 1.5rem;
         right: 1.5rem;
     }

@@ -7,7 +7,7 @@ recruiting for SWE roles. Deployed at grcfu.github.io.
 ## Aesthetic & Vibe
 - Editorial/magazine meets tech portfolio — organic, textural, not flat/clinical
 - Ocean & sand palette with dark sections for contrast
-- Color palette: warm sand #EBE6DE, silver lake blue #648EC0, pewter #849DBB, sage teal #8BACA3, royal brown #513A32, dark ocean #1B3A4B
+- Color palette: cream #EEEBE7, blush pink #F4C9D6, espresso #3E2723
 - Fonts: Playfair Display (display), Dancing Script (accents), DM Sans (body)
 - Sharp corners (border-radius: 0), subtle film grain overlay, no rounded "AI" look
 
