@@ -110,16 +110,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // HERO BANNER — SLIDE OFF LEFT ON SCROLL
     // ============================================
     const heroBanner = document.querySelector('.hero-banner');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroSection = document.querySelector('.hero');
 
     if (heroBanner && heroSection) {
         window.addEventListener('scroll', () => {
             const heroHeight = heroSection.offsetHeight;
             const scrollY = window.scrollY;
-            // How far through the hero we've scrolled (0 = top, 1 = fully past)
             const progress = Math.min(scrollY / heroHeight, 1);
-            // Slide fully off-screen left by the time we've scrolled past the hero
-            heroBanner.style.transform = `translateX(${progress * -100}%)`;
+            const offset = `translateX(${progress * -100}%)`;
+            heroBanner.style.transform = offset;
+            if (heroSubtitle) {
+                heroSubtitle.style.transform = offset;
+            }
         }, { passive: true });
     }
 
@@ -143,12 +146,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Observe elements for scroll animations
     const animatedElements = document.querySelectorAll(
-        '.stat-card, .experience-card, .project-card, .skill-group, .award-card, .contact-headline, .contact-subtext, .contact-links'
+        '.experience-card, .project-card, .skill-group, .award-card'
     );
 
     animatedElements.forEach(el => {
         scrollObserver.observe(el);
     });
+
+    // ============================================
+    // ABOUT SECTION — SVG PATH DRAW + FADE-INS
+    // ============================================
+    const aboutSection = document.querySelector('.about');
+    if (aboutSection) {
+        const pathSvg = aboutSection.querySelector('.about-path-svg');
+        const fadeEls = aboutSection.querySelectorAll('.about-fade');
+
+        const aboutObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Draw the SVG path
+                    if (pathSvg) pathSvg.classList.add('drawn');
+                    // Fade in text and photos with their individual delays
+                    fadeEls.forEach(el => el.classList.add('visible'));
+                    aboutObserver.unobserve(aboutSection);
+                }
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.15 });
+        aboutObserver.observe(aboutSection);
+    }
+
+    // Observe the contact section — slide text in/out as user scrolls to/from it
+    const contactSection = document.querySelector('.contact');
+    if (contactSection) {
+        const cornerTop = contactSection.querySelector('.contact-corner-top');
+        const cornerBottom = contactSection.querySelector('.contact-corner-bottom');
+        const contactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    cornerTop?.classList.add('visible');
+                    cornerBottom?.classList.add('visible');
+                } else {
+                    cornerTop?.classList.remove('visible');
+                    cornerBottom?.classList.remove('visible');
+                }
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.2 });
+        contactObserver.observe(contactSection);
+    }
 
     // ============================================
     // EXPERIENCE ACCORDION (MOBILE)

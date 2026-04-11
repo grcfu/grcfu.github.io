@@ -62,30 +62,40 @@
     <main>
         <!-- About Section -->
         <section class="about" id="about">
-            <div class="container">
-                <p class="section-label">[ ABOUT ME ]</p>
-                <div class="about-grid">
-                    <div class="about-bio">
-                        <p>I'm Grace — a builder, researcher, and occasional baker. I'm a full-tuition Danforth Scholar at WashU studying CS & Business with a 4.0 GPA. I care deeply about using technology to solve real problems — from building ML pipelines that improve Child Protective Services investigations, to apps that won the Congressional App Challenge and got presented in D.C. When I'm not coding, I'm filming baking videos for my YouTube channel or playing violin.</p>
-                    </div>
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <span class="stat-value">4.0</span>
-                            <span class="stat-label">GPA · Full Danforth Scholar</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">500+</span>
-                            <span class="stat-label">LinkedIn Connections</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">1,030+</span>
-                            <span class="stat-label">YouTube Subscribers</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">$3,500+</span>
-                            <span class="stat-label">Revenue · AmeriBakes Founder</span>
-                        </div>
-                    </div>
+            <p class="about-label">[ ABOUT ME ]</p>
+
+            <div class="about-story">
+                <!-- Top-left text block -->
+                <div class="about-text-left about-fade">
+                    <p>It started with <em>Minecraft.</em> Not just playing — but noticing that every problem in the game had a logical solution. That instinct stuck. I taught myself to code, launched a YouTube channel, built a startup, led research, and won a Congressional App Challenge. Somewhere between the redstone circuits and the React components, I realized: I don't just love building things. I love solving the right problems.</p>
+                </div>
+
+                <!-- Left photo -->
+                <div class="about-photo about-photo-left about-fade" style="transition-delay: 0.6s;">
+                    <img src="https://i.pinimg.com/736x/53/7a/0c/537a0c29cbe7d781a40be1e8d4527903.jpg" alt="Minecraft — where Grace's love for problem solving began">
+                    <span class="about-caption about-caption-pink">where it all started</span>
+                </div>
+
+                <!-- SVG Timeline Path -->
+                <svg class="about-path-svg" viewBox="0 0 1200 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#3E2723"/>
+                        </marker>
+                    </defs>
+                    <path class="about-path-line" d="M0,50 C80,50 120,15 200,20 C280,25 300,80 400,75 C500,70 480,20 560,25 C640,30 660,70 740,65 C820,60 850,35 950,40 C1020,43 1060,50 1200,50" stroke="#3E2723" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+                </svg>
+
+                <!-- Right photo -->
+                <div class="about-photo about-photo-right about-fade" style="transition-delay: 1.2s;">
+                    <img src="https://img.freepik.com/free-vector/cute-horse-working-laptop-cartoon-vector-icon-illustration-animal-technology-isolated-flat_138676-14563.jpg" alt="Grace coding (kind of)">
+                    <span class="about-caption about-caption-brown">me, basically</span>
+                </div>
+
+                <!-- Bottom-right text block -->
+                <div class="about-text-right about-fade">
+                    <p>Now I build things that actually matter — ML pipelines for Child Protective Services, apps for real communities, tools that make people's lives easier.</p>
+                    <p class="about-quote">Technology is most powerful when it's deeply human.</p>
                 </div>
             </div>
         </section>
