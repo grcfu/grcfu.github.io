@@ -107,15 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', throttledScroll, { passive: true });
 
     // ============================================
-    // HERO BANNER — SLIDE LEFT ON SCROLL
+    // HERO BANNER — SLIDE OFF LEFT ON SCROLL
     // ============================================
     const heroBanner = document.querySelector('.hero-banner');
+    const heroSection = document.querySelector('.hero');
 
-    if (heroBanner) {
+    if (heroBanner && heroSection) {
         window.addEventListener('scroll', () => {
+            const heroHeight = heroSection.offsetHeight;
             const scrollY = window.scrollY;
-            // Slide the banner image left as you scroll down
-            heroBanner.style.transform = `translateX(${scrollY * -0.3}px)`;
+            // How far through the hero we've scrolled (0 = top, 1 = fully past)
+            const progress = Math.min(scrollY / heroHeight, 1);
+            // Slide fully off-screen left by the time we've scrolled past the hero
+            heroBanner.style.transform = `translateX(${progress * -100}%)`;
         }, { passive: true });
     }
 
