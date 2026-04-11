@@ -107,15 +107,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', throttledScroll, { passive: true });
 
     // ============================================
-    // HERO PARALLAX EFFECT
+    // HERO BANNER — SLIDE LEFT ON SCROLL
     // ============================================
     const heroBanner = document.querySelector('.hero-banner');
 
     if (heroBanner) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            // Subtle parallax on the banner image
-            heroBanner.style.transform = `translateY(${scrollY * 0.2}px)`;
+            // Slide the banner image left as you scroll down
+            heroBanner.style.transform = `translateX(${scrollY * -0.3}px)`;
         }, { passive: true });
     }
 
