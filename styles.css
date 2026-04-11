@@ -317,7 +317,10 @@ section {
    ABOUT SECTION — ORIGIN STORY
    ============================================ */
 .about {
-    background-color: var(--bg-primary);
+    background-image: url('about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     padding: var(--section-padding) 0;
     overflow: hidden;
@@ -336,25 +339,39 @@ section {
 }
 
 .about-story {
-    max-width: 1200px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 3rem var(--container-padding);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     gap: 2rem 4rem;
     align-items: center;
+}
+
+/* Big opening pull-quote */
+.about-hero-quote {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 5rem);
+    font-weight: 900;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.1;
+    text-align: center;
+    padding: 1rem 0 2rem;
 }
 
 /* Text blocks */
 .about-text-left {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 2;
     font-family: var(--font-body);
-    font-size: clamp(0.95rem, 1.3vw, 1.0625rem);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
     line-height: 1.85;
     color: var(--text-secondary);
-    max-width: 520px;
+    max-width: 100%;
 }
 
 .about-text-left em {
@@ -365,21 +382,21 @@ section {
 
 .about-text-right {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
     font-family: var(--font-body);
-    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
     line-height: 1.8;
     color: var(--text-secondary);
     text-align: right;
     justify-self: end;
-    max-width: 520px;
+    max-width: 100%;
 }
 
 .about-quote {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 700;
-    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
     color: var(--text-primary);
     margin-top: 1rem;
 }
@@ -387,7 +404,7 @@ section {
 /* SVG Path */
 .about-path-svg {
     grid-column: 1 / -1;
-    grid-row: 2;
+    grid-row: 3;
     width: 100%;
     height: 100px;
 }
@@ -420,7 +437,7 @@ section {
 
 .about-photo-left {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     justify-self: center;
 }
 
@@ -430,7 +447,7 @@ section {
 
 .about-photo-right {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
     justify-self: center;
 }
 
@@ -440,7 +457,7 @@ section {
 
 .about-caption {
     font-family: var(--font-script);
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
 }
 
 .about-caption-pink {
@@ -449,6 +466,38 @@ section {
 
 .about-caption-brown {
     color: var(--bg-dark);
+}
+
+/* Contact stickers in About */
+.about-contact {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 1.5rem;
+}
+
+.about-contact-link {
+    font-family: var(--font-body);
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    background-color: var(--accent-pink);
+    padding: 0.5rem 1rem;
+    box-shadow: 2px 3px 0px rgba(68, 47, 42, 0.15);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.about-contact-link:nth-child(1) { transform: rotate(-1.5deg); }
+.about-contact-link:nth-child(2) { transform: rotate(1deg); }
+.about-contact-link:nth-child(3) { transform: rotate(-0.5deg); }
+
+.about-contact-link:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 3px 5px 0px rgba(68, 47, 42, 0.2);
 }
 
 /* Fade-in animation */
@@ -483,10 +532,12 @@ section {
         justify-self: center;
     }
 
-    .about-text-left { grid-row: 1; }
-    .about-photo-left { grid-column: 1; grid-row: 2; }
-    .about-photo-right { grid-column: 1; grid-row: 3; }
-    .about-text-right { grid-row: 4; }
+    .about-hero-quote { grid-row: 1; }
+    .about-text-left { grid-row: 2; }
+    .about-photo-left { grid-column: 1; grid-row: 3; }
+    .about-photo-right { grid-column: 1; grid-row: 4; }
+    .about-text-right { grid-row: 5; }
+    .about-contact { grid-row: 6; }
 
     .about-path-svg {
         display: none;
