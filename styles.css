@@ -239,38 +239,25 @@ body::after {
 
 .hero-subtitle {
     position: absolute;
-    bottom: clamp(3rem, 6vh, 5rem);
-    left: clamp(2rem, 5vw, 4rem);
+    bottom: clamp(1.5rem, 4vh, 3rem);
+    left: clamp(1.5rem, 4vw, 3rem);
     font-family: var(--font-body);
-    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
     font-weight: 500;
     letter-spacing: 0.15em;
-    color: var(--text-muted);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all var(--transition-medium);
-    transition-delay: 0.5s;
+    color: #6B504F;
     z-index: 2;
-}
-
-body.loaded .hero-subtitle {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Running Ticker Bar */
 .hero-ticker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     background-color: transparent;
-    border-top: 2px solid var(--accent-pink);
-    border-bottom: 2px solid var(--accent-pink);
+    border-top: 2px solid #6B504F;
+    border-bottom: 2px solid #6B504F;
     overflow: hidden;
     white-space: nowrap;
-    z-index: 3;
-    padding: 0.75rem 0;
+    padding: clamp(0.4rem, 1.2vw, 0.75rem) 0;
 }
 
 .ticker-track {
@@ -280,11 +267,11 @@ body.loaded .hero-subtitle {
 
 .ticker-track span {
     font-family: var(--font-body);
-    font-size: 0.875rem;
+    font-size: clamp(0.65rem, 1.2vw, 0.875rem);
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent-pink);
+    color: #6B504F;
     padding-right: 0.25rem;
 }
 
@@ -970,87 +957,80 @@ section {
 }
 
 /* ============================================
-   CONTACT SECTION
+   CONTACT SECTION — "and that's a wrap."
    ============================================ */
 .contact {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--accent-pink) 100%);
-    text-align: center;
-    padding: calc(var(--section-padding) * 1.5) 0;
+    position: relative;
+    background-color: var(--bg-primary);
+    min-height: 80vh;
+    padding: 0;
+    overflow: hidden;
 }
 
-.contact-headline {
+.contact-envelope {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(280px, 50vw, 600px);
+    height: auto;
+    z-index: 1;
+}
+
+.contact-corner-top {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2.5rem);
+    right: clamp(1.5rem, 4vw, 4rem);
     font-family: var(--font-display);
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: 600;
+    font-size: clamp(3rem, 8vw, 9rem);
+    font-weight: 900;
     color: var(--text-primary);
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all var(--transition-medium);
+    line-height: 0.85;
+    text-align: right;
+    z-index: 2;
 }
 
-.contact-headline.visible {
-    opacity: 1;
-    transform: translateY(0);
+.contact-corner-bottom {
+    position: absolute;
+    bottom: clamp(1rem, 3vw, 2.5rem);
+    left: clamp(1.5rem, 4vw, 4rem);
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 12vw, 14rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 0.8;
+    z-index: 2;
 }
 
-.contact-subtext {
-    font-family: var(--font-script);
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all var(--transition-medium);
-    transition-delay: 0.1s;
-}
-
-.contact-subtext.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.contact-links {
+.contact-info {
+    position: absolute;
+    left: clamp(1.5rem, 4vw, 4rem);
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all var(--transition-medium);
-    transition-delay: 0.2s;
+    flex-direction: column;
+    gap: 0.875rem;
+    z-index: 2;
 }
 
-.contact-links.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.contact-btn {
-    display: inline-flex;
+.contact-info-line {
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    padding: 0.875rem 1.75rem;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    border: none;
-    border-radius: 0;
+    font-size: clamp(0.7rem, 1vw, 0.8125rem);
+    color: var(--text-secondary);
     text-decoration: none;
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-sm);
+    transition: color var(--transition-fast);
 }
 
-.contact-btn:hover {
-    background-color: var(--accent-pink);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+.contact-info-line:hover {
+    color: var(--text-primary);
 }
 
-.contact-icon {
-    font-size: 1.125rem;
+.contact-info-line svg {
+    flex-shrink: 0;
+    opacity: 0.6;
 }
 
 /* ============================================
@@ -1136,15 +1116,18 @@ section {
         justify-content: center;
     }
 
-    .contact-links {
-        flex-direction: column;
-        align-items: center;
+    .contact {
+        min-height: 70vh;
     }
 
-    .contact-btn {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
+    .contact-info {
+        top: auto;
+        bottom: clamp(6rem, 20vw, 10rem);
+        transform: none;
+    }
+
+    .contact-envelope {
+        width: clamp(220px, 65vw, 350px);
     }
 }
 
