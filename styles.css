@@ -23,6 +23,7 @@
     --font-display: 'Playfair Display', Georgia, serif;
     --font-script: 'Dancing Script', cursive;
     --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-handwritten: 'Caveat', cursive;
 
     /* Spacing */
     --section-padding: clamp(4rem, 10vw, 8rem);
