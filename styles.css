@@ -1175,16 +1175,32 @@ section {
     letter-spacing: 0.05em;
 }
 
-/* Mobile */
+/* Mobile — smaller positions so blobs stay on screen */
 @media (max-width: 768px) {
     .bag-canvas {
-        height: auto;
-        min-height: 600px;
+        height: clamp(450px, 80vh, 600px);
+    }
+
+    .bag-img {
+        width: clamp(120px, 30vw, 180px);
     }
 
     .skill-blob {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+        --x: calc(var(--x) * 0.5) !important;
+        --y: calc(var(--y) * 0.5) !important;
+    }
+
+    .cat-label {
+        font-size: 0.7rem;
+        --x: calc(var(--x) * 0.5) !important;
+        --y: calc(var(--y) * 0.5) !important;
+    }
+
+    .bag-hint {
+        transform: translate(-50%, 55px);
+        font-size: 0.9rem;
     }
 }
 
