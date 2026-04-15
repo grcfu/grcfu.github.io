@@ -1115,6 +1115,30 @@ section {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Tooltip */
+.skill-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.skill-tooltip.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
 /* Category Labels */
 .cat-label {
     position: absolute;

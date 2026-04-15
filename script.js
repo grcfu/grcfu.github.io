@@ -185,6 +185,60 @@ document.addEventListener('DOMContentLoaded', () => {
         bagImg.addEventListener('click', () => {
             bagCanvas.classList.toggle('opened');
         });
+
+        // Skill blob tooltips
+        const skillDescriptions = {
+            'Python': 'My go-to for ML, scripting, and backend work',
+            'React.js': 'Building interactive UIs and SPAs',
+            'Next.js': 'Full-stack React with SSR',
+            'FastAPI': 'Async Python APIs, fast and clean',
+            'Swift/SwiftUI': 'Native iOS development',
+            'JavaScript': 'The language of the web',
+            'HTML/CSS': 'Semantic markup + styled layouts',
+            'React Native': 'Cross-platform mobile apps',
+            'p5.js': 'Creative coding and visual sketches',
+            'PyTorch': 'Deep learning research and models',
+            'TensorFlow': 'Production ML pipelines',
+            'Scikit-learn': 'Classical ML and data analysis',
+            'Pandas': 'Data wrangling and exploration',
+            'NumPy': 'Numerical computing foundations',
+            'Supabase': 'Open-source Firebase alternative',
+            'PostgreSQL': 'Relational database design',
+            'GitHub': 'Version control and collaboration',
+            'Firebase': 'Real-time databases and auth',
+            'Tailwind CSS': 'Utility-first styling',
+            'Figma': 'UI/UX design and prototyping',
+            'Vercel': 'Deploy and ship fast'
+        };
+
+        let activeTooltip = null;
+
+        bagCanvas.querySelectorAll('.skill-blob').forEach(blob => {
+            blob.style.cursor = 'pointer';
+            blob.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (activeTooltip) activeTooltip.remove();
+
+                const name = blob.textContent.trim();
+                const desc = skillDescriptions[name];
+                if (!desc) return;
+
+                const tip = document.createElement('div');
+                tip.className = 'skill-tooltip';
+                tip.textContent = desc;
+                blob.appendChild(tip);
+                activeTooltip = tip;
+
+                setTimeout(() => tip.classList.add('visible'), 10);
+            });
+        });
+
+        document.addEventListener('click', () => {
+            if (activeTooltip) {
+                activeTooltip.remove();
+                activeTooltip = null;
+            }
+        });
     }
 
     // Observe the contact section — slide text in/out as user scrolls to/from it
