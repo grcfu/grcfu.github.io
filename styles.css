@@ -1013,8 +1013,8 @@ section {
 .bag-canvas {
     position: relative;
     width: 100%;
-    max-width: 900px;
-    height: clamp(500px, 70vh, 750px);
+    max-width: none;
+    height: clamp(550px, 85vh, 900px);
     margin: 0 auto;
 }
 
@@ -1068,9 +1068,9 @@ section {
     left: 50%;
     top: 50%;
     font-family: 'Caveat', cursive;
-    font-size: clamp(0.9rem, 1.3vw, 1.15rem);
+    font-size: clamp(0.85rem, 1.4vw, 1.3rem);
     font-weight: 600;
-    padding: 0.5rem 1rem;
+    padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.7rem, 1.2vw, 1.2rem);
     border-radius: 50% 40% 55% 45% / 45% 55% 40% 50%;
     white-space: nowrap;
     opacity: 0;
@@ -1194,32 +1194,23 @@ section {
     letter-spacing: 0.05em;
 }
 
-/* Mobile — smaller positions so blobs stay on screen */
+/* Mobile */
 @media (max-width: 768px) {
     .bag-canvas {
-        height: clamp(450px, 80vh, 600px);
+        height: clamp(500px, 90vh, 700px);
     }
 
     .bag-img {
-        width: clamp(120px, 30vw, 180px);
+        width: clamp(110px, 28vw, 160px);
     }
 
-    .skill-blob {
-        font-size: 0.75rem;
-        padding: 0.35rem 0.65rem;
-        --x: calc(var(--x) * 0.5) !important;
-        --y: calc(var(--y) * 0.5) !important;
+    .bag-hint {
+        transform: translate(-50%, 50px);
+        font-size: 0.9rem;
     }
 
     .cat-label {
         font-size: 0.7rem;
-        --x: calc(var(--x) * 0.5) !important;
-        --y: calc(var(--y) * 0.5) !important;
-    }
-
-    .bag-hint {
-        transform: translate(-50%, 55px);
-        font-size: 0.9rem;
     }
 }
 
