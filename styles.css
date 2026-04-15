@@ -1079,9 +1079,27 @@ section {
     transition: box-shadow var(--transition-fast);
 }
 
+/* Fly out when opened */
 .bag-canvas.opened .skill-blob {
     animation: blob-fly-out 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     animation-delay: calc(var(--delay) * 60ms + 0.1s);
+}
+
+/* Fly back in when closed */
+.bag-canvas:not(.opened) .skill-blob.was-open {
+    animation: blob-fly-in 0.4s ease forwards;
+    animation-delay: calc(var(--delay) * 30ms);
+}
+
+@keyframes blob-fly-in {
+    0% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--r));
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    }
 }
 
 @keyframes blob-fly-out {

@@ -182,8 +182,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const bagCanvas = document.querySelector('.bag-canvas');
 
     if (bagImg && bagCanvas) {
+        const allBlobs = bagCanvas.querySelectorAll('.skill-blob');
+        const allCatLabels = bagCanvas.querySelectorAll('.cat-label');
+
         bagImg.addEventListener('click', () => {
-            bagCanvas.classList.toggle('opened');
+            const isOpening = !bagCanvas.classList.contains('opened');
+
+            if (isOpening) {
+                bagCanvas.classList.add('opened');
+                allBlobs.forEach(b => b.classList.remove('was-open'));
+            } else {
+                bagCanvas.classList.remove('opened');
+                allBlobs.forEach(b => b.classList.add('was-open'));
+                allCatLabels.forEach(l => l.style.opacity = '0');
+            }
         });
 
         // Skill blob tooltips
