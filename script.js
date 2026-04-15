@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Observe elements for scroll animations
     const animatedElements = document.querySelectorAll(
-        '.experience-card, .project-card, .skill-group, .award-card'
+        '.experience-card, .project-card, .award-card'
     );
 
     animatedElements.forEach(el => {

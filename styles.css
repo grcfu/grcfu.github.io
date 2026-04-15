@@ -1565,10 +1565,6 @@ section {
         gap: 2rem;
     }
 
-    .skill-pills {
-        gap: 1rem;
-    }
-
     .contact-btn {
         padding: 1rem 2rem;
     }
@@ -1599,10 +1595,6 @@ section {
     .awards-grid {
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 2.5rem;
-    }
-
-    .skills-groups {
-        gap: 3.5rem;
     }
 
     .github-grid {
