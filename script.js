@@ -251,6 +251,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeTooltip = null;
             }
         });
+
+        // Magnetic hover effect — blobs pull toward cursor
+        bagCanvas.addEventListener('mousemove', (e) => {
+            if (!bagCanvas.classList.contains('opened')) return;
+
+            const canvasRect = bagCanvas.getBoundingClientRect();
+            const mouseX = e.clientX - canvasRect.left;
+            const mouseY = e.clientY - canvasRect.top;
+
+            allBlobs.forEach(blob => {
+                const blobRect = blob.getBoundingClientRect();
+                const blobCenterX = blobRect.left + blobRect.width / 2 - canvasRect.left;
+                const blobCenterY = blobRect.top + blobRect.height / 2 - canvasRect.top;
+
+                const dx = mouseX - blobCenterX;
+                const dy = mouseY - blobCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 80) {
+                    const strength = (1 - distance / 80) * 8;
+                    const nudgeX = (dx / distance) * strength;
+                    const nudgeY = (dy / distance) * strength;
+                    const style = getComputedStyle(blob);
+                    const x = style.getPropertyValue('--x').trim();
+                    const y = style.getPropertyValue('--y').trim();
+                    const r = style.getPropertyValue('--r').trim();
+                    blob.style.transform = `translate(calc(-50% + ${x} + ${nudgeX}px), calc(-50% + ${y} + ${nudgeY}px)) scale(1.08) rotate(${r})`;
+                } else {
+                    blob.style.transform = '';
+                }
+            });
+        });
+
+        bagCanvas.addEventListener('mouseleave', () => {
+            allBlobs.forEach(blob => {
+                blob.style.transform = '';
+            });
+        });
     }
 
     // Observe the contact section — slide text in/out as user scrolls to/from it
