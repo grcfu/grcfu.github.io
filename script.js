@@ -175,6 +175,18 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutObserver.observe(aboutSection);
     }
 
+    // ============================================
+    // SKILLS — BAG CLICK TO OPEN
+    // ============================================
+    const bagImg = document.getElementById('bagImg');
+    const bagCanvas = document.querySelector('.bag-canvas');
+
+    if (bagImg && bagCanvas) {
+        bagImg.addEventListener('click', () => {
+            bagCanvas.classList.toggle('opened');
+        });
+    }
+
     // Observe the contact section — slide text in/out as user scrolls to/from it
     const contactSection = document.querySelector('.contact');
     if (contactSection) {
