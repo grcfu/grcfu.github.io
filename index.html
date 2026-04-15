@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -289,54 +289,51 @@
 
         <!-- Skills Section -->
         <section class="skills" id="skills">
-            <div class="container">
-                <p class="section-label">[ SKILLS ]</p>
+            <div class="skills-title">
+                <p class="skills-heading-top">What's in</p>
+                <p class="skills-heading-bottom"><em>My</em> Bag?</p>
+                <p class="skills-subtitle">CS SKILLS</p>
+            </div>
 
-                <div class="skills-groups">
-                    <div class="skill-group">
-                        <h3 class="skill-category">Languages & Frameworks</h3>
-                        <div class="skill-pills">
-                            <span class="skill-pill">Python</span>
-                            <span class="skill-pill">React.js</span>
-                            <span class="skill-pill">Next.js</span>
-                            <span class="skill-pill">FastAPI</span>
-                            <span class="skill-pill">Swift/SwiftUI</span>
-                            <span class="skill-pill">JavaScript</span>
-                            <span class="skill-pill">HTML5/CSS3</span>
-                            <span class="skill-pill">React Native</span>
-                            <span class="skill-pill">p5.js</span>
-                        </div>
-                    </div>
+            <div class="bag-canvas">
+                <img src="bag.jpg" alt="Coach bag" class="bag-img" id="bagImg">
+                <p class="bag-hint">tap to open</p>
 
-                    <div class="skill-group">
-                        <h3 class="skill-category">Data & ML</h3>
-                        <div class="skill-pills">
-                            <span class="skill-pill">PyTorch</span>
-                            <span class="skill-pill">TensorFlow</span>
-                            <span class="skill-pill">Scikit-learn</span>
-                            <span class="skill-pill">Pandas</span>
-                            <span class="skill-pill">NumPy</span>
-                        </div>
-                    </div>
+                <!-- Languages & Frameworks -->
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -320px; --y: -200px; --r: -3deg; --delay: 0;">Python</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -180px; --y: -260px; --r: 2deg; --delay: 1;">React.js</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -30px; --y: -290px; --r: -1deg; --delay: 2;">Next.js</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 130px; --y: -270px; --r: 3deg; --delay: 3;">FastAPI</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 280px; --y: -210px; --r: -2deg; --delay: 4;">Swift/SwiftUI</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -380px; --y: -80px; --r: 1deg; --delay: 5;">JavaScript</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -260px; --y: -50px; --r: -2deg; --delay: 6;">HTML/CSS</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 340px; --y: -100px; --r: 2deg; --delay: 7;">React Native</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 400px; --y: -30px; --r: -1deg; --delay: 8;">p5.js</div>
 
-                    <div class="skill-group">
-                        <h3 class="skill-category">Tools & Platforms</h3>
-                        <div class="skill-pills">
-                            <span class="skill-pill">Supabase</span>
-                            <span class="skill-pill">PostgreSQL</span>
-                            <span class="skill-pill">GitHub</span>
-                            <span class="skill-pill">Firebase</span>
-                            <span class="skill-pill">Tailwind CSS</span>
-                            <span class="skill-pill">Figma</span>
-                            <span class="skill-pill">Vercel</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Data & ML -->
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -370px; --y: 60px; --r: 2deg; --delay: 9;">PyTorch</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -250px; --y: 120px; --r: -3deg; --delay: 10;">TensorFlow</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -380px; --y: 180px; --r: 1deg; --delay: 11;">Scikit-learn</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -220px; --y: 210px; --r: -2deg; --delay: 12;">Pandas</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -310px; --y: 270px; --r: 3deg; --delay: 13;">NumPy</div>
 
-                <div class="languages-spoken">
-                    <span class="languages-icon">🌐</span>
-                    <span class="languages-text">Languages Spoken: English (Native) · Spanish (Bilingual) · Mandarin (Bilingual/Distinguished)</span>
-                </div>
+                <!-- Tools & Platforms -->
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 290px; --y: 60px; --r: -2deg; --delay: 14;">Supabase</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 380px; --y: 130px; --r: 1deg; --delay: 15;">PostgreSQL</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 250px; --y: 170px; --r: -3deg; --delay: 16;">GitHub</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 360px; --y: 230px; --r: 2deg; --delay: 17;">Firebase</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 220px; --y: 270px; --r: -1deg; --delay: 18;">Tailwind CSS</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 330px; --y: 310px; --r: 3deg; --delay: 19;">Figma</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 180px; --y: 340px; --r: -2deg; --delay: 20;">Vercel</div>
+
+                <!-- Category labels -->
+                <div class="cat-label cat-label-lang" style="--x: -60px; --y: -330px;">languages & frameworks</div>
+                <div class="cat-label cat-label-data" style="--x: -350px; --y: 310px;">data & ml</div>
+                <div class="cat-label cat-label-tools" style="--x: 280px; --y: 370px;">tools & platforms</div>
+            </div>
+
+            <div class="skills-languages">
+                English (Native) · Spanish (Bilingual) · Mandarin (Bilingual/Distinguished)
             </div>
         </section>
 
