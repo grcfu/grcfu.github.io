@@ -28,6 +28,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
+    // SPOTIFY WIDGET
+    // ============================================
+    const spotifyBtn = document.getElementById('spotifyBtn');
+    const spotifyPlayer = document.getElementById('spotifyPlayer');
+    const spotifyClose = document.getElementById('spotifyClose');
+    const spotifyBtnText = spotifyBtn?.querySelector('.spotify-btn-text');
+
+    if (spotifyBtn && spotifyPlayer && spotifyClose) {
+        function togglePlayer(open) {
+            if (open) {
+                spotifyPlayer.classList.add('open');
+                spotifyBtnText.textContent = 'now playing \u266A';
+            } else {
+                spotifyPlayer.classList.remove('open');
+                spotifyBtnText.textContent = 'play my fav song';
+            }
+        }
+
+        spotifyBtn.addEventListener('click', () => {
+            togglePlayer(!spotifyPlayer.classList.contains('open'));
+        });
+
+        spotifyClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlayer(false);
+        });
+    }
+
+    // ============================================
     // NAVBAR SCROLL BEHAVIOR
     // ============================================
     const navbar = document.getElementById('navbar');
