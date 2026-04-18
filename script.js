@@ -347,11 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const spreads = expSection.querySelectorAll('.exp-spread');
 
         if (spreads.length) {
-            // Activate spreads as they enter the viewport
+            // Activate spreads as they enter the viewport, deactivate on leave
+            // so the content stagger animation replays every time
             const activateObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-active');
+                    } else {
+                        entry.target.classList.remove('is-active');
                     }
                 });
             }, {
