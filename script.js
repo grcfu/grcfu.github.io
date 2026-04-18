@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Observe elements for scroll animations
     const animatedElements = document.querySelectorAll(
-        '.experience-card, .project-card, .award-card'
+        '.project-card, .award-card'
     );
 
     animatedElements.forEach(el => {
@@ -340,40 +340,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // EXPERIENCE ACCORDION (MOBILE)
+    // EXPERIENCE — EDITORIAL STACK SCROLL STATES
     // ============================================
-    const experienceCards = document.querySelectorAll('.experience-card');
+    const expSection = document.getElementById('experience');
+    if (expSection) {
+        const spreads = expSection.querySelectorAll('.exp-spread');
 
-    function setupAccordion(isMobile) {
-        experienceCards.forEach(card => {
-            const header = card.querySelector('.experience-header');
-            if (!header) return;
-
-            // Remove old listener by cloning
-            const newHeader = header.cloneNode(true);
-            header.parentNode.replaceChild(newHeader, header);
-
-            if (isMobile) {
-                card.classList.remove('expanded');
-                newHeader.addEventListener('click', () => {
-                    experienceCards.forEach(otherCard => {
-                        if (otherCard !== card) {
-                            otherCard.classList.remove('expanded');
-                        }
-                    });
-                    card.classList.toggle('expanded');
+        if (spreads.length) {
+            // Activate spreads as they enter the viewport
+            const activateObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-active');
+                    }
                 });
-            } else {
-                card.classList.remove('expanded');
-            }
-        });
-    }
+            }, {
+                root: null,
+                rootMargin: '-10% 0px -10% 0px',
+                threshold: 0
+            });
 
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-    setupAccordion(mobileQuery.matches);
-    mobileQuery.addEventListener('change', (e) => {
-        setupAccordion(e.matches);
-    });
+            // Detect when a spread is covered by the next one
+            const passObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const spread = entry.target;
+                    if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+                        spread.classList.add('is-passed');
+                        spread.classList.remove('is-active');
+                    } else if (entry.isIntersecting && entry.boundingClientRect.top >= 0) {
+                        spread.classList.remove('is-passed');
+                        spread.classList.add('is-active');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '-95% 0px 0px 0px',
+                threshold: 0
+            });
+
+            spreads.forEach(spread => {
+                activateObserver.observe(spread);
+                passObserver.observe(spread);
+                spread.setAttribute('tabindex', '0');
+            });
+
+            // Arrow key navigation between spreads
+            expSection.addEventListener('keydown', (e) => {
+                if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+
+                const activeEl = document.activeElement;
+                const activeIndex = Array.from(spreads).indexOf(activeEl);
+                if (activeIndex === -1) return;
+
+                e.preventDefault();
+                let targetIndex = activeIndex;
+
+                if (e.key === 'ArrowDown' && activeIndex < spreads.length - 1) {
+                    targetIndex = activeIndex + 1;
+                } else if (e.key === 'ArrowUp' && activeIndex > 0) {
+                    targetIndex = activeIndex - 1;
+                }
+
+                spreads[targetIndex].focus();
+                spreads[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+    }
 
     // ============================================
     // PROJECT FILTER
