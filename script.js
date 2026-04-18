@@ -361,15 +361,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Detect when a spread is covered by the next one
+            // Note: we keep is-active once it's set — only toggle is-passed
+            // so content doesn't fade out/re-animate on scroll back up
             const passObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const spread = entry.target;
                     if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
                         spread.classList.add('is-passed');
-                        spread.classList.remove('is-active');
                     } else if (entry.isIntersecting && entry.boundingClientRect.top >= 0) {
                         spread.classList.remove('is-passed');
-                        spread.classList.add('is-active');
                     }
                 });
             }, {

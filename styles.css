@@ -737,7 +737,7 @@ section {
 .exp-spread {
     position: sticky;
     top: 0;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     background-color: #442F2A;
@@ -755,7 +755,7 @@ section {
 .exp-spread-inner {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     padding: 4rem 6rem;
@@ -830,6 +830,21 @@ section {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+}
+
+.exp-index {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #9C8E84;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s,
+                transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s;
 }
 
 .exp-role {
@@ -922,10 +937,11 @@ section {
 
 /* Active State — When in viewport */
 .exp-spread.is-active .exp-page-num {
-    opacity: 0.08;
+    opacity: 0.14;
     transform: translateY(-50%) translateX(0);
 }
 
+.exp-spread.is-active .exp-index,
 .exp-spread.is-active .exp-role,
 .exp-spread.is-active .exp-company,
 .exp-spread.is-active .exp-subtitle {
@@ -1060,6 +1076,7 @@ section {
     }
 
     /* On mobile, always show content */
+    .exp-spread .exp-index,
     .exp-spread .exp-role,
     .exp-spread .exp-company,
     .exp-spread .exp-subtitle,
@@ -1084,6 +1101,7 @@ section {
 @media (prefers-reduced-motion: reduce) {
     .exp-spread-inner,
     .exp-page-num,
+    .exp-index,
     .exp-role,
     .exp-company,
     .exp-subtitle,
@@ -1093,6 +1111,7 @@ section {
         transition: none !important;
     }
 
+    .exp-spread .exp-index,
     .exp-spread .exp-role,
     .exp-spread .exp-company,
     .exp-spread .exp-subtitle,
@@ -1103,7 +1122,7 @@ section {
     }
 
     .exp-spread .exp-page-num {
-        opacity: 0.08;
+        opacity: 0.14;
         transform: translateY(-50%) translateX(0);
     }
 
