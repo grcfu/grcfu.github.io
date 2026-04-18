@@ -733,6 +733,85 @@ section {
     position: relative;
 }
 
+/* Individual Spread */
+.exp-spread {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: #442F2A;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.exp-spread:nth-child(1) { z-index: 1; }
+.exp-spread:nth-child(2) { z-index: 2; }
+.exp-spread:nth-child(3) { z-index: 3; }
+.exp-spread:nth-child(4) { z-index: 4; }
+.exp-spread:nth-child(5) { z-index: 5; }
+.exp-spread:nth-child(6) { z-index: 6; }
+
+.exp-spread-inner {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 6rem;
+    box-sizing: border-box;
+    border-left: 6px solid transparent;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.8s ease,
+                opacity 0.6s ease;
+}
+
+/* Accent Bar */
+.exp-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-color: #F4C9D6;
+}
+
+.exp-spread:nth-child(even) .exp-accent-bar {
+    background-color: #E8A6B8;
+}
+
+/* Alternating subtle background shifts */
+.exp-spread:nth-child(odd) .exp-spread-inner {
+    background-color: #442F2A;
+}
+
+.exp-spread:nth-child(even) .exp-spread-inner {
+    background-color: #3a2824;
+}
+
+/* Giant Page Number */
+.exp-page-num {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(10rem, 25vw, 22rem);
+    font-weight: 700;
+    line-height: 1;
+    color: #F4C9D6;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+.exp-spread:nth-child(even) .exp-page-num {
+    color: #E8A6B8;
+}
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */
