@@ -1380,6 +1380,27 @@ section {
     outline-offset: 1px;
 }
 
+/* Responsive: smaller gap on tablet, hide older weeks on phone */
+@media (max-width: 1024px) {
+    .heatmap-grid {
+        gap: 2px;
+    }
+}
+
+@media (max-width: 640px) {
+    .heatmap-grid {
+        gap: 2px;
+    }
+
+    .heatmap-cell.heatmap-cell-hidden {
+        display: none;
+    }
+
+    .heatmap-legend {
+        justify-content: flex-start;
+    }
+}
+
 /* GitHub Section */
 .github-section {
     margin-top: 4rem;
