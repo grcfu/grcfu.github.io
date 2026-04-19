@@ -2097,10 +2097,60 @@ section {
 @media (max-width: 1024px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem 1.5rem;
     }
 
     .github-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Projects — Mobile: flat single column, no rotation */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card,
+    .project-card.visible,
+    .project-card.fade-out {
+        --rot: 0deg;
+    }
+
+    .project-card:nth-child(1),
+    .project-card:nth-child(2),
+    .project-card:nth-child(3),
+    .project-card:nth-child(4),
+    .project-card:nth-child(5),
+    .project-card:nth-child(6) {
+        margin-top: 0;
+    }
+
+    .project-card {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .project-card::after {
+        left: 10%;
+        right: 10%;
+        top: auto;
+        bottom: auto;
+        width: auto;
+        height: 1px;
+        top: calc(100% / 2.2);
+        background-image: linear-gradient(to right, rgba(62,39,35,0.25) 50%, transparent 50%);
+        background-size: 6px 1px;
+    }
+
+    .project-left {
+        padding: 2rem 1.25rem;
+        min-height: 140px;
+    }
+
+    .project-card:hover {
+        transform: translateY(-6px) rotate(0deg);
     }
 }
 
