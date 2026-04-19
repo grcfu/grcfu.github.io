@@ -1278,6 +1278,27 @@ section {
     border-radius: 0;
 }
 
+/* GitHub Contributions Heatmap */
+.heatmap-section {
+    margin-top: 4rem;
+}
+
+.heatmap-stats {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+}
+
+.heatmap-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 /* GitHub Section */
 .github-section {
     margin-top: 4rem;
