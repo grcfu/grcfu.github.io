@@ -1338,11 +1338,11 @@ section {
     text-decoration: underline;
 }
 
-/* Heatmap color scale — 5 levels in site palette */
-.heatmap-level-0 { background-color: var(--bg-secondary); }
-.heatmap-level-1 { background-color: #F7DDE4; }
-.heatmap-level-2 { background-color: var(--accent-pink); }
-.heatmap-level-3 { background-color: var(--accent-pink-dark); }
+/* Heatmap color scale — tight pink gradient + espresso peak */
+.heatmap-level-0 { background-color: #E8BFCB; }
+.heatmap-level-1 { background-color: #DEAEBC; }
+.heatmap-level-2 { background-color: #D39CAE; }
+.heatmap-level-3 { background-color: #C68A9F; }
 .heatmap-level-4 { background-color: var(--text-primary); }
 
 /* Legend */
