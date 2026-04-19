@@ -1333,6 +1333,11 @@ section {
     color: var(--text-muted);
 }
 
+.heatmap-loading a {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
 /* Heatmap color scale — 5 levels in site palette */
 .heatmap-level-0 { background-color: var(--bg-secondary); }
 .heatmap-level-1 { background-color: #F7DDE4; }

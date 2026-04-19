@@ -608,6 +608,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
+    function animateHeatmap() {
+        const cells = heatmapGrid.querySelectorAll('.heatmap-cell:not(.heatmap-cell-filler)');
+        cells.forEach(cell => {
+            const col = parseInt(cell.dataset.column || '0', 10);
+            const delay = col * 18;
+            setTimeout(() => {
+                cell.style.opacity = '1';
+                cell.style.transform = 'scale(1)';
+            }, delay);
+        });
+    }
+
+    function showHeatmapError() {
+        if (heatmapStats) heatmapStats.textContent = '';
+        heatmapGrid.innerHTML = `
+            <div class="heatmap-loading">
+                Couldn't load activity right now — <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer">visit github.com/grcfu</a> to see my commits!
+            </div>
+        `;
+    }
+
+    async function initHeatmap() {
+        if (!heatmapGrid || !heatmapSection) return;
+
+        const data = await fetchGitHubContributions();
+        const rendered = renderHeatmap(data);
+        if (!rendered) {
+            showHeatmapError();
+            return;
+        }
+
+        // Trigger column-by-column reveal when scrolled into view
+        const heatmapObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateHeatmap();
+                    heatmapObserver.unobserve(heatmapSection);
+                }
+            });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+
+        heatmapObserver.observe(heatmapSection);
+    }
+
+    initHeatmap();
+
     // ============================================
     // SMOOTH SCROLL FOR ANCHOR LINKS
     // ============================================
