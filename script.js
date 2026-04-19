@@ -568,10 +568,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!data || !data.contributions) return false;
 
         const contributions = data.contributions;
-        const { total, longestStreak } = computeStats(contributions);
+        const { total } = computeStats(contributions);
 
         if (heatmapStats) {
-            heatmapStats.textContent = `${total.toLocaleString()} contributions this year · ${longestStreak} day longest streak`;
+            heatmapStats.textContent = `${total.toLocaleString()} contributions this year`;
         }
 
         // Build grid — 52 weeks x 7 days, column by column
