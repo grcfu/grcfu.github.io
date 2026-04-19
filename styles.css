@@ -1357,6 +1357,29 @@ section {
     display: inline-block;
 }
 
+/* Cell hover tooltip */
+.heatmap-cell:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    padding: 0.4rem 0.6rem;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.heatmap-cell:hover {
+    outline: 1px solid var(--text-primary);
+    outline-offset: 1px;
+}
+
 /* GitHub Section */
 .github-section {
     margin-top: 4rem;
