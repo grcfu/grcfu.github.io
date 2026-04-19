@@ -1338,12 +1338,12 @@ section {
     text-decoration: underline;
 }
 
-/* Heatmap color scale — tight pink gradient + espresso peak */
-.heatmap-level-0 { background-color: #E8BFCB; }
+/* Heatmap color scale — tight pink gradient + warm espresso peak */
+.heatmap-level-0 { background-color: #F3E2E7; }
 .heatmap-level-1 { background-color: #DEAEBC; }
 .heatmap-level-2 { background-color: #D39CAE; }
 .heatmap-level-3 { background-color: #C68A9F; }
-.heatmap-level-4 { background-color: var(--text-primary); }
+.heatmap-level-4 { background-color: #7A5149; }
 
 /* Legend */
 .heatmap-legend {
