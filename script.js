@@ -524,6 +524,27 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubRepos();
 
     // ============================================
+    // GITHUB CONTRIBUTIONS HEATMAP
+    // ============================================
+    const heatmapGrid = document.getElementById('heatmapGrid');
+    const heatmapStats = document.getElementById('heatmapStats');
+    const heatmapSection = document.getElementById('heatmapSection');
+
+    async function fetchGitHubContributions() {
+        if (!heatmapGrid) return;
+
+        try {
+            const response = await fetch('https://github-contributions-api.jogruber.de/v4/grcfu?y=last');
+            if (!response.ok) throw new Error('Failed to fetch contributions');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('GitHub contributions API error:', error);
+            return null;
+        }
+    }
+
+    // ============================================
     // SMOOTH SCROLL FOR ANCHOR LINKS
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
