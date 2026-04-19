@@ -1312,6 +1312,88 @@ section {
 .color-c .project-postmark,
 .color-d .project-postmark { color: var(--text-primary); }
 
+/* Right half — message side */
+.project-right {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.25rem;
+    background-color: #FBF9F5;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-salutation {
+    font-family: var(--font-script);
+    font-size: 1.15rem;
+    color: var(--accent-pink-dark);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.project-description {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed rgba(62, 39, 35, 0.2);
+    flex-grow: 1;
+}
+
+.project-tags {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.project-tag {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    background-color: var(--accent-pink);
+    color: var(--text-primary);
+    border-radius: 0;
+}
+
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.stack-item {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: 0;
+}
+
+/* Stamp box — top right corner */
+.project-stamp {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    background-color: var(--white);
+    padding: 0.4rem 0.7rem;
+    border: 1px dashed rgba(62, 39, 35, 0.5);
+    outline: 3px solid var(--white);
+    outline-offset: -5px;
+    z-index: 2;
+}
+
 /* GitHub Contributions Heatmap */
 .heatmap-section {
     margin-top: 4rem;
