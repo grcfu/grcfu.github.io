@@ -544,6 +544,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function computeStats(contributions) {
+        const total = contributions.reduce((sum, d) => sum + d.count, 0);
+        let longestStreak = 0;
+        let currentStreak = 0;
+        contributions.forEach(d => {
+            if (d.count > 0) {
+                currentStreak++;
+                longestStreak = Math.max(longestStreak, currentStreak);
+            } else {
+                currentStreak = 0;
+            }
+        });
+        return { total, longestStreak };
+    }
+
+    function formatDate(isoDate) {
+        const d = new Date(isoDate + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function renderHeatmap(data) {
+        if (!data || !data.contributions) return false;
+
+        const contributions = data.contributions;
+        const { total, longestStreak } = computeStats(contributions);
+
+        if (heatmapStats) {
+            heatmapStats.textContent = `${total.toLocaleString()} contributions this year · ${longestStreak} day longest streak`;
+        }
+
+        // Build grid — 52 weeks x 7 days, column by column
+        // First, pad the start so week 1 starts on the right day-of-week
+        const firstDate = new Date(contributions[0].date + 'T00:00:00');
+        const firstDayOfWeek = firstDate.getDay();
+
+        heatmapGrid.innerHTML = '';
+        heatmapGrid.style.gridTemplateColumns = `repeat(53, 1fr)`;
+
+        // Empty leading cells for alignment
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            const filler = document.createElement('div');
+            filler.className = 'heatmap-cell heatmap-level-0 heatmap-cell-filler';
+            filler.style.visibility = 'hidden';
+            heatmapGrid.appendChild(filler);
+        }
+
+        // Determine cutoff for mobile (show only last 26 weeks = 182 days)
+        const mobileCutoffIndex = Math.max(0, contributions.length - 182);
+
+        contributions.forEach((day, i) => {
+            const cell = document.createElement('div');
+            const level = Math.min(day.level !== undefined ? day.level : 0, 4);
+            cell.className = `heatmap-cell heatmap-level-${level}`;
+            cell.setAttribute('data-tooltip', `${formatDate(day.date)}: ${day.count} ${day.count === 1 ? 'contribution' : 'contributions'}`);
+            cell.dataset.column = Math.floor((i + firstDayOfWeek) / 7);
+            if (i < mobileCutoffIndex) {
+                cell.classList.add('heatmap-cell-hidden');
+            }
+            heatmapGrid.appendChild(cell);
+        });
+
+        return true;
+    }
+
     // ============================================
     // SMOOTH SCROLL FOR ANCHOR LINKS
     // ============================================
