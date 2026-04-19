@@ -1340,6 +1340,23 @@ section {
 .heatmap-level-3 { background-color: var(--accent-pink-dark); }
 .heatmap-level-4 { background-color: var(--text-primary); }
 
+/* Legend */
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    justify-content: flex-end;
+}
+
+.heatmap-legend-cell {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
 /* GitHub Section */
 .github-section {
     margin-top: 4rem;
