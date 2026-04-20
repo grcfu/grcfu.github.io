@@ -28,6 +28,113 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
+    // HERO — PASTEL ENTRANCE SEQUENCE + SCROLL
+    // ============================================
+    const heroSection = document.getElementById('hero');
+    const heroPrefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (heroSection) {
+        setTimeout(() => heroSection.classList.add('is-loaded'), 0);
+
+        const lineTiny = document.querySelector('#heroLineTiny .hero-reveal');
+        const arrow = document.getElementById('heroArrow');
+        const lineName = document.querySelector('#heroLineName .hero-reveal');
+        const wavy = document.getElementById('heroWavy');
+        const lineTagline = document.querySelector('#heroLineTagline .hero-reveal');
+        const lineCredentials = document.querySelector('#heroLineCredentials .hero-reveal');
+
+        const revealSchedule = [
+            { el: lineTiny, delay: 300 },
+            { el: arrow, delay: 700, cls: 'is-drawn' },
+            { el: lineName, delay: 1100 },
+            { el: wavy, delay: 1600, cls: 'is-drawn' },
+            { el: lineTagline, delay: 2100 },
+            { el: lineCredentials, delay: 2600 }
+        ];
+
+        if (heroPrefersReduced) {
+            revealSchedule.forEach(({ el, cls }) => {
+                if (el) el.classList.add(cls || 'is-revealed');
+            });
+        } else {
+            revealSchedule.forEach(({ el, delay, cls }) => {
+                if (!el) return;
+                setTimeout(() => el.classList.add(cls || 'is-revealed'), delay);
+            });
+        }
+
+        // Scroll: text fades fast, GIF lingers, blobs mid, collage last
+        const heroText = document.getElementById('heroText');
+        const heroGifWrap = document.querySelector('.hero-gif-wrap');
+        const heroPaints = document.querySelectorAll('.hero-paint');
+        const heroCollages = document.querySelectorAll('.collage');
+        let heroTicking = false;
+
+        function updateHeroScroll() {
+            const rect = heroSection.getBoundingClientRect();
+            const heroHeight = rect.height || 1;
+            const progress = Math.max(0, Math.min(1, -rect.top / heroHeight));
+
+            if (heroText) {
+                const textP = Math.min(progress * 1.4, 1);
+                heroText.style.opacity = 1 - textP;
+                heroText.style.transform = `translateY(${-40 * textP}px)`;
+            }
+            if (heroGifWrap) {
+                heroGifWrap.style.opacity = 1 - Math.min(progress * 0.85, 1);
+            }
+            heroPaints.forEach(p => {
+                p.style.opacity = Math.max(0, 1 - progress * 1.1);
+            });
+            heroCollages.forEach(c => {
+                c.style.opacity = Math.max(0, 1 - progress * 0.55);
+            });
+
+            heroTicking = false;
+        }
+
+        function onHeroScroll() {
+            if (!heroTicking) {
+                window.requestAnimationFrame(updateHeroScroll);
+                heroTicking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onHeroScroll, { passive: true });
+    }
+
+    // ============================================
+    // INK TRAIL CURSOR
+    // ============================================
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    if (supportsHover) {
+        let lastInkTime = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            const now = performance.now();
+            if (now - lastInkTime < 30) return;
+            lastInkTime = now;
+
+            const dot = document.createElement('span');
+            dot.className = 'ink-dot';
+            const size = 4 + Math.random() * 6;
+            dot.style.width = size + 'px';
+            dot.style.height = size + 'px';
+            dot.style.left = (e.clientX - size / 2) + 'px';
+            dot.style.top = (e.clientY - size / 2) + 'px';
+            document.body.appendChild(dot);
+
+            // Trigger fade on next frame
+            requestAnimationFrame(() => dot.classList.add('fade'));
+
+            // Remove from DOM after fade (600ms + buffer)
+            setTimeout(() => {
+                if (dot.parentNode) dot.parentNode.removeChild(dot);
+            }, 700);
+        }, { passive: true });
+    }
+
+    // ============================================
     // SPOTIFY WIDGET
     // ============================================
     const spotifyBtn = document.getElementById('spotifyBtn');
