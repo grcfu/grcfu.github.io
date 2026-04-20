@@ -56,6 +56,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
+    // CINEMATIC HERO — ENTRANCE SEQUENCE + TYPING
+    // ============================================
+    const heroSection = document.getElementById('hero');
+    const heroLine1 = document.getElementById('heroLine1');
+    const heroLine2 = document.getElementById('heroLine2');
+    const heroLine3 = document.getElementById('heroLine3');
+    const heroUnderline = document.querySelector('.hero-underline');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function typeLine(lineEl, text, speed, done) {
+        const typedSpan = lineEl.querySelector('.hero-typed');
+        const cursorSpan = lineEl.querySelector('.hero-cursor');
+        let i = 0;
+
+        function step() {
+            if (i <= text.length) {
+                typedSpan.textContent = text.slice(0, i);
+                i++;
+                setTimeout(step, speed);
+            } else {
+                if (cursorSpan) cursorSpan.classList.add('done');
+                if (done) done();
+            }
+        }
+        step();
+    }
+
+    if (heroSection) {
+        // Vignette fades in first (via CSS transition on is-loaded)
+        // Video fades in starting at 0.4s
+        setTimeout(() => heroSection.classList.add('is-loaded'), 0);
+
+        // Typing starts at 1.0s
+        if (heroLine1 && heroLine2 && heroLine3) {
+            if (prefersReducedMotion) {
+                heroLine1.querySelector('.hero-typed').textContent = "Hi, I'm Grace.";
+                heroLine2.querySelector('.hero-typed').textContent = 'I build things that matter.';
+                heroLine3.querySelector('.hero-typed').textContent = 'CS & Business @ WashU · Class of 2029';
+                heroLine1.querySelectorAll('.hero-cursor').forEach(c => c.classList.add('done'));
+                heroLine2.querySelectorAll('.hero-cursor').forEach(c => c.classList.add('done'));
+                heroLine3.querySelectorAll('.hero-cursor').forEach(c => c.classList.add('done'));
+                if (heroUnderline) heroUnderline.classList.add('is-drawn');
+            } else {
+                setTimeout(() => {
+                    typeLine(heroLine1, "Hi, I'm Grace.", 55, () => {
+                        setTimeout(() => {
+                            typeLine(heroLine2, 'I build things that matter.', 55, () => {
+                                setTimeout(() => {
+                                    typeLine(heroLine3, 'CS & Business @ WashU · Class of 2029', 55, () => {
+                                        if (heroUnderline) heroUnderline.classList.add('is-drawn');
+                                    });
+                                }, 400);
+                            });
+                        }, 400);
+                    });
+                }, 1000);
+            }
+        }
+    }
+
+    // ============================================
     // SPOTIFY WIDGET
     // ============================================
     const spotifyBtn = document.getElementById('spotifyBtn');
