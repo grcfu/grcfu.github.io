@@ -2214,6 +2214,10 @@ section {
 }
 
 /* Warm cinematic vignette */
+.hero {
+    --vignette-boost: 0;
+}
+
 .hero::after {
     content: '';
     position: absolute;
@@ -2222,9 +2226,9 @@ section {
     z-index: 2;
     background: radial-gradient(
         ellipse at center,
-        transparent 35%,
-        rgba(68, 47, 42, 0.2) 65%,
-        rgba(68, 47, 42, 0.55) 100%
+        transparent calc(35% - var(--vignette-boost) * 15%),
+        rgba(68, 47, 42, calc(0.2 + var(--vignette-boost) * 0.25)) 65%,
+        rgba(68, 47, 42, calc(0.55 + var(--vignette-boost) * 0.3)) 100%
     );
     opacity: 0;
     transition: opacity 1.2s ease;

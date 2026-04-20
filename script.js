@@ -88,6 +88,44 @@ document.addEventListener('DOMContentLoaded', () => {
         // Video fades in starting at 0.4s
         setTimeout(() => heroSection.classList.add('is-loaded'), 0);
 
+        // Scroll transition: vignette deepens, text drifts + fades, video lingers
+        const heroText = document.getElementById('heroText');
+        const heroVideoWrap = document.querySelector('.hero-video-wrap');
+        let scrollTicking = false;
+
+        function updateHeroScroll() {
+            const rect = heroSection.getBoundingClientRect();
+            const heroHeight = rect.height || 1;
+            const progress = Math.max(0, Math.min(1, -rect.top / heroHeight));
+
+            // Text: fades + drifts up faster
+            if (heroText) {
+                const textProgress = Math.min(progress * 1.3, 1);
+                heroText.style.opacity = 1 - textProgress;
+                heroText.style.transform = `translateY(${-40 * textProgress}px)`;
+            }
+
+            // Video: lingers — fades slower (0.7x)
+            if (heroVideoWrap) {
+                const videoProgress = Math.min(progress * 0.8, 1);
+                heroVideoWrap.style.opacity = 1 - videoProgress;
+            }
+
+            // Vignette: deepens via CSS custom property
+            heroSection.style.setProperty('--vignette-boost', progress.toFixed(3));
+
+            scrollTicking = false;
+        }
+
+        function onHeroScroll() {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(updateHeroScroll);
+                scrollTicking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onHeroScroll, { passive: true });
+
         // Typing starts at 1.0s
         if (heroLine1 && heroLine2 && heroLine3) {
             if (prefersReducedMotion) {
