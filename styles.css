@@ -2086,3 +2086,47 @@ section {
     opacity: 0.08;
     mix-blend-mode: overlay;
 }
+
+/* Breathing background layer — only this element scales */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--bg-primary);
+    pointer-events: none;
+    animation: hero-breathe 5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes hero-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.004); }
+}
+
+/* Warm cinematic vignette */
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 35%,
+        rgba(68, 47, 42, 0.2) 65%,
+        rgba(68, 47, 42, 0.55) 100%
+    );
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.hero.is-loaded::after {
+    opacity: 1;
+}
+
+/* Reduced motion: pause breathing */
+@media (prefers-reduced-motion: reduce) {
+    .hero-bg {
+        animation: none;
+    }
+}
