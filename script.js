@@ -164,26 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', throttledScroll, { passive: true });
 
     // ============================================
-    // HERO BANNER — SLIDE OFF LEFT ON SCROLL
-    // ============================================
-    const heroBanner = document.querySelector('.hero-banner');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    const heroSection = document.querySelector('.hero');
-
-    if (heroBanner && heroSection) {
-        window.addEventListener('scroll', () => {
-            const heroHeight = heroSection.offsetHeight;
-            const scrollY = window.scrollY;
-            const progress = Math.min(scrollY / heroHeight, 1);
-            const offset = `translateX(${progress * -100}%)`;
-            heroBanner.style.transform = offset;
-            if (heroSubtitle) {
-                heroSubtitle.style.transform = offset;
-            }
-        }, { passive: true });
-    }
-
-    // ============================================
     // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
     // ============================================
     const observerOptions = {
