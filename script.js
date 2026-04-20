@@ -340,35 +340,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // EXPERIENCE — THE GRACE GAZETTE SCROLL ANIMATIONS
+    // EXPERIENCE — GROWING VINE TIMELINE
     // ============================================
-    const gazette = document.getElementById('experience');
-    if (gazette) {
-        // Masthead: fade + scale when section enters view
-        const mastheadObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    gazette.classList.add('is-visible');
-                    mastheadObserver.unobserve(gazette);
-                }
-            });
-        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-        mastheadObserver.observe(gazette);
+    const vineSection = document.getElementById('experience');
+    if (vineSection) {
+        const vineTimeline = document.getElementById('vineTimeline');
+        const stem = vineSection.querySelector('.vine-stem');
+        const branches = vineSection.querySelectorAll('.vine-branch');
+        const flowers = vineSection.querySelectorAll('.vine-flower');
+        const cards = vineSection.querySelectorAll('.vine-card');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-        // Articles: stagger fade-in left to right
-        const articles = gazette.querySelectorAll('.gz-fade');
-        const articleObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const index = Array.from(articles).indexOf(el);
-                    setTimeout(() => el.classList.add('is-visible'), index * 120);
-                    articleObserver.unobserve(el);
-                }
-            });
-        }, { root: null, rootMargin: '0px 0px -15% 0px', threshold: 0.15 });
+        // Flower Y-positions in viewBox units (match transform translate in HTML)
+        const flowerYs = [250, 640, 1020, 1390, 1780, 2160];
+        const viewBoxHeight = 2400;
 
-        articles.forEach(a => articleObserver.observe(a));
+        if (stem && !isMobile && !reducedMotion) {
+            const stemLength = stem.getTotalLength();
+            stem.style.strokeDasharray = stemLength;
+            stem.style.strokeDashoffset = stemLength;
+
+            let ticking = false;
+
+            function updateVine() {
+                const rect = vineTimeline.getBoundingClientRect();
+                const viewportH = window.innerHeight;
+
+                // Progress: 0 when section bottom enters viewport, 1 when section top exits
+                // Effectively: how much of the timeline has passed a point ~40% down the viewport
+                const trigger = viewportH * 0.6;
+                let progress = (trigger - rect.top) / rect.height;
+                progress = Math.max(0, Math.min(1, progress));
+
+                // Draw stem based on progress
+                stem.style.strokeDashoffset = stemLength * (1 - progress);
+
+                // Compute the current "tip" Y in viewBox units
+                const tipY = progress * viewBoxHeight;
+
+                flowers.forEach((flower, i) => {
+                    const flowerY = flowerYs[i];
+                    if (tipY >= flowerY - 30) {
+                        flower.classList.add('bloomed');
+                        if (branches[i]) branches[i].classList.add('bloomed');
+                        if (cards[i]) cards[i].classList.add('bloomed');
+                    } else {
+                        flower.classList.remove('bloomed');
+                        if (branches[i]) branches[i].classList.remove('bloomed');
+                        if (cards[i]) cards[i].classList.remove('bloomed');
+                    }
+                });
+
+                ticking = false;
+            }
+
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateVine);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+            updateVine();
+        } else {
+            // Mobile or reduced motion: reveal everything statically
+            flowers.forEach(f => f.classList.add('bloomed'));
+            branches.forEach(b => b.classList.add('bloomed'));
+            cards.forEach(c => c.classList.add('bloomed'));
+            if (stem) stem.style.strokeDashoffset = '0';
+        }
     }
 
     // ============================================

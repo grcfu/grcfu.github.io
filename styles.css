@@ -664,415 +664,231 @@ section {
 }
 
 /* ============================================
-   EXPERIENCE SECTION — THE GRACE GAZETTE
+   EXPERIENCE SECTION — GROWING VINE TIMELINE
    ============================================ */
-.gazette {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    padding: 0;
+.vine-section {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem);
+    position: relative;
     overflow: hidden;
 }
 
-/* ---- MASTHEAD ---- */
-.gz-masthead {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    padding: 2.5rem clamp(1.5rem, 4vw, 4rem) 1.5rem;
-    text-align: center;
-    position: relative;
-    opacity: 0;
-    transform: scale(0.97);
-    transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
-                transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+.vine-header {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
 }
 
-.gazette.is-visible .gz-masthead {
+.vine-section .section-label {
+    color: var(--text-light-muted);
+}
+
+.vine-timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
+    min-height: 2400px;
+}
+
+.vine-svg {
+    position: absolute;
+    top: 0;
+    left: clamp(1.5rem, 5vw, 3rem);
+    width: 380px;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Stem — will be animated via JS */
+.vine-stem {
+    stroke-dasharray: 2700;
+    stroke-dashoffset: 2700;
+}
+
+/* Branches — hidden until parent flower blooms */
+.vine-branch {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vine-branch.bloomed {
+    stroke-dashoffset: 0;
+}
+
+/* Flowers — start small, scale up when bloomed */
+.vine-flower {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 0.3s ease;
+}
+
+.vine-flower.bloomed {
+    opacity: 1;
+}
+
+.vine-flower .petal {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease;
+}
+
+.vine-flower.bloomed .petal {
     opacity: 1;
     transform: scale(1);
 }
 
-.gz-stripe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background-color: var(--accent-pink);
-}
+.vine-flower .petal:nth-child(1) { transition-delay: 0.05s; }
+.vine-flower .petal:nth-child(2) { transition-delay: 0.12s; }
+.vine-flower .petal:nth-child(3) { transition-delay: 0.19s; }
+.vine-flower .petal:nth-child(4) { transition-delay: 0.26s; }
+.vine-flower .petal:nth-child(5) { transition-delay: 0.33s; }
+.vine-flower .petal:nth-child(6) { transition-delay: 0.4s; }
+.vine-flower .petal:nth-child(7) { transition-delay: 0.47s; }
+.vine-flower .petal:nth-child(8) { transition-delay: 0.54s; }
 
-.gz-rule-double {
-    position: relative;
-    border-top: 1px solid var(--text-light);
-    border-bottom: 1px solid var(--text-light);
-    height: 5px;
-    margin: 0.75rem 0;
-}
-
-.gz-title {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 10vw, 9rem);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    color: var(--text-light);
-    margin: 0;
-}
-
-.gz-meta-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    font-family: var(--font-body);
-    font-size: clamp(0.625rem, 0.9vw, 0.75rem);
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-light-muted);
-}
-
-.gz-meta-center {
-    flex: 1;
-    text-align: center;
-}
-
-.gz-meta-left,
-.gz-meta-right {
-    white-space: nowrap;
-}
-
-/* ---- BREAKING NEWS TICKER ---- */
-.gz-ticker {
-    background-color: var(--accent-pink);
-    color: var(--text-primary);
-    padding: 0.75rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border-top: 1px solid rgba(62, 39, 35, 0.2);
-    border-bottom: 1px solid rgba(62, 39, 35, 0.2);
-}
-
-.gz-ticker-track {
-    display: inline-flex;
-    animation: gz-ticker-scroll 55s linear infinite;
-}
-
-.gz-ticker-text {
-    font-family: var(--font-body);
-    font-size: clamp(0.7rem, 1vw, 0.85rem);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding-right: 0.25rem;
-}
-
-@keyframes gz-ticker-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* ---- NEWSPAPER BODY ---- */
-.gz-body {
-    background-color: #F4EFE7;
-    padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem);
-    max-width: 1400px;
-    margin: 0 auto;
-    color: var(--text-primary);
-}
-
-.gz-row {
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(62, 39, 35, 0.15);
-}
-
-.gz-row:last-of-type {
-    border-bottom: none;
-}
-
-/* Top row: 60/40 split */
-.gz-row-top {
-    grid-template-columns: 3fr 2fr;
-}
-
-/* Middle row: 3 equal columns */
-.gz-row-middle {
-    grid-template-columns: 1fr 1fr 1fr;
-    position: relative;
-}
-
-/* Article base */
-.gz-article {
-    position: relative;
+.vine-flower .flower-center {
     opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s,
+                opacity 0.3s ease 0.5s;
 }
 
-.gz-article.is-visible {
+.vine-flower.bloomed .flower-center {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
 }
 
-/* Column rules — thin vertical dividers between articles in middle row */
-.gz-row-middle .gz-article-mid:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: calc(clamp(1.5rem, 3vw, 2.5rem) / -2);
-    width: 1px;
-    height: 0;
-    background-color: rgba(62, 39, 35, 0.25);
-    transition: height 0.8s ease 0.4s;
+/* Cards */
+.vine-cards {
+    position: relative;
+    z-index: 2;
+    padding-left: clamp(240px, 30%, 360px);
+    display: flex;
+    flex-direction: column;
 }
 
-.gz-row-middle .gz-article-mid.is-visible:not(:last-child)::after {
-    height: 100%;
+.vine-card {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s ease,
+                transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 1rem 0 1rem 1.25rem;
+    border-left: 2px solid rgba(244, 201, 214, 0.25);
+    max-width: 560px;
+    margin-bottom: 1.5rem;
 }
 
-/* Column rule between lead article and secondary in top row */
-.gz-article-lead::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: calc(clamp(1.5rem, 3vw, 2.5rem) / -2);
-    width: 1px;
-    height: 0;
-    background-color: rgba(62, 39, 35, 0.25);
-    transition: height 0.8s ease 0.4s;
+.vine-card.bloomed {
+    opacity: 1;
+    transform: translateX(0);
+    border-left-color: var(--accent-pink);
 }
 
-.gz-article-lead.is-visible::after {
-    height: 100%;
-}
+/* Stagger card vertical positions organically */
+.vine-card[data-card="0"] { height: 380px; margin-top: 80px; }
+.vine-card[data-card="1"] { height: 380px; margin-top: 0; align-self: flex-start; margin-left: -20px; }
+.vine-card[data-card="2"] { height: 380px; margin-top: 20px; margin-left: 30px; }
+.vine-card[data-card="3"] { height: 380px; margin-top: -10px; margin-left: -10px; }
+.vine-card[data-card="4"] { height: 380px; margin-top: 30px; margin-left: 40px; }
+.vine-card[data-card="5"] { height: 380px; margin-top: -10px; margin-left: 0; }
 
-/* ---- ARTICLE TYPOGRAPHY ---- */
-.gz-section-tag {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    background-color: var(--accent-pink);
-    padding: 0.3rem 0.6rem;
-    margin-bottom: 0.75rem;
-}
-
-.gz-headline {
+.vine-role {
     font-family: var(--font-display);
-    font-weight: 900;
-    line-height: 1.05;
-    color: var(--text-primary);
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.25;
+    margin: 0 0 0.35rem 0;
 }
 
-.gz-headline-xl { font-size: clamp(1.5rem, 3vw, 2.5rem); }
-.gz-headline-lg { font-size: clamp(1.25rem, 2.2vw, 1.75rem); }
-.gz-headline-md { font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
+.vine-company {
+    font-family: var(--font-script);
+    font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+    color: var(--accent-pink);
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
 
-.gz-byline {
+.vine-date {
     font-family: var(--font-body);
     font-size: 0.7rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin: 0 0 0.5rem 0;
-    font-style: italic;
-}
-
-.gz-rule {
-    height: 1px;
-    background-color: rgba(62, 39, 35, 0.25);
-    margin: 0.5rem 0 1rem;
-}
-
-.gz-body-copy {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    margin: 0 0 0.75rem 0;
-    column-count: 1;
-}
-
-.gz-article-lead .gz-body-copy {
-    font-size: 0.9rem;
-    column-count: 2;
-    column-gap: 1.25rem;
-    column-rule: 1px solid rgba(62, 39, 35, 0.15);
-}
-
-.gz-continued {
-    font-family: var(--font-body);
-    font-style: italic;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.75rem;
-}
-
-/* Pull quote with highlight sweep */
-.gz-pullquote {
-    position: relative;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 700;
-    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-    line-height: 1.35;
-    color: var(--text-primary);
-    margin: 1.25rem 0;
-    padding: 0.75rem 1rem;
-    border-left: 4px solid var(--accent-pink);
-    background-color: rgba(244, 201, 214, 0.15);
-    overflow: hidden;
-}
-
-.gz-pullquote::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: rgba(244, 201, 214, 0.35);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-}
-
-.gz-article-lead.is-visible .gz-pullquote::after {
-    transform: scaleX(1);
-    transform-origin: right center;
-    transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
-    transform: scaleX(0);
-}
-
-.gz-article-lead.is-visible .gz-pullquote {
-    animation: gz-quote-sweep 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-}
-
-@keyframes gz-quote-sweep {
-    0% { box-shadow: inset 0 0 0 rgba(244, 201, 214, 0); }
-    50% { box-shadow: inset 800px 0 0 rgba(244, 201, 214, 0.3); }
-    100% { box-shadow: inset 0 0 0 rgba(244, 201, 214, 0); }
-}
-
-/* ---- WIDE BOTTOM ARTICLE ---- */
-.gz-article-wide {
-    padding-top: 1.5rem;
-}
-
-.gz-wide-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.5rem 2rem;
-    margin-top: 0.75rem;
-}
-
-.gz-wide-left {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.gz-wide-right {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-}
-
-.gz-wide-body {
-    grid-column: 1;
-    grid-row: 2;
-    column-count: 2;
-    column-gap: 1.5rem;
-    column-rule: 1px solid rgba(62, 39, 35, 0.15);
-}
-
-.gz-photo {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    background-color: var(--bg-dark);
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 20px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.gz-photo::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(235, 230, 222, 0.25);
-}
-
-.gz-photo-label {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--text-light-muted);
+    margin: 0 0 0.75rem 0;
 }
 
-.gz-photo-caption {
+.vine-desc {
     font-family: var(--font-body);
-    font-style: italic;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-light-muted);
+    margin: 0;
 }
 
-/* ---- MOBILE ---- */
+/* Mobile */
 @media (max-width: 768px) {
-    .gz-masthead {
-        padding: 2rem 1.25rem 1.25rem;
+    .vine-timeline {
+        min-height: auto;
     }
 
-    .gz-meta-row {
-        flex-direction: column;
-        gap: 0.35rem;
-        text-align: center;
-    }
-
-    .gz-meta-center {
-        text-align: center;
-    }
-
-    .gz-body {
-        padding: 2rem 1.25rem;
-    }
-
-    .gz-row-top,
-    .gz-row-middle {
-        grid-template-columns: 1fr;
-    }
-
-    .gz-row-middle .gz-article-mid:not(:last-child)::after,
-    .gz-article-lead::after {
+    .vine-svg {
         display: none;
     }
 
-    .gz-row-middle .gz-article-mid:not(:last-child),
-    .gz-article-lead {
-        padding-bottom: 1.25rem;
-        border-bottom: 1px solid rgba(62, 39, 35, 0.15);
+    .vine-cards {
+        padding-left: 1.5rem;
     }
 
-    .gz-wide-grid {
-        grid-template-columns: 1fr;
+    .vine-card,
+    .vine-card[data-card] {
+        opacity: 1;
+        transform: none;
+        height: auto;
+        margin: 0 0 2rem 0;
+        padding: 0.5rem 0 0.5rem 1.25rem;
+        border-left: 2px solid var(--accent-pink);
+        max-width: 100%;
+        position: relative;
     }
 
-    .gz-wide-right {
-        display: none;
+    .vine-card::before {
+        content: '';
+        position: absolute;
+        left: -7px;
+        top: 0.75rem;
+        width: 12px;
+        height: 12px;
+        background-color: var(--accent-pink);
+        border-radius: 50%;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .vine-stem {
+        stroke-dashoffset: 0 !important;
     }
 
-    .gz-wide-body,
-    .gz-article-lead .gz-body-copy {
-        column-count: 1;
+    .vine-branch,
+    .vine-flower,
+    .vine-flower .petal,
+    .vine-flower .flower-center,
+    .vine-card {
+        stroke-dashoffset: 0 !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 }
 
