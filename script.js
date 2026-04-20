@@ -340,74 +340,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // EXPERIENCE — EDITORIAL STACK SCROLL STATES
+    // EXPERIENCE — THE GRACE GAZETTE SCROLL ANIMATIONS
     // ============================================
-    const expSection = document.getElementById('experience');
-    if (expSection) {
-        const spreads = expSection.querySelectorAll('.exp-spread');
-
-        if (spreads.length) {
-            // Activate spreads as they enter the viewport, deactivate on leave
-            // so the content stagger animation replays every time
-            const activateObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-active');
-                    } else {
-                        entry.target.classList.remove('is-active');
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '-10% 0px -10% 0px',
-                threshold: 0
-            });
-
-            // Detect when a spread is covered by the next one
-            // Note: we keep is-active once it's set — only toggle is-passed
-            // so content doesn't fade out/re-animate on scroll back up
-            const passObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const spread = entry.target;
-                    if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-                        spread.classList.add('is-passed');
-                    } else if (entry.isIntersecting && entry.boundingClientRect.top >= 0) {
-                        spread.classList.remove('is-passed');
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '-95% 0px 0px 0px',
-                threshold: 0
-            });
-
-            spreads.forEach(spread => {
-                activateObserver.observe(spread);
-                passObserver.observe(spread);
-                spread.setAttribute('tabindex', '0');
-            });
-
-            // Arrow key navigation between spreads
-            expSection.addEventListener('keydown', (e) => {
-                if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-
-                const activeEl = document.activeElement;
-                const activeIndex = Array.from(spreads).indexOf(activeEl);
-                if (activeIndex === -1) return;
-
-                e.preventDefault();
-                let targetIndex = activeIndex;
-
-                if (e.key === 'ArrowDown' && activeIndex < spreads.length - 1) {
-                    targetIndex = activeIndex + 1;
-                } else if (e.key === 'ArrowUp' && activeIndex > 0) {
-                    targetIndex = activeIndex - 1;
+    const gazette = document.getElementById('experience');
+    if (gazette) {
+        // Masthead: fade + scale when section enters view
+        const mastheadObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    gazette.classList.add('is-visible');
+                    mastheadObserver.unobserve(gazette);
                 }
-
-                spreads[targetIndex].focus();
-                spreads[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
-        }
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+        mastheadObserver.observe(gazette);
+
+        // Articles: stagger fade-in left to right
+        const articles = gazette.querySelectorAll('.gz-fade');
+        const articleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const index = Array.from(articles).indexOf(el);
+                    setTimeout(() => el.classList.add('is-visible'), index * 120);
+                    articleObserver.unobserve(el);
+                }
+            });
+        }, { root: null, rootMargin: '0px 0px -15% 0px', threshold: 0.15 });
+
+        articles.forEach(a => articleObserver.observe(a));
     }
 
     // ============================================
