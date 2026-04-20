@@ -772,6 +772,82 @@ section {
     100% { transform: translateX(-50%); }
 }
 
+/* ---- NEWSPAPER BODY ---- */
+.gz-body {
+    background-color: #F4EFE7;
+    padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+    max-width: 1400px;
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+.gz-row {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(62, 39, 35, 0.15);
+}
+
+.gz-row:last-of-type {
+    border-bottom: none;
+}
+
+/* Top row: 60/40 split */
+.gz-row-top {
+    grid-template-columns: 3fr 2fr;
+}
+
+/* Middle row: 3 equal columns */
+.gz-row-middle {
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+}
+
+/* Article base */
+.gz-article {
+    position: relative;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gz-article.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Column rules — thin vertical dividers between articles in middle row */
+.gz-row-middle .gz-article-mid:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: calc(clamp(1.5rem, 3vw, 2.5rem) / -2);
+    width: 1px;
+    height: 0;
+    background-color: rgba(62, 39, 35, 0.25);
+    transition: height 0.8s ease 0.4s;
+}
+
+.gz-row-middle .gz-article-mid.is-visible:not(:last-child)::after {
+    height: 100%;
+}
+
+/* Column rule between lead article and secondary in top row */
+.gz-article-lead::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: calc(clamp(1.5rem, 3vw, 2.5rem) / -2);
+    width: 1px;
+    height: 0;
+    background-color: rgba(62, 39, 35, 0.25);
+    transition: height 0.8s ease 0.4s;
+}
+
+.gz-article-lead.is-visible::after {
+    height: 100%;
+}
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */
