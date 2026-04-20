@@ -349,16 +349,20 @@ body::after {
     }
 }
 
-/* Scroll hint */
+/* Scroll hint — top right of hero */
 .scroll-hint {
-    font-family: var(--font-body);
-    font-size: clamp(0.7rem, 1.2vw, 1rem);
+    position: absolute;
+    top: clamp(1rem, 2.5vw, 2rem);
+    right: clamp(1rem, 2.5vw, 2rem);
+    z-index: 20;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-handwritten);
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
     font-weight: 500;
-    letter-spacing: 0.15em;
-    color: #6B504F;
-    text-align: right;
-    padding: 0 clamp(1.5rem, 4vw, 3rem) 0.5rem;
-    animation: gentle-bounce 2.5s ease-in-out infinite;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    animation: gentle-bounce 1.5s ease-in-out infinite;
 }
 
 @keyframes gentle-bounce {
@@ -2340,27 +2344,76 @@ section {
     opacity: 0;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+/* ============================================
+   HERO — RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Small desktop / large tablet: 768px–1023px — adjust proportions */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .hero-content {
+        grid-template-columns: 55fr 45fr;
+    }
+
+    .hero-text {
+        padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .collage-tl,
+    .collage-tr,
+    .collage-bl,
+    .collage-br {
+        transform: scale(0.8);
+    }
+
+    .paint-1,
+    .paint-2,
+    .paint-3,
+    .paint-4 {
+        opacity: 0.85;
+    }
+
+    .scroll-hint {
+        font-size: 1rem;
+    }
+}
+
+/* Tablet portrait: 600px–767px — switch to single column */
+@media (max-width: 767px) and (min-width: 600px) {
     .hero-content {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
     }
 
     .hero-gif-wrap {
-        height: 50vh;
         order: 1;
+        height: auto;
+        width: 70%;
+        margin: 2rem auto 0;
     }
 
     .hero-gif {
-        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+        height: auto;
+        mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
     }
 
     .hero-text {
         order: 2;
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1.5rem 3rem;
         max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-arrow,
+    .hero-wavy {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-line-tagline {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-separator { display: none; }
@@ -2369,13 +2422,84 @@ section {
     .collage-br { display: none; }
 
     .collage-tl,
-    .collage-tr { transform: scale(0.7); transform-origin: top; }
+    .collage-tr {
+        transform: scale(0.65);
+        transform-origin: top;
+    }
+
+    .scroll-hint {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile: 599px and below */
+@media (max-width: 599px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .hero-gif-wrap {
+        order: 1;
+        height: auto;
+        width: 100%;
+    }
+
+    .hero-gif {
+        height: auto;
+        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+    }
+
+    .hero-text {
+        order: 2;
+        padding: 1.5rem 1.25rem 3rem;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-line-name {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+    }
+
+    .hero-line-tagline {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-arrow,
+    .hero-wavy {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-separator { display: none; }
+
+    /* Hide all collage corners on small mobile */
+    .collage-tl,
+    .collage-tr,
+    .collage-bl,
+    .collage-br { display: none; }
+
+    /* Simplify to 2 blobs on mobile */
+    .paint-3,
+    .paint-4 { display: none; }
 
     .paint-1,
-    .paint-2,
-    .paint-3,
-    .paint-4 {
-        opacity: 0.8;
+    .paint-2 {
+        opacity: 0.7;
+    }
+
+    .scroll-hint {
+        font-size: 0.85rem;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    /* Hide Spotify widget on tiny screens to avoid overlap */
+    .spotify-widget {
+        display: none;
     }
 }
 
