@@ -3,6 +3,34 @@
  * All interactivity and animations
  */
 
+// ============================================
+// FILM GRAIN — animate feTurbulence seed
+// Runs outside DOMContentLoaded to start as early as possible
+// ============================================
+(function animateGrain() {
+    const turbulence = document.getElementById('grainTurbulence');
+    if (!turbulence) {
+        // Retry once DOM is parsed
+        document.addEventListener('DOMContentLoaded', animateGrain);
+        return;
+    }
+
+    let seed = 1;
+    let frameCount = 0;
+
+    function tick() {
+        frameCount++;
+        // Update seed every 3 frames (~20fps grain shift) for performance
+        if (frameCount % 3 === 0) {
+            seed = (seed + 1) % 1000;
+            turbulence.setAttribute('seed', seed);
+        }
+        requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // UTILITIES

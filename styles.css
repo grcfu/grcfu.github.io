@@ -2071,3 +2071,18 @@ section {
         animation: none;
     }
 }
+
+/* ============================================
+   CINEMATIC HERO — FILM GRAIN + VIGNETTE
+   ============================================ */
+.film-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+}
