@@ -104,6 +104,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
+    // HERO GIF — PLAY ONCE, FREEZE, REPLAY ON RE-ENTRY
+    // ============================================
+    // UPDATE GIF_DURATION_MS to match your actual GIF length in milliseconds
+    const GIF_DURATION_MS = 3000;
+
+    const heroGifEl = document.querySelector('.hero-gif');
+    if (heroGifEl && heroSection) {
+        const gifSrc = heroGifEl.getAttribute('src');
+        const transparentPx = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        let freezeTimer = null;
+        let frozenCanvas = null;
+        let isPlaying = false;
+
+        function freezeGif() {
+            // Snapshot the current visible frame to a canvas, then hide the img
+            // so the canvas stays static while the live img gets swapped out.
+            try {
+                const rect = heroGifEl.getBoundingClientRect();
+                const w = heroGifEl.naturalWidth || rect.width;
+                const h = heroGifEl.naturalHeight || rect.height;
+                if (!w || !h) return;
+
+                if (!frozenCanvas) {
+                    frozenCanvas = document.createElement('canvas');
+                    frozenCanvas.className = 'hero-gif hero-gif-frozen';
+                    heroGifEl.parentNode.insertBefore(frozenCanvas, heroGifEl);
+                }
+                frozenCanvas.width = w;
+                frozenCanvas.height = h;
+                const ctx = frozenCanvas.getContext('2d');
+                ctx.drawImage(heroGifEl, 0, 0, w, h);
+
+                // Stop the GIF from continuing to animate
+                heroGifEl.style.display = 'none';
+                frozenCanvas.style.display = 'block';
+            } catch (err) {
+                // If cross-origin or any error, fall back: just pause via src swap
+                heroGifEl.src = transparentPx;
+                setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
+            }
+            isPlaying = false;
+        }
+
+        function playGifOnce() {
+            if (isPlaying) return;
+            isPlaying = true;
+
+            // Remove frozen canvas if present, restore live img
+            if (frozenCanvas) {
+                frozenCanvas.style.display = 'none';
+            }
+            heroGifEl.style.display = 'block';
+            // Force reload by cache-busting query param so the GIF restarts
+            heroGifEl.src = gifSrc + '?t=' + Date.now();
+
+            if (freezeTimer) clearTimeout(freezeTimer);
+            freezeTimer = setTimeout(freezeGif, GIF_DURATION_MS);
+        }
+
+        // Initial play when hero first loads
+        if (heroGifEl.complete) {
+            playGifOnce();
+        } else {
+            heroGifEl.addEventListener('load', playGifOnce, { once: true });
+        }
+
+        // Replay whenever hero re-enters the viewport
+        const gifReplayObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isPlaying) {
+                    playGifOnce();
+                }
+            });
+        }, { root: null, threshold: 0.35 });
+
+        gifReplayObserver.observe(heroSection);
+    }
+
+    // ============================================
     // INK TRAIL CURSOR
     // ============================================
     const supportsHover = window.matchMedia('(hover: hover)').matches;

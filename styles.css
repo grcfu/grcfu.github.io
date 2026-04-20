@@ -2329,6 +2329,16 @@ section {
     transition-delay: 0.3s;
 }
 
+.hero-gif-frozen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.05) contrast(1.03) brightness(1.02);
+    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+}
+
 /* Ink trail cursor */
 .ink-dot {
     position: fixed;
