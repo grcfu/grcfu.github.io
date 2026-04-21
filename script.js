@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // HERO GIF — PLAY ONCE, FREEZE, REPLAY ON RE-ENTRY
     // ============================================
     // UPDATE GIF_DURATION_MS to match your actual GIF length in milliseconds
-    const GIF_DURATION_MS = 3000;
+    const GIF_DURATION_MS = 2999;
 
     const heroGifEl = document.querySelector('.hero-gif');
     if (heroGifEl && heroSection) {
