@@ -1426,21 +1426,23 @@ section {
     cursor: pointer;
     mix-blend-mode: multiply;
     z-index: 2;
-    transition: transform var(--transition-fast);
-    animation: bag-pulse 2.5s ease-in-out infinite;
+    transform-origin: center bottom;
 }
 
-.bag-img:hover {
-    transform: translate(-50%, -50%) scale(1.05);
+/* Resting state — bag wobbles side to side like something wants out */
+.bag-img.is-wobbling {
+    animation: bag-wobble 2.5s ease-in-out infinite alternate;
 }
 
+@keyframes bag-wobble {
+    0%   { transform: translate(calc(-50% - 3px), -50%) rotate(-2deg); }
+    100% { transform: translate(calc(-50% + 3px), -50%) rotate(2deg); }
+}
+
+/* Opened — no wobble, no shake */
 .bag-canvas.opened .bag-img {
     animation: none;
-}
-
-@keyframes bag-pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.03); }
+    transform: translate(-50%, -50%);
 }
 
 .bag-hint {

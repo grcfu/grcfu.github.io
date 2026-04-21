@@ -524,14 +524,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const allBlobs = bagCanvas.querySelectorAll('.skill-blob');
         const allCatLabels = bagCanvas.querySelectorAll('.cat-label');
 
+        // Start bag in resting wobble state
+        bagImg.classList.add('is-wobbling');
+
         bagImg.addEventListener('click', () => {
             const isOpening = !bagCanvas.classList.contains('opened');
 
             if (isOpening) {
                 bagCanvas.classList.add('opened');
+                // Stop wobbling — bag is open now
+                bagImg.classList.remove('is-wobbling');
                 allBlobs.forEach(b => b.classList.remove('was-open'));
             } else {
                 bagCanvas.classList.remove('opened');
+                // Restore wobble — bag is closed again
+                bagImg.classList.add('is-wobbling');
                 allBlobs.forEach(b => b.classList.add('was-open'));
                 allCatLabels.forEach(l => l.style.opacity = '0');
             }
