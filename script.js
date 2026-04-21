@@ -28,49 +28,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
-    // HERO — PASTEL ENTRANCE SEQUENCE + SCROLL
+    // HERO — SPLIT SCREEN 4-PHASE ENTRANCE
     // ============================================
     const heroSection = document.getElementById('hero');
     const heroPrefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const heroIsMobile = window.matchMedia('(max-width: 767px)').matches;
 
     if (heroSection) {
-        setTimeout(() => heroSection.classList.add('is-loaded'), 0);
+        // Mark is-loaded immediately so paint blobs, GIF opacity fade in
+        heroSection.classList.add('is-loaded');
 
         const lineTiny = document.querySelector('#heroLineTiny .hero-reveal');
-        const arrow = document.getElementById('heroArrow');
         const lineName = document.querySelector('#heroLineName .hero-reveal');
         const wavy = document.getElementById('heroWavy');
         const lineTagline = document.querySelector('#heroLineTagline .hero-reveal');
+        const lineTagline2 = document.querySelector('#heroLineTagline2 .hero-reveal');
         const lineCredentials = document.querySelector('#heroLineCredentials .hero-reveal');
 
-        const revealSchedule = [
-            { el: lineTiny, delay: 300 },
-            { el: arrow, delay: 700, cls: 'is-drawn' },
-            { el: lineName, delay: 1100 },
-            { el: wavy, delay: 1600, cls: 'is-drawn' },
-            { el: lineTagline, delay: 2100 },
-            { el: lineCredentials, delay: 2600 }
-        ];
-
-        if (heroPrefersReduced) {
-            revealSchedule.forEach(({ el, cls }) => {
-                if (el) el.classList.add(cls || 'is-revealed');
-            });
-        } else {
-            revealSchedule.forEach(({ el, delay, cls }) => {
-                if (!el) return;
-                setTimeout(() => el.classList.add(cls || 'is-revealed'), delay);
-            });
+        function revealText(el, cls) {
+            if (el) el.classList.add(cls || 'is-revealed');
         }
 
-        // Scroll: text fades fast, GIF lingers, blobs mid, collage last
+        if (heroPrefersReduced || heroIsMobile) {
+            // Skip split-screen animation: jump straight to phase-text + phase-finish
+            // Mobile uses static layout (see CSS media queries); just reveal everything.
+            heroSection.classList.add('phase-split', 'phase-text', 'phase-finish');
+            revealText(lineTiny);
+            revealText(lineName);
+            revealText(wavy, 'is-drawn');
+            revealText(lineTagline);
+            revealText(lineTagline2);
+            revealText(lineCredentials);
+        } else {
+            // ----- Phase 1: Opening state (0–0.6s) -----
+            // GIF centered, text hidden, panel off-screen. Just let the user see it.
+
+            // ----- Phase 2: Split (0.6s, 0.9s duration) -----
+            setTimeout(() => {
+                heroSection.classList.add('phase-split');
+            }, 600);
+
+            // ----- Phase 3: Text reveals (starts at 1.5s = 0.6s + 0.9s) -----
+            // Each line sweeps in via clip-path, 0.35s stagger
+            setTimeout(() => {
+                heroSection.classList.add('phase-text');
+                revealText(lineTiny);
+            }, 1500);
+
+            setTimeout(() => revealText(lineName), 1500 + 350);
+            setTimeout(() => revealText(wavy, 'is-drawn'), 1500 + 700);
+            setTimeout(() => revealText(lineTagline), 1500 + 1050);
+            setTimeout(() => revealText(lineTagline2), 1500 + 1400);
+            setTimeout(() => revealText(lineCredentials), 1500 + 1750);
+
+            // ----- Phase 4: Finishing touches (after last text line ~3.25s) -----
+            setTimeout(() => {
+                heroSection.classList.add('phase-finish');
+            }, 1500 + 1750 + 500);
+        }
+
+        // ----- Scroll transition (runs always after entrance) -----
         const heroText = document.getElementById('heroText');
-        const heroGifWrap = document.querySelector('.hero-gif-wrap');
+        const heroGifWrap = document.getElementById('heroGifWrap');
         const heroPaints = document.querySelectorAll('.hero-paint');
         const heroCollages = document.querySelectorAll('.collage');
         let heroTicking = false;
 
         function updateHeroScroll() {
+            // Skip scroll fade effect on mobile per spec
+            if (heroIsMobile) { heroTicking = false; return; }
+
             const rect = heroSection.getBoundingClientRect();
             const heroHeight = rect.height || 1;
             const progress = Math.max(0, Math.min(1, -rect.top / heroHeight));
@@ -106,8 +133,90 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // HERO GIF — PLAY ONCE, FREEZE, REPLAY ON RE-ENTRY
     // ============================================
-    // UPDATE GIF_DURATION_MS to match your actual GIF length in milliseconds
-    const GIF_DURATION_MS = 2999;
+    // UPDATE THIS to your actual GIF duration in milliseconds.
+    // Acts as a fallback if the frame-66 parser below can't read the GIF.
+    const GIF_DURATION_MS = 3000;
+
+    // Target frame to freeze on (1-indexed). The GIF binary is parsed to
+    // find the cumulative delay up to this frame.
+    const GIF_FREEZE_FRAME = 66;
+    let gifFreezeTimeMs = GIF_DURATION_MS; // Replaced by parsed value below
+
+    // Parse GIF binary to compute time when a given 1-indexed frame appears.
+    // Returns the cumulative ms delay of frames 1..(targetFrame-1).
+    async function computeFrameStartTime(url, targetFrame) {
+        try {
+            const res = await fetch(url);
+            const buf = await res.arrayBuffer();
+            const bytes = new Uint8Array(buf);
+
+            // Skip header (6) + logical screen descriptor (7 bytes)
+            let pos = 13;
+            const packed = bytes[10];
+            if (packed & 0x80) {
+                const gctSize = 3 * Math.pow(2, (packed & 0x07) + 1);
+                pos += gctSize;
+            }
+
+            let frameCount = 0;
+            let cumulativeMs = 0;
+            let lastDelay = 0;
+
+            while (pos < bytes.length) {
+                const marker = bytes[pos];
+                if (marker === 0x3B) break; // GIF trailer
+
+                if (marker === 0x21) {
+                    // Extension block
+                    const label = bytes[pos + 1];
+                    if (label === 0xF9) {
+                        // Graphic Control Extension
+                        // bytes[pos+4..5] = delay in hundredths of a second, LE
+                        const delayCs = bytes[pos + 4] | (bytes[pos + 5] << 8);
+                        lastDelay = delayCs * 10;
+                        pos += 8;
+                    } else {
+                        // Skip other extensions (label + sub-blocks until 0x00)
+                        pos += 2;
+                        while (pos < bytes.length) {
+                            const blockSize = bytes[pos];
+                            if (blockSize === 0) { pos++; break; }
+                            pos += blockSize + 1;
+                        }
+                    }
+                } else if (marker === 0x2C) {
+                    // Image descriptor = a frame
+                    frameCount++;
+                    if (frameCount >= targetFrame) {
+                        return cumulativeMs;
+                    }
+                    cumulativeMs += lastDelay || 100;
+
+                    // Skip image descriptor (10 bytes) + optional LCT + LZW data
+                    const imgPacked = bytes[pos + 9];
+                    pos += 10;
+                    if (imgPacked & 0x80) {
+                        const lctSize = 3 * Math.pow(2, (imgPacked & 0x07) + 1);
+                        pos += lctSize;
+                    }
+                    pos++; // LZW minimum code size
+                    while (pos < bytes.length) {
+                        const blockSize = bytes[pos];
+                        if (blockSize === 0) { pos++; break; }
+                        pos += blockSize + 1;
+                    }
+                } else {
+                    pos++;
+                }
+            }
+
+            // Fewer than targetFrame frames — return total
+            return cumulativeMs;
+        } catch (err) {
+            console.warn('GIF frame parse failed, using fallback duration:', err);
+            return null;
+        }
+    }
 
     const heroGifEl = document.querySelector('.hero-gif');
     if (heroGifEl && heroSection) {
@@ -116,6 +225,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let freezeTimer = null;
         let frozenCanvas = null;
         let isPlaying = false;
+
+        // Kick off the GIF parse immediately; update timer if result arrives
+        // after the first play cycle has already started.
+        computeFrameStartTime(gifSrc, GIF_FREEZE_FRAME).then(ms => {
+            if (ms !== null && ms > 0) {
+                gifFreezeTimeMs = ms;
+                // If a playback is in progress, reschedule its freeze with the accurate time
+                if (isPlaying && freezeTimer) {
+                    clearTimeout(freezeTimer);
+                    freezeTimer = setTimeout(freezeGif, ms);
+                }
+            }
+        });
 
         function freezeGif() {
             // Snapshot the current visible frame to a canvas, then hide the img
@@ -160,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heroGifEl.src = gifSrc + '?t=' + Date.now();
 
             if (freezeTimer) clearTimeout(freezeTimer);
-            freezeTimer = setTimeout(freezeGif, GIF_DURATION_MS);
+            freezeTimer = setTimeout(freezeGif, gifFreezeTimeMs);
         }
 
         // Initial play when hero first loads
