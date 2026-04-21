@@ -2207,22 +2207,10 @@ section {
    HERO — SPLIT SCREEN ENTRANCE
    ============================================ */
 
-/* Phase 2: left cream panel curtains in from the left */
+/* Phase 2: transparent panel used only as a phase trigger marker now —
+   with transparent GIF the cream curtain isn't needed visually */
 .hero-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background-color: var(--bg-primary);
-    z-index: 4;
-    pointer-events: none;
-    transform: translateX(-100%);
-    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.hero.phase-split .hero-panel {
-    transform: translateX(0);
+    display: none;
 }
 
 /* Vertical separator between halves — only visible after split lands */
@@ -2244,21 +2232,19 @@ section {
     opacity: 1;
 }
 
-/* Hero content layout */
+/* Hero content layout — single column so text can overlap the GIF area */
 .hero-content {
     position: relative;
     z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    align-items: center;
     width: 100%;
     min-height: 100vh;
-    align-items: center;
 }
 
 .hero-text {
     padding: 0 clamp(1.5rem, 5vw, 5rem);
-    max-width: 720px;
-    justify-self: start;
+    max-width: min(1100px, 72vw);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -2293,12 +2279,15 @@ section {
 
 .hero-line-name {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(4.5rem, 7vw, 10rem);
+    font-size: clamp(5rem, 11vw, 14rem);
     font-weight: 400;
     color: var(--text-primary);
     line-height: 0.95;
     margin: 0;
     letter-spacing: -0.02em;
+    /* Ensure the name visually overlaps into GIF area */
+    position: relative;
+    z-index: 11;
 }
 
 .hero-wavy {
@@ -2374,8 +2363,9 @@ section {
 .hero-gif {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: contain;
+    object-position: center bottom;
+    background-color: transparent;
     filter: sepia(0.05) contrast(1.03) brightness(1.02);
     opacity: 0;
     transition: opacity 0.6s ease;
@@ -2385,23 +2375,13 @@ section {
     opacity: 1;
 }
 
-/* After settling, apply soft left-edge mask to blend into text side */
-.hero.phase-split .hero-gif {
-    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
-}
-
 .hero-gif-frozen {
     display: none;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: transparent;
     filter: sepia(0.05) contrast(1.03) brightness(1.02);
-}
-
-.hero.phase-split .hero-gif-frozen {
-    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
 }
 
 /* Ink trail cursor */
@@ -2426,7 +2406,7 @@ section {
 /* Standard desktop: 1024px–1439px — slightly smaller type */
 @media (max-width: 1439px) and (min-width: 1024px) {
     .hero-line-name {
-        font-size: clamp(4.5rem, 7vw, 7rem);
+        font-size: clamp(5rem, 10vw, 10rem);
     }
 
     .hero-line-tagline,
@@ -2507,13 +2487,6 @@ section {
 
     .hero-gif {
         height: auto;
-        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-    }
-
-    .hero.phase-split .hero-gif {
-        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
     }
 
     /* Text: simple fade on phase-text, top order */

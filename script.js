@@ -131,16 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // HERO GIF — PLAY ONCE, FREEZE, REPLAY ON RE-ENTRY
+    // HERO GIF — PLAY FOR GIF_DURATION_MS, FREEZE ON 2500ms FRAME
     // ============================================
-    // UPDATE THIS to your actual GIF duration in milliseconds.
-    // Acts as a fallback if the frame-66 parser below can't read the GIF.
+    // The GIF plays fully for GIF_DURATION_MS; at GIF_SNAPSHOT_MS we
+    // capture the current frame to canvas, and at GIF_DURATION_MS we
+    // swap to that canvas — so the visible freeze frame is the one
+    // from GIF_SNAPSHOT_MS even though playback ran the full duration.
     const GIF_DURATION_MS = 3000;
+    const GIF_SNAPSHOT_MS = 2500;
 
-    // Target frame to freeze on (1-indexed). The GIF binary is parsed to
-    // find the cumulative delay up to this frame.
-    const GIF_FREEZE_FRAME = 66;
-    let gifFreezeTimeMs = GIF_DURATION_MS; // Replaced by parsed value below
+    // Optional: parse the GIF binary to find the exact time a specific frame
+    // starts. Set to null to skip parsing and use the constants above.
+    const GIF_FREEZE_FRAME = null;
+    let gifFreezeTimeMs = GIF_DURATION_MS;
+    let gifSnapshotTimeMs = GIF_SNAPSHOT_MS;
 
     // Parse GIF binary to compute time when a given 1-indexed frame appears.
     // Returns the cumulative ms delay of frames 1..(targetFrame-1).
@@ -223,25 +227,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const gifSrc = heroGifEl.getAttribute('src');
         const transparentPx = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         let freezeTimer = null;
+        let snapshotTimer = null;
         let frozenCanvas = null;
         let isPlaying = false;
 
-        // Kick off the GIF parse immediately; update timer if result arrives
-        // after the first play cycle has already started.
-        computeFrameStartTime(gifSrc, GIF_FREEZE_FRAME).then(ms => {
-            if (ms !== null && ms > 0) {
-                gifFreezeTimeMs = ms;
-                // If a playback is in progress, reschedule its freeze with the accurate time
-                if (isPlaying && freezeTimer) {
-                    clearTimeout(freezeTimer);
-                    freezeTimer = setTimeout(freezeGif, ms);
+        // If GIF_FREEZE_FRAME is set, parse the GIF to find that frame's
+        // start time and override the simple GIF_DURATION_MS timer.
+        if (GIF_FREEZE_FRAME) {
+            computeFrameStartTime(gifSrc, GIF_FREEZE_FRAME).then(ms => {
+                if (ms !== null && ms > 0) {
+                    gifFreezeTimeMs = ms;
+                    if (isPlaying && freezeTimer) {
+                        clearTimeout(freezeTimer);
+                        freezeTimer = setTimeout(freezeGif, ms);
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        function freezeGif() {
-            // Snapshot the current visible frame to a canvas, then hide the img
-            // so the canvas stays static while the live img gets swapped out.
+        // Capture the currently visible frame to canvas (live img stays visible)
+        function snapshotCurrentFrame() {
             try {
                 const rect = heroGifEl.getBoundingClientRect();
                 const w = heroGifEl.naturalWidth || rect.width;
@@ -257,14 +262,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 frozenCanvas.height = h;
                 const ctx = frozenCanvas.getContext('2d');
                 ctx.drawImage(heroGifEl, 0, 0, w, h);
+            } catch (err) {
+                console.warn('GIF snapshot failed:', err);
+            }
+        }
 
-                // Stop the GIF from continuing to animate
+        // Swap the live GIF for the already-captured canvas
+        function freezeGif() {
+            if (frozenCanvas) {
                 heroGifEl.style.display = 'none';
                 frozenCanvas.style.display = 'block';
-            } catch (err) {
-                // If cross-origin or any error, fall back: just pause via src swap
-                heroGifEl.src = transparentPx;
-                setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
+            } else {
+                // Fallback if snapshot hadn't fired yet: try to snapshot now
+                snapshotCurrentFrame();
+                if (frozenCanvas) {
+                    heroGifEl.style.display = 'none';
+                    frozenCanvas.style.display = 'block';
+                } else {
+                    heroGifEl.src = transparentPx;
+                    setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
+                }
             }
             isPlaying = false;
         }
@@ -273,15 +290,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isPlaying) return;
             isPlaying = true;
 
-            // Remove frozen canvas if present, restore live img
+            // Restore live img, hide any previous frozen canvas
             if (frozenCanvas) {
                 frozenCanvas.style.display = 'none';
             }
             heroGifEl.style.display = 'block';
-            // Force reload by cache-busting query param so the GIF restarts
+            // Cache-bust src so the GIF animation restarts from frame 1
             heroGifEl.src = gifSrc + '?t=' + Date.now();
 
+            if (snapshotTimer) clearTimeout(snapshotTimer);
             if (freezeTimer) clearTimeout(freezeTimer);
+
+            // At gifSnapshotTimeMs, capture the frame (but keep GIF playing)
+            snapshotTimer = setTimeout(snapshotCurrentFrame, gifSnapshotTimeMs);
+            // At gifFreezeTimeMs, swap the live GIF out for the canvas snapshot
             freezeTimer = setTimeout(freezeGif, gifFreezeTimeMs);
         }
 
