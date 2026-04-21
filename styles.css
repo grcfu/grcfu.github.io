@@ -1395,7 +1395,7 @@ section {
 
 .skills-heading-bottom em {
     font-style: italic;
-    color: #8B1A1A;
+    color: var(--bg-dark);
 }
 
 .skills-subtitle {
@@ -1404,7 +1404,7 @@ section {
     font-weight: 600;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--bg-dark);
 }
 
 /* Bag Canvas */
@@ -1459,12 +1459,36 @@ section {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 80px);
+    transform: translate(-50%, 110px);
     font-family: 'Caveat', cursive;
-    font-size: 1.1rem;
-    color: var(--text-muted);
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-weight: 700;
+    color: var(--bg-dark);
+    background-color: rgba(238, 235, 231, 0.95);
+    border: 2px solid var(--bg-dark);
+    padding: 0.5rem 1.25rem 0.4rem;
     z-index: 3;
+    white-space: nowrap;
+    box-shadow: 3px 3px 0 var(--bg-dark);
+    animation: bag-hint-bounce 1.4s ease-in-out infinite;
     transition: opacity 0.3s ease;
+}
+
+.bag-hint::before {
+    content: '↓ ';
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.bag-hint::after {
+    content: ' ↓';
+    display: inline-block;
+    margin-left: 0.25rem;
+}
+
+@keyframes bag-hint-bounce {
+    0%, 100% { transform: translate(-50%, 110px); }
+    50%      { transform: translate(-50%, 118px); }
 }
 
 .bag-canvas.opened .bag-hint {
@@ -1534,24 +1558,31 @@ section {
     }
 }
 
-/* Category colors */
+/* Category colors — all brown-themed to pop against pink wallpaper */
 .blob-lang {
-    background-color: rgba(244, 201, 214, 0.7);
-    color: var(--text-primary);
+    background-color: #6D5D53;
+    color: var(--bg-primary);
+    border: 1.5px solid var(--bg-dark);
 }
 
 .blob-data {
-    background-color: rgba(68, 47, 42, 0.15);
-    color: var(--text-primary);
+    background-color: var(--bg-dark);
+    color: var(--bg-primary);
+    border: 1.5px solid var(--bg-dark);
 }
 
 .blob-tools {
-    background-color: rgba(139, 26, 26, 0.12);
-    color: var(--text-primary);
+    background-color: #9C8E84;
+    color: var(--bg-dark);
+    border: 1.5px solid var(--bg-dark);
+}
+
+.skill-blob {
+    box-shadow: 2px 2px 0 rgba(68, 47, 42, 0.25);
 }
 
 .skill-blob:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 3px 0 var(--bg-dark);
 }
 
 /* Inner wrapper carries the wiggle transform — isolated from the
@@ -1605,18 +1636,21 @@ section {
     left: 50%;
     top: 50%;
     font-family: 'Caveat', cursive;
-    font-size: clamp(0.75rem, 1vw, 0.95rem);
+    font-size: clamp(0.95rem, 1.4vw, 1.25rem);
     font-weight: 700;
     text-transform: lowercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     white-space: nowrap;
     opacity: 0;
     transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
     z-index: 1;
+    background-color: rgba(238, 235, 231, 0.85);
+    padding: 0.2rem 0.6rem;
+    border: 1.5px dashed var(--bg-dark);
 }
 
-.cat-label-lang { color: var(--text-secondary); }
-.cat-label-data { color: var(--accent-pink-dark); }
+.cat-label-lang { color: var(--bg-dark); }
+.cat-label-data { color: var(--bg-dark); }
 .cat-label-tools { color: var(--bg-dark); }
 
 .bag-canvas.opened .cat-label {
@@ -1633,7 +1667,8 @@ section {
     text-align: center;
     font-family: var(--font-body);
     font-size: clamp(0.8rem, 1vw, 0.9rem);
-    color: var(--text-secondary);
+    color: var(--bg-dark);
+    font-weight: 500;
     margin-top: 1rem;
     letter-spacing: 0.05em;
 }
