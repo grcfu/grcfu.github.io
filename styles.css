@@ -1518,6 +1518,16 @@ section {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0) rotate(0deg);
     }
+    60% {
+        opacity: 1;
+        /* Past target by ~10% — overshoot */
+        transform: translate(calc(-50% + var(--x) * 1.1), calc(-50% + var(--y) * 1.1)) scale(1.12) rotate(var(--r));
+    }
+    80% {
+        opacity: 1;
+        /* Back past target the other way — slight undershoot */
+        transform: translate(calc(-50% + var(--x) * 0.95), calc(-50% + var(--y) * 0.95)) scale(0.95) rotate(var(--r));
+    }
     100% {
         opacity: 1;
         transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--r));
