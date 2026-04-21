@@ -585,14 +585,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let activeTooltip = null;
 
+        // Wrap each blob's text in a .blob-inner span so the hover wiggle
+        // transform doesn't conflict with the positioning transform.
+        // Store skill name on dataset so tooltip lookup stays clean.
         bagCanvas.querySelectorAll('.skill-blob').forEach(blob => {
             blob.style.cursor = 'pointer';
+            const name = blob.textContent.trim();
+            blob.dataset.name = name;
+            const inner = document.createElement('span');
+            inner.className = 'blob-inner';
+            inner.textContent = name;
+            blob.textContent = '';
+            blob.appendChild(inner);
+
             blob.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (activeTooltip) activeTooltip.remove();
 
-                const name = blob.textContent.trim();
-                const desc = skillDescriptions[name];
+                const desc = skillDescriptions[blob.dataset.name];
                 if (!desc) return;
 
                 const tip = document.createElement('div');

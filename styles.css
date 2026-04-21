@@ -1554,6 +1554,27 @@ section {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Inner wrapper carries the wiggle transform — isolated from the
+   positioning transform on .skill-blob so they don't conflict. */
+.blob-inner {
+    display: inline-block;
+    transform-origin: center;
+}
+
+.skill-blob:hover .blob-inner {
+    animation: blob-wiggle 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes blob-wiggle {
+    0%   { transform: rotate(0deg) scale(1); }
+    15%  { transform: rotate(-4deg) scale(1.05); }
+    30%  { transform: rotate(4deg) scale(1.08); }
+    45%  { transform: rotate(-3deg) scale(1.05); }
+    60%  { transform: rotate(3deg) scale(1.03); }
+    75%  { transform: rotate(-1deg) scale(1.01); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
 /* Tooltip */
 .skill-tooltip {
     position: absolute;
