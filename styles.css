@@ -2269,7 +2269,7 @@ section {
     opacity: 1;
 }
 
-/* Handwriting sweep reveal — clip-path from right */
+/* Clip-path reveal — left-to-right text sweep */
 .hero-reveal {
     display: inline-block;
     clip-path: inset(0 100% 0 0);
@@ -2424,10 +2424,37 @@ section {
    HERO — RESPONSIVE BREAKPOINTS
    ============================================ */
 
-/* Small desktop / large tablet: 768px–1023px — adjust proportions */
+/* Standard desktop: 1024px–1439px — slightly smaller type */
+@media (max-width: 1439px) and (min-width: 1024px) {
+    .hero-line-name {
+        font-size: clamp(4.5rem, 7vw, 7rem);
+    }
+
+    .hero-line-tagline,
+    .hero-line-tagline-2 {
+        font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+    }
+}
+
+/* Small desktop / large tablet: 768px–1023px — narrower proportions */
 @media (max-width: 1023px) and (min-width: 768px) {
-    .hero-content {
-        grid-template-columns: 55fr 45fr;
+    .hero-line-name {
+        font-size: clamp(3.5rem, 6vw, 5rem);
+    }
+
+    .hero-line-tagline,
+    .hero-line-tagline-2 {
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+    }
+
+    /* GIF takes 45% width, text 55% */
+    .hero.phase-split .hero-gif-wrap {
+        left: 55%;
+        width: 45%;
+    }
+
+    .hero-panel {
+        width: 55%;
     }
 
     .hero-text {
@@ -2453,46 +2480,69 @@ section {
     }
 }
 
-/* Tablet portrait: 600px–767px — switch to single column */
-@media (max-width: 767px) and (min-width: 600px) {
+/* Tablet portrait and mobile: 767px and below — single column, skip split */
+@media (max-width: 767px) {
+    /* Skip split-screen: GIF + panel return to static layout */
+    .hero-panel {
+        display: none;
+    }
+
     .hero-content {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
+        min-height: auto;
     }
 
-    .hero-gif-wrap {
-        order: 1;
+    /* GIF: static position in the grid, below the text */
+    .hero-gif-wrap,
+    .hero.phase-split .hero-gif-wrap {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none !important;
+        width: 100%;
         height: auto;
-        width: 70%;
-        margin: 2rem auto 0;
+        order: 2;
+        margin: 1.5rem auto 0;
     }
 
     .hero-gif {
         height: auto;
-        mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
     }
 
+    .hero.phase-split .hero-gif {
+        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+    }
+
+    /* Text: simple fade on phase-text, top order */
     .hero-text {
-        order: 2;
-        padding: 1.5rem 1.5rem 3rem;
+        order: 1;
+        padding: 3rem 1.5rem 1rem;
         max-width: 100%;
         text-align: center;
     }
 
-    .hero-arrow,
     .hero-wavy {
         margin-left: auto;
         margin-right: auto;
     }
 
-    .hero-line-tagline {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+    .hero-separator { display: none; }
+}
+
+/* Tablet portrait: 600px–767px */
+@media (max-width: 767px) and (min-width: 600px) {
+    .hero-line-name {
+        font-size: clamp(3rem, 8vw, 4.5rem);
     }
 
-    .hero-separator { display: none; }
+    .hero-gif-wrap,
+    .hero.phase-split .hero-gif-wrap {
+        width: 70%;
+    }
 
     .collage-bl,
     .collage-br { display: none; }
@@ -2510,47 +2560,14 @@ section {
 
 /* Mobile: 599px and below */
 @media (max-width: 599px) {
-    .hero-content {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-    }
-
-    .hero-gif-wrap {
-        order: 1;
-        height: auto;
-        width: 100%;
-    }
-
-    .hero-gif {
-        height: auto;
-        mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
-    }
-
-    .hero-text {
-        order: 2;
-        padding: 1.5rem 1.25rem 3rem;
-        max-width: 100%;
-        text-align: center;
-    }
-
     .hero-line-name {
-        font-size: clamp(2.8rem, 14vw, 4.5rem);
+        font-size: clamp(2.8rem, 10vw, 4rem);
     }
 
-    .hero-line-tagline {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+    .hero-line-tagline,
+    .hero-line-tagline-2 {
+        font-size: clamp(1rem, 4vw, 1.3rem);
     }
-
-    .hero-arrow,
-    .hero-wavy {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-separator { display: none; }
 
     /* Hide all collage corners on small mobile */
     .collage-tl,
