@@ -1439,6 +1439,16 @@ section {
     100% { transform: translate(calc(-50% + 3px), -50%) rotate(2deg); }
 }
 
+/* Hover state — rapid urgent shake, overrides wobble */
+.bag-img.is-shaking {
+    animation: bag-shake 0.08s ease-in-out infinite alternate;
+}
+
+@keyframes bag-shake {
+    0%   { transform: translate(calc(-50% - 5px), -50%); }
+    100% { transform: translate(calc(-50% + 5px), -50%); }
+}
+
 /* Opened — no wobble, no shake */
 .bag-canvas.opened .bag-img {
     animation: none;

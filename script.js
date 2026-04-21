@@ -527,13 +527,27 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start bag in resting wobble state
         bagImg.classList.add('is-wobbling');
 
+        // Hover: swap wobble for urgent shake — only while bag is closed
+        bagImg.addEventListener('mouseenter', () => {
+            if (bagCanvas.classList.contains('opened')) return;
+            bagImg.classList.remove('is-wobbling');
+            bagImg.classList.add('is-shaking');
+        });
+
+        bagImg.addEventListener('mouseleave', () => {
+            bagImg.classList.remove('is-shaking');
+            if (!bagCanvas.classList.contains('opened')) {
+                bagImg.classList.add('is-wobbling');
+            }
+        });
+
         bagImg.addEventListener('click', () => {
             const isOpening = !bagCanvas.classList.contains('opened');
 
             if (isOpening) {
                 bagCanvas.classList.add('opened');
-                // Stop wobbling — bag is open now
-                bagImg.classList.remove('is-wobbling');
+                // Stop any animation — bag is open now
+                bagImg.classList.remove('is-wobbling', 'is-shaking');
                 allBlobs.forEach(b => b.classList.remove('was-open'));
             } else {
                 bagCanvas.classList.remove('opened');
