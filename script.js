@@ -692,6 +692,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const splashes = paletteSection.querySelectorAll('.splash');
         const isTouch = window.matchMedia('(hover: none)').matches;
 
+        // Scroll-in: trigger palette/blob/smear/brush entrance animations once
+        const paletteObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    paletteSection.classList.add('is-visible');
+                    paletteObserver.unobserve(paletteSection);
+                }
+            });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+        paletteObserver.observe(paletteSection);
+
         // Map blob id → splash id
         function findSplash(blobId) {
             return paletteSection.querySelector(`.splash[data-splash="${blobId}"]`);
