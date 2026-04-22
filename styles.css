@@ -867,6 +867,53 @@ section {
     max-width: 260px;
 }
 
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .palette-stage {
+        max-width: 100vw;
+        margin: 1rem auto 0;
+    }
+
+    .palette-brush {
+        display: none;
+    }
+
+    .splash-role {
+        font-size: 0.9rem;
+        max-width: 200px;
+    }
+
+    .splash-desc {
+        font-size: 0.72rem;
+        max-width: 200px;
+    }
+
+    .splash-company {
+        font-size: 0.9rem;
+    }
+
+    .splash-cat {
+        font-size: 0.6rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .palette-stage,
+    .palette-brush,
+    .paint-blob,
+    .paint-smears .smear,
+    .splash,
+    .splash-text {
+        animation: none !important;
+        transition: opacity 0.15s ease !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    .palette-section.is-visible .paint-smears .smear {
+        stroke-dashoffset: 0 !important;
+    }
+}
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */
