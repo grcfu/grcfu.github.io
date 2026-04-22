@@ -760,6 +760,22 @@ section {
     transform: scale(1.08);
 }
 
+/* Paint smear trails — draw on entrance after blobs land */
+.paint-smears .smear {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    transition: stroke-dashoffset 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.palette-section.is-visible .paint-smears .smear {
+    stroke-dashoffset: 0;
+}
+
+.palette-section.is-visible .paint-smears .smear:nth-child(1) { transition-delay: 1.25s; }
+.palette-section.is-visible .paint-smears .smear:nth-child(2) { transition-delay: 1.3s; }
+.palette-section.is-visible .paint-smears .smear:nth-child(3) { transition-delay: 1.35s; }
+.palette-section.is-visible .paint-smears .smear:nth-child(4) { transition-delay: 1.4s; }
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */
