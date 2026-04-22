@@ -680,6 +680,126 @@ document.addEventListener('DOMContentLoaded', () => {
         contactObserver.observe(contactSection);
     }
 
+    // ============================================
+    // EXPERIENCE — THE ARTIST PALETTE
+    // ============================================
+    const paletteSection = document.getElementById('experience');
+    if (paletteSection && paletteSection.classList.contains('palette-section')) {
+        const paletteSvg = document.getElementById('paletteSvg');
+        const paletteStage = document.getElementById('paletteStage');
+        const splashText = document.getElementById('splashText');
+        const blobs = paletteSection.querySelectorAll('.paint-blob');
+        const splashes = paletteSection.querySelectorAll('.splash');
+        const isTouch = window.matchMedia('(hover: none)').matches;
+
+        // Map blob id → splash id
+        function findSplash(blobId) {
+            return paletteSection.querySelector(`.splash[data-splash="${blobId}"]`);
+        }
+
+        // Position text overlay over the splash center in SVG coordinates
+        function positionTextOver(blob) {
+            if (!splashText || !paletteSvg || !paletteStage) return;
+            const m = blob.getAttribute('transform').match(/translate\(([-\d.]+)\s+([-\d.]+)\)/);
+            if (!m) return;
+            const cx = parseFloat(m[1]);
+            const cy = parseFloat(m[2]);
+            // SVG uses viewBox 0 0 1000 700; convert to stage pixels
+            const stageRect = paletteStage.getBoundingClientRect();
+            const svgRect = paletteSvg.getBoundingClientRect();
+            const scaleX = svgRect.width / 1000;
+            const scaleY = svgRect.height / 700;
+            const x = (svgRect.left - stageRect.left) + cx * scaleX;
+            const y = (svgRect.top - stageRect.top) + cy * scaleY;
+            splashText.style.left = x + 'px';
+            splashText.style.top = y + 'px';
+        }
+
+        // Fill text overlay with blob's data attributes
+        function fillText(blob) {
+            if (!splashText) return;
+            splashText.querySelector('.splash-cat').textContent = blob.dataset.cat || '';
+            splashText.querySelector('.splash-role').textContent = blob.dataset.role || '';
+            splashText.querySelector('.splash-company').textContent = blob.dataset.company || '';
+            splashText.querySelector('.splash-date').textContent = blob.dataset.date || '';
+            splashText.querySelector('.splash-desc').textContent = blob.dataset.desc || '';
+        }
+
+        // State
+        let activeBlob = null;
+        let closeTimer = null;
+
+        function openSplash(blob) {
+            if (activeBlob === blob) return;
+            const openOnce = (newBlob) => {
+                const splash = findSplash(newBlob.dataset.blob);
+                if (!splash) return;
+                fillText(newBlob);
+                positionTextOver(newBlob);
+                splash.classList.remove('is-closing');
+                splash.classList.add('is-open');
+                splashText.classList.add('is-open');
+                activeBlob = newBlob;
+            };
+
+            if (activeBlob) {
+                // Close current then open new after 50ms gap
+                closeSplash(false);
+                if (closeTimer) clearTimeout(closeTimer);
+                closeTimer = setTimeout(() => openOnce(blob), 50);
+            } else {
+                openOnce(blob);
+            }
+        }
+
+        function closeSplash(clearActive = true) {
+            splashes.forEach(s => {
+                if (s.classList.contains('is-open')) {
+                    s.classList.remove('is-open');
+                    s.classList.add('is-closing');
+                    setTimeout(() => s.classList.remove('is-closing'), 320);
+                }
+            });
+            if (splashText) splashText.classList.remove('is-open');
+            if (clearActive) activeBlob = null;
+        }
+
+        if (isTouch) {
+            // Tap to open, tap blob again or anywhere else to close
+            blobs.forEach(blob => {
+                blob.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (activeBlob === blob) {
+                        closeSplash();
+                    } else {
+                        openSplash(blob);
+                    }
+                });
+            });
+            document.addEventListener('click', () => {
+                if (activeBlob) closeSplash();
+            });
+        } else {
+            // Hover interaction on desktop
+            blobs.forEach(blob => {
+                blob.addEventListener('mouseenter', () => openSplash(blob));
+                blob.addEventListener('mouseleave', (e) => {
+                    // If moving directly to another blob, openSplash handles the swap
+                    const related = e.relatedTarget;
+                    if (!related || !related.closest || !related.closest('.paint-blob')) {
+                        closeSplash();
+                    }
+                });
+            });
+            // Close if mouse leaves the section entirely
+            paletteSection.addEventListener('mouseleave', () => closeSplash());
+        }
+
+        // Reposition text overlay on window resize when open
+        window.addEventListener('resize', () => {
+            if (activeBlob) positionTextOver(activeBlob);
+        }, { passive: true });
+    }
 
     // ============================================
     // PROJECT FILTER
