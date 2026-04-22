@@ -181,6 +181,106 @@
                 <p class="section-label">[ THE PALETTE ]</p>
                 <p class="palette-subtitle">every role a different color</p>
             </div>
+
+            <div class="palette-stage" id="paletteStage">
+                <svg class="palette-svg" id="paletteSvg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <!-- Wood grain texture filter -->
+                        <filter id="woodGrain" x="0" y="0" width="100%" height="100%">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.9" numOctaves="2" seed="4"/>
+                            <feColorMatrix values="0 0 0 0 0.26
+                                                   0 0 0 0 0.18
+                                                   0 0 0 0 0.16
+                                                   0 0 0 0.18 0"/>
+                            <feComposite in2="SourceGraphic" operator="in"/>
+                        </filter>
+
+                        <!-- Drop shadow for palette on cream -->
+                        <filter id="paletteShadow" x="-10%" y="-10%" width="120%" height="120%">
+                            <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#442F2A" flood-opacity="0.22"/>
+                        </filter>
+
+                        <!-- Paint-blob highlight radial gradients (upper-left light catch) -->
+                        <radialGradient id="hl-google" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#FFE4EC" stop-opacity="0.9"/>
+                            <stop offset="55%" stop-color="#F4C9D6" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="hl-teach" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#FAD6DF" stop-opacity="0.85"/>
+                            <stop offset="55%" stop-color="#E8A6B8" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="hl-research" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                            <stop offset="55%" stop-color="#EEEBE7" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="hl-ameri" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#FFEADE" stop-opacity="0.9"/>
+                            <stop offset="55%" stop-color="#F7CFB8" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="hl-slu" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#D89BAE" stop-opacity="0.85"/>
+                            <stop offset="55%" stop-color="#A5627A" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="hl-boa" cx="30%" cy="30%" r="60%">
+                            <stop offset="0%" stop-color="#E8D0D4" stop-opacity="0.85"/>
+                            <stop offset="55%" stop-color="#BCA1AA" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Wooden palette — asymmetric kidney/teardrop with thumb hole -->
+                    <g class="palette-body" filter="url(#paletteShadow)">
+                        <path class="palette-shape" d="M 150 260
+                                 C 120 140, 280 70, 440 80
+                                 C 610 90, 780 70, 880 160
+                                 C 960 230, 940 380, 880 480
+                                 C 810 590, 660 640, 490 620
+                                 C 340 605, 200 570, 150 460
+                                 C 120 400, 125 320, 150 260 Z"
+                              fill="#4A322B"/>
+                        <!-- Wood grain overlay -->
+                        <path d="M 150 260
+                                 C 120 140, 280 70, 440 80
+                                 C 610 90, 780 70, 880 160
+                                 C 960 230, 940 380, 880 480
+                                 C 810 590, 660 640, 490 620
+                                 C 340 605, 200 570, 150 460
+                                 C 120 400, 125 320, 150 260 Z"
+                              fill="#4A322B" filter="url(#woodGrain)"/>
+                        <!-- Thumb hole cutout -->
+                        <ellipse cx="225" cy="400" rx="42" ry="32" fill="var(--bg-primary, #EEEBE7)"/>
+                        <ellipse cx="225" cy="400" rx="42" ry="32" fill="none"
+                                 stroke="#2F1F1A" stroke-width="2" stroke-opacity="0.5"/>
+                        <!-- Inner worn border, slightly lighter espresso inset from edge -->
+                        <path d="M 180 280
+                                 C 150 170, 300 110, 450 120
+                                 C 600 128, 770 115, 855 190
+                                 C 920 250, 905 370, 855 460
+                                 C 790 555, 650 600, 490 582
+                                 C 355 570, 225 540, 180 450
+                                 C 155 400, 160 330, 180 280 Z"
+                              fill="none" stroke="#6B4A3E" stroke-width="1.5" stroke-opacity="0.55"/>
+                    </g>
+
+                    <!-- Decorative paintbrush — bottom right corner, diagonal -->
+                    <g class="palette-brush" transform="translate(720 510) rotate(28)">
+                        <!-- Handle -->
+                        <rect x="0" y="-6" width="180" height="12" rx="2" fill="#7A5141"/>
+                        <rect x="0" y="-6" width="180" height="12" rx="2" fill="#7A5141" filter="url(#woodGrain)"/>
+                        <!-- Metal ferrule -->
+                        <rect x="-26" y="-9" width="30" height="18" fill="#A8A29E"/>
+                        <rect x="-26" y="-9" width="30" height="18" fill="none" stroke="#6B6664" stroke-width="0.8"/>
+                        <!-- Bristles — frayed organic shape -->
+                        <path d="M -28 -11
+                                 C -40 -12, -52 -10, -58 -7
+                                 C -62 -5, -64 -2, -62 1
+                                 C -58 5, -48 9, -38 11
+                                 C -32 12, -28 11, -28 11 Z"
+                              fill="#3E2723"/>
+                        <path d="M -46 -8 L -58 -7 M -50 -3 L -62 -1 M -48 4 L -58 6"
+                              stroke="#3E2723" stroke-width="0.8" stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </div>
         </section>
 
         <!-- Projects Section -->
