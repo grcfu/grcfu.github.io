@@ -715,6 +715,51 @@ section {
     transition-delay: 1.4s;
 }
 
+/* Paint blobs — thick impasto dollops */
+.paint-blob {
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    /* Preserve the SVG translate() positioning by keeping scale baked
+       into the originals. Dropping animation starts at scale(0). */
+    opacity: 0;
+    filter:
+        drop-shadow(-3px -3px 4px rgba(255, 255, 255, 0.22))
+        drop-shadow(4px 5px 8px rgba(42, 30, 26, 0.35))
+        drop-shadow(0 0 2px rgba(42, 30, 26, 0.2));
+    transition: filter 0.2s ease;
+}
+
+/* Animated scale via SVG transform requires using CSS transform on
+   inner <path> set. Instead we keyframe opacity + use JS to add a
+   class that triggers a scale via a wrapping <g>. */
+.palette-section.is-visible .paint-blob {
+    animation: blob-drop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.palette-section.is-visible .paint-blob[data-blob="google"]    { animation-delay: 0.65s; }
+.palette-section.is-visible .paint-blob[data-blob="teach"]     { animation-delay: 0.75s; }
+.palette-section.is-visible .paint-blob[data-blob="research"]  { animation-delay: 0.85s; }
+.palette-section.is-visible .paint-blob[data-blob="ameri"]     { animation-delay: 0.95s; }
+.palette-section.is-visible .paint-blob[data-blob="slu"]       { animation-delay: 1.05s; }
+.palette-section.is-visible .paint-blob[data-blob="boa"]       { animation-delay: 1.15s; }
+
+@keyframes blob-drop {
+    0%   { opacity: 0; }
+    60%  { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+.paint-blob > path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.2s ease;
+}
+
+.paint-blob:hover > path {
+    transform: scale(1.08);
+}
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */
