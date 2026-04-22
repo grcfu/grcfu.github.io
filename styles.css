@@ -776,6 +776,97 @@ section {
 .palette-section.is-visible .paint-smears .smear:nth-child(3) { transition-delay: 1.35s; }
 .palette-section.is-visible .paint-smears .smear:nth-child(4) { transition-delay: 1.4s; }
 
+/* Paint splashes — scale 0 by default, expand on .is-open */
+.splash {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.splash.is-open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* When splash is closing */
+.splash.is-closing {
+    transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1),
+                opacity 0.2s ease 0.1s;
+    transform: scale(0);
+    opacity: 0;
+}
+
+/* Splash text overlay — positioned over the splash center by JS */
+.splash-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease;
+    text-align: center;
+}
+
+.splash-text.is-open {
+    opacity: 1;
+    transition: opacity 0.25s ease 0.15s;
+}
+
+.splash-cat {
+    display: block;
+    font-family: var(--font-body);
+    font-size: clamp(0.6rem, 0.75vw, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+}
+
+.splash-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin: 0 0 0.3rem 0;
+    max-width: 260px;
+}
+
+.splash-company {
+    font-family: var(--font-script);
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--accent-pink-dark);
+    margin: 0 0 0.3rem 0;
+}
+
+.splash-date {
+    font-family: var(--font-body);
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.4rem 0;
+}
+
+.splash-desc {
+    font-family: var(--font-body);
+    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 260px;
+}
+
 /* ============================================
    PROJECTS SECTION
    ============================================ */

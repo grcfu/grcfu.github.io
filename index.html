@@ -183,6 +183,13 @@
             </div>
 
             <div class="palette-stage" id="paletteStage">
+                <div class="splash-text" id="splashText" aria-live="polite">
+                    <span class="splash-cat"></span>
+                    <h3 class="splash-role"></h3>
+                    <p class="splash-company"></p>
+                    <p class="splash-date"></p>
+                    <p class="splash-desc"></p>
+                </div>
                 <svg class="palette-svg" id="paletteSvg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <defs>
                         <!-- Wood grain texture filter -->
@@ -411,6 +418,91 @@
                                   fill="url(#hl-boa)"/>
                         </g>
                     </g>
+
+                    <!-- Paint splashes — one per blob, scaled 0 until hover/tap -->
+                    <g class="paint-splashes">
+                        <!-- google splash: asymmetric pink bloom -->
+                        <g class="splash" data-splash="google" transform="translate(480 190)">
+                            <path d="M -180 -50 C -220 -120, -120 -190, -40 -170
+                                     C 40 -180, 140 -150, 190 -70
+                                     C 230 0, 220 100, 160 160
+                                     C 100 220, 0 240, -80 200
+                                     C -170 160, -230 60, -210 -10
+                                     C -210 -20, -200 -35, -180 -50
+                                     Z M 170 -140 L 200 -180 L 170 -155 Z
+                                     M -220 120 L -250 150 L -220 135 Z
+                                     M 210 130 L 250 145 L 225 125 Z"
+                                  fill="rgba(244, 201, 214, 0.88)"/>
+                        </g>
+
+                        <!-- teach splash: rose bloom -->
+                        <g class="splash" data-splash="teach" transform="translate(720 230)">
+                            <path d="M -160 -40 C -200 -110, -110 -170, -30 -160
+                                     C 50 -170, 140 -130, 180 -60
+                                     C 210 10, 190 100, 130 150
+                                     C 70 200, -20 210, -90 180
+                                     C -170 140, -210 40, -190 -20
+                                     C -190 -30, -180 -35, -160 -40
+                                     Z M 160 -120 L 200 -160 L 175 -135 Z
+                                     M -200 100 L -230 130 L -205 115 Z"
+                                  fill="rgba(232, 166, 184, 0.88)"/>
+                        </g>
+
+                        <!-- research splash: cream bloom with subtle outline -->
+                        <g class="splash" data-splash="research" transform="translate(340 380)">
+                            <path d="M -180 -50 C -220 -120, -120 -190, -40 -170
+                                     C 40 -180, 140 -150, 190 -70
+                                     C 230 0, 220 100, 160 160
+                                     C 100 220, 0 240, -80 200
+                                     C -170 160, -230 60, -210 -10
+                                     C -210 -20, -200 -35, -180 -50
+                                     Z M -180 140 L -215 170 L -190 150 Z
+                                     M 175 -140 L 210 -170 L 185 -150 Z"
+                                  fill="rgba(238, 235, 231, 0.94)" stroke="rgba(184, 169, 152, 0.5)" stroke-width="1"/>
+                        </g>
+
+                        <!-- ameri splash: peachy bloom -->
+                        <g class="splash" data-splash="ameri" transform="translate(620 420)">
+                            <path d="M -160 -40 C -200 -110, -110 -170, -30 -160
+                                     C 50 -170, 140 -130, 180 -60
+                                     C 210 10, 190 100, 130 150
+                                     C 70 200, -20 210, -90 180
+                                     C -170 140, -210 40, -190 -20
+                                     C -190 -30, -180 -35, -160 -40
+                                     Z M 150 110 L 190 140 L 165 120 Z
+                                     M -180 -100 L -210 -135 L -195 -115 Z"
+                                  fill="rgba(243, 201, 181, 0.88)"/>
+                        </g>
+
+                        <!-- slu splash: deep dusty rose bloom -->
+                        <g class="splash" data-splash="slu" transform="translate(500 480)">
+                            <path d="M -180 -50 C -220 -120, -120 -190, -40 -170
+                                     C 40 -180, 140 -150, 190 -70
+                                     C 230 0, 220 100, 160 160
+                                     C 100 220, 0 240, -80 200
+                                     C -170 160, -230 60, -210 -10
+                                     C -210 -20, -200 -35, -180 -50
+                                     Z M 200 -110 L 240 -140 L 215 -120 Z
+                                     M -210 130 L -240 160 L -220 140 Z"
+                                  fill="rgba(179, 116, 135, 0.88)"/>
+                        </g>
+
+                        <!-- boa splash: soft mauve bloom -->
+                        <g class="splash" data-splash="boa" transform="translate(780 360)">
+                            <path d="M -150 -40 C -190 -110, -100 -160, -20 -150
+                                     C 50 -160, 130 -120, 170 -50
+                                     C 200 20, 180 100, 120 150
+                                     C 60 190, -20 200, -90 170
+                                     C -160 140, -200 40, -180 -20
+                                     C -180 -30, -170 -35, -150 -40
+                                     Z M 150 -110 L 185 -140 L 160 -120 Z
+                                     M -175 100 L -205 130 L -185 115 Z"
+                                  fill="rgba(199, 160, 170, 0.88)"/>
+                        </g>
+                    </g>
+
+                    <!-- Splash text foreignObject layer -->
+                    <g class="paint-splash-texts"></g>
 
                     <!-- Decorative paintbrush — bottom right corner, diagonal -->
                     <g class="palette-brush" transform="translate(720 510) rotate(28)">
