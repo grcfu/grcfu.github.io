@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Observe elements for scroll animations
     const animatedElements = document.querySelectorAll(
-        '.project-card, .award-card'
+        '.project-card'
     );
 
     animatedElements.forEach(el => {
@@ -821,6 +821,101 @@ document.addEventListener('DOMContentLoaded', () => {
             paletteSection.addEventListener('mouseleave', () => closeSplash());
         }
 
+    }
+
+    // ============================================
+    // RECOGNITION — CURIO CABINET
+    // ============================================
+    const recognitionSection = document.getElementById('recognition');
+    if (recognitionSection) {
+        const cabinet3d = document.getElementById('cabinet3d');
+        const doorLeft = document.getElementById('cabinetDoorLeft');
+        const doorRight = document.getElementById('cabinetDoorRight');
+        const awardItems = recognitionSection.querySelectorAll('.award-item');
+        const cabinetIsTouch = window.matchMedia('(hover: none)').matches;
+        const cabinetIsMobile = window.matchMedia('(max-width: 767px)').matches;
+        const cabinetReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Scroll-in entrance: trigger animations once
+        const cabinetObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    recognitionSection.classList.add('is-revealed');
+                    cabinetObserver.unobserve(recognitionSection);
+                }
+            });
+        }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.18 });
+        cabinetObserver.observe(recognitionSection);
+
+        // Mouse parallax + glass shine — desktop only, throttled via rAF
+        if (!cabinetIsTouch && !cabinetIsMobile && !cabinetReducedMotion) {
+            let cabinetTicking = false;
+            let lastMouseX = 0.5;
+            let lastMouseY = 0.5;
+
+            function updateParallax() {
+                if (cabinet3d) {
+                    // ±2deg max rotation following cursor
+                    const rx = (0.5 - lastMouseY) * 4;  // mouse up → cabinet tilts up (+rx)
+                    const ry = (lastMouseX - 0.5) * 4;
+                    cabinet3d.style.setProperty('--cabinet-rx', rx.toFixed(2) + 'deg');
+                    cabinet3d.style.setProperty('--cabinet-ry', ry.toFixed(2) + 'deg');
+                }
+                if (doorLeft) {
+                    doorLeft.style.setProperty('--mouse-x', lastMouseX.toFixed(3));
+                    doorLeft.style.setProperty('--mouse-y', lastMouseY.toFixed(3));
+                }
+                if (doorRight) {
+                    doorRight.style.setProperty('--mouse-x', lastMouseX.toFixed(3));
+                    doorRight.style.setProperty('--mouse-y', lastMouseY.toFixed(3));
+                }
+                cabinetTicking = false;
+            }
+
+            recognitionSection.addEventListener('mousemove', (e) => {
+                const rect = recognitionSection.getBoundingClientRect();
+                lastMouseX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                lastMouseY = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+                if (!cabinetTicking) {
+                    requestAnimationFrame(updateParallax);
+                    cabinetTicking = true;
+                }
+            }, { passive: true });
+
+            // Reset to neutral when mouse leaves
+            recognitionSection.addEventListener('mouseleave', () => {
+                lastMouseX = 0.5;
+                lastMouseY = 0.5;
+                if (!cabinetTicking) {
+                    requestAnimationFrame(updateParallax);
+                    cabinetTicking = true;
+                }
+            });
+        }
+
+        // Touch — tap item to open detail card, tap outside to dismiss
+        if (cabinetIsTouch) {
+            let activeAward = null;
+            awardItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (activeAward === item) {
+                        item.classList.remove('is-active');
+                        activeAward = null;
+                    } else {
+                        if (activeAward) activeAward.classList.remove('is-active');
+                        item.classList.add('is-active');
+                        activeAward = item;
+                    }
+                });
+            });
+            document.addEventListener('click', () => {
+                if (activeAward) {
+                    activeAward.classList.remove('is-active');
+                    activeAward = null;
+                }
+            });
+        }
     }
 
     // ============================================
