@@ -697,6 +697,180 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
         paletteObserver.observe(paletteSection);
+
+        // ---- Blob → canvas paint-in state machine ----
+        const blobs = paletteSection.querySelectorAll('.paint-blob');
+        const canvasActive = document.getElementById('canvasActive');
+        const canvasDefault = document.getElementById('canvasDefault');
+        const paletteIsTouch = window.matchMedia('(hover: none)').matches;
+
+        // Experience data, keyed by data-blob id on each paint-blob
+        const EXPERIENCES = {
+            google: {
+                cat:     'TECHNOLOGY',
+                role:    'PM Lead & AI/ML Software Engineer',
+                company: 'Google Developers Group',
+                date:    'Sep 2025 — Present',
+                desc:    'Leading a team of 5 building healthxr.ai; architected HIPAA-compliant data pipelines and patient privacy frameworks.',
+                color:   '#F4C9D6'
+            },
+            teach: {
+                cat:     'EDUCATION',
+                role:    'Teaching Assistant & Grading Lead',
+                company: 'WashU CSE 2407',
+                date:    'Jan 2026 — Present',
+                desc:    'Manages grading for 200+ students; provides weekly mentorship in lab sessions.',
+                color:   '#E8A6B8'
+            },
+            research: {
+                cat:     'RESEARCH',
+                role:    'AI & ML Research Assistant',
+                company: 'WashU McKelvey School',
+                date:    'May 2025 — Present',
+                desc:    'Building ML pipeline in PyTorch and Scikit-learn to improve Child Protective Services investigation prioritization.',
+                color:   '#B8A998'
+            },
+            ameri: {
+                cat:     'ENTREPRENEURSHIP',
+                role:    'Founder & Web Developer',
+                company: 'AmeriBakes',
+                date:    'Feb 2024 — May 2025',
+                desc:    'Founded D2C baking startup; React frontend; scaled to $3,500+ revenue and 150+ orders.',
+                color:   '#F3C9B5'
+            },
+            slu: {
+                cat:     'SCIENCE',
+                role:    'ML & Bioinformatics Intern',
+                company: 'Saint Louis University',
+                date:    'Dec 2022 — May 2025',
+                desc:    'Deep learning model for warfarin dosing at 81% accuracy; co-authored paper accepted to ICIBM 2025.',
+                color:   '#B37487'
+            },
+            boa: {
+                cat:     'LEADERSHIP',
+                role:    'Bank of America Student Leaders Intern',
+                company: 'United Way of Greater St. Louis',
+                date:    'May 2024 — Apr 2025',
+                desc:    'Launched literacy program; attended national leadership summit in Washington D.C.',
+                color:   '#C7A0AA'
+            }
+        };
+
+        const PAINT_STAGES = [
+            { delay: 100,  cls: 'paint-cat' },
+            { delay: 300,  cls: 'paint-role' },
+            { delay: 500,  cls: 'paint-divider' },
+            { delay: 650,  cls: 'paint-company' },
+            { delay: 800,  cls: 'paint-date' },
+            { delay: 1000, cls: 'paint-desc' }
+        ];
+        const PAINT_CLASSES = PAINT_STAGES.map(s => s.cls);
+
+        let activeBlob = null;
+        let paintTimeouts = [];
+        let resetTimeout = null;
+
+        function clearAllTimeouts() {
+            paintTimeouts.forEach(clearTimeout);
+            paintTimeouts = [];
+            if (resetTimeout) { clearTimeout(resetTimeout); resetTimeout = null; }
+        }
+
+        function fillCanvas(data) {
+            if (!canvasActive) return;
+            canvasActive.querySelector('.canvas-cat').textContent = data.cat;
+            canvasActive.querySelector('.canvas-role').textContent = data.role;
+            canvasActive.querySelector('.canvas-company').textContent = data.company;
+            canvasActive.querySelector('.canvas-date').textContent = data.date;
+            canvasActive.querySelector('.canvas-desc').textContent = data.desc;
+            canvasActive.style.setProperty('--active-color', data.color);
+        }
+
+        function paintCanvas(blobId) {
+            const data = EXPERIENCES[blobId];
+            if (!data || !canvasActive) return;
+            clearAllTimeouts();
+
+            // Reset paint classes so the sweep animations replay from the
+            // start. Force a reflow so removed/added animations don't merge.
+            PAINT_CLASSES.forEach(c => canvasActive.classList.remove(c));
+            void canvasActive.offsetWidth;
+
+            fillCanvas(data);
+            if (canvasDefault) canvasDefault.classList.add('is-hidden');
+            canvasActive.classList.add('is-active');
+
+            PAINT_STAGES.forEach(stage => {
+                paintTimeouts.push(setTimeout(() => {
+                    canvasActive.classList.add(stage.cls);
+                }, stage.delay));
+            });
+        }
+
+        function clearCanvas() {
+            clearAllTimeouts();
+            if (canvasActive) canvasActive.classList.remove('is-active');
+            // After active fades out (250ms), reset paint classes and bring
+            // the default message back in after a 100ms gap.
+            resetTimeout = setTimeout(() => {
+                if (canvasActive) {
+                    PAINT_CLASSES.forEach(c => canvasActive.classList.remove(c));
+                }
+                resetTimeout = setTimeout(() => {
+                    if (canvasDefault) canvasDefault.classList.remove('is-hidden');
+                    resetTimeout = null;
+                }, 100);
+            }, 350);
+        }
+
+        if (paletteIsTouch) {
+            // Switch hint copy for touch users
+            paletteSection.querySelectorAll('.blob-label-hint').forEach(t => {
+                t.textContent = 'tap me';
+            });
+
+            blobs.forEach(blob => {
+                blob.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (activeBlob === blob) {
+                        activeBlob = null;
+                        clearCanvas();
+                    } else {
+                        activeBlob = blob;
+                        paintCanvas(blob.dataset.blob);
+                    }
+                });
+            });
+            document.addEventListener('click', () => {
+                if (activeBlob) {
+                    activeBlob = null;
+                    clearCanvas();
+                }
+            });
+        } else {
+            blobs.forEach(blob => {
+                blob.addEventListener('mouseenter', () => {
+                    if (activeBlob === blob) return;
+                    activeBlob = blob;
+                    paintCanvas(blob.dataset.blob);
+                });
+                blob.addEventListener('mouseleave', (e) => {
+                    // If moving directly to another blob, that mouseenter
+                    // handles the swap — don't clear here.
+                    const related = e.relatedTarget;
+                    if (related && related.closest && related.closest('.paint-blob')) return;
+                    activeBlob = null;
+                    clearCanvas();
+                });
+            });
+
+            paletteSection.addEventListener('mouseleave', () => {
+                if (activeBlob) {
+                    activeBlob = null;
+                    clearCanvas();
+                }
+            });
+        }
     }
 
     // ============================================
