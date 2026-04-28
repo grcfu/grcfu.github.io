@@ -267,21 +267,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Swap the live GIF for the already-captured canvas
+        // Cross-fade the captured canvas in over the live GIF
         function freezeGif() {
-            if (frozenCanvas) {
-                heroGifEl.style.display = 'none';
-                frozenCanvas.style.display = 'block';
-            } else {
-                // Fallback if snapshot hadn't fired yet: try to snapshot now
+            if (!frozenCanvas) {
                 snapshotCurrentFrame();
-                if (frozenCanvas) {
+            }
+            if (frozenCanvas) {
+                frozenCanvas.classList.remove('is-fading-in');
+                frozenCanvas.style.display = 'block';
+                // Force reflow so the transition triggers
+                void frozenCanvas.offsetWidth;
+                frozenCanvas.classList.add('is-fading-in');
+                setTimeout(() => {
                     heroGifEl.style.display = 'none';
-                    frozenCanvas.style.display = 'block';
-                } else {
-                    heroGifEl.src = transparentPx;
-                    setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
-                }
+                }, 600);
+            } else {
+                heroGifEl.src = transparentPx;
+                setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
             }
             isPlaying = false;
         }
