@@ -175,15 +175,59 @@
             </div>
         </section>
 
-        <!-- Experience Section — THE PALETTE -->
+        <!-- Experience Section — THE PALETTE & EASEL -->
         <section id="experience" class="palette-section" aria-label="Work Experience">
+            <!-- Reusable SVG filter defs for linen textures -->
+            <svg class="palette-svg-defs" aria-hidden="true" focusable="false">
+                <defs>
+                    <filter id="linenTexture" x="0" y="0" width="100%" height="100%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" seed="3"/>
+                        <feColorMatrix values="0 0 0 0 0.31
+                                               0 0 0 0 0.21
+                                               0 0 0 0 0.18
+                                               0 0 0 0.16 0"/>
+                    </filter>
+                    <filter id="linenCanvas" x="0" y="0" width="100%" height="100%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" seed="5"/>
+                        <feColorMatrix values="0 0 0 0 0.34
+                                               0 0 0 0 0.24
+                                               0 0 0 0 0.20
+                                               0 0 0 0.10 0"/>
+                    </filter>
+                </defs>
+            </svg>
+
             <div class="palette-header">
                 <p class="section-label">[ THE PALETTE ]</p>
                 <p class="palette-subtitle">every role a different color</p>
             </div>
 
-            <div class="palette-stage" id="paletteStage">
-                <svg class="palette-svg" id="paletteSvg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <div class="palette-frame">
+                <div class="palette-mat">
+                    <div class="palette-canvas-area">
+                        <!-- Linen texture layer -->
+                        <svg class="linen-layer" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                            <rect width="100%" height="100%" filter="url(#linenTexture)"/>
+                        </svg>
+
+                        <!-- Scattered paint drop decorations -->
+                        <span class="paint-drop paint-drop-1"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-2"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-3"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-4"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-5"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-6"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-7"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-8"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-9"  aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-10" aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-11" aria-hidden="true"></span>
+                        <span class="paint-drop paint-drop-12" aria-hidden="true"></span>
+
+                        <div class="palette-columns">
+                            <div class="palette-col palette-col-left">
+                                <div class="palette-stage" id="paletteStage">
+                                    <svg class="palette-svg" id="paletteSvg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <defs>
                         <!-- Wood grain texture filter -->
                         <filter id="woodGrain" x="0" y="0" width="100%" height="100%">
@@ -448,7 +492,18 @@
                         <path d="M -46 -8 L -58 -7 M -50 -3 L -62 -1 M -48 4 L -58 6"
                               stroke="#3E2723" stroke-width="0.8" stroke-linecap="round"/>
                     </g>
-                </svg>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="palette-col palette-col-right">
+                                <!-- Easel + canvas mount in commit 3 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-frame-plaque" aria-hidden="true">THE PALETTE · EXPERIENCE</div>
             </div>
         </section>
 

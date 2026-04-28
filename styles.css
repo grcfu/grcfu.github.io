@@ -658,33 +658,159 @@ section {
 }
 
 /* ============================================
-   EXPERIENCE SECTION — THE PALETTE
+   EXPERIENCE SECTION — THE PALETTE & EASEL
    ============================================ */
+:root {
+    --brass: #C9A84C;
+    --linen: #E8E3DC;
+    --canvas-cream: #F5F1EC;
+}
+
 .palette-section {
     background-color: var(--bg-primary);
-    padding: clamp(5rem, 10vw, 8rem) 0 clamp(5rem, 10vw, 8rem);
+    padding: clamp(4rem, 8vw, 6rem) 0 clamp(5rem, 10vw, 7rem);
     position: relative;
     overflow: hidden;
+}
+
+.palette-svg-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
 .palette-header {
     max-width: 1200px;
     margin: 0 auto 2.25rem;
     padding: 0 clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
 }
 
 .palette-subtitle {
     font-family: var(--font-script);
-    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
     color: var(--text-muted);
-    margin: 0.25rem 0 0;
+    margin: 0.35rem 0 0;
+}
+
+/* Museum picture frame */
+.palette-frame {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 28px solid var(--bg-dark);
+    box-shadow:
+        0 30px 60px rgba(46, 30, 26, 0.32),
+        0 8px 20px rgba(46, 30, 26, 0.22),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.45);
+}
+
+/* Cream mat board */
+.palette-mat {
+    border: 12px solid var(--bg-primary);
+    box-shadow:
+        inset 0 0 0 1px rgba(46, 30, 26, 0.18),
+        inset 0 0 28px rgba(46, 30, 26, 0.12);
+}
+
+/* Canvas linen interior */
+.palette-canvas-area {
+    position: relative;
+    background-color: var(--linen);
+    overflow: hidden;
+    padding: clamp(2rem, 4vw, 3rem);
+    min-height: 580px;
+}
+
+/* Warm studio lamp glow */
+.palette-canvas-area::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 55% at 50% 45%,
+        rgba(255, 246, 232, 0.32) 0%,
+        rgba(255, 246, 232, 0) 75%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.linen-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.85;
+}
+
+/* Brass plaque on bottom of frame */
+.palette-frame-plaque {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--brass);
+    background-image: linear-gradient(180deg, #E0BC60 0%, var(--brass) 50%, #8C6F2F 100%);
+    color: var(--bg-dark);
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    padding: 0.42rem 1.05rem;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    z-index: 5;
+    white-space: nowrap;
+}
+
+/* Paint drop decorations — flicked across the canvas */
+.paint-drop {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+}
+.paint-drop-1  { top: 6%;  left: 9%;  width: 8px;  height: 8px; background-color: #F4C9D6; opacity: 0.22; }
+.paint-drop-2  { top: 11%; left: 78%; width: 5px;  height: 5px; background-color: #E8A6B8; opacity: 0.20; }
+.paint-drop-3  { top: 22%; left: 22%; width: 10px; height: 10px; background-color: #F3C9B5; opacity: 0.18; }
+.paint-drop-4  { top: 35%; left: 88%; width: 4px;  height: 4px; background-color: #C7A0AA; opacity: 0.22; }
+.paint-drop-5  { top: 48%; left: 3%;  width: 7px;  height: 7px; background-color: #B37487; opacity: 0.20; }
+.paint-drop-6  { top: 55%; left: 92%; width: 6px;  height: 6px; background-color: #F4C9D6; opacity: 0.18; }
+.paint-drop-7  { top: 65%; left: 18%; width: 9px;  height: 9px; background-color: #E8A6B8; opacity: 0.22; }
+.paint-drop-8  { top: 72%; left: 65%; width: 5px;  height: 5px; background-color: #F3C9B5; opacity: 0.20; }
+.paint-drop-9  { top: 82%; left: 8%;  width: 6px;  height: 6px; background-color: #B37487; opacity: 0.18; }
+.paint-drop-10 { top: 88%; left: 48%; width: 11px; height: 11px; background-color: #F4C9D6; opacity: 0.20; }
+.paint-drop-11 { top: 30%; left: 50%; width: 4px;  height: 4px; background-color: #C7A0AA; opacity: 0.18; }
+.paint-drop-12 { top: 92%; left: 80%; width: 7px;  height: 7px; background-color: #E8A6B8; opacity: 0.20; }
+
+/* Two-column layout inside the canvas */
+.palette-columns {
+    display: flex;
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4rem);
+    position: relative;
+    z-index: 3;
+    min-height: 520px;
+}
+
+.palette-col {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.palette-col-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .palette-stage {
     position: relative;
     width: 100%;
-    max-width: 80vw;
-    margin: 1rem auto 0;
+    margin: 0 auto;
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
