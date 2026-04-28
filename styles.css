@@ -1166,13 +1166,80 @@ section {
 
 /* Mobile adjustments for palette */
 @media (max-width: 768px) {
+    .palette-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .palette-frame {
+        border-width: 16px;
+        margin: 0 clamp(0.5rem, 2vw, 1rem);
+    }
+
+    .palette-mat {
+        border-width: 8px;
+    }
+
+    .palette-canvas-area {
+        padding: 1.25rem;
+        min-height: auto;
+    }
+
+    .palette-columns {
+        flex-direction: column;
+        gap: 2rem;
+        min-height: auto;
+    }
+
     .palette-stage {
-        max-width: 100vw;
-        margin: 1rem auto 0;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .palette-brush {
         display: none;
+    }
+
+    /* Reduce paint drop decorations on mobile (12 → 6) */
+    .paint-drop-7,
+    .paint-drop-8,
+    .paint-drop-9,
+    .paint-drop-10,
+    .paint-drop-11,
+    .paint-drop-12 {
+        display: none;
+    }
+
+    .easel-stand {
+        max-width: 100%;
+        aspect-ratio: auto;
+    }
+
+    /* Hide easel legs on small screens — keep just the framed canvas */
+    .easel-svg {
+        display: none;
+    }
+
+    .easel-canvas {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: clamp(240px, 60vw, 320px);
+        border: 6px solid var(--bg-dark);
+        box-shadow:
+            0 6px 18px rgba(46, 30, 26, 0.22),
+            inset 0 0 0 1px rgba(46, 30, 26, 0.06);
+    }
+
+    .palette-frame-plaque {
+        bottom: -12px;
+        font-size: 0.55rem;
+        padding: 0.35rem 0.85rem;
+        letter-spacing: 0.28em;
+    }
+
+    .canvas-prompt {
+        font-size: 1.05rem;
     }
 }
 
@@ -1186,8 +1253,31 @@ section {
         transform: none !important;
         opacity: 1 !important;
     }
+    .paint-blob,
+    .paint-blob:hover {
+        translate: 0 0 !important;
+        scale: 1 !important;
+    }
     .palette-section.is-visible .paint-smears .smear {
         stroke-dashoffset: 0 !important;
+    }
+
+    /* Canvas content: skip sweep animations, just show/hide via opacity */
+    .canvas-cat,
+    .canvas-role,
+    .canvas-company,
+    .canvas-date,
+    .canvas-desc {
+        clip-path: none !important;
+        animation: none !important;
+    }
+    .canvas-divider path {
+        stroke-dashoffset: 0 !important;
+        animation: none !important;
+    }
+    .canvas-wash {
+        filter: none !important;
+        transition: opacity 0.15s ease, background-color 0.15s ease !important;
     }
 }
 
