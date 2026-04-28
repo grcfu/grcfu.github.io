@@ -708,6 +708,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ? 'hover a color to learn more —'
             : 'tap a color to learn more —';
 
+        const canvasPromptEl = canvasDefault && canvasDefault.querySelector('.canvas-prompt');
+        if (canvasPromptEl) canvasPromptEl.textContent = CANVAS_PROMPT;
+
         // Experience data, keyed by data-blob id on each paint-blob
         const EXPERIENCES = {
             google: {
