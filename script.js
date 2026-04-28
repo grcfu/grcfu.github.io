@@ -687,45 +687,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     const paletteSection = document.getElementById('experience');
     if (paletteSection && paletteSection.classList.contains('palette-section')) {
-        const paletteSvg = document.getElementById('paletteSvg');
-        const paletteStage = document.getElementById('paletteStage');
-        const detailPanel = document.getElementById('paletteDetailPanel');
-        const blobs = paletteSection.querySelectorAll('.paint-blob');
-        const splashes = paletteSection.querySelectorAll('.splash');
-        const isTouch = window.matchMedia('(hover: none)').matches;
-
-        // Map blob id → its accent color (matches the SVG fill)
-        const BLOB_COLORS = {
-            google:   '#F4C9D6',
-            teach:    '#E8A6B8',
-            research: '#B8A998',
-            ameri:    '#F3C9B5',
-            slu:      '#B37487',
-            boa:      '#C7A0AA'
-        };
-
-        function fillPanel(blob) {
-            if (!detailPanel) return;
-            detailPanel.querySelector('.panel-cat').textContent = blob.dataset.cat || '';
-            detailPanel.querySelector('.panel-role').textContent = blob.dataset.role || '';
-            detailPanel.querySelector('.panel-company').textContent = blob.dataset.company || '';
-            detailPanel.querySelector('.panel-date').textContent = blob.dataset.date || '';
-            detailPanel.querySelector('.panel-desc').textContent = blob.dataset.desc || '';
-            const color = BLOB_COLORS[blob.dataset.blob] || 'var(--text-muted)';
-            detailPanel.style.setProperty('--active-color', color);
-        }
-
-        function showPanel(blob) {
-            if (!detailPanel) return;
-            fillPanel(blob);
-            detailPanel.classList.add('is-active');
-        }
-
-        function hidePanel() {
-            if (!detailPanel) return;
-            detailPanel.classList.remove('is-active');
-        }
-
         // Scroll-in: trigger palette/blob/smear/brush entrance animations once
         const paletteObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -736,91 +697,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
         paletteObserver.observe(paletteSection);
-
-        // Map blob id → splash bloom id
-        function findSplash(blobId) {
-            return paletteSection.querySelector(`.splash[data-splash="${blobId}"]`);
-        }
-
-        // State
-        let activeBlob = null;
-        let closeTimer = null;
-
-        function openSplash(blob) {
-            if (activeBlob === blob) return;
-            // Cancel any pending close so fast moves don't flicker
-            if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-
-            // If another blob is active, close its splash bloom immediately
-            // but keep the panel populated — we'll just swap content.
-            if (activeBlob && activeBlob !== blob) {
-                const prevSplash = findSplash(activeBlob.dataset.blob);
-                if (prevSplash && prevSplash.classList.contains('is-open')) {
-                    prevSplash.classList.remove('is-open');
-                    prevSplash.classList.add('is-closing');
-                    setTimeout(() => prevSplash.classList.remove('is-closing'), 320);
-                }
-            }
-
-            const splash = findSplash(blob.dataset.blob);
-            if (splash) {
-                splash.classList.remove('is-closing');
-                splash.classList.add('is-open');
-            }
-            showPanel(blob);
-            activeBlob = blob;
-        }
-
-        function closeSplash(clearActive = true) {
-            splashes.forEach(s => {
-                if (s.classList.contains('is-open')) {
-                    s.classList.remove('is-open');
-                    s.classList.add('is-closing');
-                    setTimeout(() => s.classList.remove('is-closing'), 320);
-                }
-            });
-            hidePanel();
-            if (clearActive) activeBlob = null;
-        }
-
-        if (isTouch) {
-            // Update hint copy: hover → tap on touch devices
-            paletteSection.querySelectorAll('.blob-label-hint').forEach(t => {
-                t.textContent = 'tap me';
-            });
-            // Tap to open, tap blob again or anywhere outside to close
-            blobs.forEach(blob => {
-                blob.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (activeBlob === blob) {
-                        closeSplash();
-                    } else {
-                        openSplash(blob);
-                    }
-                });
-            });
-            document.addEventListener('click', (e) => {
-                if (!activeBlob) return;
-                // Don't close if tap is inside the detail panel itself
-                if (detailPanel && detailPanel.contains(e.target)) return;
-                closeSplash();
-            });
-        } else {
-            // Hover interaction on desktop
-            blobs.forEach(blob => {
-                blob.addEventListener('mouseenter', () => openSplash(blob));
-                blob.addEventListener('mouseleave', (e) => {
-                    // If moving directly to another blob, openSplash handles the swap
-                    const related = e.relatedTarget;
-                    if (!related || !related.closest || !related.closest('.paint-blob')) {
-                        closeSplash();
-                    }
-                });
-            });
-            // Close if mouse leaves the section entirely
-            paletteSection.addEventListener('mouseleave', () => closeSplash());
-        }
-
     }
 
     // ============================================
