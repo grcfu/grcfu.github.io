@@ -776,11 +776,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let activeBlob = null;
         let paintTimeouts = [];
         let resetTimeout = null;
+        let leaveDebounce = null;
 
         function clearAllTimeouts() {
             paintTimeouts.forEach(clearTimeout);
             paintTimeouts = [];
             if (resetTimeout) { clearTimeout(resetTimeout); resetTimeout = null; }
+        }
+
+        function cancelLeave() {
+            if (leaveDebounce) { clearTimeout(leaveDebounce); leaveDebounce = null; }
         }
 
         function fillCanvas(data) {
@@ -857,21 +862,32 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             blobs.forEach(blob => {
                 blob.addEventListener('mouseenter', () => {
+                    // Always cancel a pending leave first — this is what kills
+                    // any residual flicker if the cursor briefly exits and
+                    // re-enters within the debounce window.
+                    cancelLeave();
                     if (activeBlob === blob) return;
                     activeBlob = blob;
                     paintCanvas(blob.dataset.blob);
                 });
                 blob.addEventListener('mouseleave', (e) => {
                     // If moving directly to another blob, that mouseenter
-                    // handles the swap — don't clear here.
+                    // handles the swap — don't queue a leave here.
                     const related = e.relatedTarget;
                     if (related && related.closest && related.closest('.paint-blob')) return;
-                    activeBlob = null;
-                    clearCanvas();
+                    // Debounce: 50ms grace period in case mouseenter fires again.
+                    cancelLeave();
+                    leaveDebounce = setTimeout(() => {
+                        leaveDebounce = null;
+                        activeBlob = null;
+                        clearCanvas();
+                    }, 50);
                 });
             });
 
+            // Leaving the section entirely is unambiguous — clear immediately.
             paletteSection.addEventListener('mouseleave', () => {
+                cancelLeave();
                 if (activeBlob) {
                     activeBlob = null;
                     clearCanvas();
