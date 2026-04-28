@@ -835,73 +835,6 @@ section {
     opacity: 0;
 }
 
-/* Splash text overlay — positioned over the splash center by JS */
-.splash-text {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    z-index: 5;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.2s ease;
-    text-align: center;
-}
-
-.splash-text.is-open {
-    opacity: 1;
-    transition: opacity 0.25s ease 0.15s;
-}
-
-.splash-cat {
-    display: block;
-    font-family: var(--font-body);
-    font-size: clamp(0.6rem, 0.75vw, 0.75rem);
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-    white-space: nowrap;
-}
-
-.splash-role {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1rem, 1.4vw, 1.3rem);
-    color: var(--text-primary);
-    line-height: 1.2;
-    margin: 0 0 0.3rem 0;
-    max-width: 260px;
-}
-
-.splash-company {
-    font-family: var(--font-script);
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    color: var(--accent-pink-dark);
-    margin: 0 0 0.3rem 0;
-}
-
-.splash-date {
-    font-family: var(--font-body);
-    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 0.4rem 0;
-}
-
-.splash-desc {
-    font-family: var(--font-body);
-    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
-    line-height: 1.4;
-    color: var(--text-secondary);
-    margin: 0;
-    max-width: 260px;
-}
-
 /* ============================================
    PALETTE — SHARED DETAIL PANEL (below palette)
    ============================================ */
@@ -1007,24 +940,6 @@ section {
     .palette-brush {
         display: none;
     }
-
-    .splash-role {
-        font-size: 0.9rem;
-        max-width: 200px;
-    }
-
-    .splash-desc {
-        font-size: 0.72rem;
-        max-width: 200px;
-    }
-
-    .splash-company {
-        font-size: 0.9rem;
-    }
-
-    .splash-cat {
-        font-size: 0.6rem;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1032,12 +947,15 @@ section {
     .palette-brush,
     .paint-blob,
     .paint-smears .smear,
-    .splash,
-    .splash-text {
+    .splash {
         animation: none !important;
         transition: opacity 0.15s ease !important;
         transform: none !important;
         opacity: 1 !important;
+    }
+    .palette-detail-panel {
+        transition: opacity 0.1s ease !important;
+        transform: none !important;
     }
     .palette-section.is-visible .paint-smears .smear {
         stroke-dashoffset: 0 !important;

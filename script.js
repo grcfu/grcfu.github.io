@@ -689,7 +689,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (paletteSection && paletteSection.classList.contains('palette-section')) {
         const paletteSvg = document.getElementById('paletteSvg');
         const paletteStage = document.getElementById('paletteStage');
-        const splashText = document.getElementById('splashText');
         const detailPanel = document.getElementById('paletteDetailPanel');
         const blobs = paletteSection.querySelectorAll('.paint-blob');
         const splashes = paletteSection.querySelectorAll('.splash');
@@ -738,37 +737,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
         paletteObserver.observe(paletteSection);
 
-        // Map blob id → splash id
+        // Map blob id → splash bloom id
         function findSplash(blobId) {
             return paletteSection.querySelector(`.splash[data-splash="${blobId}"]`);
-        }
-
-        // Position text overlay over the splash center in SVG coordinates
-        function positionTextOver(blob) {
-            if (!splashText || !paletteSvg || !paletteStage) return;
-            const m = blob.getAttribute('transform').match(/translate\(([-\d.]+)\s+([-\d.]+)\)/);
-            if (!m) return;
-            const cx = parseFloat(m[1]);
-            const cy = parseFloat(m[2]);
-            // SVG uses viewBox 0 0 1000 700; convert to stage pixels
-            const stageRect = paletteStage.getBoundingClientRect();
-            const svgRect = paletteSvg.getBoundingClientRect();
-            const scaleX = svgRect.width / 1000;
-            const scaleY = svgRect.height / 700;
-            const x = (svgRect.left - stageRect.left) + cx * scaleX;
-            const y = (svgRect.top - stageRect.top) + cy * scaleY;
-            splashText.style.left = x + 'px';
-            splashText.style.top = y + 'px';
-        }
-
-        // Fill text overlay with blob's data attributes
-        function fillText(blob) {
-            if (!splashText) return;
-            splashText.querySelector('.splash-cat').textContent = blob.dataset.cat || '';
-            splashText.querySelector('.splash-role').textContent = blob.dataset.role || '';
-            splashText.querySelector('.splash-company').textContent = blob.dataset.company || '';
-            splashText.querySelector('.splash-date').textContent = blob.dataset.date || '';
-            splashText.querySelector('.splash-desc').textContent = blob.dataset.desc || '';
         }
 
         // State
@@ -843,10 +814,6 @@ document.addEventListener('DOMContentLoaded', () => {
             paletteSection.addEventListener('mouseleave', () => closeSplash());
         }
 
-        // Reposition text overlay on window resize when open
-        window.addEventListener('resize', () => {
-            if (activeBlob) positionTextOver(activeBlob);
-        }, { passive: true });
     }
 
     // ============================================
