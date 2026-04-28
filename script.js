@@ -703,6 +703,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const canvasActive = document.getElementById('canvasActive');
         const canvasDefault = document.getElementById('canvasDefault');
         const paletteIsTouch = window.matchMedia('(hover: none)').matches;
+        const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const CANVAS_PROMPT = hoverCapable
+            ? 'hover a color to learn more —'
+            : 'tap a color to learn more —';
 
         // Experience data, keyed by data-blob id on each paint-blob
         const EXPERIENCES = {
