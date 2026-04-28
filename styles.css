@@ -1068,7 +1068,21 @@ section {
         drop-shadow(-3px -3px 4px rgba(255, 255, 255, 0.22))
         drop-shadow(4px 5px 8px rgba(42, 30, 26, 0.35))
         drop-shadow(0 0 2px rgba(42, 30, 26, 0.2));
-    transition: filter 0.2s ease;
+    transition: filter 0.2s ease,
+                translate 0.2s ease,
+                scale 0.2s ease;
+}
+
+/* Hover — lift, enlarge, warm glow. Uses individual transform props
+   (translate/scale) so they compose with the SVG transform="translate()"
+   attribute on each blob group. */
+.paint-blob:hover {
+    translate: 0 -6px;
+    scale: 1.1;
+    filter:
+        drop-shadow(-3px -3px 4px rgba(255, 255, 255, 0.25))
+        drop-shadow(4px 6px 10px rgba(42, 30, 26, 0.40))
+        drop-shadow(0 0 14px rgba(244, 201, 214, 0.65));
 }
 
 
