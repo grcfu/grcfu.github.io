@@ -1802,103 +1802,434 @@ section {
 }
 
 /* ============================================
-   RECOGNITION SECTION
+   RECOGNITION — VINTAGE CURIO CABINET
    ============================================ */
+:root {
+    --brass: #C9A84C;
+    --brass-dark: #8C6F2F;
+    --brass-light: #E0BC60;
+    --espresso-light: #5A3F39;
+    --espresso-deep: #2F1F1A;
+}
+
 .recognition {
-    background-color: var(--bg-primary);
-}
-
-.awards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.award-card {
-    background-color: var(--white);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-medium);
-    opacity: 0;
-    transform: translateY(20px);
     position: relative;
+    background-color: var(--bg-primary);
+    background-image: radial-gradient(ellipse 70% 60% at center 45%,
+        var(--bg-primary) 0%,
+        #E5E1DC 65%,
+        #DAD4CC 100%);
+    padding: clamp(5rem, 10vw, 9rem) 0 clamp(5rem, 10vw, 9rem);
+    perspective: 1200px;
+    perspective-origin: 50% 35%;
     overflow: hidden;
-    border-top: 3px solid var(--accent-pink);
 }
 
-.award-card.visible {
+.recognition-header {
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
+}
+
+.recognition-subtitle {
+    font-family: var(--font-script);
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+    color: var(--text-muted);
+    margin: 0.4rem 0 0;
+}
+
+.cabinet-stage {
+    width: min(900px, 95vw);
+    margin: 0 auto;
+    transform-style: preserve-3d;
+}
+
+.cabinet {
+    position: relative;
+    width: 100%;
+    height: clamp(440px, 60vw, 600px);
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform: translateY(-60px);
+    transition: opacity 0.6s ease,
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.recognition.is-revealed .cabinet {
     opacity: 1;
     transform: translateY(0);
 }
 
-.award-card:nth-child(1) { transition-delay: 0.05s; }
-.award-card:nth-child(2) { transition-delay: 0.1s; }
-.award-card:nth-child(3) { transition-delay: 0.15s; }
-.award-card:nth-child(4) { transition-delay: 0.2s; }
-.award-card:nth-child(5) { transition-delay: 0.25s; }
-.award-card:nth-child(6) { transition-delay: 0.3s; }
-.award-card:nth-child(7) { transition-delay: 0.35s; }
-.award-card:nth-child(8) { transition-delay: 0.4s; }
-.award-card:nth-child(9) { transition-delay: 0.45s; }
-.award-card:nth-child(10) { transition-delay: 0.5s; }
-
-.award-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
-/* Shimmer Effect */
-.award-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+.cabinet-3d {
+    position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
-    transition: none;
+    transform-style: preserve-3d;
+    transform: rotateX(calc(3deg + var(--cabinet-rx, 0deg)))
+               rotateY(var(--cabinet-ry, 0deg));
+    transition: transform 0.18s ease-out;
 }
 
-.award-card:hover::after {
-    animation: shimmer 0.8s ease;
+/* Wood frame exterior */
+.cabinet-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-dark);
+    background-image:
+        repeating-linear-gradient(118deg,
+            rgba(255, 255, 255, 0.025) 0px,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 5px),
+        repeating-linear-gradient(118deg,
+            rgba(0, 0, 0, 0.10) 0px,
+            rgba(0, 0, 0, 0.10) 1.5px,
+            transparent 1.5px,
+            transparent 11px);
+    border: 18px solid var(--espresso-light);
+    box-shadow:
+        0 32px 80px rgba(46, 30, 26, 0.40),
+        0 10px 24px rgba(46, 30, 26, 0.32),
+        inset 0 0 0 4px var(--espresso-deep),
+        inset 0 0 70px rgba(0, 0, 0, 0.45);
+    transform-style: preserve-3d;
 }
 
-@keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-.award-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.75rem;
-}
-
-.award-name {
+/* Brass nameplate at top */
+.cabinet-nameplate {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--brass);
+    background-image: linear-gradient(180deg,
+        var(--brass-light) 0%,
+        var(--brass) 50%,
+        var(--brass-dark) 100%);
+    color: var(--espresso-deep);
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    padding: 0.35rem 1.1rem;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    z-index: 8;
+    white-space: nowrap;
+}
+
+/* Brass corner brackets */
+.brass-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    z-index: 6;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+.brass-corner-tl { top: -10px; left: -10px; }
+.brass-corner-tr { top: -10px; right: -10px; }
+.brass-corner-bl { bottom: -10px; left: -10px; }
+.brass-corner-br { bottom: -10px; right: -10px; }
+
+/* Hinges */
+.cabinet-hinge {
+    position: absolute;
+    width: 8px;
+    height: 26px;
+    background-color: var(--brass);
+    background-image: linear-gradient(90deg,
+        var(--brass-light),
+        var(--brass-dark));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    z-index: 5;
+}
+.cabinet-hinge-tl { top: 14%; left: -4px; }
+.cabinet-hinge-bl { bottom: 14%; left: -4px; }
+.cabinet-hinge-tr { top: 14%; right: -4px; }
+.cabinet-hinge-br { bottom: 14%; right: -4px; }
+
+/* Velvet interior */
+.cabinet-interior {
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent-pink);
+    background-image:
+        repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.07) 0px,
+            rgba(255, 255, 255, 0.07) 1px,
+            transparent 1px,
+            transparent 3px),
+        repeating-linear-gradient(135deg,
+            rgba(120, 60, 80, 0.06) 0px,
+            rgba(120, 60, 80, 0.06) 1px,
+            transparent 1px,
+            transparent 4px);
+    box-shadow: inset 0 0 60px rgba(168, 100, 130, 0.45);
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.shelf {
+    flex: 1 1 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0.5rem 1.5rem 1.1rem;
+    position: relative;
+    min-height: 0;
+}
+
+.shelf-board {
+    flex-shrink: 0;
+    height: 9px;
+    background-image:
+        linear-gradient(180deg,
+            #6E4D43 0%,
+            var(--espresso-light) 50%,
+            var(--espresso-deep) 100%);
+    border-bottom: 1.5px solid var(--brass);
+    box-shadow: 0 6px 10px rgba(46, 30, 26, 0.55);
+    transform: rotateX(-5deg);
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    position: relative;
+    z-index: 2;
+}
+
+.shelf-board::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(90deg,
+        rgba(0, 0, 0, 0.12) 0px,
+        rgba(0, 0, 0, 0.12) 1px,
+        transparent 1px,
+        transparent 7px);
+    pointer-events: none;
+}
+
+/* Award items */
+.award-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: bottom center;
+    transition: opacity 0.3s ease,
+                transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+}
+
+.recognition.is-revealed .award-item {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.recognition.is-revealed .award-item[data-idx="0"] { transition-delay: 1.30s; }
+.recognition.is-revealed .award-item[data-idx="1"] { transition-delay: 1.42s; }
+.recognition.is-revealed .award-item[data-idx="2"] { transition-delay: 1.54s; }
+.recognition.is-revealed .award-item[data-idx="3"] { transition-delay: 1.66s; }
+.recognition.is-revealed .award-item[data-idx="4"] { transition-delay: 1.78s; }
+.recognition.is-revealed .award-item[data-idx="5"] { transition-delay: 1.90s; }
+.recognition.is-revealed .award-item[data-idx="6"] { transition-delay: 2.02s; }
+.recognition.is-revealed .award-item[data-idx="7"] { transition-delay: 2.14s; }
+.recognition.is-revealed .award-item[data-idx="8"] { transition-delay: 2.26s; }
+.recognition.is-revealed .award-item[data-idx="9"] { transition-delay: 2.38s; }
+
+.item-illustration {
+    filter: drop-shadow(0 7px 6px rgba(46, 30, 26, 0.50));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: bottom center;
+}
+
+.award-item:hover .item-illustration,
+.award-item.is-active .item-illustration {
+    transform: translateY(-12px) translateZ(20px) scale(1.08);
+}
+
+.item-illustration svg {
+    display: block;
+}
+
+/* Spotlight on shelf surface beneath item */
+.item-spotlight {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    width: 92px;
+    height: 18px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center,
+        rgba(201, 168, 76, 0.40) 0%,
+        rgba(201, 168, 76, 0.14) 45%,
+        transparent 80%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.award-item:hover .item-spotlight,
+.award-item.is-active .item-spotlight {
+    opacity: 1;
+}
+
+/* Brass nameplate beneath each item */
+.item-nameplate {
+    margin-top: 0.45rem;
+    background-color: var(--brass);
+    background-image: linear-gradient(180deg,
+        var(--brass-light) 0%,
+        var(--brass) 60%,
+        var(--brass-dark) 100%);
+    color: var(--espresso-deep);
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.18rem 0.55rem;
+    text-align: center;
+    max-width: 140px;
+    line-height: 1.25;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Hover detail card */
+.item-detail-card {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translate(-50%, 10px);
+    width: 220px;
+    background-color: var(--bg-primary);
+    border-top: 2px solid var(--brass);
+    box-shadow: 0 12px 32px rgba(46, 30, 26, 0.35);
+    padding: 0.7rem 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 30;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.award-item:hover .item-detail-card,
+.award-item.is-active .item-detail-card {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.item-detail-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
+    margin: 0 0 0.3rem;
+    line-height: 1.25;
 }
 
-.award-description {
+.item-detail-desc {
     font-family: var(--font-body);
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: var(--text-muted);
+    font-size: 0.7rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    margin: 0 0 0.3rem;
 }
+
+.item-detail-year {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Glass doors */
+.cabinet-door {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(0.5px);
+    backdrop-filter: blur(0.5px);
+    border: 4px solid var(--bg-dark);
+    box-shadow:
+        inset 0 0 30px rgba(255, 255, 255, 0.05),
+        inset 0 0 4px rgba(0, 0, 0, 0.4);
+    z-index: 4;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    overflow: hidden;
+}
+
+/* Mouse-following glass shine */
+.cabinet-door::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.20) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        transparent 80%);
+    transform: translate(
+        calc((var(--mouse-x, 0.5) - 0.5) * 60%),
+        calc((var(--mouse-y, 0.5) - 0.5) * 50%)
+    );
+    transition: transform 0.18s ease-out;
+    pointer-events: none;
+}
+
+.cabinet-door-left {
+    left: 0;
+    transform-origin: left center;
+}
+
+.cabinet-door-right {
+    right: 0;
+    transform-origin: right center;
+}
+
+.recognition.is-revealed .cabinet-door-left {
+    transform: rotateY(-85deg);
+    transition-delay: 0.7s;
+}
+
+.recognition.is-revealed .cabinet-door-right {
+    transform: rotateY(85deg);
+    transition-delay: 0.7s;
+}
+
+.door-handle {
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 22px;
+    background-color: var(--brass);
+    background-image: linear-gradient(90deg,
+        var(--brass-light),
+        var(--brass-dark));
+    transform: translateY(-50%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    z-index: 5;
+}
+
+.cabinet-door-left .door-handle { right: 8px; }
+.cabinet-door-right .door-handle { left: 8px; }
 
 /* ============================================
    CONTACT SECTION — "and that's a wrap."
@@ -2121,10 +2452,6 @@ section {
         grid-template-columns: 1fr;
     }
 
-    .awards-grid {
-        grid-template-columns: 1fr;
-    }
-
     .filter-bar {
         justify-content: center;
     }
@@ -2148,10 +2475,6 @@ section {
     }
 
     .project-card {
-        padding: 1.25rem;
-    }
-
-    .award-card {
         padding: 1.25rem;
     }
 }
@@ -2185,15 +2508,6 @@ section {
         padding: 2rem;
     }
 
-    .award-card {
-        padding: 2rem;
-    }
-
-    .awards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 2rem;
-    }
-
     .contact-btn {
         padding: 1rem 2rem;
     }
@@ -2218,11 +2532,6 @@ section {
     }
 
     .projects-grid {
-        gap: 2.5rem;
-    }
-
-    .awards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 2.5rem;
     }
 
