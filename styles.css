@@ -902,6 +902,101 @@ section {
     max-width: 260px;
 }
 
+/* ============================================
+   PALETTE — SHARED DETAIL PANEL (below palette)
+   ============================================ */
+.palette-detail-panel {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 2.5rem auto 0;
+    padding: 1.1rem 1.5rem;
+    background-color: var(--bg-primary);
+    border-top: 3px solid var(--active-color, rgba(184, 169, 152, 0.35));
+    box-shadow: 0 8px 32px rgba(68, 47, 42, 0.09);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease,
+                transform 0.2s ease,
+                border-top-color 0.2s ease;
+}
+
+.palette-detail-panel.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease,
+                transform 0.2s ease,
+                border-top-color 0.2s ease;
+}
+
+.panel-dot {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--active-color, var(--text-muted));
+    transition: background-color 0.2s ease;
+}
+
+.panel-cat {
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.panel-role {
+    flex-shrink: 0;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    max-width: 24ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-company {
+    flex-shrink: 0;
+    font-family: var(--font-script);
+    font-size: 1.05rem;
+    color: var(--accent-pink-dark);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.panel-date {
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.panel-desc {
+    flex: 1 1 auto;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    margin: 0;
+    min-width: 0;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .palette-stage {
