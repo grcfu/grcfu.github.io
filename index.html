@@ -497,7 +497,50 @@
                             </div>
 
                             <div class="palette-col palette-col-right">
-                                <!-- Easel + canvas mount in commit 3 -->
+                                <div class="easel-stand">
+                                    <svg class="easel-svg" viewBox="0 0 480 520" aria-hidden="true" focusable="false">
+                                        <defs>
+                                            <filter id="easelShadow" x="-10%" y="-10%" width="120%" height="120%">
+                                                <feDropShadow dx="3" dy="8" stdDeviation="6" flood-color="#3E2723" flood-opacity="0.30"/>
+                                            </filter>
+                                        </defs>
+                                        <g filter="url(#easelShadow)">
+                                            <!-- Left leg, splaying outward -->
+                                            <path d="M 195 30 L 80 510 L 96 510 L 211 30 Z" fill="#442F2A"/>
+                                            <!-- Right leg, splaying outward -->
+                                            <path d="M 285 30 L 400 510 L 384 510 L 269 30 Z" fill="#442F2A"/>
+                                            <!-- Top connector that grips the canvas -->
+                                            <rect x="190" y="30" width="100" height="7" fill="#3E2723"/>
+                                            <!-- Canvas-rest crossbar (horizontal, 2/3 down) -->
+                                            <rect x="78" y="376" width="324" height="9" fill="#3E2723"/>
+                                            <!-- Lower stabilizer crossbar -->
+                                            <rect x="105" y="448" width="270" height="6" fill="#3E2723"/>
+                                        </g>
+                                        <!-- Brass finials at the top of each leg -->
+                                        <circle cx="203" cy="30" r="6" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
+                                        <circle cx="277" cy="30" r="6" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
+                                        <!-- Brass cap on canvas-rest crossbar -->
+                                        <rect x="232" y="372" width="16" height="3" fill="#C9A84C"/>
+                                    </svg>
+
+                                    <div class="easel-canvas" id="easelCanvas" aria-live="polite">
+                                        <!-- Canvas linen texture -->
+                                        <svg class="canvas-linen-layer" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                                            <rect width="100%" height="100%" filter="url(#linenCanvas)"/>
+                                        </svg>
+
+                                        <!-- Default state -->
+                                        <div class="canvas-default" id="canvasDefault">
+                                            <p class="canvas-prompt">hover a color to learn more —</p>
+                                            <svg class="canvas-brush-icon" viewBox="0 0 80 30" aria-hidden="true">
+                                                <rect x="2" y="13" width="46" height="4" fill="#7A5141"/>
+                                                <rect x="48" y="10" width="9" height="10" fill="#A8A29E" stroke="#6B6664" stroke-width="0.4"/>
+                                                <path d="M 57 10 L 68 8 L 73 15 L 68 22 L 57 22 Z" fill="#3E2723"/>
+                                                <circle cx="76" cy="22" r="2.6" fill="#F4C9D6" opacity="0.85"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
