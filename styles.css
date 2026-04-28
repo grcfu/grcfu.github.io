@@ -1074,33 +1074,41 @@ section {
     transition-delay: 1.4s;
 }
 
-/* Paint blobs — thick impasto dollops */
+/* Paint blobs — thick impasto dollops.
+   Hover-glitch fix: the .paint-blob group never moves. It contains a
+   stationary <rect class="blob-hitbox"> that owns hover detection, and
+   a <g class="blob-inner"> that holds the visual paths/labels and is
+   the only thing that lifts on hover. The cursor stays inside the
+   stationary hitbox while the visual lifts — no flicker loop. */
 .paint-blob {
     cursor: pointer;
-    transform-box: fill-box;
-    transform-origin: center;
-    /* Preserve the SVG translate() positioning by keeping scale baked
-       into the originals. Dropping animation starts at scale(0). */
     opacity: 0;
     filter:
         drop-shadow(-3px -3px 4px rgba(255, 255, 255, 0.22))
         drop-shadow(4px 5px 8px rgba(42, 30, 26, 0.35))
         drop-shadow(0 0 2px rgba(42, 30, 26, 0.2));
-    transition: filter 0.2s ease,
-                translate 0.2s ease,
-                scale 0.2s ease;
 }
 
-/* Hover — lift, enlarge, warm glow. Uses individual transform props
-   (translate/scale) so they compose with the SVG transform="translate()"
-   attribute on each blob group. */
-.paint-blob:hover {
+/* The invisible stationary hover area */
+.blob-hitbox {
+    pointer-events: all;
+}
+
+/* The lifting visual group. pointer-events: none so the lifted shape
+   never adds to the hit region — only the stationary hitbox does. */
+.blob-inner {
+    pointer-events: none;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: translate 0.2s ease,
+                scale 0.2s ease,
+                filter 0.2s ease;
+}
+
+.paint-blob:hover .blob-inner {
     translate: 0 -6px;
     scale: 1.1;
-    filter:
-        drop-shadow(-3px -3px 4px rgba(255, 255, 255, 0.25))
-        drop-shadow(4px 6px 10px rgba(42, 30, 26, 0.40))
-        drop-shadow(0 0 14px rgba(244, 201, 214, 0.65));
+    filter: drop-shadow(0 0 14px rgba(244, 201, 214, 0.65));
 }
 
 
@@ -1124,35 +1132,27 @@ section {
     100% { opacity: 1; }
 }
 
-.paint-blob > path {
-    pointer-events: all;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 0.2s ease;
-}
-
 /* Blob labels — always visible, sit on top of paint shape */
-.paint-blob > text {
-    pointer-events: none;
+.blob-inner text {
     user-select: none;
     font-family: 'DM Sans', sans-serif;
     fill: var(--blob-text-color, #5A4A40);
 }
 
 .blob-label-name {
-    font-size: 9px;
+    font-size: clamp(0.55rem, 0.95vw, 0.78rem);
     font-weight: 700;
     letter-spacing: 0.02em;
 }
 
 .blob-label-skills {
-    font-size: 7px;
+    font-size: clamp(0.5rem, 0.85vw, 0.7rem);
     font-weight: 500;
     letter-spacing: 0.04em;
 }
 
 .blob-label-hint {
-    font-size: 6.5px;
+    font-size: clamp(0.45rem, 0.75vw, 0.62rem);
     font-family: 'Dancing Script', cursive;
     font-style: italic;
     opacity: 0.75;
@@ -1300,10 +1300,11 @@ section {
         transform: none !important;
         opacity: 1 !important;
     }
-    .paint-blob,
-    .paint-blob:hover {
+    .blob-inner,
+    .paint-blob:hover .blob-inner {
         translate: 0 0 !important;
         scale: 1 !important;
+        transition: none !important;
     }
     .palette-section.is-visible .paint-smears .smear {
         stroke-dashoffset: 0 !important;
