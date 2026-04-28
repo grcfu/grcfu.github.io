@@ -1972,7 +1972,9 @@ section {
     display: flex;
     flex-direction: column;
     z-index: 1;
-    overflow: hidden;
+    /* visible so hover detail cards on bottom-shelf items aren't clipped;
+       the section itself has overflow:hidden as the outer guard */
+    overflow: visible;
     transform-style: preserve-3d;
 }
 
@@ -2230,6 +2232,120 @@ section {
 
 .cabinet-door-left .door-handle { right: 8px; }
 .cabinet-door-right .door-handle { left: 8px; }
+
+/* Mobile — flat (no rotateX), tighter padding, smaller items + nameplates */
+@media (max-width: 768px) {
+    .recognition {
+        perspective: none;
+        padding: 4rem 0;
+    }
+
+    .recognition-header {
+        margin-bottom: 2rem;
+    }
+
+    .cabinet-stage {
+        width: 95vw;
+    }
+
+    .cabinet {
+        height: clamp(420px, 95vw, 520px);
+    }
+
+    .cabinet-3d {
+        transform: none;
+    }
+
+    .cabinet-frame {
+        border-width: 12px;
+        box-shadow:
+            0 16px 32px rgba(46, 30, 26, 0.32),
+            inset 0 0 0 3px var(--espresso-deep),
+            inset 0 0 36px rgba(0, 0, 0, 0.42);
+    }
+
+    .cabinet-nameplate {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+        padding: 0.3rem 0.85rem;
+    }
+
+    .brass-corner {
+        width: 22px;
+        height: 22px;
+    }
+
+    .cabinet-hinge {
+        width: 6px;
+        height: 18px;
+    }
+
+    .shelf {
+        padding: 0.4rem 0.5rem 0.85rem;
+    }
+
+    .item-illustration {
+        transform-origin: bottom center;
+    }
+    .item-illustration svg {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 56px;
+    }
+
+    .item-nameplate {
+        font-size: 0.45rem;
+        max-width: 96px;
+        padding: 0.14rem 0.4rem;
+        letter-spacing: 0.04em;
+    }
+
+    .shelf-mid .item-nameplate {
+        max-width: 80px;
+        font-size: 0.42rem;
+    }
+
+    .item-detail-card {
+        width: 180px;
+        padding: 0.55rem 0.7rem;
+    }
+
+    .item-detail-name { font-size: 0.78rem; }
+    .item-detail-desc { font-size: 0.66rem; }
+    .item-detail-year { font-size: 0.55rem; }
+
+    /* Slightly less dramatic door swing on small screens */
+    .recognition.is-revealed .cabinet-door-left {
+        transform: rotateY(-78deg);
+    }
+    .recognition.is-revealed .cabinet-door-right {
+        transform: rotateY(78deg);
+    }
+
+    .award-item:hover .item-illustration,
+    .award-item.is-active .item-illustration {
+        transform: translateY(-8px) scale(1.06);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cabinet,
+    .cabinet-3d,
+    .cabinet-door,
+    .award-item,
+    .item-illustration,
+    .item-detail-card,
+    .item-spotlight {
+        animation: none !important;
+        transition: opacity 0.15s ease !important;
+    }
+    .recognition .cabinet { transform: none !important; opacity: 1 !important; }
+    .recognition .cabinet-3d { transform: none !important; }
+    .recognition .award-item { transform: scale(1) !important; opacity: 1 !important; }
+    .recognition .cabinet-door-left { transform: rotateY(-85deg) !important; }
+    .recognition .cabinet-door-right { transform: rotateY(85deg) !important; }
+}
 
 /* ============================================
    CONTACT SECTION — "and that's a wrap."
