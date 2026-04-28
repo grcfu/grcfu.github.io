@@ -63,28 +63,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // ----- Phase 1: Opening state (0–0.6s) -----
             // GIF centered, text hidden, panel off-screen. Just let the user see it.
 
-            // ----- Phase 2: Split (0.6s, 0.9s duration) -----
+            // ----- Phase 2: Split (0.6s, 1.5s duration) -----
             setTimeout(() => {
                 heroSection.classList.add('phase-split');
             }, 600);
 
-            // ----- Phase 3: Text reveals (starts at 1.5s = 0.6s + 0.9s) -----
+            // ----- Phase 3: Text reveals (starts at 2.1s = 0.6s + 1.5s) -----
             // Each line sweeps in via clip-path, 0.35s stagger
             setTimeout(() => {
                 heroSection.classList.add('phase-text');
                 revealText(lineTiny);
-            }, 1500);
+            }, 2100);
 
-            setTimeout(() => revealText(lineName), 1500 + 350);
-            setTimeout(() => revealText(wavy, 'is-drawn'), 1500 + 700);
-            setTimeout(() => revealText(lineTagline), 1500 + 1050);
-            setTimeout(() => revealText(lineTagline2), 1500 + 1400);
-            setTimeout(() => revealText(lineCredentials), 1500 + 1750);
+            setTimeout(() => revealText(lineName), 2100 + 350);
+            setTimeout(() => revealText(wavy, 'is-drawn'), 2100 + 700);
+            setTimeout(() => revealText(lineTagline), 2100 + 1050);
+            setTimeout(() => revealText(lineTagline2), 2100 + 1400);
+            setTimeout(() => revealText(lineCredentials), 2100 + 1750);
 
-            // ----- Phase 4: Finishing touches (after last text line ~3.25s) -----
+            // ----- Phase 4: Finishing touches (after last text line ~3.85s) -----
             setTimeout(() => {
                 heroSection.classList.add('phase-finish');
-            }, 1500 + 1750 + 500);
+            }, 2100 + 1750 + 500);
         }
 
         // ----- Scroll transition (runs always after entrance) -----
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // capture the current frame to canvas, and at GIF_DURATION_MS we
     // swap to that canvas — so the visible freeze frame is the one
     // from GIF_SNAPSHOT_MS even though playback ran the full duration.
-    const GIF_DURATION_MS = 3000;
-    const GIF_SNAPSHOT_MS = 2500;
+    const GIF_DURATION_MS = 2900;
+    const GIF_SNAPSHOT_MS = 2900;
 
     // Optional: parse the GIF binary to find the exact time a specific frame
     // starts. Set to null to skip parsing and use the constants above.
