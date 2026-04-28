@@ -784,7 +784,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (isTouch) {
-            // Tap to open, tap blob again or anywhere else to close
+            // Update hint copy: hover → tap on touch devices
+            paletteSection.querySelectorAll('.blob-label-hint').forEach(t => {
+                t.textContent = 'tap me';
+            });
+            // Tap to open, tap blob again or anywhere outside to close
             blobs.forEach(blob => {
                 blob.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -795,8 +799,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
-            document.addEventListener('click', () => {
-                if (activeBlob) closeSplash();
+            document.addEventListener('click', (e) => {
+                if (!activeBlob) return;
+                // Don't close if tap is inside the detail panel itself
+                if (detailPanel && detailPanel.contains(e.target)) return;
+                closeSplash();
             });
         } else {
             // Hover interaction on desktop
