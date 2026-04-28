@@ -690,9 +690,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const paletteSvg = document.getElementById('paletteSvg');
         const paletteStage = document.getElementById('paletteStage');
         const splashText = document.getElementById('splashText');
+        const detailPanel = document.getElementById('paletteDetailPanel');
         const blobs = paletteSection.querySelectorAll('.paint-blob');
         const splashes = paletteSection.querySelectorAll('.splash');
         const isTouch = window.matchMedia('(hover: none)').matches;
+
+        // Map blob id → its accent color (matches the SVG fill)
+        const BLOB_COLORS = {
+            google:   '#F4C9D6',
+            teach:    '#E8A6B8',
+            research: '#B8A998',
+            ameri:    '#F3C9B5',
+            slu:      '#B37487',
+            boa:      '#C7A0AA'
+        };
+
+        function fillPanel(blob) {
+            if (!detailPanel) return;
+            detailPanel.querySelector('.panel-cat').textContent = blob.dataset.cat || '';
+            detailPanel.querySelector('.panel-role').textContent = blob.dataset.role || '';
+            detailPanel.querySelector('.panel-company').textContent = blob.dataset.company || '';
+            detailPanel.querySelector('.panel-date').textContent = blob.dataset.date || '';
+            detailPanel.querySelector('.panel-desc').textContent = blob.dataset.desc || '';
+            const color = BLOB_COLORS[blob.dataset.blob] || 'var(--text-muted)';
+            detailPanel.style.setProperty('--active-color', color);
+        }
+
+        function showPanel(blob) {
+            if (!detailPanel) return;
+            fillPanel(blob);
+            detailPanel.classList.add('is-active');
+        }
+
+        function hidePanel() {
+            if (!detailPanel) return;
+            detailPanel.classList.remove('is-active');
+        }
 
         // Scroll-in: trigger palette/blob/smear/brush entrance animations once
         const paletteObserver = new IntersectionObserver((entries) => {
@@ -744,25 +777,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function openSplash(blob) {
             if (activeBlob === blob) return;
-            const openOnce = (newBlob) => {
-                const splash = findSplash(newBlob.dataset.blob);
-                if (!splash) return;
-                fillText(newBlob);
-                positionTextOver(newBlob);
+            // Cancel any pending close so fast moves don't flicker
+            if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+
+            // If another blob is active, close its splash bloom immediately
+            // but keep the panel populated — we'll just swap content.
+            if (activeBlob && activeBlob !== blob) {
+                const prevSplash = findSplash(activeBlob.dataset.blob);
+                if (prevSplash && prevSplash.classList.contains('is-open')) {
+                    prevSplash.classList.remove('is-open');
+                    prevSplash.classList.add('is-closing');
+                    setTimeout(() => prevSplash.classList.remove('is-closing'), 320);
+                }
+            }
+
+            const splash = findSplash(blob.dataset.blob);
+            if (splash) {
                 splash.classList.remove('is-closing');
                 splash.classList.add('is-open');
-                splashText.classList.add('is-open');
-                activeBlob = newBlob;
-            };
-
-            if (activeBlob) {
-                // Close current then open new after 50ms gap
-                closeSplash(false);
-                if (closeTimer) clearTimeout(closeTimer);
-                closeTimer = setTimeout(() => openOnce(blob), 50);
-            } else {
-                openOnce(blob);
             }
+            showPanel(blob);
+            activeBlob = blob;
         }
 
         function closeSplash(clearActive = true) {
@@ -773,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => s.classList.remove('is-closing'), 320);
                 }
             });
-            if (splashText) splashText.classList.remove('is-open');
+            hidePanel();
             if (clearActive) activeBlob = null;
         }
 
