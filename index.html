@@ -155,412 +155,285 @@
             </div>
         </section>
 
-        <!-- Experience Section — THE PALETTE & EASEL -->
-        <section id="experience" class="palette-section" aria-label="Work Experience">
-            <!-- Reusable SVG filter defs for linen textures -->
-            <svg class="palette-svg-defs" aria-hidden="true" focusable="false">
-                <defs>
-                    <filter id="linenTexture" x="0" y="0" width="100%" height="100%">
-                        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" seed="3"/>
-                        <feColorMatrix values="0 0 0 0 0.31
-                                               0 0 0 0 0.21
-                                               0 0 0 0 0.18
-                                               0 0 0 0.16 0"/>
-                    </filter>
-                    <filter id="linenCanvas" x="0" y="0" width="100%" height="100%">
-                        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" seed="5"/>
-                        <feColorMatrix values="0 0 0 0 0.34
-                                               0 0 0 0 0.24
-                                               0 0 0 0 0.20
-                                               0 0 0 0.10 0"/>
-                    </filter>
-                </defs>
+        <!-- Experience Section — Botanical Vine Timeline -->
+        <section id="experience" class="vine-section" aria-label="Experience">
+            <div class="vine-paper" aria-hidden="true"></div>
+
+            <div class="vine-header">
+                <p class="section-label vine-label">[ EXPERIENCE ]</p>
+                <p class="vine-subtitle">a story told in bloom</p>
+            </div>
+
+            <!-- Vine trunk + leaf sprouts + branches. preserveAspectRatio=none
+                 stretches geometry; vector-effect=non-scaling-stroke keeps
+                 stroke widths consistent across viewports. -->
+            <svg class="vine-trunk" id="vineTrunk" viewBox="0 0 100 200"
+                 preserveAspectRatio="none" aria-hidden="true">
+                <!-- Six branches from main vine to each flower -->
+                <g class="vine-branches">
+                    <path class="vine-branch" data-idx="0"
+                          d="M 8 19 Q 14 17 19 19 T 24 21"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="1"
+                          d="M 12 47 Q 18 45 22 47 T 27 49"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="2"
+                          d="M 9 78 Q 15 76 19 79 T 23 80"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="3"
+                          d="M 13 105 Q 19 103 24 105 T 28 108"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="4"
+                          d="M 8 138 Q 13 136 17 137 T 22 140"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="5"
+                          d="M 12 168 Q 18 166 22 168 T 27 170"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                </g>
+
+                <!-- Main vine — wiggly hand-drawn bezier path -->
+                <path class="vine-main" id="vineMain"
+                      d="M 10 0
+                         C 4 8, 16 16, 9 24
+                         C 3 32, 17 40, 10 48
+                         C 4 56, 16 64, 9 72
+                         C 3 80, 16 88, 11 96
+                         C 5 104, 17 112, 10 120
+                         C 4 128, 16 136, 9 144
+                         C 3 152, 17 160, 11 168
+                         C 5 176, 15 184, 10 192
+                         C 7 196, 11 200, 10 200"
+                      stroke="#A8B89A" stroke-width="2.5" fill="none"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      vector-effect="non-scaling-stroke"/>
+
+                <!-- Decorative leaf sprouts — fade in as vine reaches them -->
+                <g class="vine-sprouts">
+                    <g class="vine-sprout" data-trigger="0.04" transform="translate(11 8) rotate(-30)">
+                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.13" transform="translate(7 26) rotate(35)">
+                        <path d="M 0 0 Q 2 -1.5 3 -3 Q 1.5 -4 0 -3 Q -1.5 -4 -3 -3 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.20" transform="translate(13 40) rotate(-25)">
+                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.32" transform="translate(8 64) rotate(40)">
+                        <path d="M 0 0 Q 2 -1.5 4 -2 Q 2 -3.5 0 -2.5 Q -2 -3.5 -4 -2 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.43" transform="translate(13 86) rotate(-35)">
+                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.58" transform="translate(7 116) rotate(28)">
+                        <path d="M 0 0 Q 2 -1.5 3 -3 Q 1.5 -4 0 -3 Q -1.5 -4 -3 -3 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.73" transform="translate(13 146) rotate(-30)">
+                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                    <g class="vine-sprout" data-trigger="0.88" transform="translate(7 176) rotate(38)">
+                        <path d="M 0 0 Q 2 -1.5 4 -2 Q 2 -3.5 0 -2.5 Q -2 -3.5 -4 -2 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
+                    </g>
+                </g>
             </svg>
 
-            <div class="palette-header">
-                <p class="section-label">[ THE PALETTE ]</p>
-                <p class="palette-subtitle">every role a different color</p>
-            </div>
+            <!-- Six flowers — each its own SVG, undistorted, positioned absolutely.
+                 data-trigger is the vine progress fraction at which it blooms. -->
 
-            <div class="palette-frame">
-                <div class="palette-mat">
-                    <div class="palette-canvas-area">
-                        <!-- Linen texture layer -->
-                        <svg class="linen-layer" aria-hidden="true" focusable="false" preserveAspectRatio="none">
-                            <rect width="100%" height="100%" filter="url(#linenTexture)"/>
-                        </svg>
-
-                        <!-- Scattered paint drop decorations -->
-                        <span class="paint-drop paint-drop-1"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-2"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-3"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-4"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-5"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-6"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-7"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-8"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-9"  aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-10" aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-11" aria-hidden="true"></span>
-                        <span class="paint-drop paint-drop-12" aria-hidden="true"></span>
-
-                        <div class="palette-columns">
-                            <div class="palette-col palette-col-left">
-                                <div class="palette-stage" id="paletteStage">
-                                    <svg class="palette-svg" id="paletteSvg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                        <!-- Wood grain texture filter -->
-                        <filter id="woodGrain" x="0" y="0" width="100%" height="100%">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.9" numOctaves="2" seed="4"/>
-                            <feColorMatrix values="0 0 0 0 0.26
-                                                   0 0 0 0 0.18
-                                                   0 0 0 0 0.16
-                                                   0 0 0 0.18 0"/>
-                            <feComposite in2="SourceGraphic" operator="in"/>
-                        </filter>
-
-                        <!-- Drop shadow for palette on cream -->
-                        <filter id="paletteShadow" x="-10%" y="-10%" width="120%" height="120%">
-                            <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#442F2A" flood-opacity="0.22"/>
-                        </filter>
-
-                        <!-- Paint-blob highlight radial gradients (upper-left light catch) -->
-                        <radialGradient id="hl-google" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#FFE4EC" stop-opacity="0.9"/>
-                            <stop offset="55%" stop-color="#F4C9D6" stop-opacity="0"/>
-                        </radialGradient>
-                        <radialGradient id="hl-teach" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#FAD6DF" stop-opacity="0.85"/>
-                            <stop offset="55%" stop-color="#E8A6B8" stop-opacity="0"/>
-                        </radialGradient>
-                        <radialGradient id="hl-research" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-                            <stop offset="55%" stop-color="#EEEBE7" stop-opacity="0"/>
-                        </radialGradient>
-                        <radialGradient id="hl-ameri" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#FFEADE" stop-opacity="0.9"/>
-                            <stop offset="55%" stop-color="#F7CFB8" stop-opacity="0"/>
-                        </radialGradient>
-                        <radialGradient id="hl-slu" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#D89BAE" stop-opacity="0.85"/>
-                            <stop offset="55%" stop-color="#A5627A" stop-opacity="0"/>
-                        </radialGradient>
-                        <radialGradient id="hl-boa" cx="30%" cy="30%" r="60%">
-                            <stop offset="0%" stop-color="#E8D0D4" stop-opacity="0.85"/>
-                            <stop offset="55%" stop-color="#BCA1AA" stop-opacity="0"/>
-                        </radialGradient>
-                    </defs>
-
-                    <!-- Wooden palette — asymmetric kidney/teardrop with thumb hole -->
-                    <g class="palette-body" filter="url(#paletteShadow)">
-                        <path class="palette-shape" d="M 150 260
-                                 C 120 140, 280 70, 440 80
-                                 C 610 90, 780 70, 880 160
-                                 C 960 230, 940 380, 880 480
-                                 C 810 590, 660 640, 490 620
-                                 C 340 605, 200 570, 150 460
-                                 C 120 400, 125 320, 150 260 Z"
-                              fill="#4A322B"/>
-                        <!-- Wood grain overlay -->
-                        <path d="M 150 260
-                                 C 120 140, 280 70, 440 80
-                                 C 610 90, 780 70, 880 160
-                                 C 960 230, 940 380, 880 480
-                                 C 810 590, 660 640, 490 620
-                                 C 340 605, 200 570, 150 460
-                                 C 120 400, 125 320, 150 260 Z"
-                              fill="#4A322B" filter="url(#woodGrain)"/>
-                        <!-- Thumb hole cutout -->
-                        <ellipse cx="225" cy="400" rx="42" ry="32" fill="var(--bg-primary, #EEEBE7)"/>
-                        <ellipse cx="225" cy="400" rx="42" ry="32" fill="none"
-                                 stroke="#2F1F1A" stroke-width="2" stroke-opacity="0.5"/>
-                        <!-- Inner worn border, slightly lighter espresso inset from edge -->
-                        <path d="M 180 280
-                                 C 150 170, 300 110, 450 120
-                                 C 600 128, 770 115, 855 190
-                                 C 920 250, 905 370, 855 460
-                                 C 790 555, 650 600, 490 582
-                                 C 355 570, 225 540, 180 450
-                                 C 155 400, 160 330, 180 280 Z"
-                              fill="none" stroke="#6B4A3E" stroke-width="1.5" stroke-opacity="0.55"/>
+            <!-- 1. Cherry blossom — Google -->
+            <svg class="vine-flower" data-idx="0" data-trigger="0.10" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <g class="petal" data-p="0"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6"/></g>
+                    <g class="petal" data-p="1"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6" transform="rotate(72)"/></g>
+                    <g class="petal" data-p="2"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6" transform="rotate(144)"/></g>
+                    <g class="petal" data-p="3"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6" transform="rotate(216)"/></g>
+                    <g class="petal" data-p="4"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6" transform="rotate(288)"/></g>
+                    <g class="petal" data-p="5">
+                        <line x1="0" y1="0" x2="0" y2="-7" stroke="#C9A84C" stroke-width="0.6"/>
+                        <line x1="0" y1="0" x2="3" y2="-6" stroke="#C9A84C" stroke-width="0.6"/>
+                        <line x1="0" y1="0" x2="-3" y2="-6" stroke="#C9A84C" stroke-width="0.6"/>
+                        <line x1="0" y1="0" x2="5" y2="-4" stroke="#C9A84C" stroke-width="0.6"/>
+                        <line x1="0" y1="0" x2="-5" y2="-4" stroke="#C9A84C" stroke-width="0.6"/>
+                        <circle cx="0" cy="-7" r="1" fill="#C9A84C"/>
+                        <circle cx="3" cy="-6" r="1" fill="#C9A84C"/>
+                        <circle cx="-3" cy="-6" r="1" fill="#C9A84C"/>
+                        <circle cx="5" cy="-4" r="1" fill="#C9A84C"/>
+                        <circle cx="-5" cy="-4" r="1" fill="#C9A84C"/>
+                        <circle cx="0" cy="0" r="2.5" fill="#E8A6B8"/>
                     </g>
+                </g>
+            </svg>
 
-                    <!-- Paint smear trails — dragged between adjacent blobs -->
-                    <g class="paint-smears">
-                        <path class="smear" d="M 550 200 Q 620 212 692 226" stroke="#F4C9D6" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.22"/>
-                        <path class="smear" d="M 408 372 Q 480 392 556 420" stroke="#EEEBE7" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.28"/>
-                        <path class="smear" d="M 676 432 Q 620 456 560 472" stroke="#F3C9B5" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.22"/>
-                        <path class="smear" d="M 744 258 Q 772 300 780 340" stroke="#E8A6B8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.2"/>
+            <!-- 2. Daisy — Teaching Assistant -->
+            <svg class="vine-flower" data-idx="1" data-trigger="0.245" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <g class="petal" data-p="0"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7"/></g>
+                    <g class="petal" data-p="1"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(30)"/></g>
+                    <g class="petal" data-p="2"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7" transform="rotate(60)"/></g>
+                    <g class="petal" data-p="3"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(90)"/></g>
+                    <g class="petal" data-p="4"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7" transform="rotate(120)"/></g>
+                    <g class="petal" data-p="5"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(150)"/></g>
+                    <g class="petal" data-p="6"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7" transform="rotate(180)"/></g>
+                    <g class="petal" data-p="7"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(210)"/></g>
+                    <g class="petal" data-p="8"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7" transform="rotate(240)"/></g>
+                    <g class="petal" data-p="9"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(270)"/></g>
+                    <g class="petal" data-p="10"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7" transform="rotate(300)"/></g>
+                    <g class="petal" data-p="11"><ellipse cx="0" cy="-13" rx="3" ry="9" fill="#EEEBE7" transform="rotate(330)"/></g>
+                    <g class="petal" data-p="12">
+                        <circle cx="0" cy="0" r="5" fill="#C9A84C"/>
+                        <circle cx="0" cy="0" r="3" fill="#A88838"/>
                     </g>
+                </g>
+            </svg>
 
-                    <!-- Paint blobs — each is a thick impasto dollop -->
-                    <g class="paint-blobs">
-                        <!-- Google Developers Group (largest, rich blush pink) -->
-                        <g class="paint-blob" data-blob="google" data-cat="TECHNOLOGY"
-                           data-role="Project Management Lead &amp; AI/ML Software Engineer"
-                           data-company="Google Developers Group"
-                           data-date="Sep 2025 — Present"
-                           data-desc="Leading a team of 5 building healthxr.ai; architected HIPAA-compliant data pipelines and patient privacy frameworks."
-                           transform="translate(480 190)">
-                            <rect class="blob-hitbox" x="-94" y="-94" width="190" height="176" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -72 -18
-                                         C -78 -44, -52 -68, -20 -70
-                                         C 18 -74, 62 -58, 74 -28
-                                         C 82 -4, 72 24, 48 46
-                                         C 22 68, -18 74, -48 62
-                                         C -72 52, -80 24, -76 4
-                                         C -78 -6, -76 -12, -72 -18 Z"
-                                      fill="#F4C9D6"/>
-                                <path d="M -72 -18
-                                         C -78 -44, -52 -68, -20 -70
-                                         C 18 -74, 62 -58, 74 -28
-                                         C 82 -4, 72 24, 48 46
-                                         C 22 68, -18 74, -48 62
-                                         C -72 52, -80 24, -76 4
-                                         C -78 -6, -76 -12, -72 -18 Z"
-                                      fill="url(#hl-google)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">Google</text>
-                                <text class="blob-label-skills" x="0" y="6" text-anchor="middle">AI/ML · HIPAA · Leadership</text>
-                                <text class="blob-label-hint" x="0" y="20" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
+            <!-- 3. Lavender sprig — ML Research -->
+            <svg class="vine-flower" data-idx="2" data-trigger="0.395" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <line x1="0" y1="22" x2="0" y2="-22" stroke="#A8B89A" stroke-width="0.8"/>
+                    <g class="petal" data-p="0"><ellipse cx="-3" cy="-20" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="1"><ellipse cx="3" cy="-17" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="2"><ellipse cx="-3" cy="-13" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="3"><ellipse cx="3" cy="-9" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="4"><ellipse cx="-3" cy="-5" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="5"><ellipse cx="3" cy="-1" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="6"><ellipse cx="-3" cy="3" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="7"><ellipse cx="3" cy="7" rx="3" ry="4" fill="#C4B0D4"/></g>
+                    <g class="petal" data-p="8"><ellipse cx="0" cy="11" rx="3" ry="4" fill="#C4B0D4"/></g>
+                </g>
+            </svg>
 
-                        <!-- WashU Teaching Assistant (medium, warm rose) -->
-                        <g class="paint-blob" data-blob="teach" data-cat="EDUCATION"
-                           data-role="Teaching Assistant &amp; Grading Lead"
-                           data-company="WashU CSE 2407"
-                           data-date="Jan 2026 — Present"
-                           data-desc="Manages grading for 200+ students; provides weekly mentorship in lab sessions."
-                           transform="translate(720 230)">
-                            <rect class="blob-hitbox" x="-74" y="-78" width="148" height="140" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -50 -14
-                                         C -56 -38, -30 -54, -4 -56
-                                         C 30 -58, 58 -38, 58 -12
-                                         C 60 18, 38 44, 6 50
-                                         C -26 54, -54 38, -58 12
-                                         C -60 0, -56 -6, -50 -14 Z"
-                                      fill="#E8A6B8"/>
-                                <path d="M -50 -14
-                                         C -56 -38, -30 -54, -4 -56
-                                         C 30 -58, 58 -38, 58 -12
-                                         C 60 18, 38 44, 6 50
-                                         C -26 54, -54 38, -58 12
-                                         C -60 0, -56 -6, -50 -14 Z"
-                                      fill="url(#hl-teach)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">WashU CSE</text>
-                                <text class="blob-label-skills" x="0" y="6" text-anchor="middle">DSA · Mentorship · Grading</text>
-                                <text class="blob-label-hint" x="0" y="19" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
+            <!-- 4. Rose — AmeriBakes -->
+            <svg class="vine-flower" data-idx="3" data-trigger="0.535" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <g class="petal" data-p="0"><ellipse cx="-9" cy="-5" rx="9" ry="6" fill="#E8A6B8" transform="rotate(-30)"/></g>
+                    <g class="petal" data-p="1"><ellipse cx="9" cy="-5" rx="9" ry="6" fill="#E8A6B8" transform="rotate(30)"/></g>
+                    <g class="petal" data-p="2"><ellipse cx="9" cy="5" rx="9" ry="6" fill="#E8A6B8" transform="rotate(150)"/></g>
+                    <g class="petal" data-p="3"><ellipse cx="-9" cy="5" rx="9" ry="6" fill="#E8A6B8" transform="rotate(-150)"/></g>
+                    <g class="petal" data-p="4"><circle cx="0" cy="-3" r="6" fill="#D78AAA"/></g>
+                    <g class="petal" data-p="5"><circle cx="0" cy="0" r="3" fill="#C26F8E"/></g>
+                </g>
+            </svg>
 
-                        <!-- WashU ML Research (second largest, soft cream w/ outline) -->
-                        <g class="paint-blob" data-blob="research" data-cat="RESEARCH"
-                           data-role="AI &amp; ML Research Assistant"
-                           data-company="WashU McKelvey School of Engineering"
-                           data-date="May 2025 — Present"
-                           data-desc="Building ML pipeline in PyTorch and Scikit-learn to improve Child Protective Services investigation prioritization."
-                           transform="translate(340 380)">
-                            <rect class="blob-hitbox" x="-86" y="-84" width="174" height="152" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -64 -8
-                                         C -72 -36, -44 -60, -10 -62
-                                         C 26 -64, 66 -50, 70 -22
-                                         C 76 10, 56 42, 20 52
-                                         C -14 60, -52 48, -66 22
-                                         C -72 8, -68 -2, -64 -8 Z"
-                                      fill="#EEEBE7" stroke="#B8A998" stroke-width="1.2"/>
-                                <path d="M -64 -8
-                                         C -72 -36, -44 -60, -10 -62
-                                         C 26 -64, 66 -50, 70 -22
-                                         C 76 10, 56 42, 20 52
-                                         C -14 60, -52 48, -66 22
-                                         C -72 8, -68 -2, -64 -8 Z"
-                                      fill="url(#hl-research)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">WashU Research</text>
-                                <text class="blob-label-skills" x="0" y="6" text-anchor="middle">PyTorch · Scikit-learn · ML</text>
-                                <text class="blob-label-hint" x="0" y="20" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
+            <!-- 5. Wildflower — SLU -->
+            <svg class="vine-flower" data-idx="4" data-trigger="0.69" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <g class="petal" data-p="0"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0"/></g>
+                    <g class="petal" data-p="1"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0" transform="rotate(90)"/></g>
+                    <g class="petal" data-p="2"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0" transform="rotate(180)"/></g>
+                    <g class="petal" data-p="3"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0" transform="rotate(270)"/></g>
+                    <g class="petal" data-p="4"><circle cx="0" cy="0" r="3" fill="#D89868"/></g>
+                </g>
+            </svg>
 
-                        <!-- AmeriBakes (medium, peachy blush) -->
-                        <g class="paint-blob" data-blob="ameri" data-cat="ENTREPRENEURSHIP"
-                           data-role="Founder &amp; Web Developer"
-                           data-company="AmeriBakes"
-                           data-date="Feb 2024 — May 2025"
-                           data-desc="Founded D2C baking startup; React frontend; scaled to $3,500+ revenue and 150+ orders."
-                           transform="translate(620 420)">
-                            <rect class="blob-hitbox" x="-70" y="-74" width="140" height="132" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -48 -16
-                                         C -54 -36, -28 -52, 0 -54
-                                         C 30 -54, 54 -34, 56 -8
-                                         C 58 18, 40 42, 10 48
-                                         C -22 52, -50 36, -54 10
-                                         C -56 -2, -52 -10, -48 -16 Z"
-                                      fill="#F3C9B5"/>
-                                <path d="M -48 -16
-                                         C -54 -36, -28 -52, 0 -54
-                                         C 30 -54, 54 -34, 56 -8
-                                         C 58 18, 40 42, 10 48
-                                         C -22 52, -50 36, -54 10
-                                         C -56 -2, -52 -10, -48 -16 Z"
-                                      fill="url(#hl-ameri)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">AmeriBakes</text>
-                                <text class="blob-label-skills" x="0" y="6" text-anchor="middle">React · Startup · D2C</text>
-                                <text class="blob-label-hint" x="0" y="18" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
-
-                        <!-- SLU Bioinformatics (second largest, deep dusty rose) -->
-                        <g class="paint-blob" data-blob="slu" data-cat="SCIENCE"
-                           data-role="ML &amp; Bioinformatics Intern"
-                           data-company="Saint Louis University"
-                           data-date="Dec 2022 — May 2025"
-                           data-desc="Deep learning model for warfarin dosing at 81% accuracy; co-authored paper accepted to ICIBM 2025."
-                           transform="translate(500 480)">
-                            <rect class="blob-hitbox" x="-84" y="-82" width="168" height="140" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -60 -10
-                                         C -68 -36, -40 -58, -6 -60
-                                         C 28 -62, 66 -46, 68 -18
-                                         C 72 12, 50 42, 16 50
-                                         C -18 56, -54 42, -64 18
-                                         C -70 6, -66 -4, -60 -10 Z"
-                                      fill="#B37487"/>
-                                <path d="M -60 -10
-                                         C -68 -36, -40 -58, -6 -60
-                                         C 28 -62, 66 -46, 68 -18
-                                         C 72 12, 50 42, 16 50
-                                         C -18 56, -54 42, -64 18
-                                         C -70 6, -66 -4, -60 -10 Z"
-                                      fill="url(#hl-slu)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">SLU</text>
-                                <text class="blob-label-skills" x="0" y="6" text-anchor="middle">TensorFlow · Python · Research</text>
-                                <text class="blob-label-hint" x="0" y="19" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
-
-                        <!-- Bank of America (smallest, soft warm mauve) -->
-                        <g class="paint-blob" data-blob="boa" data-cat="LEADERSHIP"
-                           data-role="Bank of America Student Leaders Intern"
-                           data-company="United Way of Greater St. Louis"
-                           data-date="May 2024 — Apr 2025"
-                           data-desc="Launched literacy program; attended national leadership summit in Washington D.C."
-                           transform="translate(780 360)">
-                            <rect class="blob-hitbox" x="-66" y="-68" width="132" height="120" fill="transparent"/>
-                            <g class="blob-inner">
-                                <path d="M -42 -10
-                                         C -48 -30, -24 -46, 2 -48
-                                         C 28 -48, 50 -30, 50 -6
-                                         C 52 18, 32 40, 6 44
-                                         C -20 46, -46 32, -50 8
-                                         C -52 -2, -48 -6, -42 -10 Z"
-                                      fill="#C7A0AA"/>
-                                <path d="M -42 -10
-                                         C -48 -30, -24 -46, 2 -48
-                                         C 28 -48, 50 -30, 50 -6
-                                         C 52 18, 32 40, 6 44
-                                         C -20 46, -46 32, -50 8
-                                         C -52 -2, -48 -6, -42 -10 Z"
-                                      fill="url(#hl-boa)"/>
-                                <text class="blob-label-name" x="0" y="-7" text-anchor="middle">Bank of America</text>
-                                <text class="blob-label-skills" x="0" y="5" text-anchor="middle">Leadership · Community · D.C.</text>
-                                <text class="blob-label-hint" x="0" y="17" text-anchor="middle">hover me</text>
-                            </g>
-                        </g>
+            <!-- 6. Forget-me-not cluster — Bank of America -->
+            <svg class="vine-flower" data-idx="5" data-trigger="0.84" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <line x1="-10" y1="12" x2="-10" y2="0" stroke="#A8B89A" stroke-width="0.7"/>
+                    <line x1="0" y1="14" x2="0" y2="-3" stroke="#A8B89A" stroke-width="0.7"/>
+                    <line x1="10" y1="12" x2="10" y2="0" stroke="#A8B89A" stroke-width="0.7"/>
+                    <g class="petal" data-p="0" transform="translate(-10 -4)">
+                        <circle cx="0" cy="-3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="0" cy="0" r="1.1" fill="#C9A84C"/>
                     </g>
-
-                    <!-- Decorative paintbrush — bottom right corner, diagonal -->
-                    <g class="palette-brush" transform="translate(720 510) rotate(28)">
-                        <!-- Handle -->
-                        <rect x="0" y="-6" width="180" height="12" rx="2" fill="#7A5141"/>
-                        <rect x="0" y="-6" width="180" height="12" rx="2" fill="#7A5141" filter="url(#woodGrain)"/>
-                        <!-- Metal ferrule -->
-                        <rect x="-26" y="-9" width="30" height="18" fill="#A8A29E"/>
-                        <rect x="-26" y="-9" width="30" height="18" fill="none" stroke="#6B6664" stroke-width="0.8"/>
-                        <!-- Bristles — frayed organic shape -->
-                        <path d="M -28 -11
-                                 C -40 -12, -52 -10, -58 -7
-                                 C -62 -5, -64 -2, -62 1
-                                 C -58 5, -48 9, -38 11
-                                 C -32 12, -28 11, -28 11 Z"
-                              fill="#3E2723"/>
-                        <path d="M -46 -8 L -58 -7 M -50 -3 L -62 -1 M -48 4 L -58 6"
-                              stroke="#3E2723" stroke-width="0.8" stroke-linecap="round"/>
+                    <g class="petal" data-p="1" transform="translate(0 -8)">
+                        <circle cx="0" cy="-3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="0" cy="0" r="1.1" fill="#C9A84C"/>
                     </g>
-                                    </svg>
-                                </div>
-                            </div>
+                    <g class="petal" data-p="2" transform="translate(10 -4)">
+                        <circle cx="0" cy="-3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-2" cy="3" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="-3" cy="-1" r="2.4" fill="#A8C4D4"/>
+                        <circle cx="0" cy="0" r="1.1" fill="#C9A84C"/>
+                    </g>
+                </g>
+            </svg>
 
-                            <div class="palette-col palette-col-right">
-                                <div class="easel-stand">
-                                    <svg class="easel-svg" viewBox="0 0 480 520" aria-hidden="true" focusable="false">
-                                        <defs>
-                                            <filter id="easelShadow" x="-10%" y="-10%" width="120%" height="120%">
-                                                <feDropShadow dx="3" dy="8" stdDeviation="6" flood-color="#3E2723" flood-opacity="0.30"/>
-                                            </filter>
-                                        </defs>
-                                        <g filter="url(#easelShadow)">
-                                            <!-- Left leg, splaying outward -->
-                                            <path d="M 195 30 L 80 510 L 96 510 L 211 30 Z" fill="#442F2A"/>
-                                            <!-- Right leg, splaying outward -->
-                                            <path d="M 285 30 L 400 510 L 384 510 L 269 30 Z" fill="#442F2A"/>
-                                            <!-- Top connector that grips the canvas -->
-                                            <rect x="190" y="30" width="100" height="7" fill="#3E2723"/>
-                                            <!-- Canvas-rest crossbar (horizontal, 2/3 down) -->
-                                            <rect x="78" y="376" width="324" height="9" fill="#3E2723"/>
-                                            <!-- Lower stabilizer crossbar -->
-                                            <rect x="105" y="448" width="270" height="6" fill="#3E2723"/>
-                                        </g>
-                                        <!-- Brass finials at the top of each leg -->
-                                        <circle cx="203" cy="30" r="6" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
-                                        <circle cx="277" cy="30" r="6" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
-                                        <!-- Brass cap on canvas-rest crossbar -->
-                                        <rect x="232" y="372" width="16" height="3" fill="#C9A84C"/>
-                                    </svg>
+            <!-- Six experience cards. Each gets a unique --rot for the
+                 hand-pinned feel. JS adds .is-bloomed when the matching
+                 flower triggers, sliding the card in from the right. -->
+            <article class="vine-card" data-idx="0" style="--rot: -1.5deg">
+                <span class="card-annotation">— builder —</span>
+                <h3 class="card-role">PM Lead &amp; AI/ML Software Engineer</h3>
+                <p class="card-company">Google Developers Group</p>
+                <p class="card-date">Sep 2025 — Present</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">wrangling a team of 5 to ship healthxr.ai — HIPAA compliance, privacy pipelines, and all</p>
+                <svg class="card-doodle" viewBox="0 0 30 14" aria-hidden="true">
+                    <path d="M 2 7 L 24 7 M 19 2 L 25 7 L 19 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </article>
 
-                                    <div class="easel-canvas" id="easelCanvas" aria-live="polite">
-                                        <!-- Canvas linen texture -->
-                                        <svg class="canvas-linen-layer" aria-hidden="true" focusable="false" preserveAspectRatio="none">
-                                            <rect width="100%" height="100%" filter="url(#linenCanvas)"/>
-                                        </svg>
+            <article class="vine-card" data-idx="1" style="--rot: 1deg">
+                <span class="card-annotation">— mentor —</span>
+                <h3 class="card-role">Teaching Assistant &amp; Grading Lead</h3>
+                <p class="card-company">WashU CSE 2407</p>
+                <p class="card-date">Jan 2026 — Present</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">the person 200+ students email at 11pm before the exam. worth it.</p>
+            </article>
 
-                                        <!-- Default state -->
-                                        <div class="canvas-default" id="canvasDefault">
-                                            <p class="canvas-prompt">hover a color to learn more —</p>
-                                            <svg class="canvas-brush-icon" viewBox="0 0 80 30" aria-hidden="true">
-                                                <rect x="2" y="13" width="46" height="4" fill="#7A5141"/>
-                                                <rect x="48" y="10" width="9" height="10" fill="#A8A29E" stroke="#6B6664" stroke-width="0.4"/>
-                                                <path d="M 57 10 L 68 8 L 73 15 L 68 22 L 57 22 Z" fill="#3E2723"/>
-                                                <circle cx="76" cy="22" r="2.6" fill="#F4C9D6" opacity="0.85"/>
-                                            </svg>
-                                        </div>
+            <article class="vine-card" data-idx="2" style="--rot: -0.5deg">
+                <span class="card-annotation">— researcher —</span>
+                <h3 class="card-role">AI &amp; ML Research Assistant</h3>
+                <p class="card-company">WashU McKelvey School of Engineering</p>
+                <p class="card-date">May 2025 — Present</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">training models to help protect kids. the most meaningful thing I've built.</p>
+                <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M 8 1 L 9.6 6 L 14.5 6 L 10.5 9.2 L 12 14 L 8 11 L 4 14 L 5.5 9.2 L 1.5 6 L 6.4 6 Z" fill="currentColor"/>
+                </svg>
+            </article>
 
-                                        <!-- Active state — populated on blob hover -->
-                                        <div class="canvas-active" id="canvasActive">
-                                            <div class="canvas-wash" aria-hidden="true"></div>
-                                            <div class="canvas-content">
-                                                <span class="canvas-cat"></span>
-                                                <h3 class="canvas-role"></h3>
-                                                <svg class="canvas-divider" viewBox="0 0 80 12" aria-hidden="true">
-                                                    <path d="M 3 8 Q 18 2 36 7 T 70 6 L 78 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                                                </svg>
-                                                <p class="canvas-company"></p>
-                                                <p class="canvas-date"></p>
-                                                <p class="canvas-desc"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <article class="vine-card" data-idx="3" style="--rot: 1.5deg">
+                <span class="card-annotation">— founder —</span>
+                <h3 class="card-role">Founder &amp; Web Developer</h3>
+                <p class="card-company">AmeriBakes</p>
+                <p class="card-date">Feb 2024 — May 2025</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">turned a baking obsession into $3,500 in revenue and 150+ happy customers</p>
+                <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M 8 1 L 9 7 L 15 8 L 9 9 L 8 15 L 7 9 L 1 8 L 7 7 Z" fill="currentColor"/>
+                </svg>
+            </article>
 
-                <div class="palette-frame-plaque" aria-hidden="true">THE PALETTE · EXPERIENCE</div>
-            </div>
+            <article class="vine-card" data-idx="4" style="--rot: -1deg">
+                <span class="card-annotation">— scientist —</span>
+                <h3 class="card-role">ML &amp; Bioinformatics Intern</h3>
+                <p class="card-company">Saint Louis University</p>
+                <p class="card-date">Dec 2022 — May 2025</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">81% accuracy on warfarin dosing. co-authored a paper. still can't believe it.</p>
+            </article>
+
+            <article class="vine-card" data-idx="5" style="--rot: 0.5deg">
+                <span class="card-annotation">— leader —</span>
+                <h3 class="card-role">Bank of America Student Leaders Intern</h3>
+                <p class="card-company">United Way of Greater St. Louis</p>
+                <p class="card-date">May 2024 — Apr 2025</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">one of 300 chosen from 7,000+ applicants. flew to D.C. learned a lot.</p>
+            </article>
         </section>
 
         <!-- Projects Section -->
