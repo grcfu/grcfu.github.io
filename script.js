@@ -547,95 +547,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // RECOGNITION — CURIO CABINET
+    // RECOGNITION — POLAROID CORKBOARD
     // ============================================
     const recognitionSection = document.getElementById('recognition');
     if (recognitionSection) {
-        const cabinet3d = document.getElementById('cabinet3d');
-        const doorLeft = document.getElementById('cabinetDoorLeft');
-        const doorRight = document.getElementById('cabinetDoorRight');
-        const awardItems = recognitionSection.querySelectorAll('.award-item');
-        const cabinetIsTouch = window.matchMedia('(hover: none)').matches;
-        const cabinetIsMobile = window.matchMedia('(max-width: 767px)').matches;
-        const cabinetReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const polaroids = recognitionSection.querySelectorAll('.polaroid');
+        const corkIsTouch = window.matchMedia('(hover: none)').matches;
 
-        // Scroll-in entrance: trigger animations once
-        const cabinetObserver = new IntersectionObserver((entries) => {
+        // Reveal on scroll-in (one-shot). Triggers the staggered drop-in
+        // animation defined in CSS via per-data-idx transition-delay.
+        const corkObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     recognitionSection.classList.add('is-revealed');
-                    cabinetObserver.unobserve(recognitionSection);
+                    corkObserver.unobserve(recognitionSection);
                 }
             });
-        }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.18 });
-        cabinetObserver.observe(recognitionSection);
+        }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.15 });
+        corkObserver.observe(recognitionSection);
 
-        // Mouse parallax + glass shine — desktop only, throttled via rAF
-        if (!cabinetIsTouch && !cabinetIsMobile && !cabinetReducedMotion) {
-            let cabinetTicking = false;
-            let lastMouseX = 0.5;
-            let lastMouseY = 0.5;
-
-            function updateParallax() {
-                if (cabinet3d) {
-                    // ±2deg max rotation following cursor
-                    const rx = (0.5 - lastMouseY) * 4;  // mouse up → cabinet tilts up (+rx)
-                    const ry = (lastMouseX - 0.5) * 4;
-                    cabinet3d.style.setProperty('--cabinet-rx', rx.toFixed(2) + 'deg');
-                    cabinet3d.style.setProperty('--cabinet-ry', ry.toFixed(2) + 'deg');
-                }
-                if (doorLeft) {
-                    doorLeft.style.setProperty('--mouse-x', lastMouseX.toFixed(3));
-                    doorLeft.style.setProperty('--mouse-y', lastMouseY.toFixed(3));
-                }
-                if (doorRight) {
-                    doorRight.style.setProperty('--mouse-x', lastMouseX.toFixed(3));
-                    doorRight.style.setProperty('--mouse-y', lastMouseY.toFixed(3));
-                }
-                cabinetTicking = false;
-            }
-
-            recognitionSection.addEventListener('mousemove', (e) => {
-                const rect = recognitionSection.getBoundingClientRect();
-                lastMouseX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-                lastMouseY = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-                if (!cabinetTicking) {
-                    requestAnimationFrame(updateParallax);
-                    cabinetTicking = true;
-                }
-            }, { passive: true });
-
-            // Reset to neutral when mouse leaves
-            recognitionSection.addEventListener('mouseleave', () => {
-                lastMouseX = 0.5;
-                lastMouseY = 0.5;
-                if (!cabinetTicking) {
-                    requestAnimationFrame(updateParallax);
-                    cabinetTicking = true;
-                }
-            });
-        }
-
-        // Touch — tap item to open detail card, tap outside to dismiss
-        if (cabinetIsTouch) {
-            let activeAward = null;
-            awardItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (activeAward === item) {
-                        item.classList.remove('is-active');
-                        activeAward = null;
-                    } else {
-                        if (activeAward) activeAward.classList.remove('is-active');
-                        item.classList.add('is-active');
-                        activeAward = item;
-                    }
+        if (!corkIsTouch) {
+            // Hover z-index boost — JS-driven so the lifted polaroid sits
+            // cleanly above its neighbors without transition-driven stacking
+            // glitches on fast mouse traversal between polaroids.
+            polaroids.forEach(polaroid => {
+                polaroid.addEventListener('mouseenter', () => {
+                    polaroid.style.zIndex = '100';
+                });
+                polaroid.addEventListener('mouseleave', () => {
+                    polaroid.style.zIndex = '';
                 });
             });
+        } else {
+            // Touch — tap toggles is-active; tap outside dismisses.
+            // The same z-index boost applies while a polaroid is active.
+            let activePolaroid = null;
+
+            function deactivate(p) {
+                if (!p) return;
+                p.classList.remove('is-active');
+                p.style.zIndex = '';
+            }
+
+            polaroids.forEach(polaroid => {
+                polaroid.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (activePolaroid === polaroid) {
+                        deactivate(polaroid);
+                        activePolaroid = null;
+                        return;
+                    }
+                    deactivate(activePolaroid);
+                    polaroid.classList.add('is-active');
+                    polaroid.style.zIndex = '100';
+                    activePolaroid = polaroid;
+                });
+            });
+
             document.addEventListener('click', () => {
-                if (activeAward) {
-                    activeAward.classList.remove('is-active');
-                    activeAward = null;
+                if (activePolaroid) {
+                    deactivate(activePolaroid);
+                    activePolaroid = null;
                 }
             });
         }
