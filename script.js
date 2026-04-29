@@ -421,216 +421,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // EXPERIENCE — THE ARTIST PALETTE
+    // EXPERIENCE — BOTANICAL VINE TIMELINE
     // ============================================
-    const paletteSection = document.getElementById('experience');
-    if (paletteSection && paletteSection.classList.contains('palette-section')) {
-        // Scroll-in: trigger palette/blob/smear/brush entrance animations once
-        const paletteObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    paletteSection.classList.add('is-visible');
-                    paletteObserver.unobserve(paletteSection);
-                }
-            });
-        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-        paletteObserver.observe(paletteSection);
-
-        // ---- Blob → canvas paint-in state machine ----
-        const blobs = paletteSection.querySelectorAll('.paint-blob');
-        const canvasActive = document.getElementById('canvasActive');
-        const canvasDefault = document.getElementById('canvasDefault');
-        const paletteIsTouch = window.matchMedia('(hover: none)').matches;
-        const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        const CANVAS_PROMPT = hoverCapable
-            ? 'hover a color to learn more —'
-            : 'tap a color to learn more —';
-
-        const canvasPromptEl = canvasDefault && canvasDefault.querySelector('.canvas-prompt');
-        if (canvasPromptEl) canvasPromptEl.textContent = CANVAS_PROMPT;
-
-        // Experience data, keyed by data-blob id on each paint-blob
-        const EXPERIENCES = {
-            google: {
-                cat:     'TECHNOLOGY',
-                role:    'PM Lead & AI/ML Software Engineer',
-                company: 'Google Developers Group',
-                date:    'Sep 2025 — Present',
-                desc:    'Leading a team of 5 building healthxr.ai; architected HIPAA-compliant data pipelines and patient privacy frameworks.',
-                color:   '#F4C9D6'
-            },
-            teach: {
-                cat:     'EDUCATION',
-                role:    'Teaching Assistant & Grading Lead',
-                company: 'WashU CSE 2407',
-                date:    'Jan 2026 — Present',
-                desc:    'Manages grading for 200+ students; provides weekly mentorship in lab sessions.',
-                color:   '#E8A6B8'
-            },
-            research: {
-                cat:     'RESEARCH',
-                role:    'AI & ML Research Assistant',
-                company: 'WashU McKelvey School',
-                date:    'May 2025 — Present',
-                desc:    'Building ML pipeline in PyTorch and Scikit-learn to improve Child Protective Services investigation prioritization.',
-                color:   '#B8A998'
-            },
-            ameri: {
-                cat:     'ENTREPRENEURSHIP',
-                role:    'Founder & Web Developer',
-                company: 'AmeriBakes',
-                date:    'Feb 2024 — May 2025',
-                desc:    'Founded D2C baking startup; React frontend; scaled to $3,500+ revenue and 150+ orders.',
-                color:   '#F3C9B5'
-            },
-            slu: {
-                cat:     'SCIENCE',
-                role:    'ML & Bioinformatics Intern',
-                company: 'Saint Louis University',
-                date:    'Dec 2022 — May 2025',
-                desc:    'Deep learning model for warfarin dosing at 81% accuracy; co-authored paper accepted to ICIBM 2025.',
-                color:   '#B37487'
-            },
-            boa: {
-                cat:     'LEADERSHIP',
-                role:    'Bank of America Student Leaders Intern',
-                company: 'United Way of Greater St. Louis',
-                date:    'May 2024 — Apr 2025',
-                desc:    'Launched literacy program; attended national leadership summit in Washington D.C.',
-                color:   '#C7A0AA'
-            }
-        };
-
-        const PAINT_STAGES = [
-            { delay: 100,  cls: 'paint-cat' },
-            { delay: 300,  cls: 'paint-role' },
-            { delay: 500,  cls: 'paint-divider' },
-            { delay: 650,  cls: 'paint-company' },
-            { delay: 800,  cls: 'paint-date' },
-            { delay: 1000, cls: 'paint-desc' }
+    const vineSection = document.getElementById('experience');
+    if (vineSection && vineSection.classList.contains('vine-section')) {
+        // Each entry's `trigger` is the vine-progress fraction (0–1) at
+        // which its flower should bloom and its card should slide in.
+        // Order matches data-idx in the HTML.
+        const EXPERIENCES = [
+            { id: 'google',   trigger: 0.10  },
+            { id: 'teach',    trigger: 0.245 },
+            { id: 'research', trigger: 0.395 },
+            { id: 'ameri',    trigger: 0.535 },
+            { id: 'slu',      trigger: 0.69  },
+            { id: 'boa',      trigger: 0.84  }
         ];
-        const PAINT_CLASSES = PAINT_STAGES.map(s => s.cls);
 
-        let activeBlob = null;
-        let paintTimeouts = [];
-        let resetTimeout = null;
-        let leaveDebounce = null;
+        const vineMain = document.getElementById('vineMain');
+        const branches = vineSection.querySelectorAll('.vine-branch');
+        const flowers  = vineSection.querySelectorAll('.vine-flower');
+        const cards    = vineSection.querySelectorAll('.vine-card');
+        const sprouts  = vineSection.querySelectorAll('.vine-sprout');
+        const vineIsMobile = window.matchMedia('(max-width: 768px)').matches;
+        const vineReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        function clearAllTimeouts() {
-            paintTimeouts.forEach(clearTimeout);
-            paintTimeouts = [];
-            if (resetTimeout) { clearTimeout(resetTimeout); resetTimeout = null; }
+        // Compute the actual stroke length so dashoffset can mask it cleanly.
+        let vineLength = 1000;
+        if (vineMain && typeof vineMain.getTotalLength === 'function') {
+            try {
+                vineLength = vineMain.getTotalLength() || 1000;
+                vineMain.style.strokeDasharray = vineLength;
+                vineMain.style.strokeDashoffset = vineLength;
+            } catch (_) { /* fallback dasharray already set in CSS */ }
         }
 
-        function cancelLeave() {
-            if (leaveDebounce) { clearTimeout(leaveDebounce); leaveDebounce = null; }
+        function bloom(idx) {
+            if (flowers[idx]) flowers[idx].classList.add('is-bloomed');
+            if (cards[idx])   cards[idx].classList.add('is-bloomed');
+            if (branches[idx]) branches[idx].classList.add('is-drawn');
         }
 
-        function fillCanvas(data) {
-            if (!canvasActive) return;
-            canvasActive.querySelector('.canvas-cat').textContent = data.cat;
-            canvasActive.querySelector('.canvas-role').textContent = data.role;
-            canvasActive.querySelector('.canvas-company').textContent = data.company;
-            canvasActive.querySelector('.canvas-date').textContent = data.date;
-            canvasActive.querySelector('.canvas-desc').textContent = data.desc;
-            canvasActive.style.setProperty('--active-color', data.color);
-        }
-
-        function paintCanvas(blobId) {
-            const data = EXPERIENCES[blobId];
-            if (!data || !canvasActive) return;
-            clearAllTimeouts();
-
-            // Reset paint classes so the sweep animations replay from the
-            // start. Force a reflow so removed/added animations don't merge.
-            PAINT_CLASSES.forEach(c => canvasActive.classList.remove(c));
-            void canvasActive.offsetWidth;
-
-            fillCanvas(data);
-            if (canvasDefault) canvasDefault.classList.add('is-hidden');
-            canvasActive.classList.add('is-active');
-
-            PAINT_STAGES.forEach(stage => {
-                paintTimeouts.push(setTimeout(() => {
-                    canvasActive.classList.add(stage.cls);
-                }, stage.delay));
-            });
-        }
-
-        function clearCanvas() {
-            clearAllTimeouts();
-            if (canvasActive) canvasActive.classList.remove('is-active');
-            // After active fades out (250ms), reset paint classes and bring
-            // the default message back in after a 100ms gap.
-            resetTimeout = setTimeout(() => {
-                if (canvasActive) {
-                    PAINT_CLASSES.forEach(c => canvasActive.classList.remove(c));
-                }
-                resetTimeout = setTimeout(() => {
-                    if (canvasDefault) canvasDefault.classList.remove('is-hidden');
-                    resetTimeout = null;
-                }, 100);
-            }, 350);
-        }
-
-        if (paletteIsTouch) {
-            // Switch hint copy for touch users
-            paletteSection.querySelectorAll('.blob-label-hint').forEach(t => {
-                t.textContent = 'tap me';
-            });
-
-            blobs.forEach(blob => {
-                blob.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (activeBlob === blob) {
-                        activeBlob = null;
-                        clearCanvas();
-                    } else {
-                        activeBlob = blob;
-                        paintCanvas(blob.dataset.blob);
+        if (vineIsMobile) {
+            // Vine is hidden on mobile — fade cards in as they enter.
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-bloomed');
+                        cardObserver.unobserve(entry.target);
                     }
                 });
-            });
-            document.addEventListener('click', () => {
-                if (activeBlob) {
-                    activeBlob = null;
-                    clearCanvas();
-                }
-            });
+            }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+            cards.forEach(c => cardObserver.observe(c));
+        } else if (vineReducedMotion) {
+            // Skip motion: reveal everything immediately.
+            EXPERIENCES.forEach((_, i) => bloom(i));
+            sprouts.forEach(s => s.classList.add('is-shown'));
         } else {
-            blobs.forEach(blob => {
-                blob.addEventListener('mouseenter', () => {
-                    // Always cancel a pending leave first — this is what kills
-                    // any residual flicker if the cursor briefly exits and
-                    // re-enters within the debounce window.
-                    cancelLeave();
-                    if (activeBlob === blob) return;
-                    activeBlob = blob;
-                    paintCanvas(blob.dataset.blob);
-                });
-                blob.addEventListener('mouseleave', (e) => {
-                    // If moving directly to another blob, that mouseenter
-                    // handles the swap — don't queue a leave here.
-                    const related = e.relatedTarget;
-                    if (related && related.closest && related.closest('.paint-blob')) return;
-                    // Debounce: 50ms grace period in case mouseenter fires again.
-                    cancelLeave();
-                    leaveDebounce = setTimeout(() => {
-                        leaveDebounce = null;
-                        activeBlob = null;
-                        clearCanvas();
-                    }, 50);
-                });
-            });
+            // Scroll-driven vine growth — rAF-throttled for smoothness.
+            let vineTicking = false;
 
-            // Leaving the section entirely is unambiguous — clear immediately.
-            paletteSection.addEventListener('mouseleave', () => {
-                cancelLeave();
-                if (activeBlob) {
-                    activeBlob = null;
-                    clearCanvas();
+            function updateVine() {
+                const rect = vineSection.getBoundingClientRect();
+                const sectionH = rect.height || 1;
+                const viewportH = window.innerHeight || 1;
+                // Map scroll-within-section to 0–1:
+                //   section top hits viewport top → 0
+                //   section bottom hits viewport bottom → 1
+                const range = Math.max(1, sectionH - viewportH);
+                let progress = -rect.top / range;
+                if (progress < 0) progress = 0;
+                else if (progress > 1) progress = 1;
+
+                if (vineMain) {
+                    vineMain.style.strokeDashoffset = vineLength * (1 - progress);
                 }
-            });
+
+                EXPERIENCES.forEach((exp, i) => {
+                    if (progress >= exp.trigger
+                        && flowers[i]
+                        && !flowers[i].classList.contains('is-bloomed')) {
+                        bloom(i);
+                    }
+                });
+
+                sprouts.forEach(sprout => {
+                    const t = parseFloat(sprout.dataset.trigger || '0');
+                    if (progress >= t) sprout.classList.add('is-shown');
+                });
+
+                vineTicking = false;
+            }
+
+            function onVineScroll() {
+                if (!vineTicking) {
+                    window.requestAnimationFrame(updateVine);
+                    vineTicking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onVineScroll, { passive: true });
+            window.addEventListener('resize', onVineScroll, { passive: true });
+            // Initial paint in case the section is already in view.
+            updateVine();
         }
     }
 
