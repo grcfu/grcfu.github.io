@@ -676,279 +676,220 @@
             </div>
         </section>
 
-        <!-- Recognition Section — vintage curio cabinet trophy case -->
+        <!-- Recognition Section — polaroid corkboard wall -->
         <section class="recognition" id="recognition" aria-label="Recognition">
-            <div class="recognition-header">
-                <p class="section-label">[ RECOGNITION ]</p>
-                <p class="recognition-subtitle">a few things I'm proud of</p>
-            </div>
+            <!-- Reusable cork-grain filters, defined once. -->
+            <svg class="cork-defs" aria-hidden="true" focusable="false">
+                <defs>
+                    <filter id="corkGrain" x="0" y="0" width="100%" height="100%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" seed="3"/>
+                        <feColorMatrix values="0 0 0 0 0.41
+                                               0 0 0 0 0.27
+                                               0 0 0 0 0.15
+                                               0 0 0 0.35 0"/>
+                    </filter>
+                    <filter id="corkGrainFine" x="0" y="0" width="100%" height="100%">
+                        <feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="3" stitchTiles="stitch" seed="7"/>
+                        <feColorMatrix values="0 0 0 0 0.31
+                                               0 0 0 0 0.19
+                                               0 0 0 0 0.12
+                                               0 0 0 0.15 0"/>
+                    </filter>
+                </defs>
+            </svg>
 
-            <div class="cabinet-stage">
-                <div class="cabinet" id="cabinet">
-                    <div class="cabinet-3d" id="cabinet3d">
-                        <!-- Outer wood frame -->
-                        <div class="cabinet-frame">
-                            <!-- Brass nameplate at top center -->
-                            <div class="cabinet-nameplate" aria-hidden="true">GRACE FU · MMXXIV</div>
+            <div class="cork-frame" id="corkFrame">
+                <div class="corkboard" id="corkboard">
+                    <!-- Cork texture layers -->
+                    <svg class="cork-tex cork-tex-base" preserveAspectRatio="none" aria-hidden="true">
+                        <rect width="100%" height="100%" filter="url(#corkGrain)"/>
+                    </svg>
+                    <svg class="cork-tex cork-tex-fine" preserveAspectRatio="none" aria-hidden="true">
+                        <rect width="100%" height="100%" filter="url(#corkGrainFine)"/>
+                    </svg>
 
-                            <!-- Brass corner brackets -->
-                            <svg class="brass-corner brass-corner-tl" viewBox="0 0 28 28" aria-hidden="true">
-                                <path d="M 2 2 L 26 2 L 26 8 L 8 8 L 8 26 L 2 26 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.5"/>
-                                <circle cx="6" cy="6" r="1.2" fill="#8C6F2F"/>
-                            </svg>
-                            <svg class="brass-corner brass-corner-tr" viewBox="0 0 28 28" aria-hidden="true">
-                                <path d="M 26 2 L 2 2 L 2 8 L 20 8 L 20 26 L 26 26 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.5"/>
-                                <circle cx="22" cy="6" r="1.2" fill="#8C6F2F"/>
-                            </svg>
-                            <svg class="brass-corner brass-corner-bl" viewBox="0 0 28 28" aria-hidden="true">
-                                <path d="M 2 26 L 26 26 L 26 20 L 8 20 L 8 2 L 2 2 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.5"/>
-                                <circle cx="6" cy="22" r="1.2" fill="#8C6F2F"/>
-                            </svg>
-                            <svg class="brass-corner brass-corner-br" viewBox="0 0 28 28" aria-hidden="true">
-                                <path d="M 26 26 L 2 26 L 2 20 L 20 20 L 20 2 L 26 2 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.5"/>
-                                <circle cx="22" cy="22" r="1.2" fill="#8C6F2F"/>
-                            </svg>
+                    <!-- Section label as torn paper scrap, integrated into the board -->
+                    <div class="cork-scrap" aria-hidden="true">
+                        <span class="cork-scrap-pin"></span>
+                        <span class="cork-scrap-text">[ RECOGNITION ]</span>
+                    </div>
 
-                            <!-- Hinges -->
-                            <span class="cabinet-hinge cabinet-hinge-tl" aria-hidden="true"></span>
-                            <span class="cabinet-hinge cabinet-hinge-bl" aria-hidden="true"></span>
-                            <span class="cabinet-hinge cabinet-hinge-tr" aria-hidden="true"></span>
-                            <span class="cabinet-hinge cabinet-hinge-br" aria-hidden="true"></span>
+                    <!-- Tiny hand-drawn star doodle near Danforth Scholar -->
+                    <svg class="cork-star" viewBox="0 0 28 28" aria-hidden="true">
+                        <path d="M 14 3 L 16 11 L 24 11 L 17.5 15.5 L 20 23 L 14 18.5 L 8 23 L 10.5 15.5 L 4 11 L 12 11 Z"
+                              fill="none" stroke="#5A3F39" stroke-width="1.4"
+                              stroke-linejoin="round" stroke-linecap="round"/>
+                    </svg>
 
-                            <!-- Velvet interior with shelves -->
-                            <div class="cabinet-interior">
-                                <!-- Top shelf -->
-                                <div class="shelf shelf-top">
-                                    <article class="award-item" data-idx="0">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 80" width="55" height="73" aria-hidden="true">
-                                                <path d="M 22 30 L 18 70 L 30 65 L 42 70 L 38 30 Z" fill="#F4C9D6"/>
-                                                <path d="M 18 70 L 14 76 L 22 74 Z" fill="#E8A6B8"/>
-                                                <path d="M 42 70 L 46 76 L 38 74 Z" fill="#E8A6B8"/>
-                                                <circle cx="30" cy="20" r="16" fill="#C9A84C"/>
-                                                <circle cx="30" cy="20" r="13" fill="none" stroke="#8C6F2F" stroke-width="1"/>
-                                                <path d="M 30 11 L 32.2 17.4 L 38.7 17.4 L 33.5 21.6 L 35.4 28 L 30 24 L 24.6 28 L 26.5 21.6 L 21.3 17.4 L 27.8 17.4 Z" fill="#8C6F2F"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Congressional Gold Medal</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Congressional Gold Medal</h4>
-                                            <p class="item-detail-desc">1,000+ hours of service, personal development, and fitness</p>
-                                            <p class="item-detail-year">Awarded 2024</p>
-                                        </div>
-                                    </article>
+                    <!-- Blush washi tape overlapping Congressional App Challenge corner -->
+                    <span class="cork-washi" aria-hidden="true"></span>
 
-                                    <article class="award-item" data-idx="1">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 60" width="56" height="56" aria-hidden="true">
-                                                <ellipse cx="30" cy="14" rx="16" ry="3" fill="#E8D0A8"/>
-                                                <rect x="14" y="14" width="32" height="32" fill="#F4E8D0"/>
-                                                <line x1="20" y1="22" x2="40" y2="22" stroke="#9C8E84" stroke-width="0.5"/>
-                                                <line x1="20" y1="38" x2="38" y2="38" stroke="#9C8E84" stroke-width="0.5"/>
-                                                <ellipse cx="30" cy="46" rx="16" ry="3" fill="#E8D0A8"/>
-                                                <rect x="10" y="28" width="40" height="6" fill="#F4C9D6"/>
-                                                <path d="M 10 28 L 5 25 L 7 31 L 10 34 Z" fill="#E8A6B8"/>
-                                                <path d="M 50 28 L 55 25 L 53 31 L 50 34 Z" fill="#E8A6B8"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Full-Tuition Danforth Scholar</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Full-Tuition Danforth Scholar</h4>
-                                            <p class="item-detail-desc">Washington University in St. Louis, Class of 2029</p>
-                                            <p class="item-detail-year">2025</p>
-                                        </div>
-                                    </article>
+                    <!-- Yellow sticky note -->
+                    <div class="cork-sticky" aria-hidden="true">
+                        <span class="cork-sticky-pin"></span>
+                        <span class="cork-sticky-text">so proud 🎀</span>
+                    </div>
 
-                                    <article class="award-item" data-idx="2">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
-                                                <path d="M 18 12 L 18 26 Q 18 36 30 36 Q 42 36 42 26 L 42 12 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
-                                                <path d="M 18 16 Q 12 16 12 22 Q 12 26 18 26" fill="none" stroke="#8C6F2F" stroke-width="1.5"/>
-                                                <path d="M 42 16 Q 48 16 48 22 Q 48 26 42 26" fill="none" stroke="#8C6F2F" stroke-width="1.5"/>
-                                                <rect x="27" y="36" width="6" height="8" fill="#8C6F2F"/>
-                                                <rect x="20" y="44" width="20" height="6" fill="#5A3F39"/>
-                                                <path d="M 30 18 L 31.5 22 L 36 22 L 32.4 24.7 L 33.7 29 L 30 26.4 L 26.3 29 L 27.6 24.7 L 24 22 L 28.5 22 Z" fill="#8C6F2F"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Congressional App Challenge · 1st Place</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Congressional App Challenge</h4>
-                                            <p class="item-detail-desc">1st Place — presented at House of Code, Washington D.C.</p>
-                                            <p class="item-detail-year">2024</p>
-                                        </div>
-                                    </article>
-                                </div>
-
-                                <div class="shelf-board" aria-hidden="true"></div>
-
-                                <!-- Middle shelf -->
-                                <div class="shelf shelf-mid">
-                                    <article class="award-item" data-idx="3">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 50" width="55" height="46" aria-hidden="true">
-                                                <path d="M 8 38 L 8 18 L 18 28 L 24 12 L 30 26 L 36 12 L 42 28 L 52 18 L 52 38 Z" fill="#F4C9D6" stroke="#C9A84C" stroke-width="1"/>
-                                                <circle cx="24" cy="13" r="2" fill="#C9A84C"/>
-                                                <circle cx="36" cy="13" r="2" fill="#C9A84C"/>
-                                                <circle cx="30" cy="26" r="2" fill="#C9A84C"/>
-                                                <rect x="8" y="38" width="44" height="4" fill="#C9A84C"/>
-                                                <rect x="8" y="38" width="44" height="1" fill="#8C6F2F"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Distinguished Young Woman of Missouri</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Distinguished Young Woman of Missouri</h4>
-                                            <p class="item-detail-desc">$5,750 in scholarships across five categories</p>
-                                            <p class="item-detail-year">2025</p>
-                                        </div>
-                                    </article>
-
-                                    <article class="award-item" data-idx="4">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 60" width="58" height="58" aria-hidden="true">
-                                                <path d="M 8 22 L 30 8 L 52 22 Z" fill="#3E2723"/>
-                                                <rect x="10" y="22" width="40" height="28" fill="#EEEBE7" stroke="#3E2723" stroke-width="0.5"/>
-                                                <rect x="14" y="24" width="3" height="24" fill="#3E2723"/>
-                                                <rect x="22" y="24" width="3" height="24" fill="#3E2723"/>
-                                                <rect x="35" y="24" width="3" height="24" fill="#3E2723"/>
-                                                <rect x="43" y="24" width="3" height="24" fill="#3E2723"/>
-                                                <rect x="27" y="34" width="6" height="14" fill="#3E2723"/>
-                                                <rect x="6" y="50" width="48" height="3" fill="#9C8E84"/>
-                                                <rect x="2" y="53" width="56" height="3" fill="#5A3F39"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">MIT Women's Technology Program</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">MIT Women's Technology Program</h4>
-                                            <p class="item-detail-desc">Selective summer program for high-school women in CS</p>
-                                            <p class="item-detail-year">2024</p>
-                                        </div>
-                                    </article>
-
-                                    <article class="award-item" data-idx="5">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 50" width="55" height="46" aria-hidden="true">
-                                                <rect x="8" y="16" width="44" height="30" fill="#5A3F39" stroke="#3E2723" stroke-width="0.6"/>
-                                                <path d="M 22 16 Q 22 7 30 7 Q 38 7 38 16" fill="none" stroke="#3E2723" stroke-width="1.5"/>
-                                                <line x1="8" y1="22" x2="52" y2="22" stroke="#3E2723" stroke-width="0.5" stroke-dasharray="1.5 1.5"/>
-                                                <rect x="26" y="28" width="8" height="6" fill="#C9A84C"/>
-                                                <rect x="28" y="29.5" width="4" height="2" fill="#8C6F2F"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Bank of America Student Leaders</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Bank of America Student Leaders</h4>
-                                            <p class="item-detail-desc">Selected from 7,000+ applicants — 300 chosen nationally</p>
-                                            <p class="item-detail-year">2024</p>
-                                        </div>
-                                    </article>
-
-                                    <article class="award-item" data-idx="6">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 60" width="55" height="55" aria-hidden="true">
-                                                <rect x="6" y="42" width="48" height="14" fill="#5A3F39"/>
-                                                <rect x="8" y="44" width="44" height="2" fill="#7A5141"/>
-                                                <path d="M 30 8 L 35 22 L 50 22 L 38 31 L 43 45 L 30 36 L 17 45 L 22 31 L 10 22 L 25 22 Z" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
-                                                <path d="M 30 8 L 35 22 L 50 22 L 38 31 L 30 8 Z" fill="#E0BC60" opacity="0.55"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Missouri Scholars 100</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">Missouri Scholars 100</h4>
-                                            <p class="item-detail-desc">Top 100 of Missouri's graduating seniors statewide</p>
-                                            <p class="item-detail-year">2025</p>
-                                        </div>
-                                    </article>
-                                </div>
-
-                                <div class="shelf-board" aria-hidden="true"></div>
-
-                                <!-- Bottom shelf -->
-                                <div class="shelf shelf-bot">
-                                    <article class="award-item" data-idx="7">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 40" width="55" height="36" aria-hidden="true">
-                                                <ellipse cx="30" cy="14" rx="22" ry="5" fill="#E8D0A8"/>
-                                                <rect x="8" y="14" width="44" height="14" fill="#F4E8D0"/>
-                                                <ellipse cx="30" cy="28" rx="22" ry="5" fill="#E8D0A8"/>
-                                                <line x1="8" y1="18" x2="52" y2="18" stroke="#9C8E84" stroke-width="1"/>
-                                                <line x1="8" y1="22" x2="48" y2="22" stroke="#9C8E84" stroke-width="0.5"/>
-                                                <line x1="8" y1="25" x2="50" y2="25" stroke="#9C8E84" stroke-width="0.5"/>
-                                                <rect x="22" y="8" width="16" height="26" fill="#F4C9D6"/>
-                                                <path d="M 22 8 L 18 4 L 20 12 L 22 14 Z" fill="#E8A6B8"/>
-                                                <path d="M 38 8 L 42 4 L 40 12 L 38 14 Z" fill="#E8A6B8"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">Scholar Athlete · St. Louis Post-Dispatch</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">St. Louis Post-Dispatch Scholar Athlete</h4>
-                                            <p class="item-detail-desc">Selected for academic and athletic excellence</p>
-                                            <p class="item-detail-year">2025</p>
-                                        </div>
-                                    </article>
-
-                                    <article class="award-item" data-idx="8">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 70" width="50" height="58" aria-hidden="true">
-                                                <path d="M 8 8 L 52 8 L 52 36 Q 52 56 30 64 Q 8 56 8 36 Z" fill="#F4C9D6" stroke="#3E2723" stroke-width="1.2"/>
-                                                <path d="M 8 8 L 52 8 L 52 22 L 8 22 Z" fill="#3E2723"/>
-                                                <rect x="27" y="24" width="6" height="32" fill="#3E2723"/>
-                                                <rect x="20" y="32" width="20" height="5" fill="#3E2723"/>
-                                                <circle cx="30" cy="14" r="3" fill="#C9A84C"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">NCL · Top 13% Nationally</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">National Cyber League</h4>
-                                            <p class="item-detail-desc">Top 13% nationally in collegiate cybersecurity competition</p>
-                                            <p class="item-detail-year">2024</p>
-                                        </div>
-                                    </article>
-
-                                    <article class="award-item" data-idx="9">
-                                        <div class="item-illustration">
-                                            <svg viewBox="0 0 60 80" width="50" height="67" aria-hidden="true">
-                                                <ellipse cx="30" cy="22" rx="14" ry="18" fill="#C9A84C" stroke="#8C6F2F" stroke-width="0.6"/>
-                                                <line x1="18" y1="14" x2="18" y2="30" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="22" y1="10" x2="22" y2="34" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="26" y1="8" x2="26" y2="36" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="30" y1="6" x2="30" y2="38" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="34" y1="8" x2="34" y2="36" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="38" y1="10" x2="38" y2="34" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <line x1="42" y1="14" x2="42" y2="30" stroke="#8C6F2F" stroke-width="0.5"/>
-                                                <rect x="28" y="40" width="4" height="6" fill="#8C6F2F"/>
-                                                <rect x="20" y="46" width="20" height="3" fill="#8C6F2F"/>
-                                                <rect x="14" y="49" width="32" height="6" fill="#5A3F39"/>
-                                            </svg>
-                                        </div>
-                                        <span class="item-spotlight" aria-hidden="true"></span>
-                                        <div class="item-nameplate">WashU Olin Pitch · 2nd · $1,250</div>
-                                        <div class="item-detail-card">
-                                            <h4 class="item-detail-name">WashU Olin Elevator Pitch</h4>
-                                            <p class="item-detail-desc">2nd Place, $1,250 — pitched CoursePilot startup concept</p>
-                                            <p class="item-detail-year">2024</p>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-
-                            <!-- Glass doors — left and right -->
-                            <div class="cabinet-door cabinet-door-left" id="cabinetDoorLeft" aria-hidden="true">
-                                <span class="door-handle" aria-hidden="true"></span>
-                            </div>
-                            <div class="cabinet-door cabinet-door-right" id="cabinetDoorRight" aria-hidden="true">
-                                <span class="door-handle" aria-hidden="true"></span>
+                    <!-- Polaroids — scattered, each with unique rotation + pin color -->
+                    <article class="polaroid" data-idx="0" data-pin="brass"
+                             style="left: 4%; top: 6%; --rot: -3deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #D4845A;">
+                            <span class="polaroid-icon" aria-hidden="true">🏅</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">1,000+ hours of service, personal development &amp; fitness</p>
                             </div>
                         </div>
-                    </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Congressional Gold Medal</p>
+                            <p class="polaroid-org">U.S. Congress</p>
+                            <p class="polaroid-year">Awarded 2024</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="1" data-pin="blush"
+                             style="left: 18%; top: 3%; --rot: 2deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #8BA888;">
+                            <span class="polaroid-icon" aria-hidden="true">🎓</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Full tuition merit scholarship · Class of 2028</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Full-Tuition Danforth Scholar</p>
+                            <p class="polaroid-org">Washington University in St. Louis</p>
+                            <p class="polaroid-year">Class of 2028</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="2" data-pin="espresso"
+                             style="left: 34%; top: 7%; --rot: -1.5deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #C4687A;">
+                            <span class="polaroid-icon" aria-hidden="true">🥇</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Presented at House of Code in Washington D.C.</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Congressional App Challenge · 1st</p>
+                            <p class="polaroid-org">U.S. House of Representatives</p>
+                            <p class="polaroid-year">2024</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="3" data-pin="rose"
+                             style="left: 50%; top: 4%; --rot: 3deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #E8A6B8;">
+                            <span class="polaroid-icon" aria-hidden="true">👑</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">$5,750 in scholarships across five categories</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Distinguished Young Woman of MO</p>
+                            <p class="polaroid-org">Distinguished Young Women</p>
+                            <p class="polaroid-year">2025</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="4" data-pin="brass"
+                             style="left: 66%; top: 6%; --rot: -2deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #D4A55A;">
+                            <span class="polaroid-icon" aria-hidden="true">🏛️</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Selective summer program · 2024</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">MIT Women's Technology Program</p>
+                            <p class="polaroid-org">Massachusetts Institute of Technology</p>
+                            <p class="polaroid-year">Summer 2024</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="5" data-pin="blush"
+                             style="left: 80%; top: 3%; --rot: 1.5deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #A898C8;">
+                            <span class="polaroid-icon" aria-hidden="true">🤝</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Selected from 7,000+ applicants · 300 chosen nationally</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Bank of America Student Leaders</p>
+                            <p class="polaroid-org">Bank of America</p>
+                            <p class="polaroid-year">2024</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="6" data-pin="espresso"
+                             style="left: 8%; top: 48%; --rot: 2.5deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #A8A870;">
+                            <span class="polaroid-icon" aria-hidden="true">🔬</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Top 100 of Missouri's graduating seniors</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Missouri Scholars 100</p>
+                            <p class="polaroid-org">MO Dept. of Higher Education</p>
+                            <p class="polaroid-year">2025</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="7" data-pin="rose"
+                             style="left: 28%; top: 52%; --rot: -2deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #E09080;">
+                            <span class="polaroid-icon" aria-hidden="true">📰</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Recognized for academic and athletic excellence</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">Scholar Athlete</p>
+                            <p class="polaroid-org">St. Louis Post-Dispatch · 2025</p>
+                            <p class="polaroid-year">2025</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="8" data-pin="brass"
+                             style="left: 52%; top: 50%; --rot: 1deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #7898B8;">
+                            <span class="polaroid-icon" aria-hidden="true">🛡️</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">Competed in national cybersecurity competition</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">NCL · Top 13% Nationally</p>
+                            <p class="polaroid-org">National Cyber League</p>
+                            <p class="polaroid-year">2024</p>
+                        </div>
+                    </article>
+
+                    <article class="polaroid" data-idx="9" data-pin="blush"
+                             style="left: 72%; top: 48%; --rot: -3deg;">
+                        <span class="polaroid-pin" aria-hidden="true"></span>
+                        <div class="polaroid-photo" style="background-color: #C89090;">
+                            <span class="polaroid-icon" aria-hidden="true">🎤</span>
+                            <div class="polaroid-overlay">
+                                <p class="polaroid-detail">$1,250 prize · CoursePilot startup concept</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-strip">
+                            <p class="polaroid-name">WashU Olin Pitch · 2nd Place</p>
+                            <p class="polaroid-org">WashU Olin Business School</p>
+                            <p class="polaroid-year">2024</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
