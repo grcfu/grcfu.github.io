@@ -764,29 +764,32 @@ section {
     transform: translate(-50%, -50%);
 }
 
-.vine-flower[data-idx="0"] { top: 10.0%;  left: 23%; }
-.vine-flower[data-idx="1"] { top: 24.5%;  left: 26%; }
-.vine-flower[data-idx="2"] { top: 39.5%;  left: 22%; }
-.vine-flower[data-idx="3"] { top: 53.5%;  left: 27%; }
-.vine-flower[data-idx="4"] { top: 69.0%;  left: 21%; }
-.vine-flower[data-idx="5"] { top: 84.0%;  left: 26%; }
+/* Positions match the branch endpoints in the vine SVG (viewBox 0 0 100 200,
+   stretched to section size). Branch 0 ends at (30, 21) → 30%, 10.5%. */
+.vine-flower[data-idx="0"] { top: 10.5%; left: 30%; }
+.vine-flower[data-idx="1"] { top: 24.5%; left: 32%; }
+.vine-flower[data-idx="2"] { top: 40.0%; left: 29%; }
+.vine-flower[data-idx="3"] { top: 54.0%; left: 32%; }
+.vine-flower[data-idx="4"] { top: 70.0%; left: 28%; }
+.vine-flower[data-idx="5"] { top: 85.0%; left: 31%; }
 
+/* The flower-content group is the container the sway animation rotates.
+   transform-box: fill-box makes the rotation pivot around the flower's
+   visual center instead of the SVG viewport origin. */
 .flower-content {
     transform-box: fill-box;
     transform-origin: center;
 }
 
+/* Petal bloom — opacity-only so it works regardless of how the browser
+   handles transform-box on nested SVG groups. Stagger comes from the
+   transition-delay rules below. */
 .petal {
-    transform-box: fill-box;
-    transform-origin: center;
-    transform: scale(0) rotate(-30deg);
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity 0.3s ease;
+    transition: opacity 0.45s ease;
 }
 
 .vine-flower.is-bloomed .petal {
-    transform: scale(1) rotate(0deg);
     opacity: 1;
 }
 
@@ -856,12 +859,12 @@ section {
 
 /* Per-card position + flower color tie-back. Vertical positions match
    the flower triggers above; horizontal nudges keep things asymmetric. */
-.vine-card[data-idx="0"] { top:  9%;  left: 30%; --card-color: #F4C9D6; }
-.vine-card[data-idx="1"] { top: 23%;  left: 33%; --card-color: #C9A84C; }
-.vine-card[data-idx="2"] { top: 38%;  left: 30%; --card-color: #C4B0D4; }
-.vine-card[data-idx="3"] { top: 52%;  left: 35%; --card-color: #E8A6B8; }
-.vine-card[data-idx="4"] { top: 67.5%; left: 29%; --card-color: #F0C4A0; }
-.vine-card[data-idx="5"] { top: 82%;  left: 33%; --card-color: #A8C4D4; }
+.vine-card[data-idx="0"] { top:  9%;   left: 36%; --card-color: #F4C9D6; }
+.vine-card[data-idx="1"] { top: 23%;   left: 38%; --card-color: #C9A84C; }
+.vine-card[data-idx="2"] { top: 38%;   left: 35%; --card-color: #C4B0D4; }
+.vine-card[data-idx="3"] { top: 52%;   left: 38%; --card-color: #E8A6B8; }
+.vine-card[data-idx="4"] { top: 67.5%; left: 34%; --card-color: #F0C4A0; }
+.vine-card[data-idx="5"] { top: 82%;   left: 37%; --card-color: #A8C4D4; }
 
 .card-annotation {
     display: block;

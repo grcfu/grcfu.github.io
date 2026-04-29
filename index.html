@@ -166,85 +166,104 @@
 
             <!-- Vine trunk + leaf sprouts + branches. preserveAspectRatio=none
                  stretches geometry; vector-effect=non-scaling-stroke keeps
-                 stroke widths consistent across viewports. -->
+                 stroke widths consistent across viewports. Leaves are
+                 stroked (no fill) for the same reason — fills would stretch
+                 into giant blobs on wide screens. -->
             <svg class="vine-trunk" id="vineTrunk" viewBox="0 0 100 200"
                  preserveAspectRatio="none" aria-hidden="true">
                 <!-- Six branches from main vine to each flower -->
                 <g class="vine-branches">
                     <path class="vine-branch" data-idx="0"
-                          d="M 8 19 Q 14 17 19 19 T 24 21"
+                          d="M 14 19 Q 20 17 25 19 T 30 21"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="1"
-                          d="M 12 47 Q 18 45 22 47 T 27 49"
+                          d="M 16 47 Q 22 45 26 47 T 32 49"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="2"
-                          d="M 9 78 Q 15 76 19 79 T 23 80"
+                          d="M 14 78 Q 20 76 24 79 T 29 80"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="3"
-                          d="M 13 105 Q 19 103 24 105 T 28 108"
+                          d="M 16 105 Q 22 103 27 105 T 32 108"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="4"
-                          d="M 8 138 Q 13 136 17 137 T 22 140"
+                          d="M 14 138 Q 19 136 23 137 T 28 140"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="5"
-                          d="M 12 168 Q 18 166 22 168 T 27 170"
+                          d="M 16 168 Q 22 166 26 168 T 31 170"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                 </g>
 
-                <!-- Main vine — wiggly hand-drawn bezier path -->
+                <!-- Main vine — wiggly hand-drawn bezier path, x ≈ 9–18% -->
                 <path class="vine-main" id="vineMain"
-                      d="M 10 0
-                         C 4 8, 16 16, 9 24
-                         C 3 32, 17 40, 10 48
-                         C 4 56, 16 64, 9 72
-                         C 3 80, 16 88, 11 96
-                         C 5 104, 17 112, 10 120
-                         C 4 128, 16 136, 9 144
-                         C 3 152, 17 160, 11 168
-                         C 5 176, 15 184, 10 192
-                         C 7 196, 11 200, 10 200"
+                      d="M 14 0
+                         C 9 8, 19 16, 13 24
+                         C 8 32, 20 40, 14 48
+                         C 9 56, 19 64, 13 72
+                         C 8 80, 20 88, 15 96
+                         C 10 104, 20 112, 14 120
+                         C 9 128, 19 136, 13 144
+                         C 8 152, 20 160, 15 168
+                         C 10 176, 18 184, 14 192
+                         C 12 196, 15 200, 14 200"
                       stroke="#A8B89A" stroke-width="2.5" fill="none"
                       stroke-linecap="round" stroke-linejoin="round"
                       vector-effect="non-scaling-stroke"/>
 
-                <!-- Decorative leaf sprouts — fade in as vine reaches them -->
+                <!-- Decorative leaf sprouts — tiny stroked outlines that
+                     don't get stretched into blobs by preserveAspectRatio. -->
                 <g class="vine-sprouts">
-                    <g class="vine-sprout" data-trigger="0.04" transform="translate(11 8) rotate(-30)">
-                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.13" transform="translate(7 26) rotate(35)">
-                        <path d="M 0 0 Q 2 -1.5 3 -3 Q 1.5 -4 0 -3 Q -1.5 -4 -3 -3 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.20" transform="translate(13 40) rotate(-25)">
-                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.32" transform="translate(8 64) rotate(40)">
-                        <path d="M 0 0 Q 2 -1.5 4 -2 Q 2 -3.5 0 -2.5 Q -2 -3.5 -4 -2 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.43" transform="translate(13 86) rotate(-35)">
-                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.58" transform="translate(7 116) rotate(28)">
-                        <path d="M 0 0 Q 2 -1.5 3 -3 Q 1.5 -4 0 -3 Q -1.5 -4 -3 -3 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.73" transform="translate(13 146) rotate(-30)">
-                        <path d="M 0 0 Q -2 -1.5 -3 -3 Q -1.5 -3.8 0 -3 Q 1.5 -3.8 3 -3 Q 2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
-                    <g class="vine-sprout" data-trigger="0.88" transform="translate(7 176) rotate(38)">
-                        <path d="M 0 0 Q 2 -1.5 4 -2 Q 2 -3.5 0 -2.5 Q -2 -3.5 -4 -2 Q -2 -1.5 0 0 Z" fill="#A8B89A"/>
-                    </g>
+                    <path class="vine-sprout" data-trigger="0.04"
+                          d="M 14 9 q -1.6 -1 -2.4 0 q 1 0.8 2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.13"
+                          d="M 11 26 q 1.6 -1 2.4 0 q -1 0.8 -2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.20"
+                          d="M 17 40 q -1.6 -1 -2.4 0 q 1 0.8 2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.32"
+                          d="M 12 64 q 1.6 -1 2.4 0 q -1 0.8 -2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.43"
+                          d="M 17 86 q -1.6 -1 -2.4 0 q 1 0.8 2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.58"
+                          d="M 11 116 q 1.6 -1 2.4 0 q -1 0.8 -2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.73"
+                          d="M 17 146 q -1.6 -1 -2.4 0 q 1 0.8 2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-sprout" data-trigger="0.88"
+                          d="M 11 176 q 1.6 -1 2.4 0 q -1 0.8 -2.4 0 z"
+                          fill="none" stroke="#A8B89A" stroke-width="1"
+                          stroke-linejoin="round"
+                          vector-effect="non-scaling-stroke"/>
                 </g>
             </svg>
 
