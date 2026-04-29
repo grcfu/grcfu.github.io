@@ -523,6 +523,26 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('resize', onVineScroll, { passive: true });
             // Initial paint in case the section is already in view.
             updateVine();
+
+            // Belt-and-suspenders: as soon as the section enters the
+            // viewport, bloom any flower that scroll progress hasn't yet
+            // covered. Guarantees flowers are visible even if the scroll
+            // math under-shoots their trigger (short section, fast scroll,
+            // anchor jump, etc.). The 150ms-per-flower stagger preserves
+            // the sequential opening feel.
+            const bloomFallback = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    EXPERIENCES.forEach((_, i) => {
+                        if (flowers[i] && !flowers[i].classList.contains('is-bloomed')) {
+                            setTimeout(() => bloom(i), i * 150);
+                        }
+                    });
+                    sprouts.forEach(s => s.classList.add('is-shown'));
+                    bloomFallback.disconnect();
+                });
+            }, { threshold: 0.1 });
+            bloomFallback.observe(vineSection);
         }
     }
 
