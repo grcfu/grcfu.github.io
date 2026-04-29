@@ -226,12 +226,26 @@ body::after {
 .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
     overflow: hidden;
-    background-color: #F9F3EB;
-    padding-top: clamp(0.5rem, 2vh, 1.5rem);
-    display: flex;
-    align-items: center;
+    background-color: #EEEBE7;
+}
+
+/* Hero banner image — main hero element, full width, cinematic entrance */
+.hero-banner {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero-banner.is-visible {
+    opacity: 1;
+    transform: scale(1);
 }
 
 
@@ -242,10 +256,10 @@ body::after {
     left: clamp(1rem, 3vw, 2rem);
     z-index: 30;
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.4s ease;
 }
 
-.hero.phase-finish .spotify-widget {
+.spotify-widget.is-visible {
     opacity: 1;
 }
 
@@ -370,10 +384,10 @@ body::after {
     color: var(--text-muted);
     animation: gentle-bounce 1.5s ease-in-out infinite;
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.4s ease;
 }
 
-.hero.phase-finish .scroll-hint {
+.scroll-hint.is-visible {
     opacity: 1;
 }
 
@@ -2889,12 +2903,6 @@ section {
         display: flex;
     }
 
-    .hero-subtitle {
-        bottom: 1.5rem;
-        left: 1.5rem;
-        right: 1.5rem;
-    }
-
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -3016,9 +3024,19 @@ section {
    HERO — PASTEL AESTHETIC
    ============================================ */
 
-/* Pastel paint stroke blobs — hidden for clean editorial look */
+/* Pastel paint stroke blobs — sit behind the banner image */
 .hero-paint {
-    display: none;
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(40px);
+    animation: paint-drift 10s ease-in-out infinite alternate;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.hero-paint.is-visible {
+    opacity: 1;
 }
 
 .paint-1 {
@@ -3060,19 +3078,14 @@ section {
     z-index: 5;
     opacity: 0;
     transform: translateY(-8px);
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 0.6s ease,
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Phase 4: collage drops in with staggered delays */
-.hero.phase-finish .collage {
+.collage.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
-
-.hero.phase-finish .collage-tl { transition-delay: 0s; }
-.hero.phase-finish .collage-tr { transition-delay: 0.15s; }
-.hero.phase-finish .collage-bl { transition-delay: 0.3s; }
-.hero.phase-finish .collage-br { transition-delay: 0.45s; }
 
 .collage-tl { top: -12px; left: -12px; }
 .collage-tr { top: -8px; right: -8px; }
@@ -3145,195 +3158,6 @@ section {
     opacity: 0.7;
 }
 
-/* ============================================
-   HERO — SPLIT SCREEN ENTRANCE
-   ============================================ */
-
-/* Phase 2: transparent panel used only as a phase trigger marker now —
-   with transparent GIF the cream curtain isn't needed visually */
-.hero-panel {
-    display: none;
-}
-
-/* Vertical separator between halves — only visible after split lands */
-.hero-separator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1px;
-    height: 55%;
-    background-color: rgba(244, 201, 214, 0.25);
-    z-index: 3;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.hero.phase-finish .hero-separator {
-    opacity: 1;
-}
-
-/* Hero content layout — single column so text can overlap the GIF area */
-.hero-content {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 100vh;
-}
-
-.hero-text {
-    padding: 0 clamp(1.5rem, 5vw, 5rem);
-    max-width: min(1100px, 72vw);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Text becomes visible in Phase 3 once the panel is in place */
-.hero.phase-text .hero-text {
-    opacity: 1;
-}
-
-/* Clip-path reveal — left-to-right text sweep */
-.hero-reveal {
-    display: inline-block;
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.hero-reveal.is-revealed {
-    clip-path: inset(0 0% 0 0);
-}
-
-/* ============================================
-   HERO — TYPOGRAPHY (DM Serif Display)
-   ============================================ */
-.hero-line-tiny {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    color: var(--text-muted);
-    margin: 0 0 0.75rem 0;
-    letter-spacing: 0.01em;
-}
-
-.hero-line-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(5rem, 11vw, 14rem);
-    font-weight: 400;
-    color: var(--text-primary);
-    line-height: 0.95;
-    margin: 0;
-    letter-spacing: -0.02em;
-    /* Ensure the name visually overlaps into GIF area */
-    position: relative;
-    z-index: 11;
-}
-
-.hero-wavy {
-    display: block;
-    width: clamp(200px, 24vw, 360px);
-    margin: 0.25rem 0 1.25rem;
-}
-
-.hero-wavy-path {
-    stroke-dasharray: 360;
-    stroke-dashoffset: 360;
-    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hero-wavy.is-drawn .hero-wavy-path {
-    stroke-dashoffset: 0;
-}
-
-.hero-line-tagline,
-.hero-line-tagline-2 {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: clamp(1.4rem, 2.2vw, 2.2rem);
-    color: var(--text-secondary);
-    line-height: 1.25;
-    margin: 0;
-}
-
-.hero-line-tagline-2 {
-    color: var(--text-muted);
-    font-style: italic;
-    margin: 0 0 1.25rem 0;
-}
-
-.hero-line-credentials {
-    font-family: var(--font-body);
-    font-size: clamp(0.75rem, 1vw, 0.9rem);
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0;
-}
-
-/* ============================================
-   HERO — GIF (centered → right column)
-   ============================================ */
-.hero-gif-wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60%;
-    height: 65%;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 6;
-    overflow: hidden;
-    transition: top 1.5s cubic-bezier(0.76, 0, 0.24, 1),
-                left 1.5s cubic-bezier(0.76, 0, 0.24, 1),
-                width 1.5s cubic-bezier(0.76, 0, 0.24, 1),
-                height 1.5s cubic-bezier(0.76, 0, 0.24, 1),
-                transform 1.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-/* Phase 2 settles: GIF slides to right half, full height */
-.hero.phase-split .hero-gif-wrap {
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100vh;
-    transform: translate(0, 0) scale(0.95);
-}
-
-.hero-gif {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
-    background-color: transparent;
-    filter: sepia(0.05) contrast(1.03) brightness(1.02);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.hero.is-loaded .hero-gif {
-    opacity: 1;
-}
-
-.hero-gif-frozen {
-    display: none;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: transparent;
-    filter: sepia(0.05) contrast(1.03) brightness(1.02);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.hero-gif-frozen.is-fading-in {
-    opacity: 1;
-}
-
 /* Ink trail cursor */
 .ink-dot {
     position: fixed;
@@ -3353,43 +3177,8 @@ section {
    HERO — RESPONSIVE BREAKPOINTS
    ============================================ */
 
-/* Standard desktop: 1024px–1439px — slightly smaller type */
-@media (max-width: 1439px) and (min-width: 1024px) {
-    .hero-line-name {
-        font-size: clamp(5rem, 10vw, 10rem);
-    }
-
-    .hero-line-tagline,
-    .hero-line-tagline-2 {
-        font-size: clamp(1.4rem, 2.2vw, 2.2rem);
-    }
-}
-
-/* Small desktop / large tablet: 768px–1023px — narrower proportions */
+/* Small desktop / large tablet: 768px–1023px */
 @media (max-width: 1023px) and (min-width: 768px) {
-    .hero-line-name {
-        font-size: clamp(3.5rem, 6vw, 5rem);
-    }
-
-    .hero-line-tagline,
-    .hero-line-tagline-2 {
-        font-size: clamp(1.2rem, 2vw, 1.8rem);
-    }
-
-    /* GIF takes 45% width, text 55% */
-    .hero.phase-split .hero-gif-wrap {
-        left: 55%;
-        width: 45%;
-    }
-
-    .hero-panel {
-        width: 55%;
-    }
-
-    .hero-text {
-        padding: 0 clamp(1.25rem, 3vw, 2.5rem);
-    }
-
     .collage-tl,
     .collage-tr,
     .collage-bl,
@@ -3397,75 +3186,13 @@ section {
         transform: scale(0.8);
     }
 
-    .paint-1,
-    .paint-2,
-    .paint-3,
-    .paint-4 {
-        opacity: 0.85;
-    }
-
     .scroll-hint {
         font-size: 1rem;
     }
 }
 
-/* Tablet portrait and mobile: 767px and below — single column, skip split */
-@media (max-width: 767px) {
-    /* Skip split-screen: GIF + panel return to static layout */
-    .hero-panel {
-        display: none;
-    }
-
-    .hero-content {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        min-height: auto;
-    }
-
-    /* GIF: static position in the grid, below the text */
-    .hero-gif-wrap,
-    .hero.phase-split .hero-gif-wrap {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none !important;
-        width: 100%;
-        height: auto;
-        order: 2;
-        margin: 1.5rem auto 0;
-    }
-
-    .hero-gif {
-        height: auto;
-    }
-
-    /* Text: simple fade on phase-text, top order */
-    .hero-text {
-        order: 1;
-        padding: 3rem 1.5rem 1rem;
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .hero-wavy {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-separator { display: none; }
-}
-
 /* Tablet portrait: 600px–767px */
 @media (max-width: 767px) and (min-width: 600px) {
-    .hero-line-name {
-        font-size: clamp(3rem, 8vw, 4.5rem);
-    }
-
-    .hero-gif-wrap,
-    .hero.phase-split .hero-gif-wrap {
-        width: 70%;
-    }
-
     .collage-bl,
     .collage-br { display: none; }
 
@@ -3482,15 +3209,6 @@ section {
 
 /* Mobile: 599px and below */
 @media (max-width: 599px) {
-    .hero-line-name {
-        font-size: clamp(2.8rem, 10vw, 4rem);
-    }
-
-    .hero-line-tagline,
-    .hero-line-tagline-2 {
-        font-size: clamp(1rem, 4vw, 1.3rem);
-    }
-
     /* Hide all collage corners on small mobile */
     .collage-tl,
     .collage-tr,
@@ -3500,11 +3218,6 @@ section {
     /* Simplify to 2 blobs on mobile */
     .paint-3,
     .paint-4 { display: none; }
-
-    .paint-1,
-    .paint-2 {
-        opacity: 0.7;
-    }
 
     .scroll-hint {
         font-size: 0.85rem;
@@ -3522,14 +3235,8 @@ section {
     .hero-paint {
         animation: none;
     }
-    .hero-reveal {
-        clip-path: inset(0 0% 0 0) !important;
-    }
-    .hero-arrow,
-    .hero-wavy.is-drawn .hero-wavy-path,
-    .hero-arrow.is-drawn .hero-arrow-path,
-    .hero-arrow.is-drawn .hero-arrow-head {
-        opacity: 1 !important;
-        stroke-dashoffset: 0 !important;
+    .hero-banner {
+        transition: opacity 0.2s ease !important;
+        transform: none !important;
     }
 }
