@@ -764,14 +764,9 @@ section {
     transform: translate(-50%, -50%);
 }
 
-/* Positions match the branch endpoints in the vine SVG (viewBox 0 0 100 200,
-   stretched to section size). Branch 0 ends at (30, 21) → 30%, 10.5%. */
-.vine-flower[data-idx="0"] { top: 10.5%; left: 30%; }
-.vine-flower[data-idx="1"] { top: 24.5%; left: 32%; }
-.vine-flower[data-idx="2"] { top: 40.0%; left: 29%; }
-.vine-flower[data-idx="3"] { top: 54.0%; left: 32%; }
-.vine-flower[data-idx="4"] { top: 70.0%; left: 28%; }
-.vine-flower[data-idx="5"] { top: 85.0%; left: 31%; }
+/* Flower positions are now set in JS (positionFlowers) by reading the
+   actual rendered branch endpoints — preserveAspectRatio="meet" can shift
+   things based on viewport aspect, so hardcoded percentages would drift. */
 
 /* The flower-content group is the container the sway animation rotates.
    transform-box: fill-box makes the rotation pivot around the flower's
@@ -859,12 +854,14 @@ section {
 
 /* Per-card position + flower color tie-back. Vertical positions match
    the flower triggers above; horizontal nudges keep things asymmetric. */
-.vine-card[data-idx="0"] { top:  9%;   left: 36%; --card-color: #F4C9D6; }
-.vine-card[data-idx="1"] { top: 23%;   left: 38%; --card-color: #C9A84C; }
-.vine-card[data-idx="2"] { top: 38%;   left: 35%; --card-color: #C4B0D4; }
-.vine-card[data-idx="3"] { top: 52%;   left: 38%; --card-color: #E8A6B8; }
-.vine-card[data-idx="4"] { top: 67.5%; left: 34%; --card-color: #F0C4A0; }
-.vine-card[data-idx="5"] { top: 82%;   left: 37%; --card-color: #A8C4D4; }
+/* Card positions are set in JS (positionCards) relative to each flower.
+   These rules just assign each card its accent color. */
+.vine-card[data-idx="0"] { --card-color: #F4C9D6; }
+.vine-card[data-idx="1"] { --card-color: #C9A84C; }
+.vine-card[data-idx="2"] { --card-color: #C4B0D4; }
+.vine-card[data-idx="3"] { --card-color: #E8A6B8; }
+.vine-card[data-idx="4"] { --card-color: #F0C4A0; }
+.vine-card[data-idx="5"] { --card-color: #A8C4D4; }
 
 .card-annotation {
     display: block;

@@ -445,6 +445,62 @@ document.addEventListener('DOMContentLoaded', () => {
         const vineIsMobile = window.matchMedia('(max-width: 768px)').matches;
         const vineReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        // ---- Dynamic flower + card positioning ----
+        // The vine SVG uses preserveAspectRatio="xMidYMid meet", which means
+        // its content can be letterboxed inside the section depending on
+        // viewport aspect. Hardcoded percentage positions for flowers drift
+        // off-target. Instead we compute each branch's actual rendered
+        // endpoint in section pixels and pin the flower SVG there.
+        function positionFlowers() {
+            const sectionRect = vineSection.getBoundingClientRect();
+            branches.forEach((branch, i) => {
+                if (!flowers[i]) return;
+                try {
+                    const pathLen = branch.getTotalLength();
+                    const endPoint = branch.getPointAtLength(pathLen);
+                    const svgEl = branch.closest('svg');
+                    const svgRect = svgEl.getBoundingClientRect();
+                    const viewBox = svgEl.viewBox.baseVal;
+                    const scaleX = svgRect.width / viewBox.width;
+                    const scaleY = svgRect.height / viewBox.height;
+                    const pixelX = (svgRect.left - sectionRect.left) + endPoint.x * scaleX;
+                    const pixelY = (svgRect.top - sectionRect.top) + endPoint.y * scaleY;
+                    flowers[i].style.left = pixelX + 'px';
+                    flowers[i].style.top = pixelY + 'px';
+                    flowers[i].style.transform = 'translate(-50%, -50%)';
+                } catch (e) {
+                    console.warn('positionFlowers idx', i, e);
+                }
+            });
+        }
+
+        function positionCards() {
+            flowers.forEach((flower, i) => {
+                if (!cards[i]) return;
+                const flowerLeft = parseFloat(flower.style.left) || 0;
+                const flowerTop = parseFloat(flower.style.top) || 0;
+                cards[i].style.top = (flowerTop - 30) + 'px';
+                cards[i].style.left = (flowerLeft + 45) + 'px';
+            });
+        }
+
+        function repositionAll() {
+            positionFlowers();
+            positionCards();
+        }
+
+        // Run once on init, again on window.load (after fonts/images shift
+        // layout), and on resize with a 200ms debounce so the layout
+        // continuously stays correct as the viewport changes.
+        repositionAll();
+        window.addEventListener('load', repositionAll);
+
+        let _vineResizeTimer = null;
+        window.addEventListener('resize', () => {
+            if (_vineResizeTimer) clearTimeout(_vineResizeTimer);
+            _vineResizeTimer = setTimeout(repositionAll, 200);
+        }, { passive: true });
+
         // Compute the actual stroke length so dashoffset can mask it cleanly.
         let vineLength = 1000;
         if (vineMain && typeof vineMain.getTotalLength === 'function') {
