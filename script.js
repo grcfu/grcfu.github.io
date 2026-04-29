@@ -28,304 +28,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
-    // HERO — SPLIT SCREEN 4-PHASE ENTRANCE
+    // HERO — CINEMATIC ENTRANCE
     // ============================================
     const heroSection = document.getElementById('hero');
-    const heroPrefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const heroIsMobile = window.matchMedia('(max-width: 767px)').matches;
-
     if (heroSection) {
-        // Mark is-loaded immediately so paint blobs, GIF opacity fade in
-        heroSection.classList.add('is-loaded');
+        const heroBanner    = heroSection.querySelector('.hero-banner');
+        const heroPaints    = heroSection.querySelectorAll('.hero-paint');
+        const heroCollages  = heroSection.querySelectorAll('.collage');
+        const heroSpotify   = heroSection.querySelector('.spotify-widget');
+        const heroScrollHint = heroSection.querySelector('.scroll-hint');
 
-        const lineTiny = document.querySelector('#heroLineTiny .hero-reveal');
-        const lineName = document.querySelector('#heroLineName .hero-reveal');
-        const wavy = document.getElementById('heroWavy');
-        const lineTagline = document.querySelector('#heroLineTagline .hero-reveal');
-        const lineTagline2 = document.querySelector('#heroLineTagline2 .hero-reveal');
-        const lineCredentials = document.querySelector('#heroLineCredentials .hero-reveal');
+        // 100ms — paint blobs fade in (1.2s; 100ms head start so the
+        //         atmosphere is already settling when the image appears).
+        setTimeout(() => {
+            heroPaints.forEach(p => p.classList.add('is-visible'));
+        }, 100);
 
-        function revealText(el, cls) {
-            if (el) el.classList.add(cls || 'is-revealed');
-        }
+        // 200ms — banner image fades + scales (1.0s, cinematic ease).
+        setTimeout(() => {
+            if (heroBanner) heroBanner.classList.add('is-visible');
+        }, 200);
 
-        if (heroPrefersReduced || heroIsMobile) {
-            // Skip split-screen animation: jump straight to phase-text + phase-finish
-            // Mobile uses static layout (see CSS media queries); just reveal everything.
-            heroSection.classList.add('phase-split', 'phase-text', 'phase-finish');
-            revealText(lineTiny);
-            revealText(lineName);
-            revealText(wavy, 'is-drawn');
-            revealText(lineTagline);
-            revealText(lineTagline2);
-            revealText(lineCredentials);
-        } else {
-            // ----- Phase 1: Opening state (0–0.6s) -----
-            // GIF centered, text hidden, panel off-screen. Just let the user see it.
+        // 600ms — Spotify widget fades in (0.4s).
+        setTimeout(() => {
+            if (heroSpotify) heroSpotify.classList.add('is-visible');
+        }, 600);
 
-            // ----- Phase 2: Split (0.6s, 1.5s duration) -----
-            setTimeout(() => {
-                heroSection.classList.add('phase-split');
-            }, 600);
+        // 800ms — washi tape & SVG corner decorations fade in (0.6s),
+        //         appearing after the image has mostly settled.
+        setTimeout(() => {
+            heroCollages.forEach(c => c.classList.add('is-visible'));
+        }, 800);
 
-            // ----- Phase 3: Text reveals (starts at 2.1s = 0.6s + 1.5s) -----
-            // Each line sweeps in via clip-path, 0.35s stagger
-            setTimeout(() => {
-                heroSection.classList.add('phase-text');
-                revealText(lineTiny);
-            }, 2100);
-
-            setTimeout(() => revealText(lineName), 2100 + 350);
-            setTimeout(() => revealText(wavy, 'is-drawn'), 2100 + 700);
-            setTimeout(() => revealText(lineTagline), 2100 + 1050);
-            setTimeout(() => revealText(lineTagline2), 2100 + 1400);
-            setTimeout(() => revealText(lineCredentials), 2100 + 1750);
-
-            // ----- Phase 4: Finishing touches (after last text line ~3.85s) -----
-            setTimeout(() => {
-                heroSection.classList.add('phase-finish');
-            }, 2100 + 1750 + 500);
-        }
-
-        // ----- Scroll transition (runs always after entrance) -----
-        const heroText = document.getElementById('heroText');
-        const heroGifWrap = document.getElementById('heroGifWrap');
-        const heroPaints = document.querySelectorAll('.hero-paint');
-        const heroCollages = document.querySelectorAll('.collage');
-        let heroTicking = false;
-
-        function updateHeroScroll() {
-            // Skip scroll fade effect on mobile per spec
-            if (heroIsMobile) { heroTicking = false; return; }
-
-            const rect = heroSection.getBoundingClientRect();
-            const heroHeight = rect.height || 1;
-            const progress = Math.max(0, Math.min(1, -rect.top / heroHeight));
-
-            if (heroText) {
-                const textP = Math.min(progress * 1.4, 1);
-                heroText.style.opacity = 1 - textP;
-                heroText.style.transform = `translateY(${-40 * textP}px)`;
-            }
-            if (heroGifWrap) {
-                heroGifWrap.style.opacity = 1 - Math.min(progress * 0.85, 1);
-            }
-            heroPaints.forEach(p => {
-                p.style.opacity = Math.max(0, 1 - progress * 1.1);
-            });
-            heroCollages.forEach(c => {
-                c.style.opacity = Math.max(0, 1 - progress * 0.55);
-            });
-
-            heroTicking = false;
-        }
-
-        function onHeroScroll() {
-            if (!heroTicking) {
-                window.requestAnimationFrame(updateHeroScroll);
-                heroTicking = true;
-            }
-        }
-
-        window.addEventListener('scroll', onHeroScroll, { passive: true });
-    }
-
-    // ============================================
-    // HERO GIF — PLAY FOR GIF_DURATION_MS, FREEZE ON 2500ms FRAME
-    // ============================================
-    // The GIF plays fully for GIF_DURATION_MS; at GIF_SNAPSHOT_MS we
-    // capture the current frame to canvas, and at GIF_DURATION_MS we
-    // swap to that canvas — so the visible freeze frame is the one
-    // from GIF_SNAPSHOT_MS even though playback ran the full duration.
-    const GIF_DURATION_MS = 2900;
-    const GIF_SNAPSHOT_MS = 2900;
-
-    // Optional: parse the GIF binary to find the exact time a specific frame
-    // starts. Set to null to skip parsing and use the constants above.
-    const GIF_FREEZE_FRAME = null;
-    let gifFreezeTimeMs = GIF_DURATION_MS;
-    let gifSnapshotTimeMs = GIF_SNAPSHOT_MS;
-
-    // Parse GIF binary to compute time when a given 1-indexed frame appears.
-    // Returns the cumulative ms delay of frames 1..(targetFrame-1).
-    async function computeFrameStartTime(url, targetFrame) {
-        try {
-            const res = await fetch(url);
-            const buf = await res.arrayBuffer();
-            const bytes = new Uint8Array(buf);
-
-            // Skip header (6) + logical screen descriptor (7 bytes)
-            let pos = 13;
-            const packed = bytes[10];
-            if (packed & 0x80) {
-                const gctSize = 3 * Math.pow(2, (packed & 0x07) + 1);
-                pos += gctSize;
-            }
-
-            let frameCount = 0;
-            let cumulativeMs = 0;
-            let lastDelay = 0;
-
-            while (pos < bytes.length) {
-                const marker = bytes[pos];
-                if (marker === 0x3B) break; // GIF trailer
-
-                if (marker === 0x21) {
-                    // Extension block
-                    const label = bytes[pos + 1];
-                    if (label === 0xF9) {
-                        // Graphic Control Extension
-                        // bytes[pos+4..5] = delay in hundredths of a second, LE
-                        const delayCs = bytes[pos + 4] | (bytes[pos + 5] << 8);
-                        lastDelay = delayCs * 10;
-                        pos += 8;
-                    } else {
-                        // Skip other extensions (label + sub-blocks until 0x00)
-                        pos += 2;
-                        while (pos < bytes.length) {
-                            const blockSize = bytes[pos];
-                            if (blockSize === 0) { pos++; break; }
-                            pos += blockSize + 1;
-                        }
-                    }
-                } else if (marker === 0x2C) {
-                    // Image descriptor = a frame
-                    frameCount++;
-                    if (frameCount >= targetFrame) {
-                        return cumulativeMs;
-                    }
-                    cumulativeMs += lastDelay || 100;
-
-                    // Skip image descriptor (10 bytes) + optional LCT + LZW data
-                    const imgPacked = bytes[pos + 9];
-                    pos += 10;
-                    if (imgPacked & 0x80) {
-                        const lctSize = 3 * Math.pow(2, (imgPacked & 0x07) + 1);
-                        pos += lctSize;
-                    }
-                    pos++; // LZW minimum code size
-                    while (pos < bytes.length) {
-                        const blockSize = bytes[pos];
-                        if (blockSize === 0) { pos++; break; }
-                        pos += blockSize + 1;
-                    }
-                } else {
-                    pos++;
-                }
-            }
-
-            // Fewer than targetFrame frames — return total
-            return cumulativeMs;
-        } catch (err) {
-            console.warn('GIF frame parse failed, using fallback duration:', err);
-            return null;
-        }
-    }
-
-    const heroGifEl = document.querySelector('.hero-gif');
-    if (heroGifEl && heroSection) {
-        const gifSrc = heroGifEl.getAttribute('src');
-        const transparentPx = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        let freezeTimer = null;
-        let snapshotTimer = null;
-        let frozenCanvas = null;
-        let isPlaying = false;
-
-        // If GIF_FREEZE_FRAME is set, parse the GIF to find that frame's
-        // start time and override the simple GIF_DURATION_MS timer.
-        if (GIF_FREEZE_FRAME) {
-            computeFrameStartTime(gifSrc, GIF_FREEZE_FRAME).then(ms => {
-                if (ms !== null && ms > 0) {
-                    gifFreezeTimeMs = ms;
-                    if (isPlaying && freezeTimer) {
-                        clearTimeout(freezeTimer);
-                        freezeTimer = setTimeout(freezeGif, ms);
-                    }
-                }
-            });
-        }
-
-        // Capture the currently visible frame to canvas (live img stays visible)
-        function snapshotCurrentFrame() {
-            try {
-                const rect = heroGifEl.getBoundingClientRect();
-                const w = heroGifEl.naturalWidth || rect.width;
-                const h = heroGifEl.naturalHeight || rect.height;
-                if (!w || !h) return;
-
-                if (!frozenCanvas) {
-                    frozenCanvas = document.createElement('canvas');
-                    frozenCanvas.className = 'hero-gif hero-gif-frozen';
-                    heroGifEl.parentNode.insertBefore(frozenCanvas, heroGifEl);
-                }
-                frozenCanvas.width = w;
-                frozenCanvas.height = h;
-                const ctx = frozenCanvas.getContext('2d');
-                ctx.drawImage(heroGifEl, 0, 0, w, h);
-            } catch (err) {
-                console.warn('GIF snapshot failed:', err);
-            }
-        }
-
-        // Cross-fade the captured canvas in over the live GIF
-        function freezeGif() {
-            if (!frozenCanvas) {
-                snapshotCurrentFrame();
-            }
-            if (frozenCanvas) {
-                frozenCanvas.classList.remove('is-fading-in');
-                frozenCanvas.style.display = 'block';
-                // Force reflow so the transition triggers
-                void frozenCanvas.offsetWidth;
-                frozenCanvas.classList.add('is-fading-in');
-                setTimeout(() => {
-                    heroGifEl.style.display = 'none';
-                }, 600);
-            } else {
-                heroGifEl.src = transparentPx;
-                setTimeout(() => { heroGifEl.src = gifSrc; }, 0);
-            }
-            isPlaying = false;
-        }
-
-        function playGifOnce() {
-            if (isPlaying) return;
-            isPlaying = true;
-
-            // Restore live img, hide any previous frozen canvas
-            if (frozenCanvas) {
-                frozenCanvas.style.display = 'none';
-            }
-            heroGifEl.style.display = 'block';
-            // Cache-bust src so the GIF animation restarts from frame 1
-            heroGifEl.src = gifSrc + '?t=' + Date.now();
-
-            if (snapshotTimer) clearTimeout(snapshotTimer);
-            if (freezeTimer) clearTimeout(freezeTimer);
-
-            // At gifSnapshotTimeMs, capture the frame (but keep GIF playing)
-            snapshotTimer = setTimeout(snapshotCurrentFrame, gifSnapshotTimeMs);
-            // At gifFreezeTimeMs, swap the live GIF out for the canvas snapshot
-            freezeTimer = setTimeout(freezeGif, gifFreezeTimeMs);
-        }
-
-        // Initial play when hero first loads
-        if (heroGifEl.complete) {
-            playGifOnce();
-        } else {
-            heroGifEl.addEventListener('load', playGifOnce, { once: true });
-        }
-
-        // Replay whenever hero re-enters the viewport
-        const gifReplayObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !isPlaying) {
-                    playGifOnce();
-                }
-            });
-        }, { root: null, threshold: 0.35 });
-
-        gifReplayObserver.observe(heroSection);
+        // 1000ms — scroll hint fades in (0.4s) then continues its bounce.
+        setTimeout(() => {
+            if (heroScrollHint) heroScrollHint.classList.add('is-visible');
+        }, 1000);
     }
 
     // ============================================
