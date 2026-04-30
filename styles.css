@@ -1636,17 +1636,22 @@ section {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 110px);
+    /* CSS vars so the keyframes and the mobile override can both retarget
+       the resting position (otherwise the infinite animation overwrites any
+       static transform set in a media query). */
+    --hint-y: -75px;
+    --hint-y-bounce: -83px;
+    transform: translate(-50%, var(--hint-y));
     font-family: 'Caveat', cursive;
-    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
     font-weight: 700;
     color: var(--bg-dark);
     background-color: rgba(238, 235, 231, 0.95);
     border: 2px solid var(--bg-dark);
-    padding: 0.5rem 1.25rem 0.4rem;
+    padding: 0.35rem 0.9rem 0.3rem;
     z-index: 3;
     white-space: nowrap;
-    box-shadow: 3px 3px 0 var(--bg-dark);
+    box-shadow: 2px 2px 0 var(--bg-dark);
     animation: bag-hint-bounce 1.4s ease-in-out infinite;
     transition: opacity 0.3s ease;
 }
@@ -1664,8 +1669,8 @@ section {
 }
 
 @keyframes bag-hint-bounce {
-    0%, 100% { transform: translate(-50%, 110px); }
-    50%      { transform: translate(-50%, 118px); }
+    0%, 100% { transform: translate(-50%, var(--hint-y)); }
+    50%      { transform: translate(-50%, var(--hint-y-bounce)); }
 }
 
 .bag-canvas.opened .bag-hint {
@@ -1863,8 +1868,9 @@ section {
     }
 
     .bag-hint {
-        transform: translate(-50%, 50px);
-        font-size: 0.9rem;
+        --hint-y: -55px;
+        --hint-y-bounce: -63px;
+        font-size: 1.05rem;
     }
 
     .cat-label {
