@@ -1732,7 +1732,6 @@ section {
     width: clamp(160px, 22vw, 260px);
     height: auto;
     cursor: pointer;
-    mix-blend-mode: multiply;
     z-index: 2;
     transform-origin: center bottom;
 }
