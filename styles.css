@@ -1449,13 +1449,15 @@ section {
     box-shadow: 3px 7px 14px rgba(60, 50, 30, 0.28);
 }
 
-/* Six pastel note colors + slight hand-pinned rotations */
-.github-card[data-leaf="1"] { --note-color: #FAD2DC; --note-rot: -3deg; }
-.github-card[data-leaf="2"] { --note-color: #FAEDC8; --note-rot: 2deg; }
-.github-card[data-leaf="3"] { --note-color: #D8E5C8; --note-rot: -1.5deg; }
-.github-card[data-leaf="4"] { --note-color: #D3E1E8; --note-rot: 3deg; }
-.github-card[data-leaf="5"] { --note-color: #E0D5E8; --note-rot: -2deg; }
-.github-card[data-leaf="6"] { --note-color: #FAD8C5; --note-rot: 1.5deg; }
+/* Three-color rotation matching the site palette: blush pink, warm tan,
+   soft sage. Each color appears twice (lighter + slightly deeper) so the
+   six cards still feel varied without going rainbow. */
+.github-card[data-leaf="1"] { --note-color: #FAD2DC; --note-rot: -3deg; }   /* soft blush */
+.github-card[data-leaf="2"] { --note-color: #E8D9C3; --note-rot: 2deg; }    /* warm tan */
+.github-card[data-leaf="3"] { --note-color: #D8E5C8; --note-rot: -1.5deg; } /* soft sage */
+.github-card[data-leaf="4"] { --note-color: #F5BFCD; --note-rot: 3deg; }    /* deeper blush */
+.github-card[data-leaf="5"] { --note-color: #D8C5AB; --note-rot: -2deg; }   /* deeper tan */
+.github-card[data-leaf="6"] { --note-color: #C8DBB5; --note-rot: 1.5deg; }  /* deeper sage */
 
 .github-card h4 {
     font-family: var(--font-handwritten);
