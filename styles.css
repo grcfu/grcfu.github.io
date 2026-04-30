@@ -2016,6 +2016,10 @@ section {
 .corkboard {
     position: relative;
     background-color: var(--cork);
+    background-image: url('https://m.media-amazon.com/images/I/A1KW2oMoNxL._AC_SY879_.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 700px;
     box-shadow:
         inset 0 0 32px rgba(46, 30, 26, 0.20),
@@ -2023,8 +2027,10 @@ section {
     overflow: hidden;
 }
 
-/* Cork texture layers — feTurbulence-driven grain */
+/* SVG turbulence overlays — hidden now that the corkboard uses a real
+   cork photo background which already has its own grain. */
 .cork-tex {
+    display: none;
     position: absolute;
     inset: 0;
     width: 100%;
