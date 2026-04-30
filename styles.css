@@ -630,6 +630,43 @@ section {
 .about-card-sage.visible  { transition-delay: 0.6s; }
 .about-card-cream.visible { transition-delay: 0.7s; }
 
+/* Continuous gentle bob — kicks in after the entrance stagger has finished
+   so the cards feel alive without competing with the scroll-in animation.
+   Different durations + directions per card so they never sync. */
+.about-card.visible {
+    animation: about-card-bob 4.4s ease-in-out 1.6s infinite alternate;
+}
+.about-card-pink.visible  { animation-duration: 4.2s; }
+.about-card-sage.visible  { animation-duration: 5.1s; animation-direction: alternate-reverse; }
+.about-card-cream.visible { animation-duration: 4.7s; }
+
+@keyframes about-card-bob {
+    from { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    to   { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
+}
+
+/* Hover — lift up, scale slightly, deeper shadow. Animation pauses so the
+   bob doesn't fight the lift. */
+.about-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-10px) rotate(var(--rot, 0deg)) scale(1.03);
+    box-shadow: 5px 10px 26px rgba(80, 50, 30, 0.28);
+    z-index: 5;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+}
+
+/* Tiny wiggle on the greeting when its entrance lands */
+.about-greeting.visible {
+    animation: about-greeting-wiggle 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s 1 forwards;
+}
+@keyframes about-greeting-wiggle {
+    0%   { transform: translateY(0) rotate(0deg); }
+    35%  { transform: translateY(0) rotate(-3deg); }
+    70%  { transform: translateY(0) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
 /* Mobile — stack cards, drop heavy rotations */
 @media (max-width: 768px) {
     .about-cards {

@@ -237,15 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     const aboutSection = document.querySelector('.about');
     if (aboutSection) {
-        const pathSvg = aboutSection.querySelector('.about-path-svg');
         const fadeEls = aboutSection.querySelectorAll('.about-fade');
 
         const aboutObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Draw the SVG path
-                    if (pathSvg) pathSvg.classList.add('drawn');
-                    // Fade in text and photos with their individual delays
+                    // Stagger the entrance via per-element transition-delay
+                    // values defined in CSS — JS just adds the trigger class.
                     fadeEls.forEach(el => el.classList.add('visible'));
                     aboutObserver.unobserve(aboutSection);
                 }
