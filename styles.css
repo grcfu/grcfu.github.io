@@ -425,9 +425,16 @@ section {
 .about {
     position: relative;
     background-color: var(--bg-primary);
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+    padding: clamp(3rem, 6vw, 6.5rem) clamp(1.5rem, 5vw, 4rem);
     text-align: center;
     overflow: hidden;
+    /* Section grows tall enough on big screens that 3 large flowers
+       stacked vertically fit without clipping. Content stays vertically
+       centered via the flex rules below. */
+    min-height: clamp(700px, 60vw, 1200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .about .about-label {
@@ -442,20 +449,20 @@ section {
 
 .about-greeting {
     font-family: var(--font-script);
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    color: var(--accent-pink-dark);
+    font-size: clamp(1.85rem, 4.5vw, 4.2rem);
+    color: var(--text-primary);
     margin: 0;
     line-height: 1;
 }
 
 .about-id {
-    margin: 0.65rem auto 1.4rem;
-    max-width: 720px;
+    margin: clamp(0.5rem, 1vw, 1rem) auto clamp(1.1rem, 1.8vw, 1.8rem);
+    max-width: 820px;
 }
 
 .about-id-line {
     font-family: var(--font-body);
-    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    font-size: clamp(0.88rem, 1.2vw, 1.2rem);
     font-weight: 500;
     color: var(--text-secondary);
     margin: 0;
@@ -464,9 +471,9 @@ section {
 
 .about-id-seek {
     font-family: var(--font-body);
-    font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+    font-size: clamp(0.8rem, 1.05vw, 1.08rem);
     color: var(--text-muted);
-    margin: 0.35rem 0 0;
+    margin: 0.4rem 0 0;
     letter-spacing: 0.04em;
 }
 
@@ -479,12 +486,12 @@ section {
 
 .about-tagline {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.3rem, 2.2vw, 1.95rem);
+    font-size: clamp(1.25rem, 2.5vw, 2.5rem);
     font-weight: 500;
     color: var(--text-primary);
     line-height: 1.3;
-    margin: 0 auto 2.5rem;
-    max-width: 720px;
+    margin: 0 auto clamp(2rem, 3.5vw, 3.5rem);
+    max-width: 820px;
 }
 
 .about-tagline em {
@@ -494,23 +501,65 @@ section {
     margin-top: 0.2rem;
 }
 
+/* Decorative flowers flanking the section. The wrapper handles entrance
+   (translate + opacity via .about-fade), the inner <img> handles the
+   continuous scroll-driven rotation via --spin set by JS. Splitting the
+   transforms across two elements avoids fighting between entrance and spin. */
+.about-flower {
+    position: absolute;
+    /* Big on large screens — caps around 360px on the biggest viewports */
+    width: clamp(80px, 19vw, 360px);
+    height: clamp(80px, 19vw, 360px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-flower-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Per-flower scale lets us bump up the light-pink cherry blossom
+       (f2.png), whose subject fills less of its canvas than the others. */
+    transform: rotate(var(--spin, 0deg)) scale(var(--flower-scale, 1));
+    transition: transform 0.06s linear;
+    filter: drop-shadow(2px 3px 4px rgba(80, 50, 30, 0.10));
+}
+
+.about-flower-img[src="f2.png"] {
+    --flower-scale: 1.55;
+}
+
+/* Vertical line down each side, evenly spaced top → middle → bottom.
+   Same horizontal anchor for all 3 on a side so they read as a column. */
+.about-flower-l1 { top: 4%;  left: 1.5%; }
+.about-flower-l2 { top: 38%; left: 1.5%; }
+.about-flower-l3 { top: 72%; left: 1.5%; }
+.about-flower-r1 { top: 4%;  right: 1.5%; }
+.about-flower-r2 { top: 38%; right: 1.5%; }
+.about-flower-r3 { top: 72%; right: 1.5%; }
+
+/* Phones — too cramped on the sides; hide flowers entirely */
+@media (max-width: 480px) {
+    .about-flower { display: none; }
+}
+
 /* Three-card row */
 .about-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
-    gap: clamp(1.2rem, 2.5vw, 2rem);
-    max-width: 1100px;
+    gap: clamp(1rem, 2.5vw, 2.4rem);
+    max-width: 1300px;
     margin: 0 auto;
 }
 
 .about-card {
     position: relative;
-    flex: 1 1 250px;
-    max-width: 320px;
-    min-height: 220px;
-    padding: 1.6rem 1.4rem 1.4rem;
+    flex: 1 1 260px;
+    max-width: 380px;
+    min-height: clamp(220px, 22vw, 280px);
+    padding: clamp(1.4rem, 2vw, 2rem) clamp(1.2rem, 1.8vw, 1.8rem) clamp(1.2rem, 1.6vw, 1.6rem);
     background-color: var(--card-bg, #FAEDE8);
     box-shadow: 3px 5px 16px rgba(80, 50, 30, 0.16);
     text-align: left;
@@ -526,8 +575,8 @@ section {
     position: absolute;
     top: -10px;
     left: 50%;
-    width: 80px;
-    height: 18px;
+    width: clamp(72px, 7vw, 110px);
+    height: clamp(16px, 1.5vw, 24px);
     transform: translateX(-50%) rotate(var(--tape-rot, -3deg));
     background-color: rgba(255, 255, 255, 0.55);
     background-image: repeating-linear-gradient(
@@ -544,10 +593,10 @@ section {
 
 .about-card-title {
     font-family: var(--font-handwritten);
-    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    font-size: clamp(1.35rem, 2.2vw, 2.1rem);
     font-weight: 700;
     color: var(--card-accent);
-    margin: 0 0 0.7rem;
+    margin: 0 0 clamp(0.6rem, 1vw, 1rem);
     line-height: 1;
     letter-spacing: 0.02em;
 }
@@ -558,12 +607,12 @@ section {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
+    gap: clamp(0.5rem, 0.8vw, 0.8rem);
 }
 
 .about-card-list li {
     font-family: var(--font-body);
-    font-size: 0.88rem;
+    font-size: clamp(0.85rem, 1.05vw, 1.1rem);
     font-weight: 500;
     color: var(--text-primary);
     line-height: 1.4;
@@ -574,7 +623,7 @@ section {
 
 .about-card-icon {
     flex-shrink: 0;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.15vw, 1.2rem);
     line-height: 1.2;
 }
 
@@ -590,12 +639,12 @@ section {
 
 .about-card-chips li {
     font-family: var(--font-body);
-    font-size: 0.72rem;
+    font-size: clamp(0.7rem, 0.88vw, 0.95rem);
     font-weight: 600;
     letter-spacing: 0.04em;
     color: var(--text-primary);
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.3rem 0.55rem;
+    padding: clamp(0.28rem, 0.45vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.85rem);
 }
 
 .about-card-links a {
@@ -672,11 +721,28 @@ section {
     .about-cards {
         flex-direction: column;
         align-items: center;
+        gap: 1.25rem;
     }
     .about-card {
-        max-width: 360px;
+        max-width: 380px;
         width: 100%;
+        min-height: auto;
         --rot: 0deg !important;
+    }
+    .about-tagline br { display: none; }
+}
+
+/* Tiny screens — tighter padding + slightly smaller hero text */
+@media (max-width: 480px) {
+    .about {
+        padding: 2.5rem 1rem;
+    }
+    .about-greeting {
+        font-size: 1.85rem;
+    }
+    .about-tagline {
+        font-size: 1.15rem;
+        margin-bottom: 1.75rem;
     }
 }
 
@@ -1308,7 +1374,10 @@ section {
     gap: 3px;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    /* visible so the cell hover tooltip can escape past the top edge of the
+       grid for top-row cells without being clipped */
+    overflow: visible;
+    position: relative;
 }
 
 .heatmap-cell {
@@ -1364,7 +1433,15 @@ section {
     display: inline-block;
 }
 
-/* Cell hover tooltip */
+/* Cell hover tooltip — high z-index + cell lifted to its own stacking
+   context so the tooltip floats above neighboring cells, the legend,
+   the GitHub CTA, and anything else nearby. */
+.heatmap-cell:hover {
+    outline: 1px solid var(--text-primary);
+    outline-offset: 1px;
+    z-index: 9999;
+}
+
 .heatmap-cell:hover::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -1378,13 +1455,22 @@ section {
     font-weight: 400;
     padding: 0.4rem 0.6rem;
     white-space: nowrap;
-    z-index: 10;
+    z-index: 9999;
     pointer-events: none;
+    box-shadow: 0 4px 12px rgba(46, 30, 26, 0.25);
 }
 
-.heatmap-cell:hover {
-    outline: 1px solid var(--text-primary);
-    outline-offset: 1px;
+/* Tiny pointer triangle below the tooltip */
+.heatmap-cell:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--bg-dark);
+    z-index: 9999;
+    pointer-events: none;
 }
 
 /* Responsive: smaller gap on tablet, hide older weeks on phone */
@@ -1409,156 +1495,101 @@ section {
 }
 
 /* ============================================
-   GITHUB SECTION — STICKY-NOTE CARDS
+   GITHUB SECTION — BIG CUTE LINK
    ============================================ */
 .github-section {
-    margin-top: 4rem;
+    margin-top: clamp(3rem, 5vw, 4.5rem);
     text-align: center;
-}
-
-.github-subtitle {
-    font-family: var(--font-script);
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
-    color: var(--text-muted);
-    margin: 0.4rem 0 2rem;
-}
-
-.github-grid {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(1rem, 1.8vw, 1.4rem);
 }
 
-/* Each card is a small sticky note pinned slightly askew. The folded
-   corner is a linear-gradient on the background; box-shadow gives the
-   pinned-to-the-page lift. */
-.github-card {
+/* Big pinned card linking to GitHub — washi tape, slight rotation, lift on
+   hover, arrow nudges right. Reads as a charming single CTA instead of a
+   wall of repo cards. */
+.github-cta {
     position: relative;
-    width: clamp(140px, 14vw, 165px);
-    min-height: clamp(140px, 14vw, 165px);
-    padding: 0.9rem 1rem 0.85rem;
-    text-decoration: none;
-    text-align: left;
-    color: inherit;
-    background-color: var(--note-color, #FAEDC8);
-    background-image: linear-gradient(135deg,
-        transparent 88%,
-        rgba(120, 90, 50, 0.18) 88%,
-        rgba(120, 90, 50, 0.32) 96%);
-    box-shadow: 2px 4px 10px rgba(60, 50, 30, 0.18);
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    opacity: 0;
-    transform: scale(0.85) rotate(var(--note-rot, 0deg));
-    transition: opacity 0.45s ease,
-                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.25s ease;
-}
-
-.github-card.is-visible {
-    opacity: 1;
-    transform: scale(1) rotate(var(--note-rot, 0deg));
-}
-
-.github-card:hover {
-    transform: translateY(-4px) rotate(var(--note-rot, 0deg));
-    box-shadow: 3px 7px 14px rgba(60, 50, 30, 0.28);
-}
-
-/* Pink ↔ brown alternating across the 6 cards. Three pink shades, three
-   brown shades — kept light enough that the espresso text stays readable. */
-.github-card[data-leaf="1"] { --note-color: #F4C9D6; --note-rot: -3deg; }   /* blush pink */
-.github-card[data-leaf="2"] { --note-color: #C9A28A; --note-rot: 2deg; }    /* light cocoa */
-.github-card[data-leaf="3"] { --note-color: #FAD2DC; --note-rot: -1.5deg; } /* pale blush */
-.github-card[data-leaf="4"] { --note-color: #B89478; --note-rot: 3deg; }    /* medium brown */
-.github-card[data-leaf="5"] { --note-color: #E8A6B8; --note-rot: -2deg; }   /* deeper rose */
-.github-card[data-leaf="6"] { --note-color: #D4B5A0; --note-rot: 1.5deg; }  /* pale cocoa */
-
-.github-card h4 {
-    font-family: var(--font-handwritten);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-    line-height: 1.15;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Hide the leaf-era divider — sticky notes don't have one */
-.github-card .github-rule {
-    display: none;
-}
-
-.github-card p {
-    font-family: var(--font-body);
-    font-size: 0.66rem;
-    line-height: 1.4;
-    color: var(--text-secondary);
-    margin: 0;
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.github-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.25rem;
-}
-
-.github-lang {
-    font-family: var(--font-body);
-    font-size: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    background-color: rgba(255, 255, 255, 0.55);
-    padding: 0.15rem 0.42rem;
-}
-
-.github-stars {
-    font-family: var(--font-body);
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: var(--text-secondary);
     display: inline-flex;
     align-items: center;
-    gap: 0.18rem;
-}
-
-.github-loading,
-.github-error {
-    width: 100%;
-    text-align: center;
-    padding: 2rem;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--text-muted);
-}
-
-.github-error a {
+    gap: clamp(0.9rem, 1.5vw, 1.4rem);
+    padding: clamp(1.1rem, 1.8vw, 1.6rem) clamp(1.6rem, 2.6vw, 2.4rem);
+    text-decoration: none;
     color: var(--text-primary);
-    text-decoration: underline;
+    background-color: #FAD2DC;
+    background-image: linear-gradient(135deg,
+        transparent 90%,
+        rgba(120, 90, 50, 0.18) 90%,
+        rgba(120, 90, 50, 0.32) 97%);
+    box-shadow: 3px 6px 16px rgba(80, 50, 30, 0.20);
+    transform: rotate(-1.5deg);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .github-card,
-    .github-card.is-visible,
-    .github-card:hover {
-        transition: box-shadow 0.15s ease !important;
-        transform: rotate(var(--note-rot, 0deg)) !important;
-        opacity: 1 !important;
+.github-cta:hover {
+    transform: rotate(0deg) translateY(-5px) scale(1.03);
+    box-shadow: 5px 10px 24px rgba(80, 50, 30, 0.28);
+}
+
+.github-cta-tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: clamp(80px, 8vw, 120px);
+    height: clamp(16px, 1.6vw, 22px);
+    transform: translateX(-50%) rotate(-4deg);
+    background-color: rgba(232, 166, 184, 0.85);
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.45) 0 5px,
+        transparent 5px 11px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+}
+
+.github-cta-icon {
+    flex-shrink: 0;
+    width: clamp(36px, 3.5vw, 56px);
+    height: clamp(36px, 3.5vw, 56px);
+    color: var(--text-primary);
+}
+
+.github-cta-label {
+    font-family: var(--font-handwritten);
+    font-size: clamp(1.3rem, 2.2vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+}
+
+.github-cta-handle {
+    font-family: var(--font-script);
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
+    color: #C4687A;
+    margin-left: 0.25rem;
+}
+
+.github-cta-arrow {
+    flex-shrink: 0;
+    width: clamp(28px, 2.6vw, 40px);
+    height: auto;
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+.github-cta:hover .github-cta-arrow {
+    transform: translateX(6px);
+}
+
+@media (max-width: 600px) {
+    .github-cta {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.2rem 1.4rem 1.1rem;
     }
+    .github-cta-handle { margin-left: 0; }
 }
 
 /* ============================================

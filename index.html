@@ -107,6 +107,14 @@
     <main>
         <!-- About Section -->
         <section class="about" id="about">
+            <!-- Decorative flowers — fade in with the section, rotate on scroll -->
+            <div class="about-flower about-flower-l1 about-fade" aria-hidden="true"><img class="about-flower-img" src="f1.png" alt=""></div>
+            <div class="about-flower about-flower-l2 about-fade" aria-hidden="true"><img class="about-flower-img" src="f2.png" alt=""></div>
+            <div class="about-flower about-flower-l3 about-fade" aria-hidden="true"><img class="about-flower-img" src="f3.png" alt=""></div>
+            <div class="about-flower about-flower-r1 about-fade" aria-hidden="true"><img class="about-flower-img" src="f3.png" alt=""></div>
+            <div class="about-flower about-flower-r2 about-fade" aria-hidden="true"><img class="about-flower-img" src="f1.png" alt=""></div>
+            <div class="about-flower about-flower-r3 about-fade" aria-hidden="true"><img class="about-flower-img" src="f2.png" alt=""></div>
+
             <p class="about-label">[ ABOUT ]</p>
 
             <p class="about-greeting about-fade">hi, I'm Grace —</p>
@@ -474,7 +482,6 @@
 
                 <div class="filter-bar">
                     <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="ml-ai">ML/AI</button>
                     <button class="filter-btn" data-filter="web">Web</button>
                     <button class="filter-btn" data-filter="ios">iOS</button>
                     <button class="filter-btn" data-filter="startup">Startup</button>
@@ -621,13 +628,19 @@
                     </div>
                 </div>
 
-                <!-- GitHub Section -->
+                <!-- GitHub Section — big cute link to GitHub profile -->
                 <div class="github-section">
-                    <p class="section-label">[ ALSO ON GITHUB ]</p>
-                    <p class="github-subtitle">scribbles &amp; side projects</p>
-                    <div class="github-grid" id="githubGrid">
-                        <div class="github-loading">scribbling…</div>
-                    </div>
+                    <a class="github-cta" href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer" aria-label="See more on GitHub">
+                        <span class="github-cta-tape" aria-hidden="true"></span>
+                        <svg class="github-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.03 0 0 .96-.31 3.16 1.18a10.95 10.95 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.74.11 3.03.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.55C20.71 21.39 24 17.08 24 12 24 5.65 18.85.5 12.5.5h-.5z"/>
+                        </svg>
+                        <span class="github-cta-label">see more on GitHub</span>
+                        <span class="github-cta-handle">@grcfu</span>
+                        <svg class="github-cta-arrow" viewBox="0 0 32 14" aria-hidden="true">
+                            <path d="M 2 7 L 26 7 M 21 2 L 27 7 L 21 12" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </section>

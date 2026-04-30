@@ -250,6 +250,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { root: null, rootMargin: '0px', threshold: 0.15 });
         aboutObserver.observe(aboutSection);
+
+        // Scroll-driven flower spin. Rotation is a function of scrollY, so
+        // scrolling down accumulates clockwise rotation and scrolling up
+        // unwinds it. rAF-throttled for smoothness.
+        const flowerImgs = aboutSection.querySelectorAll('.about-flower-img');
+        if (flowerImgs.length) {
+            let aboutSpinTicking = false;
+
+            function updateFlowerSpin() {
+                const spin = (window.scrollY * 0.18).toFixed(2) + 'deg';
+                flowerImgs.forEach(img => {
+                    img.style.setProperty('--spin', spin);
+                });
+                aboutSpinTicking = false;
+            }
+
+            function onAboutSpinScroll() {
+                if (!aboutSpinTicking) {
+                    requestAnimationFrame(updateFlowerSpin);
+                    aboutSpinTicking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onAboutSpinScroll, { passive: true });
+            updateFlowerSpin();
+        }
     }
 
     // ============================================
@@ -703,98 +729,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // ============================================
-    // GITHUB API FETCH
-    // ============================================
-    const githubGrid = document.getElementById('githubGrid');
-
-    async function fetchGitHubRepos() {
-        if (!githubGrid) return;
-
-        try {
-            const response = await fetch('https://api.github.com/users/grcfu/repos?sort=updated&per_page=6');
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch repositories');
-            }
-
-            const repos = await response.json();
-
-            if (repos.length === 0) {
-                githubGrid.innerHTML = '<div class="github-error">No public repositories found.</div>';
-                return;
-            }
-
-            // Language colors
-            const langColors = {
-                'JavaScript': '#f1e05a',
-                'TypeScript': '#2b7489',
-                'Python': '#3572A5',
-                'Swift': '#ffac45',
-                'HTML': '#e34c26',
-                'CSS': '#563d7c',
-                'Java': '#b07219',
-                'C++': '#f34b7d',
-                'C': '#555555',
-                'Go': '#00ADD8',
-                'Rust': '#dea584',
-                'Ruby': '#701516',
-                'PHP': '#4F5D95'
-            };
-
-            githubGrid.innerHTML = repos.map((repo, index) => {
-                const langColor = langColors[repo.language] || '#8b949e';
-                const description = repo.description || 'No description available';
-                const leaf = (index % 6) + 1;
-
-                return `
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="github-card" data-leaf="${leaf}">
-                        <h4>${repo.name}</h4>
-                        <span class="github-rule" aria-hidden="true"></span>
-                        <p>${description}</p>
-                        <div class="github-meta">
-                            ${repo.language ? `
-                                <span class="github-lang" style="border-left: 3px solid ${langColor}">
-                                    ${repo.language}
-                                </span>
-                            ` : ''}
-                            <span class="github-stars">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                </svg>
-                                ${repo.stargazers_count}
-                            </span>
-                        </div>
-                    </a>
-                `;
-            }).join('');
-
-            // Staggered scroll-in: each leaf "falls" into place 80ms after
-            // the previous. One-shot — observer disconnects after firing.
-            const cards = githubGrid.querySelectorAll('.github-card');
-            const leafObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    cards.forEach((card, i) => {
-                        setTimeout(() => card.classList.add('is-visible'), i * 80);
-                    });
-                    leafObserver.disconnect();
-                });
-            }, { threshold: 0.15 });
-            leafObserver.observe(githubGrid);
-
-        } catch (error) {
-            console.error('GitHub API error:', error);
-            githubGrid.innerHTML = `
-                <div class="github-error">
-                    Couldn't load repos right now — <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer">visit github.com/grcfu</a> to see my work!
-                </div>
-            `;
-        }
-    }
-
-    fetchGitHubRepos();
 
     // ============================================
     // GITHUB CONTRIBUTIONS HEATMAP
