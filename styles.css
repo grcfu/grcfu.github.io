@@ -425,6 +425,14 @@ section {
 .about {
     position: relative;
     background-color: var(--bg-primary);
+    /* about-bg.jpg has subtle stripes — layered cream overlay washes most
+       of it out so the stripes read as a faint texture, not a pattern. */
+    background-image:
+        linear-gradient(rgba(238, 235, 231, 0.65), rgba(238, 235, 231, 0.65)),
+        url('about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: clamp(3rem, 6vw, 6.5rem) clamp(1.5rem, 5vw, 4rem);
     text-align: center;
     overflow: hidden;
@@ -762,7 +770,9 @@ section {
     position: relative;
     background-color: var(--bg-dark);
     color: var(--text-light);
-    height: 200vh;
+    /* Tighter than 200vh — staggered cards pack into roughly half the
+       previous vertical footprint, so the section can be much shorter. */
+    height: 150vh;
     overflow: hidden;
     padding: 0;
 }
@@ -792,20 +802,23 @@ section {
 
 .vine-subtitle {
     font-family: var(--font-script);
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-size: clamp(1rem, 1.6vw, 1.55rem);
     color: var(--text-light-muted);
     margin: 0;
     opacity: 0.85;
 }
 
 /* The vine SVG fills the section. Strokes use non-scaling-stroke so
-   they render at their declared px width regardless of stretch. */
+   they render at their declared px width regardless of stretch.
+   Top offset clears the .vine-header label so the vine doesn't start
+   directly behind it. Height shrinks to match so the vine still ends
+   at the section's bottom edge. */
 .vine-trunk {
     position: absolute;
-    top: 0;
+    top: clamp(4rem, 7vw, 7rem);
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - clamp(4rem, 7vw, 7rem));
     pointer-events: none;
     z-index: 1;
     overflow: visible;
@@ -840,8 +853,8 @@ section {
 /* Flowers — each its own SVG, undistorted, centered on its anchor */
 .vine-flower {
     position: absolute;
-    width: clamp(46px, 4.5vw, 70px);
-    height: clamp(46px, 4.5vw, 70px);
+    width: clamp(52px, 5vw, 86px);
+    height: clamp(52px, 5vw, 86px);
     pointer-events: none;
     z-index: 2;
     /* Position each flower so the SVG center aligns with the branch tip. */
@@ -924,9 +937,16 @@ section {
 .vine-card {
     position: absolute;
     z-index: 4;
-    width: min(440px, 50vw);
-    padding: 1.25rem 1.5rem;
-    background-color: rgba(255, 255, 255, 0.06);
+    /* Narrower than before so two staggered columns fit on 1024–1280
+       screens without overlapping each other. */
+    width: clamp(330px, 32vw, 540px);
+    padding: clamp(1.1rem, 1.5vw, 1.6rem) clamp(1.3rem, 1.7vw, 1.9rem);
+    /* Slightly tinted + backdrop blur — branches that pass behind a card
+       (the long ones for cards 1/3/5 cross over the near-column cards on
+       big screens) get softly diffused instead of cutting through the card. */
+    background-color: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.10);
     border-left: 3px solid var(--card-color, var(--text-light-muted));
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
@@ -956,7 +976,7 @@ section {
 .card-annotation {
     display: block;
     font-family: var(--font-handwritten);
-    font-size: 0.85rem;
+    font-size: clamp(0.85rem, 1vw, 1.05rem);
     color: var(--text-light-muted);
     letter-spacing: 0.04em;
     margin-bottom: 0.35rem;
@@ -966,7 +986,7 @@ section {
 .card-role {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    font-size: clamp(1.1rem, 1.7vw, 1.55rem);
     font-weight: 500;
     color: var(--text-light);
     margin: 0 0 0.35rem;
@@ -975,7 +995,7 @@ section {
 
 .card-company {
     font-family: var(--font-script);
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-size: clamp(1rem, 1.45vw, 1.4rem);
     color: var(--card-color);
     margin: 0 0 0.4rem;
     line-height: 1.1;
@@ -983,7 +1003,7 @@ section {
 
 .card-date {
     font-family: var(--font-body);
-    font-size: 0.62rem;
+    font-size: clamp(0.62rem, 0.78vw, 0.8rem);
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -993,7 +1013,7 @@ section {
 
 .card-rule {
     display: block;
-    width: 40px;
+    width: clamp(40px, 4vw, 60px);
     height: 2px;
     background-color: var(--card-color);
     opacity: 0.5;
@@ -1002,7 +1022,7 @@ section {
 
 .card-desc {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: clamp(0.85rem, 1.05vw, 1.05rem);
     line-height: 1.5;
     color: var(--text-light-muted);
     margin: 0;
@@ -1016,6 +1036,42 @@ section {
     height: 14px;
     color: var(--card-color);
     opacity: 0.85;
+}
+
+/* Right-side vine — hidden by default. Only appears on really big
+   screens, where far-column cards (1, 3, 5) attach to it instead of
+   the left vine, so the long left-vine branches don't have to cross
+   over the near-column cards above them. */
+.vine-trunk-right {
+    display: none;
+}
+
+@media (min-width: 1400px) {
+    .vine-trunk-right {
+        display: block;
+    }
+
+    /* Hide the long left-vine branches that would otherwise reach
+       across to the far cards. The right vine handles those now. */
+    .vine-trunk:not(.vine-trunk-right) .vine-branch[data-idx="1"],
+    .vine-trunk:not(.vine-trunk-right) .vine-branch[data-idx="3"],
+    .vine-trunk:not(.vine-trunk-right) .vine-branch[data-idx="5"] {
+        display: none;
+    }
+
+    /* Far-column cards now slide in from the left (since their flower
+       is on the right side of the card on big screens). */
+    .vine-card[data-idx="1"],
+    .vine-card[data-idx="3"],
+    .vine-card[data-idx="5"] {
+        transform: translateX(-20px) rotate(var(--rot, 0deg));
+    }
+
+    .vine-card[data-idx="1"].is-bloomed,
+    .vine-card[data-idx="3"].is-bloomed,
+    .vine-card[data-idx="5"].is-bloomed {
+        transform: translateX(0) rotate(var(--rot, 0deg));
+    }
 }
 
 /* Mobile — hide the vine, stack cards in a single column */
@@ -1370,10 +1426,18 @@ section {
 .heatmap-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-template-rows: repeat(7, 1fr);
-    gap: 3px;
+    /* Row tracks clamp the same way as the column tracks set in JS so cells
+       stay square at any viewport. */
+    grid-template-rows: repeat(7, clamp(11px, 1.5vw, 20px));
+    gap: clamp(3px, 0.4vw, 6px);
     width: 100%;
-    max-width: 100%;
+    /* Cap how wide the whole strip can spread on big screens — without this,
+       space-between would scatter squares across the full container. */
+    max-width: 920px;
+    margin: 0 auto;
+    /* Distribute leftover space as extra gap between weeks so wider screens
+       fill horizontally instead of inflating cell size. */
+    justify-content: space-between;
     /* visible so the cell hover tooltip can escape past the top edge of the
        grid for top-row cells without being clipped */
     overflow: visible;
@@ -1410,7 +1474,7 @@ section {
 }
 
 /* Heatmap color scale — tight pink gradient + warm espresso peak */
-.heatmap-level-0 { background-color: #F3E2E7; }
+.heatmap-level-0 { background-color: #E8CCD5; }
 .heatmap-level-1 { background-color: #DEAEBC; }
 .heatmap-level-2 { background-color: #D39CAE; }
 .heatmap-level-3 { background-color: #C68A9F; }
@@ -1783,45 +1847,50 @@ section {
     100% { transform: translate(calc(-50% + 3px), -50%) scale(0.6) rotate(2deg); }
 }
 
+/* Handwritten hint sitting up + to the right of the bag, with a curling
+   arrow pointing back toward the zipper. CSS vars feed the keyframes so
+   the bob animation and any media-query reposition share one source of
+   truth. */
+/* Centered hint — text on top, curling arrow below pointing down at the
+   zipper. CSS vars feed the keyframes so the bob and any media-query
+   reposition share one source of truth. */
 .bag-hint {
     position: absolute;
     left: 50%;
     top: 50%;
-    /* CSS vars so the keyframes and the mobile override can both retarget
-       the resting position (otherwise the infinite animation overwrites any
-       static transform set in a media query). */
-    --hint-y: -75px;
-    --hint-y-bounce: -83px;
-    transform: translate(-50%, var(--hint-y));
-    font-family: 'Caveat', cursive;
-    font-size: clamp(1.5rem, 2.3vw, 2rem);
-    font-weight: 700;
-    color: var(--bg-dark);
-    background-color: rgba(238, 235, 231, 0.95);
-    border: 2px solid var(--bg-dark);
-    padding: 0.35rem 0.9rem 0.3rem;
+    --hint-y: calc(-1 * clamp(140px, 17vw, 220px));
+    --hint-y-bounce: calc(-1 * clamp(144px, 17.5vw, 226px));
+    transform: translate(-50%, var(--hint-y)) rotate(-2deg);
     z-index: 3;
-    white-space: nowrap;
-    box-shadow: 2px 2px 0 var(--bg-dark);
-    animation: bag-hint-bounce 1.4s ease-in-out infinite;
+    pointer-events: none;
+    color: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
     transition: opacity 0.3s ease;
+    animation: bag-hint-bob 2.4s ease-in-out infinite;
 }
 
-.bag-hint::before {
-    content: '↓ ';
-    display: inline-block;
-    margin-right: 0.25rem;
+.bag-hint-text {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    /* Tiny shadow so the text reads against any background paint blob */
+    text-shadow: 1px 1px 0 rgba(238, 235, 231, 0.9);
 }
 
-.bag-hint::after {
-    content: ' ↓';
-    display: inline-block;
-    margin-left: 0.25rem;
+.bag-hint-arrow {
+    width: clamp(28px, 3vw, 40px);
+    height: auto;
+    flex-shrink: 0;
 }
 
-@keyframes bag-hint-bounce {
-    0%, 100% { transform: translate(-50%, var(--hint-y)); }
-    50%      { transform: translate(-50%, var(--hint-y-bounce)); }
+@keyframes bag-hint-bob {
+    0%, 100% { transform: translate(-50%, var(--hint-y)) rotate(-2deg); }
+    50%      { transform: translate(-50%, var(--hint-y-bounce)) rotate(-1deg); }
 }
 
 .bag-canvas.opened .bag-hint {
@@ -1893,14 +1962,15 @@ section {
     }
 }
 
-/* Category colors — all brown-themed to pop against pink wallpaper */
+/* Category colors — four shades of brown, one per quadrant.
+   top-left: mocha · top-right: espresso · bottom-left: tan · bottom-right: caramel */
 .blob-lang {
     background-color: #6D5D53;
     color: var(--bg-primary);
     border: 1.5px solid var(--bg-dark);
 }
 
-.blob-data {
+.blob-frame {
     background-color: var(--bg-dark);
     color: var(--bg-primary);
     border: 1.5px solid var(--bg-dark);
@@ -1909,6 +1979,12 @@ section {
 .blob-tools {
     background-color: #9C8E84;
     color: var(--bg-dark);
+    border: 1.5px solid var(--bg-dark);
+}
+
+.blob-prof {
+    background-color: #856B5A;
+    color: var(--bg-primary);
     border: 1.5px solid var(--bg-dark);
 }
 
@@ -1984,9 +2060,10 @@ section {
     border: 1.5px dashed var(--bg-dark);
 }
 
-.cat-label-lang { color: var(--bg-dark); }
-.cat-label-data { color: var(--bg-dark); }
+.cat-label-lang  { color: var(--bg-dark); }
+.cat-label-frame { color: var(--bg-dark); }
 .cat-label-tools { color: var(--bg-dark); }
+.cat-label-prof  { color: var(--bg-dark); }
 
 .bag-canvas.opened .cat-label {
     animation: label-fade 0.4s ease forwards;
@@ -2021,9 +2098,14 @@ section {
     }
 
     .bag-hint {
-        --hint-y: -55px;
-        --hint-y-bounce: -63px;
-        font-size: 1.05rem;
+        --hint-y: -120px;
+        --hint-y-bounce: -126px;
+    }
+    .bag-hint-text {
+        font-size: 1.15rem;
+    }
+    .bag-hint-arrow {
+        width: 26px;
     }
 
     .cat-label {
@@ -2046,484 +2128,315 @@ section {
     }
 }
 
+
 /* ============================================
-   RECOGNITION — POLAROID CORKBOARD WALL
-   ============================================ */
-:root {
-    --cork: #C4956A;
-    --brass: #C9A84C;
-}
-
+   RECOGNITION — EDITORIAL REEL
+   ============================================
+   Magazine-spread treatment: numbered list, italic Playfair titles,
+   Caveat numbers, dashed espresso dividers, blush hover bar. Replaces
+   the corkboard polaroids — quieter, more readable, sits cleanly with
+   the typographic hierarchy used in About/Experience. */
 .recognition {
+    position: relative;
     background-color: var(--bg-primary);
-    padding: clamp(4rem, 8vw, 6rem) 0 clamp(5rem, 10vw, 7rem);
+    /* Equal breathing room above and below the flower bouquet — the
+     * bouquet's margin-top + this padding-bottom should match. */
+    padding: clamp(4rem, 9vw, 7rem) 0 clamp(1.5rem, 3vw, 3rem);
     overflow: hidden;
+    isolation: isolate;
 }
 
-.cork-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-}
-
-/* Outer wood frame — espresso with subtle diagonal grain */
-.cork-frame {
-    position: relative;
-    width: min(95vw, 1400px);
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--bg-dark);
-    background-image: repeating-linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.022) 0px,
-        rgba(255, 255, 255, 0.022) 1px,
-        transparent 1px,
-        transparent 6px
-    );
-    box-shadow:
-        0 30px 60px rgba(46, 30, 26, 0.30),
-        0 8px 20px rgba(46, 30, 26, 0.22),
-        inset 0 0 0 2px rgba(0, 0, 0, 0.45);
-    box-sizing: border-box;
-    opacity: 0;
-    transform: scale(0.97);
-    transition: opacity 0.5s ease,
-                transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.recognition.is-revealed .cork-frame {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Cork surface — the warm honey board */
-.corkboard {
-    position: relative;
-    background-color: var(--cork);
-    background-image: url('https://m.media-amazon.com/images/I/A1KW2oMoNxL._AC_SY879_.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 700px;
-    box-shadow:
-        inset 0 0 32px rgba(46, 30, 26, 0.20),
-        inset 0 0 0 1px rgba(46, 30, 26, 0.18);
-    overflow: hidden;
-}
-
-/* SVG turbulence overlays — hidden now that the corkboard uses a real
-   cork photo background which already has its own grain. */
-.cork-tex {
-    display: none;
+/* Subtle paper grain — same noise pattern used elsewhere on cream
+   sections so the texture reads as continuous across the page. */
+.recog-paper {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
     z-index: 0;
-}
-.cork-tex-base { opacity: 0.85; mix-blend-mode: multiply; }
-.cork-tex-fine { opacity: 0.7;  mix-blend-mode: overlay; }
-
-/* Polaroids — scattered, pinned, lift on hover */
-.polaroid {
-    position: absolute;
-    width: clamp(140px, 14vw, 180px);
-    background-color: #FFFFFF;
-    padding: 8px 8px 24px 8px;
-    box-shadow: 3px 6px 16px rgba(80, 50, 20, 0.25);
-    box-sizing: border-box;
-    cursor: pointer;
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(-20px) rotate(var(--rot, 0deg));
-    transition: opacity 0.5s ease,
-                transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.3s ease;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.27 0 0 0 0 0.18 0 0 0 0 0.14 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
 }
 
-.recognition.is-revealed .polaroid {
-    opacity: 1;
-    transform: translateY(0) rotate(var(--rot, 0deg));
-}
-
-/* Stagger — each polaroid drops onto the board 0.08s after the previous. */
-.recognition.is-revealed .polaroid[data-idx="0"] { transition-delay: 0.50s; }
-.recognition.is-revealed .polaroid[data-idx="1"] { transition-delay: 0.58s; }
-.recognition.is-revealed .polaroid[data-idx="2"] { transition-delay: 0.66s; }
-.recognition.is-revealed .polaroid[data-idx="3"] { transition-delay: 0.74s; }
-.recognition.is-revealed .polaroid[data-idx="4"] { transition-delay: 0.82s; }
-.recognition.is-revealed .polaroid[data-idx="5"] { transition-delay: 0.90s; }
-.recognition.is-revealed .polaroid[data-idx="6"] { transition-delay: 0.98s; }
-.recognition.is-revealed .polaroid[data-idx="7"] { transition-delay: 1.06s; }
-.recognition.is-revealed .polaroid[data-idx="8"] { transition-delay: 1.14s; }
-.recognition.is-revealed .polaroid[data-idx="9"] { transition-delay: 1.22s; }
-
-/* Hover/active — straighten, scale up, deeper shadow. Specificity 0,4,0
-   beats the .recognition.is-revealed .polaroid revealed-state rule. */
-.recognition.is-revealed .polaroid:hover,
-.recognition.is-revealed .polaroid.is-active {
-    transform: rotate(0deg) scale(1.15);
-    box-shadow: 6px 12px 28px rgba(80, 50, 20, 0.40);
-    transition-delay: 0s;
-}
-
-/* Photo block — top portion, colored fill behind icon */
-.polaroid-photo {
+/* Three flowers clustered along the bottom — visual separator between
+   recognition and contact, in the same hand-picked bouquet language
+   used elsewhere on the site. The wrapper is a centered flex row so
+   flower sizing scales fluidly with the viewport without manual
+   left/right percentage tweaks. */
+/* In-flow at the bottom of the section so the cluster sits BELOW the
+   reel and never overlaps award rows. (Absolute + bottom positioning
+   would let the big flowers reach back up over the reel on tall layouts.) */
+.recog-flower-row {
     position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    z-index: 0;
+    /* Top margin matches the section's padding-bottom so the gap above
+     * and below the bouquet reads as symmetric. */
+    margin: clamp(1.5rem, 3vw, 3rem) auto 0;
+    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    transition: filter 0.3s ease;
+    width: max-content;
+    max-width: 100%;
 }
 
-.polaroid:hover .polaroid-photo,
-.polaroid.is-active .polaroid-photo {
-    filter: brightness(0.85);
+.recog-flower {
+    /* Way bigger upper bound so the cluster scales up dramatically on
+       large monitors instead of looking lost in white space. */
+    width: clamp(80px, 20vw, 320px);
+    height: clamp(80px, 20vw, 320px);
+    flex-shrink: 0;
+    opacity: 0.9;
 }
 
-.polaroid-icon {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+/* Aggressive negative margin → flowers overlap by ~30–40% so the row
+   reads as one tight bouquet rather than spaced-out icons. (CSS `gap`
+   doesn't accept negative values, so we use margin.) */
+.recog-flower + .recog-flower {
+    margin-left: clamp(-120px, -7.5vw, -28px);
+}
+
+.recog-flower-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: rotate(var(--spin, 0deg)) scale(var(--flower-scale, 1));
+    transition: transform 0.06s linear;
+    filter: drop-shadow(2px 3px 4px rgba(80, 50, 30, 0.10));
+}
+
+/* f2.png (cherry blossom) renders smaller relative to its canvas — same
+   trick as the about section keeps it visually balanced. */
+.recog-flower-img[src="f2.png"] {
+    --flower-scale: 1.45;
+}
+
+/* ---- Header ---- */
+.recog-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+    max-width: 880px;
+    padding: 0 1.5rem;
+}
+
+.recog-header .section-label {
+    color: var(--text-muted);
+    margin-bottom: 0.65rem;
+}
+
+.recog-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.recog-title em {
+    font-style: italic;
+    font-family: var(--font-script);
+    font-weight: 700;
+    color: var(--accent-pink-dark);
+    margin-right: 0.15em;
+}
+
+.recog-flourish {
+    width: clamp(60px, 7vw, 90px);
+    height: auto;
+    margin-top: 0.9rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* ---- Reel of award rows ---- */
+.recog-reel {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    margin: 0 auto;
+    max-width: 880px;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.award-row {
+    display: grid;
+    grid-template-columns: clamp(48px, 6vw, 78px) 1fr;
+    column-gap: clamp(1rem, 2.4vw, 2.4rem);
+    align-items: baseline;
+    padding: clamp(1.4rem, 2.6vw, 2.2rem) 0;
+    border-bottom: 1px dashed rgba(62, 39, 35, 0.22);
+    position: relative;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+        padding-left 0.3s ease;
+}
+
+.award-row:first-child {
+    border-top: 1px dashed rgba(62, 39, 35, 0.22);
+}
+
+.award-row.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Blush left bar appears on hover — subtle accent that nods to the rest
+   of the site's pink without making the row feel like a tile. */
+.award-row::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 18%;
+    bottom: 18%;
+    width: 3px;
+    background-color: var(--accent-pink-dark);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.award-row:hover::before {
+    transform: scaleY(1);
+}
+
+.award-row:hover {
+    padding-left: clamp(0.5rem, 1vw, 1rem);
+}
+
+.award-num {
+    font-family: var(--font-handwritten);
+    font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+    font-weight: 700;
+    color: var(--text-secondary);
     line-height: 1;
-    transition: opacity 0.3s ease;
+    opacity: 0.55;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    align-self: start;
+    padding-top: 0.4rem;
 }
 
-.polaroid:hover .polaroid-icon,
-.polaroid.is-active .polaroid-icon {
+.award-row:hover .award-num {
+    opacity: 1;
+    color: var(--accent-pink-dark);
+}
+
+.award-body {
+    min-width: 0;
+}
+
+.award-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.05vw, 1.7rem);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 0.45rem;
+    line-height: 1.25;
+}
+
+.award-meta {
+    font-family: var(--font-body);
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0 0 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.55rem;
+}
+
+.award-org {
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.95em;
+}
+
+.award-sep {
     opacity: 0.4;
 }
 
-/* Description overlay — fades in over photo on hover */
-.polaroid-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.32);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.55rem 0.7rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.polaroid:hover .polaroid-overlay,
-.polaroid.is-active .polaroid-overlay {
-    opacity: 1;
-}
-
-.polaroid-detail {
-    font-family: var(--font-handwritten);
-    font-size: 0.78rem;
-    color: #FFFFFF;
-    text-align: center;
-    margin: 0;
-    line-height: 1.3;
-}
-
-/* White strip — name + org always visible; year reveals on hover */
-.polaroid-strip {
-    padding: 0.55rem 0.25rem 0;
-    text-align: center;
-}
-
-.polaroid-name {
-    font-family: var(--font-handwritten);
-    font-weight: 700;
-    font-size: 0.78rem;
+.award-year {
+    font-family: var(--font-script);
+    font-size: 1.4em;
     color: var(--text-primary);
-    margin: 0;
-    line-height: 1.2;
-}
-
-.polaroid-org {
-    font-family: var(--font-body);
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    margin: 0.18rem 0 0;
-    line-height: 1.2;
-}
-
-.polaroid-year {
-    font-family: var(--font-body);
-    font-size: 0.55rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+.award-detail {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
     color: var(--text-secondary);
     margin: 0;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease,
-                opacity 0.3s ease,
-                margin 0.3s ease;
-}
-
-.polaroid:hover .polaroid-year,
-.polaroid.is-active .polaroid-year {
-    max-height: 18px;
-    opacity: 1;
-    margin-top: 0.25rem;
-}
-
-/* Push pins — radial-gradient circles with drop shadow */
-.polaroid-pin {
-    position: absolute;
-    top: -7px;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.3s ease;
-    z-index: 2;
-}
-
-.polaroid:hover .polaroid-pin,
-.polaroid.is-active .polaroid-pin {
-    transform: translate(-50%, -3px);
-    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.4);
-}
-
-.polaroid[data-pin="brass"] .polaroid-pin {
-    background: radial-gradient(circle at 35% 35%,
-        rgba(255, 240, 200, 0.85) 0%,
-        var(--brass) 45%,
-        rgba(80, 50, 20, 0.55) 100%);
-}
-.polaroid[data-pin="blush"] .polaroid-pin {
-    background: radial-gradient(circle at 35% 35%,
-        rgba(255, 240, 245, 0.9) 0%,
-        var(--accent-pink) 45%,
-        rgba(180, 80, 110, 0.55) 100%);
-}
-.polaroid[data-pin="espresso"] .polaroid-pin {
-    background: radial-gradient(circle at 35% 35%,
-        rgba(220, 200, 195, 0.5) 0%,
-        var(--bg-dark) 45%,
-        rgba(0, 0, 0, 0.7) 100%);
-}
-.polaroid[data-pin="rose"] .polaroid-pin {
-    background: radial-gradient(circle at 35% 35%,
-        rgba(255, 240, 245, 0.85) 0%,
-        var(--accent-pink-dark) 45%,
-        rgba(150, 70, 100, 0.55) 100%);
-}
-
-/* Decorative scraps + extras */
-.cork-scrap {
-    position: absolute;
-    top: 1.5%;
-    left: 2%;
-    background-color: #F5EDD8;
-    padding: 0.55rem 0.95rem;
-    transform: rotate(-5deg);
-    box-shadow: 1px 2px 6px rgba(80, 50, 20, 0.25);
-    z-index: 5;
-    pointer-events: none;
-    clip-path: polygon(2% 0, 98% 4%, 100% 18%, 96% 36%, 100% 56%, 98% 78%, 100% 100%, 4% 96%, 0 78%, 4% 58%, 0 38%, 4% 18%, 0 4%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-.recognition.is-revealed .cork-scrap {
-    opacity: 1;
-    transition-delay: 1.4s;
-}
-
-.cork-scrap-text {
-    font-family: var(--font-body);
-    font-size: 0.55rem;
-    font-weight: 600;
-    letter-spacing: 0.28em;
-    color: var(--bg-dark);
-    text-transform: uppercase;
-}
-
-.cork-scrap-pin {
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(circle at 35% 35%,
-        rgba(255, 240, 200, 0.85) 0%,
-        var(--brass) 45%,
-        rgba(80, 50, 20, 0.55) 100%);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-}
-
-/* Hand-drawn star doodle near the Danforth Scholar */
-.cork-star {
-    position: absolute;
-    top: 2%;
-    left: 14%;
-    width: 28px;
-    height: 28px;
-    transform: rotate(-12deg);
-    z-index: 6;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-.recognition.is-revealed .cork-star {
+    line-height: 1.5;
+    max-width: 56ch;
     opacity: 0.85;
-    transition-delay: 1.5s;
 }
 
-/* Blush washi tape on Congressional App Challenge corner */
-.cork-washi {
-    position: absolute;
-    top: 4%;
-    left: 47%;
-    width: 90px;
-    height: 22px;
-    background-color: rgba(244, 201, 214, 0.72);
-    background-image: repeating-linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.28) 0px,
-        rgba(255, 255, 255, 0.28) 4px,
-        transparent 4px,
-        transparent 10px
-    );
-    transform: rotate(-35deg);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
-    z-index: 14;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-.recognition.is-revealed .cork-washi {
-    opacity: 1;
-    transition-delay: 1.6s;
-}
-
-/* Yellow sticky note — bottom right, with folded-corner shadow */
-.cork-sticky {
-    position: absolute;
-    bottom: 4%;
-    right: 4%;
-    width: 120px;
-    height: 120px;
-    background-color: #F5E6A0;
-    background-image: linear-gradient(135deg,
-        transparent 88%,
-        rgba(180, 150, 80, 0.25) 88%,
-        rgba(180, 150, 80, 0.4) 95%);
-    padding: 1.4rem 0.8rem 0.5rem;
-    text-align: center;
-    transform: rotate(2deg);
-    box-shadow: 2px 4px 12px rgba(80, 50, 20, 0.28);
-    box-sizing: border-box;
-    z-index: 6;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.recognition.is-revealed .cork-sticky {
-    opacity: 1;
-    transition-delay: 1.7s;
-}
-
-.cork-sticky-text {
-    font-family: var(--font-handwritten);
-    font-size: 1.1rem;
-    color: var(--bg-dark);
-    line-height: 1.2;
-}
-
-.cork-sticky-pin {
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(circle at 35% 35%,
-        rgba(255, 240, 245, 0.9) 0%,
-        var(--accent-pink-dark) 45%,
-        rgba(150, 70, 100, 0.55) 100%);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-}
-
-/* Mobile — flat 2-column grid, no rotations, tap to expand */
-@media (max-width: 768px) {
-    .cork-frame {
-        padding: 12px;
-        width: 95vw;
-    }
-
-    .corkboard {
-        min-height: auto;
-        padding: 1.5rem;
+/* ---- Big screens — two columns to save vertical space ---- */
+@media (min-width: 1100px) {
+    .recog-reel {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        box-sizing: border-box;
+        grid-template-columns: 1fr 1fr;
+        column-gap: clamp(2rem, 4vw, 4rem);
+        max-width: 1180px;
+        /* Reset list-item margins so the grid controls spacing */
+        padding: 0 clamp(1rem, 4vw, 3rem);
     }
-
-    .polaroid {
-        position: relative;
-        left: auto !important;
-        top: auto !important;
-        width: 100%;
-        transform: translateY(-20px) rotate(0deg);
+    /* The second item sits in the first row's right column, so it needs
+       its own top divider — :first-child only catches item 1. */
+    .award-row:nth-child(2) {
+        border-top: 1px dashed rgba(62, 39, 35, 0.22);
     }
+}
 
-    .recognition.is-revealed .polaroid {
-        transform: translateY(0) rotate(0deg);
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+    .award-row {
+        grid-template-columns: clamp(38px, 11vw, 54px) 1fr;
+        column-gap: 0.8rem;
+        padding: 1.3rem 0;
     }
-
-    .recognition.is-revealed .polaroid:hover,
-    .recognition.is-revealed .polaroid.is-active {
-        transform: rotate(0deg) scale(1.05);
+    .award-num {
+        font-size: 2.1rem;
+        padding-top: 0.25rem;
     }
-
-    /* Hide most decorations on mobile, keep the sticky note */
-    .cork-scrap,
-    .cork-star,
-    .cork-washi {
-        display: none;
+    .recog-flower {
+        width: 70px;
+        height: 70px;
+        opacity: 0.8;
     }
-
-    .cork-sticky {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        margin: 0.5rem auto 0;
-        grid-column: span 2;
-        width: 140px;
-        height: 110px;
+    .recog-flower + .recog-flower {
+        margin-left: -22px;
+    }
+    .recog-flower-row {
+        margin-top: 2rem;
+    }
+    .award-row:hover {
+        padding-left: 0;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cork-frame,
-    .polaroid,
-    .cork-scrap,
-    .cork-star,
-    .cork-washi,
-    .cork-sticky {
-        animation: none !important;
-        transition: opacity 0.15s ease !important;
-    }
-    .recognition.is-revealed .cork-frame {
+    .award-row {
         opacity: 1 !important;
         transform: none !important;
+        transition: none !important;
     }
-    .recognition.is-revealed .polaroid {
-        opacity: 1 !important;
-        transform: rotate(var(--rot, 0deg)) !important;
+    .award-row::before {
+        transition: none !important;
     }
 }
 
@@ -2637,15 +2550,44 @@ section {
    ============================================ */
 .footer {
     background-color: var(--bg-dark);
-    padding: 2rem 0;
+    padding: 1.4rem clamp(1rem, 4vw, 2rem) 1.2rem;
     text-align: center;
     border-top: none;
 }
 
-.footer p {
+.footer-line {
     font-family: var(--font-body);
-    font-size: 0.8125rem;
+    font-size: clamp(0.78rem, 0.95vw, 0.92rem);
     color: var(--text-light-muted);
+    line-height: 1.6;
+    margin: 0 auto 0.4rem;
+    max-width: 1200px;
+    letter-spacing: 0.01em;
+}
+
+.footer-lead {
+    color: var(--accent-pink);
+    font-style: italic;
+    margin-right: 0.35rem;
+}
+
+.footer-tag {
+    padding: 0 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.footer-tag:hover {
+    color: var(--accent-pink);
+}
+
+.footer-credit {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--text-light-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0;
+    opacity: 0.55;
 }
 
 /* ============================================
@@ -3072,5 +3014,78 @@ section {
     .hero-banner {
         transition: opacity 0.2s ease !important;
         transform: none !important;
+    }
+}
+
+/* ============================================
+   SKILLS — UNZIP INTERACTION
+   ============================================
+   Replaces the previous instant-fly-out blob animation with an
+   orchestrated sequence: zipper draws across bag → bag flap folds
+   open → blobs rise out of the opening one at a time. JS in
+   script.js drives the timing; this stylesheet sets the static
+   look + the resting state blobs revert to once they've landed. */
+
+/* Zipper SVG overlay — positioned absolutely over the bag's top
+   opening. JS sets left/top/width/height after the bag image renders
+   (positionZipper). overflow:visible so the pull tab can sit a few
+   pixels left of the track start before it slides right. */
+#zipperSvg {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 3;
+    overflow: visible;
+    transition: opacity 0.2s ease;
+}
+
+#zipperSvg .zipper-track {
+    stroke: #B89B85;
+    stroke-width: 1.4;
+    fill: none;
+    stroke-linecap: round;
+    /* JS overrides both with the curved path's actual length (in viewBox
+       units) at init. Generous fallback here just hides the strokes
+       until that runs. */
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+}
+
+#zipperSvg .zipper-tooth {
+    fill: #B89B85;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+}
+
+/* No CSS transform on #zipperPull — JS uses setAttribute('transform', ...)
+   to translate it along the curved top track via getPointAtLength, and a
+   CSS transform rule would override that per the SVG2 cascade. */
+
+/* Blobs need to sit ABOVE the zipper SVG so they appear to rise out
+   from inside the bag rather than behind the zipper. */
+.skill-blob { z-index: 4; }
+
+/* Override the original auto-fly-out keyframe — JS now drives the
+   stage-A rise + stage-B drift so timing can sync with the unzip.
+   This rule is the resting/static state for blobs once they've
+   landed; magnetic-hover clears its inline transform back to '' and
+   this rule provides the final position. */
+.bag-canvas.opened .skill-blob {
+    animation: none;
+    opacity: 1;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--r));
+}
+
+/* Perspective container for the bag's 3D fold-open transform.
+   Set on the canvas so child .bag-img rotateX has depth. */
+.bag-canvas.is-folding {
+    perspective: 800px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #zipperSvg,
+    #zipperSvg .zipper-track,
+    #zipperSvg .zipper-tooth {
+        transition: none !important;
     }
 }

@@ -184,35 +184,36 @@
                  into giant blobs on wide screens. -->
             <svg class="vine-trunk" id="vineTrunk" viewBox="0 0 100 200"
                  preserveAspectRatio="none" aria-hidden="true">
-                <!-- Six branches from main vine to each flower -->
+                <!-- Six branches alternating short / long so cards land in
+                     two staggered columns instead of one tall stack -->
                 <g class="vine-branches">
                     <path class="vine-branch" data-idx="0"
-                          d="M 14 19 Q 20 17 25 19 T 30 21"
+                          d="M 14 10 Q 18 8 22 11"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="1"
-                          d="M 16 47 Q 22 45 26 47 T 32 49"
+                          d="M 14 36 Q 28 33 42 37 T 56 38"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="2"
-                          d="M 14 78 Q 20 76 24 79 T 29 80"
+                          d="M 14 62 Q 18 60 22 63"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="3"
-                          d="M 16 105 Q 22 103 27 105 T 32 108"
+                          d="M 14 88 Q 28 85 42 89 T 56 90"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="4"
-                          d="M 14 138 Q 19 136 23 137 T 28 140"
+                          d="M 14 114 Q 18 112 22 115"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="5"
-                          d="M 16 168 Q 22 166 26 168 T 31 170"
+                          d="M 14 140 Q 28 137 42 141 T 56 142"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
@@ -278,6 +279,48 @@
                           stroke-linejoin="round"
                           vector-effect="non-scaling-stroke"/>
                 </g>
+            </svg>
+
+            <!-- Right-side vine — only shown on really big screens via CSS.
+                 Far-column cards (1, 3, 5) attach here instead of getting
+                 long left-vine branches that cut across the near-column
+                 cards above them. Same viewBox/preserveAspectRatio so the
+                 same JS positioning math works without modification. -->
+            <svg class="vine-trunk vine-trunk-right" id="vineTrunkRight"
+                 viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden="true">
+                <g class="vine-branches">
+                    <path class="vine-branch" data-idx="1"
+                          d="M 86 36 Q 82 33 78 38"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="3"
+                          d="M 86 88 Q 82 85 78 90"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="5"
+                          d="M 86 140 Q 82 137 78 142"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                </g>
+
+                <!-- Mirrored main vine on the right (x ≈ 82–91) -->
+                <path class="vine-main" id="vineMainRight"
+                      d="M 86 0
+                         C 91 8, 81 16, 87 24
+                         C 92 32, 80 40, 86 48
+                         C 91 56, 81 64, 87 72
+                         C 92 80, 80 88, 85 96
+                         C 90 104, 80 112, 86 120
+                         C 91 128, 81 136, 87 144
+                         C 92 152, 80 160, 85 168
+                         C 90 176, 82 184, 86 192
+                         C 88 196, 85 200, 86 200"
+                      stroke="#A8B89A" stroke-width="2.5" fill="none"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      vector-effect="non-scaling-stroke"/>
             </svg>
 
             <!-- Six flowers — each its own SVG, undistorted, positioned absolutely.
@@ -660,40 +703,94 @@
             </div>
 
             <div class="bag-canvas">
-                <img src="bagnobck.png" alt="Coach bag" class="bag-img" id="bagImg">
-                <p class="bag-hint">tap to open</p>
+                <img src="rebag.png" alt="bag" class="bag-img" id="bagImg">
+                <!-- Handwritten hint sitting centered above the bag with a
+                     curling arrow that points down at the zipper. -->
+                <div class="bag-hint" aria-hidden="true">
+                    <span class="bag-hint-text">tap to unzip!</span>
+                    <svg class="bag-hint-arrow" viewBox="0 0 40 60" aria-hidden="true">
+                        <path d="M 20 4 Q 12 22 22 36 Q 28 46 22 56"
+                              stroke="currentColor" stroke-width="2.2" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 14 50 L 22 58 L 30 51"
+                              stroke="currentColor" stroke-width="2.2" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
 
-                <!-- Languages & Frameworks — TOP zone, two-row fan -->
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -20vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -10vw; --y: -23vh; --r: 2deg; --delay: 1;">React.js</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 0vw;   --y: -22vh; --r: -1deg; --delay: 2;">Next.js</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 10vw;  --y: -23vh; --r: 3deg; --delay: 3;">FastAPI</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 22vw;  --y: -22vh; --r: -2deg; --delay: 4;">Swift/SwiftUI</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -30vw; --y: -13vh; --r: 1deg; --delay: 5;">JavaScript</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -14vw; --y: -10vh; --r: -2deg; --delay: 6;">HTML/CSS</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 14vw;  --y: -10vh; --r: 2deg; --delay: 7;">React Native</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 30vw;  --y: -13vh; --r: -1deg; --delay: 8;">p5.js</div>
+                <!-- Zipper overlay — drawn left-to-right on click, then the
+                     bag flap folds open and the skill blobs rise out. JS
+                     positions this absolutely over the bag's top opening
+                     after the image has rendered (see positionZipper). -->
+                <svg id="zipperSvg" viewBox="0 0 200 50" aria-hidden="true">
+                    <defs>
+                        <filter id="zipperPullShadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0.6" stdDeviation="0.5" flood-opacity="0.35"/>
+                        </filter>
+                    </defs>
+                    <!-- Curved tracks with a strong arch. Note: a quadratic
+                         bezier reaches half the distance to its control
+                         point at t=0.5, so to get the visible peak at y=0
+                         the control y must be -42 (peak = 0.25*42 + 0.5*(-42) + 0.25*42 = 0).
+                         Same idea for bot offset by 4. -->
+                    <path id="zipperTrackTop" class="zipper-track" d="M 0 42 Q 100 -74 200 42"/>
+                    <path id="zipperTrackBot" class="zipper-track" d="M 0 46 Q 100 -70 200 46"/>
+                    <!-- Teeth — origin (0, 0). JS sets transform on each so
+                         they sit on the curves at evenly-spaced parametric
+                         points, alternating above top track / below bot. -->
+                    <g id="zipperTeeth">
+                        <rect class="zipper-tooth" data-i="0" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="1" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="2" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="3" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="4" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="5" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="6" x="0" y="0" width="4" height="6"/>
+                        <rect class="zipper-tooth" data-i="7" x="0" y="0" width="4" height="6"/>
+                    </g>
+                    <!-- D-ring pull tab — translates along the top curve via
+                         getPointAtLength as the zip draws. -->
+                    <g id="zipperPull">
+                        <path d="M -2 6 L 0 6 L 0 14 L -2 14 A 4 4 0 0 1 -2 6 Z"
+                              fill="#856B5A" filter="url(#zipperPullShadow)"/>
+                        <line x1="0" y1="10" x2="2.4" y2="10"
+                              stroke="#856B5A" stroke-width="1.4" stroke-linecap="round"/>
+                    </g>
+                </svg>
 
-                <!-- Data & ML — BOTTOM LEFT cluster, spread (not a diagonal stack) -->
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -28vw; --y: 7vh;  --r: 2deg; --delay: 9;">PyTorch</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -12vw; --y: 8vh;  --r: -3deg; --delay: 10;">TensorFlow</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -22vw; --y: 14vh; --r: 1deg; --delay: 11;">Scikit-learn</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -10vw; --y: 18vh; --r: -2deg; --delay: 12;">Pandas</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -25vw; --y: 22vh; --r: 3deg; --delay: 13;">NumPy</div>
+                <!-- Languages — TOP-LEFT quadrant -->
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -28vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -18vw; --y: -23vh; --r: 2deg; --delay: 1;">Java</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -8vw;  --y: -22vh; --r: 3deg; --delay: 2;">Swift</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -27vw; --y: -13vh; --r: 1deg; --delay: 3;">JavaScript</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -13vw; --y: -14vh; --r: -2deg; --delay: 4;">TypeScript</div>
 
-                <!-- Tools & Platforms — BOTTOM RIGHT cluster, spread out -->
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 12vw; --y: 7vh;  --r: -2deg; --delay: 14;">Supabase</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 28vw; --y: 8vh;  --r: 1deg; --delay: 15;">PostgreSQL</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 22vw; --y: 14vh; --r: -3deg; --delay: 16;">GitHub</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 10vw; --y: 16vh; --r: 2deg; --delay: 17;">Firebase</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 30vw; --y: 16vh; --r: -1deg; --delay: 18;">Tailwind CSS</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 24vw; --y: 21vh; --r: 3deg; --delay: 19;">Figma</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 12vw; --y: 22vh; --r: -2deg; --delay: 20;">Vercel</div>
+                <!-- Frameworks & Libraries — TOP-RIGHT quadrant -->
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 8vw;  --y: -22vh; --r: -2deg; --delay: 5;">React</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 18vw; --y: -23vh; --r: 1deg; --delay: 6;">Next.js</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 28vw; --y: -22vh; --r: -3deg; --delay: 7;">SwiftUI</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 13vw; --y: -13vh; --r: 2deg; --delay: 8;">PyTorch</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 26vw; --y: -13vh; --r: -1deg; --delay: 9;">React Native</div>
 
-                <!-- Category labels — positioned just outside each cluster -->
-                <div class="cat-label cat-label-lang" style="--x: 0vw;   --y: -29vh;">languages &amp; frameworks</div>
-                <div class="cat-label cat-label-data" style="--x: -22vw; --y: 28vh;">data &amp; ml</div>
-                <div class="cat-label cat-label-tools" style="--x: 22vw; --y: 28vh;">tools &amp; platforms</div>
+                <!-- Tools & Platforms — BOTTOM-LEFT quadrant -->
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -28vw; --y: 8vh;  --r: 2deg; --delay: 10;">Git</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -16vw; --y: 8vh;  --r: -2deg; --delay: 11;">Google Cloud</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -25vw; --y: 16vh; --r: 3deg; --delay: 12;">PostgreSQL</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -10vw; --y: 16vh; --r: -1deg; --delay: 13;">GitLab CI/CD</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -22vw; --y: 23vh; --r: 2deg; --delay: 14;">Vercel</div>
+
+                <!-- Technical Proficiencies — BOTTOM-RIGHT quadrant -->
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 9vw;  --y: 8vh;  --r: -2deg; --delay: 15;">Native iOS Dev</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 25vw; --y: 8vh;  --r: 1deg; --delay: 16;">Mobile UI/UX</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 14vw; --y: 16vh; --r: -3deg; --delay: 17;">REST APIs</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 28vw; --y: 16vh; --r: 2deg; --delay: 18;">JSON</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 20vw; --y: 23vh; --r: -1deg; --delay: 19;">Agile/Scrum</div>
+
+                <!-- Category labels — one per quadrant, beyond the cluster -->
+                <div class="cat-label cat-label-lang"  style="--x: -22vw; --y: -29vh;">languages</div>
+                <div class="cat-label cat-label-frame" style="--x: 22vw;  --y: -29vh;">frameworks &amp; libraries</div>
+                <div class="cat-label cat-label-tools" style="--x: -22vw; --y: 29vh;">tools &amp; platforms</div>
+                <div class="cat-label cat-label-prof"  style="--x: 22vw;  --y: 29vh;">proficiencies</div>
             </div>
 
             <div class="skills-languages">
@@ -701,220 +798,88 @@
             </div>
         </section>
 
-        <!-- Recognition Section — polaroid corkboard wall -->
+        <!-- Recognition Section — editorial reel of awards -->
         <section class="recognition" id="recognition" aria-label="Recognition">
-            <!-- Reusable cork-grain filters, defined once. -->
-            <svg class="cork-defs" aria-hidden="true" focusable="false">
-                <defs>
-                    <filter id="corkGrain" x="0" y="0" width="100%" height="100%">
-                        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" seed="3"/>
-                        <feColorMatrix values="0 0 0 0 0.41
-                                               0 0 0 0 0.27
-                                               0 0 0 0 0.15
-                                               0 0 0 0.35 0"/>
-                    </filter>
-                    <filter id="corkGrainFine" x="0" y="0" width="100%" height="100%">
-                        <feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="3" stitchTiles="stitch" seed="7"/>
-                        <feColorMatrix values="0 0 0 0 0.31
-                                               0 0 0 0 0.19
-                                               0 0 0 0 0.12
-                                               0 0 0 0.15 0"/>
-                    </filter>
-                </defs>
-            </svg>
+            <div class="recog-paper" aria-hidden="true"></div>
 
-            <div class="cork-frame" id="corkFrame">
-                <div class="corkboard" id="corkboard">
-                    <!-- Cork texture layers -->
-                    <svg class="cork-tex cork-tex-base" preserveAspectRatio="none" aria-hidden="true">
-                        <rect width="100%" height="100%" filter="url(#corkGrain)"/>
-                    </svg>
-                    <svg class="cork-tex cork-tex-fine" preserveAspectRatio="none" aria-hidden="true">
-                        <rect width="100%" height="100%" filter="url(#corkGrainFine)"/>
-                    </svg>
+            <header class="recog-header">
+                <p class="section-label">[ RECOGNITION ]</p>
+                <h2 class="recog-title"><em>six</em> that meant the most.</h2>
+                <svg class="recog-flourish" viewBox="0 0 100 14" aria-hidden="true">
+                    <path d="M 4 9 Q 28 2 52 8 T 96 7"
+                          stroke="currentColor" stroke-width="1.6" fill="none"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </header>
 
-                    <!-- Section label as torn paper scrap, integrated into the board -->
-                    <div class="cork-scrap" aria-hidden="true">
-                        <span class="cork-scrap-pin"></span>
-                        <span class="cork-scrap-text">[ RECOGNITION ]</span>
+            <ol class="recog-reel">
+                <li class="award-row" data-idx="0">
+                    <span class="award-num">01</span>
+                    <div class="award-body">
+                        <h3 class="award-title">Congressional Gold Medal</h3>
+                        <p class="award-meta"><span class="award-org">U.S. Congress</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
+                        <p class="award-detail">For 1,000+ hours of service, personal development &amp; fitness.</p>
                     </div>
+                </li>
 
-                    <!-- Tiny hand-drawn star doodle near Danforth Scholar -->
-                    <svg class="cork-star" viewBox="0 0 28 28" aria-hidden="true">
-                        <path d="M 14 3 L 16 11 L 24 11 L 17.5 15.5 L 20 23 L 14 18.5 L 8 23 L 10.5 15.5 L 4 11 L 12 11 Z"
-                              fill="none" stroke="#5A3F39" stroke-width="1.4"
-                              stroke-linejoin="round" stroke-linecap="round"/>
-                    </svg>
-
-                    <!-- Blush washi tape overlapping Congressional App Challenge corner -->
-                    <span class="cork-washi" aria-hidden="true"></span>
-
-                    <!-- Yellow sticky note -->
-                    <div class="cork-sticky" aria-hidden="true">
-                        <span class="cork-sticky-pin"></span>
-                        <span class="cork-sticky-text">so proud 🎀</span>
+                <li class="award-row" data-idx="1">
+                    <span class="award-num">02</span>
+                    <div class="award-body">
+                        <h3 class="award-title">Full-Tuition Danforth Scholar</h3>
+                        <p class="award-meta"><span class="award-org">Washington University in St. Louis</span><span class="award-sep">·</span><span class="award-year">Class of 2028</span></p>
+                        <p class="award-detail">Full tuition merit scholarship.</p>
                     </div>
+                </li>
 
-                    <!-- Polaroids — scattered, each with unique rotation + pin color -->
-                    <article class="polaroid" data-idx="0" data-pin="brass"
-                             style="left: 4%; top: 6%; --rot: -3deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #D4845A;">
-                            <span class="polaroid-icon" aria-hidden="true">🏅</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">1,000+ hours of service, personal development &amp; fitness</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Congressional Gold Medal</p>
-                            <p class="polaroid-org">U.S. Congress</p>
-                            <p class="polaroid-year">Awarded 2024</p>
-                        </div>
-                    </article>
+                <li class="award-row" data-idx="2">
+                    <span class="award-num">03</span>
+                    <div class="award-body">
+                        <h3 class="award-title">Congressional App Challenge — 1st Place</h3>
+                        <p class="award-meta"><span class="award-org">U.S. House of Representatives</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
+                        <p class="award-detail">Presented at House of Code in Washington D.C.</p>
+                    </div>
+                </li>
 
-                    <article class="polaroid" data-idx="1" data-pin="blush"
-                             style="left: 18%; top: 3%; --rot: 2deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #8BA888;">
-                            <span class="polaroid-icon" aria-hidden="true">🎓</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Full tuition merit scholarship · Class of 2028</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Full-Tuition Danforth Scholar</p>
-                            <p class="polaroid-org">Washington University in St. Louis</p>
-                            <p class="polaroid-year">Class of 2028</p>
-                        </div>
-                    </article>
+                <li class="award-row" data-idx="3">
+                    <span class="award-num">04</span>
+                    <div class="award-body">
+                        <h3 class="award-title">Distinguished Young Woman of Missouri</h3>
+                        <p class="award-meta"><span class="award-org">Distinguished Young Women</span><span class="award-sep">·</span><span class="award-year">2025</span></p>
+                        <p class="award-detail">$5,750 in scholarships across five categories.</p>
+                    </div>
+                </li>
 
-                    <article class="polaroid" data-idx="2" data-pin="espresso"
-                             style="left: 34%; top: 7%; --rot: -1.5deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #C4687A;">
-                            <span class="polaroid-icon" aria-hidden="true">🥇</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Presented at House of Code in Washington D.C.</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Congressional App Challenge · 1st</p>
-                            <p class="polaroid-org">U.S. House of Representatives</p>
-                            <p class="polaroid-year">2024</p>
-                        </div>
-                    </article>
+                <li class="award-row" data-idx="4">
+                    <span class="award-num">05</span>
+                    <div class="award-body">
+                        <h3 class="award-title">Bank of America Student Leaders</h3>
+                        <p class="award-meta"><span class="award-org">Bank of America</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
+                        <p class="award-detail">300 chosen nationally from 7,000+ applicants.</p>
+                    </div>
+                </li>
 
-                    <article class="polaroid" data-idx="3" data-pin="rose"
-                             style="left: 50%; top: 4%; --rot: 3deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #E8A6B8;">
-                            <span class="polaroid-icon" aria-hidden="true">👑</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">$5,750 in scholarships across five categories</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Distinguished Young Woman of MO</p>
-                            <p class="polaroid-org">Distinguished Young Women</p>
-                            <p class="polaroid-year">2025</p>
-                        </div>
-                    </article>
+                <li class="award-row" data-idx="5">
+                    <span class="award-num">06</span>
+                    <div class="award-body">
+                        <h3 class="award-title">MIT Women's Technology Program</h3>
+                        <p class="award-meta"><span class="award-org">Massachusetts Institute of Technology</span><span class="award-sep">·</span><span class="award-year">Summer 2024</span></p>
+                        <p class="award-detail">Selective residential summer program in EE/CS.</p>
+                    </div>
+                </li>
+            </ol>
 
-                    <article class="polaroid" data-idx="4" data-pin="brass"
-                             style="left: 66%; top: 6%; --rot: -2deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #D4A55A;">
-                            <span class="polaroid-icon" aria-hidden="true">🏛️</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Selective summer program · 2024</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">MIT Women's Technology Program</p>
-                            <p class="polaroid-org">Massachusetts Institute of Technology</p>
-                            <p class="polaroid-year">Summer 2024</p>
-                        </div>
-                    </article>
-
-                    <article class="polaroid" data-idx="5" data-pin="blush"
-                             style="left: 80%; top: 3%; --rot: 1.5deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #A898C8;">
-                            <span class="polaroid-icon" aria-hidden="true">🤝</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Selected from 7,000+ applicants · 300 chosen nationally</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Bank of America Student Leaders</p>
-                            <p class="polaroid-org">Bank of America</p>
-                            <p class="polaroid-year">2024</p>
-                        </div>
-                    </article>
-
-                    <article class="polaroid" data-idx="6" data-pin="espresso"
-                             style="left: 8%; top: 48%; --rot: 2.5deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #A8A870;">
-                            <span class="polaroid-icon" aria-hidden="true">🔬</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Top 100 of Missouri's graduating seniors</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Missouri Scholars 100</p>
-                            <p class="polaroid-org">MO Dept. of Higher Education</p>
-                            <p class="polaroid-year">2025</p>
-                        </div>
-                    </article>
-
-                    <article class="polaroid" data-idx="7" data-pin="rose"
-                             style="left: 28%; top: 52%; --rot: -2deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #E09080;">
-                            <span class="polaroid-icon" aria-hidden="true">📰</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Recognized for academic and athletic excellence</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">Scholar Athlete</p>
-                            <p class="polaroid-org">St. Louis Post-Dispatch · 2025</p>
-                            <p class="polaroid-year">2025</p>
-                        </div>
-                    </article>
-
-                    <article class="polaroid" data-idx="8" data-pin="brass"
-                             style="left: 52%; top: 50%; --rot: 1deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #7898B8;">
-                            <span class="polaroid-icon" aria-hidden="true">🛡️</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">Competed in national cybersecurity competition</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">NCL · Top 13% Nationally</p>
-                            <p class="polaroid-org">National Cyber League</p>
-                            <p class="polaroid-year">2024</p>
-                        </div>
-                    </article>
-
-                    <article class="polaroid" data-idx="9" data-pin="blush"
-                             style="left: 72%; top: 48%; --rot: -3deg;">
-                        <span class="polaroid-pin" aria-hidden="true"></span>
-                        <div class="polaroid-photo" style="background-color: #C89090;">
-                            <span class="polaroid-icon" aria-hidden="true">🎤</span>
-                            <div class="polaroid-overlay">
-                                <p class="polaroid-detail">$1,250 prize · CoursePilot startup concept</p>
-                            </div>
-                        </div>
-                        <div class="polaroid-strip">
-                            <p class="polaroid-name">WashU Olin Pitch · 2nd Place</p>
-                            <p class="polaroid-org">WashU Olin Business School</p>
-                            <p class="polaroid-year">2024</p>
-                        </div>
-                    </article>
+            <!-- Three flowers clustered just above the contact section as a
+                 soft separator. Inner <img> rotates on scroll (see
+                 updateRecogSpin in script.js). -->
+            <div class="recog-flower-row" aria-hidden="true">
+                <div class="recog-flower">
+                    <img class="recog-flower-img" src="f1.png" alt="">
+                </div>
+                <div class="recog-flower">
+                    <img class="recog-flower-img" src="f2.png" alt="">
+                </div>
+                <div class="recog-flower">
+                    <img class="recog-flower-img" src="f3.png" alt="">
                 </div>
             </div>
         </section>
@@ -941,11 +906,13 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer — conversation starters in a single, low-key line -->
     <footer class="footer">
-        <div class="container">
-            <p>© 2026 Grace Fu · Made with care</p>
-        </div>
+        <p class="footer-line">
+            <span class="footer-lead">ask me about —</span>
+            <span class="footer-tag">volleyball</span>·<span class="footer-tag">baking</span>·<span class="footer-tag">pickleball</span>·<span class="footer-tag">violin</span>·<span class="footer-tag">matcha runs</span>·<span class="footer-tag">hiking</span>·<span class="footer-tag">Mandarin sitcoms</span>·<span class="footer-tag">my YouTube cooking channel</span>
+        </p>
+        <p class="footer-credit">© 2026 Grace Fu</p>
     </footer>
 </body>
 </html>
