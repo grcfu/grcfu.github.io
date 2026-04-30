@@ -816,9 +816,15 @@ section {
 .vine-flower[data-idx="4"].is-bloomed .flower-content { animation-duration: 4.3s; }
 .vine-flower[data-idx="5"].is-bloomed .flower-content { animation-duration: 3.6s; animation-direction: alternate-reverse; }
 
+/* Per SVG2 spec, a CSS transform on an SVG element REPLACES that element's
+   `transform=` attribute (it doesn't compose). Each flower-content has
+   `transform="translate(35 35)"` to center its petals at viewBox (35, 35).
+   The keyframes therefore have to re-include that translate, otherwise the
+   sway wipes the centering and petals render around viewBox (0, 0) — outside
+   the visible viewBox, leaving only the lower-right quadrant visible. */
 @keyframes flower-sway {
-    from { transform: rotate(-1deg); }
-    to   { transform: rotate(1deg); }
+    from { transform: translate(35px, 35px) rotate(-1deg); }
+    to   { transform: translate(35px, 35px) rotate(1deg); }
 }
 
 /* Hover — brighten + sway slightly more actively */
