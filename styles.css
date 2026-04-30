@@ -1548,9 +1548,28 @@ section {
 .skills {
     position: relative;
     background-color: var(--bg-primary);
-    padding: var(--section-padding) 0;
+    /* Tighter padding so the section fits in one viewport on big screens */
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
     overflow: hidden;
 }
+
+/* Squiggly hand-drawn espresso borders at the top + bottom edges so the
+   section reads as its own little chapter, distinct from neighbors. */
+.skills::before,
+.skills::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 22px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 22' preserveAspectRatio='none'%3E%3Cpath d='M 0 11 Q 12 2 25 11 Q 37 20 50 11 Q 62 2 75 11 Q 87 20 100 11' stroke='%23442F2A' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 90px 22px;
+    z-index: 5;
+    pointer-events: none;
+}
+.skills::before { top: 14px; }
+.skills::after  { bottom: 14px; }
 
 /* Soft watercolor blobs drifting in the background */
 .skills-paint {
@@ -1618,7 +1637,7 @@ section {
     position: relative;
     z-index: 1;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
 }
 
 .skills-heading-top {
@@ -1652,13 +1671,16 @@ section {
     color: var(--bg-dark);
 }
 
-/* Bag Canvas */
+/* Bag Canvas — tighter so the whole section fits one big-screen viewport.
+   Skill blobs use vh-based offsets so they spread independently of canvas
+   height, meaning we can shrink the canvas without losing the bag-explodes
+   layout. */
 .bag-canvas {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: none;
-    height: clamp(550px, 85vh, 900px);
+    height: clamp(450px, 60vh, 600px);
     margin: 0 auto;
 }
 
@@ -1921,7 +1943,7 @@ section {
     font-size: clamp(0.8rem, 1vw, 0.9rem);
     color: var(--bg-dark);
     font-weight: 500;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     letter-spacing: 0.05em;
 }
 
