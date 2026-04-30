@@ -107,51 +107,56 @@
     <main>
         <!-- About Section -->
         <section class="about" id="about">
-            <p class="about-label">[ ABOUT ME ]</p>
+            <p class="about-label">[ ABOUT ]</p>
 
-            <div class="about-story">
-                <!-- Big opening pull-quote -->
-                <p class="about-hero-quote about-fade">I build where it matters most.</p>
+            <p class="about-greeting about-fade">hi, I'm Grace —</p>
 
-                <!-- Origin text -->
-                <div class="about-text-left about-fade">
-                    <p>It started with <em>Minecraft.</em> Not just playing — but noticing that every problem had a logical solution. That instinct stuck. Somewhere between the redstone circuits and the React components, it became something real.</p>
-                </div>
+            <div class="about-id about-fade">
+                <p class="about-id-line">CS &amp; Business @ Washington University in St. Louis · Class of 2028</p>
+                <p class="about-id-seek">recruiting for <strong>SWE internships, Summer 2027</strong></p>
+            </div>
 
-                <!-- Left photo -->
-                <div class="about-photo about-photo-left about-fade" style="transition-delay: 0.6s;">
-                    <img src="https://i.pinimg.com/736x/53/7a/0c/537a0c29cbe7d781a40be1e8d4527903.jpg" alt="Minecraft — where Grace's love for problem solving began">
-                    <span class="about-caption about-caption-pink">where it all started</span>
-                </div>
+            <p class="about-tagline about-fade">
+                research-trained, founder-tested.
+                <em>here to build software where it matters.</em>
+            </p>
 
-                <!-- SVG Timeline Path -->
-                <svg class="about-path-svg" viewBox="0 0 1200 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                            <polygon points="0 0, 8 3, 0 6" fill="#3E2723"/>
-                        </marker>
-                    </defs>
-                    <path class="about-path-line" d="M0,50 C80,50 120,15 200,20 C280,25 300,80 400,75 C500,70 480,20 560,25 C640,30 660,70 740,65 C820,60 850,35 950,40 C1020,43 1060,50 1200,50" stroke="#3E2723" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
-                </svg>
+            <div class="about-cards">
+                <article class="about-card about-card-pink about-fade" style="--rot: -1.5deg;">
+                    <span class="about-card-tape" aria-hidden="true"></span>
+                    <h3 class="about-card-title">currently</h3>
+                    <ul class="about-card-list">
+                        <li><span class="about-card-icon" aria-hidden="true">🔬</span> ML pipelines @ WashU McKelvey</li>
+                        <li><span class="about-card-icon" aria-hidden="true">💻</span> PM Lead, Google Dev Group</li>
+                        <li><span class="about-card-icon" aria-hidden="true">✏️</span> TA for 200+ in CSE 2407</li>
+                    </ul>
+                </article>
 
-                <!-- Right photo -->
-                <div class="about-photo about-photo-right about-fade" style="transition-delay: 1.2s;">
-                    <img src="https://img.freepik.com/free-vector/cute-horse-working-laptop-cartoon-vector-icon-illustration-animal-technology-isolated-flat_138676-14563.jpg" alt="Grace coding (kind of)">
-                    <span class="about-caption about-caption-brown">me, basically</span>
-                </div>
+                <article class="about-card about-card-sage about-fade" style="--rot: 1deg;">
+                    <span class="about-card-tape" aria-hidden="true"></span>
+                    <h3 class="about-card-title">favorite tools</h3>
+                    <ul class="about-card-chips">
+                        <li>Python</li>
+                        <li>PyTorch</li>
+                        <li>TensorFlow</li>
+                        <li>React</li>
+                        <li>Next.js</li>
+                        <li>FastAPI</li>
+                        <li>Swift</li>
+                        <li>TypeScript</li>
+                        <li>Supabase</li>
+                    </ul>
+                </article>
 
-                <!-- Bottom-right text block -->
-                <div class="about-text-right about-fade">
-                    <p>Now I build ML pipelines for Child Protective Services, apps for real communities, and tools that make people's lives easier.</p>
-                    <p class="about-quote">Built with heart.</p>
-                </div>
-
-                <!-- Contact stickers -->
-                <div class="about-contact about-fade">
-                    <a href="mailto:gracefu@wustl.edu" class="about-contact-link">gracefu@wustl.edu</a>
-                    <a href="https://linkedin.com/in/grcfu" target="_blank" rel="noopener noreferrer" class="about-contact-link">linkedin.com/in/grcfu</a>
-                    <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer" class="about-contact-link">github.com/grcfu</a>
-                </div>
+                <article class="about-card about-card-cream about-fade" style="--rot: -0.5deg;">
+                    <span class="about-card-tape" aria-hidden="true"></span>
+                    <h3 class="about-card-title">say hi</h3>
+                    <ul class="about-card-list about-card-links">
+                        <li><a href="mailto:gracefu@wustl.edu">gracefu@wustl.edu</a></li>
+                        <li><a href="https://linkedin.com/in/grcfu" target="_blank" rel="noopener noreferrer">linkedin.com/in/grcfu</a></li>
+                        <li><a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer">github.com/grcfu</a></li>
+                    </ul>
+                </article>
             </div>
         </section>
 
@@ -645,37 +650,37 @@
                 <img src="bagnobck.png" alt="Coach bag" class="bag-img" id="bagImg">
                 <p class="bag-hint">tap to open</p>
 
-                <!-- Languages & Frameworks — TOP zone, arc left to right -->
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -22vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -12vw; --y: -28vh; --r: 2deg; --delay: 1;">React.js</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -1vw; --y: -30vh; --r: -1deg; --delay: 2;">Next.js</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 10vw; --y: -28vh; --r: 3deg; --delay: 3;">FastAPI</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 20vw; --y: -22vh; --r: -2deg; --delay: 4;">Swift/SwiftUI</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -28vw; --y: -13vh; --r: 1deg; --delay: 5;">JavaScript</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -16vw; --y: -15vh; --r: -2deg; --delay: 6;">HTML/CSS</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 26vw; --y: -14vh; --r: 2deg; --delay: 7;">React Native</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 33vw; --y: -7vh; --r: -1deg; --delay: 8;">p5.js</div>
+                <!-- Languages & Frameworks — TOP zone, two-row fan -->
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -20vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -10vw; --y: -23vh; --r: 2deg; --delay: 1;">React.js</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 0vw;   --y: -22vh; --r: -1deg; --delay: 2;">Next.js</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 10vw;  --y: -23vh; --r: 3deg; --delay: 3;">FastAPI</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 22vw;  --y: -22vh; --r: -2deg; --delay: 4;">Swift/SwiftUI</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -30vw; --y: -13vh; --r: 1deg; --delay: 5;">JavaScript</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -14vw; --y: -10vh; --r: -2deg; --delay: 6;">HTML/CSS</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 14vw;  --y: -10vh; --r: 2deg; --delay: 7;">React Native</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: 30vw;  --y: -13vh; --r: -1deg; --delay: 8;">p5.js</div>
 
-                <!-- Data & ML — BOTTOM LEFT cluster -->
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -28vw; --y: 8vh; --r: 2deg; --delay: 9;">PyTorch</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -18vw; --y: 14vh; --r: -3deg; --delay: 10;">TensorFlow</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -30vw; --y: 20vh; --r: 1deg; --delay: 11;">Scikit-learn</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -15vw; --y: 24vh; --r: -2deg; --delay: 12;">Pandas</div>
-                <div class="skill-blob blob-data" data-cat="data" style="--x: -24vw; --y: 30vh; --r: 3deg; --delay: 13;">NumPy</div>
+                <!-- Data & ML — BOTTOM LEFT cluster, spread (not a diagonal stack) -->
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -28vw; --y: 7vh;  --r: 2deg; --delay: 9;">PyTorch</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -12vw; --y: 8vh;  --r: -3deg; --delay: 10;">TensorFlow</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -22vw; --y: 14vh; --r: 1deg; --delay: 11;">Scikit-learn</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -10vw; --y: 18vh; --r: -2deg; --delay: 12;">Pandas</div>
+                <div class="skill-blob blob-data" data-cat="data" style="--x: -25vw; --y: 22vh; --r: 3deg; --delay: 13;">NumPy</div>
 
-                <!-- Tools & Platforms — BOTTOM RIGHT cluster -->
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 20vw; --y: 8vh; --r: -2deg; --delay: 14;">Supabase</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 30vw; --y: 13vh; --r: 1deg; --delay: 15;">PostgreSQL</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 16vw; --y: 18vh; --r: -3deg; --delay: 16;">GitHub</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 28vw; --y: 23vh; --r: 2deg; --delay: 17;">Firebase</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 14vw; --y: 28vh; --r: -1deg; --delay: 18;">Tailwind CSS</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 25vw; --y: 32vh; --r: 3deg; --delay: 19;">Figma</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 10vw; --y: 35vh; --r: -2deg; --delay: 20;">Vercel</div>
+                <!-- Tools & Platforms — BOTTOM RIGHT cluster, spread out -->
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 12vw; --y: 7vh;  --r: -2deg; --delay: 14;">Supabase</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 28vw; --y: 8vh;  --r: 1deg; --delay: 15;">PostgreSQL</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 22vw; --y: 14vh; --r: -3deg; --delay: 16;">GitHub</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 10vw; --y: 16vh; --r: 2deg; --delay: 17;">Firebase</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 30vw; --y: 16vh; --r: -1deg; --delay: 18;">Tailwind CSS</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 24vw; --y: 21vh; --r: 3deg; --delay: 19;">Figma</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: 12vw; --y: 22vh; --r: -2deg; --delay: 20;">Vercel</div>
 
                 <!-- Category labels — positioned just outside each cluster -->
-                <div class="cat-label cat-label-lang" style="--x: -1vw; --y: -35vh;">languages & frameworks</div>
-                <div class="cat-label cat-label-data" style="--x: -24vw; --y: 36vh;">data & ml</div>
-                <div class="cat-label cat-label-tools" style="--x: 20vw; --y: 38vh;">tools & platforms</div>
+                <div class="cat-label cat-label-lang" style="--x: 0vw;   --y: -29vh;">languages &amp; frameworks</div>
+                <div class="cat-label cat-label-data" style="--x: -22vw; --y: 28vh;">data &amp; ml</div>
+                <div class="cat-label cat-label-tools" style="--x: 22vw; --y: 28vh;">tools &amp; platforms</div>
             </div>
 
             <div class="skills-languages">
