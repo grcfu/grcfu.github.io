@@ -1391,17 +1391,8 @@ section {
 }
 
 /* ============================================
-   GITHUB SECTION — BOTANICAL LEAF CARDS
+   GITHUB SECTION — STICKY-NOTE CARDS
    ============================================ */
-:root {
-    --leaf-1: #A8B89A;
-    --leaf-2: #8FA882;
-    --leaf-3: #7D9E72;
-    --leaf-4: #B2BA8C;
-    --leaf-5: #9BAA7A;
-    --leaf-6: #C4C99A;
-}
-
 .github-section {
     margin-top: 4rem;
     text-align: center;
@@ -1418,161 +1409,108 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(1rem, 1.8vw, 1.4rem);
 }
 
-/* Each card is a soft pressed-leaf silhouette. clip-path handles the shape;
-   filter: drop-shadow respects the clip so the shadow follows the leaf edge. */
+/* Each card is a small sticky note pinned slightly askew. The folded
+   corner is a linear-gradient on the background; box-shadow gives the
+   pinned-to-the-page lift. */
 .github-card {
     position: relative;
-    width: clamp(150px, 18vw, 200px);
-    height: clamp(170px, 20vw, 220px);
-    padding: clamp(1.8rem, 4vw, 2.5rem) clamp(1.2rem, 3vw, 2rem);
+    width: clamp(140px, 14vw, 165px);
+    min-height: clamp(140px, 14vw, 165px);
+    padding: 0.9rem 1rem 0.85rem;
     text-decoration: none;
-    text-align: center;
+    text-align: left;
     color: inherit;
-    background-color: var(--leaf-color, var(--leaf-1));
-    background-image: radial-gradient(ellipse 70% 55% at 50% 30%,
-        rgba(255, 255, 255, 0.30) 0%,
-        rgba(255, 255, 255, 0) 70%);
-    filter: drop-shadow(2px 4px 6px rgba(60, 70, 50, 0.20));
+    background-color: var(--note-color, #FAEDC8);
+    background-image: linear-gradient(135deg,
+        transparent 88%,
+        rgba(120, 90, 50, 0.18) 88%,
+        rgba(120, 90, 50, 0.32) 96%);
+    box-shadow: 2px 4px 10px rgba(60, 50, 30, 0.18);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.55rem;
+    gap: 0.35rem;
     opacity: 0;
-    transform: scale(0.8) rotate(var(--leaf-rot, 0deg));
+    transform: scale(0.85) rotate(var(--note-rot, 0deg));
     transition: opacity 0.45s ease,
-                transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
-                filter 0.3s ease;
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s ease;
 }
 
 .github-card.is-visible {
     opacity: 1;
-    transform: scale(1) rotate(var(--leaf-rot, 0deg));
+    transform: scale(1) rotate(var(--note-rot, 0deg));
 }
 
 .github-card:hover {
-    filter: drop-shadow(3px 7px 10px rgba(60, 70, 50, 0.30)) brightness(1.08);
-    transform: scale(1) translateY(-6px) rotate(var(--leaf-rot, 0deg));
+    transform: translateY(-4px) rotate(var(--note-rot, 0deg));
+    box-shadow: 3px 7px 14px rgba(60, 50, 30, 0.28);
 }
 
-/* Subtle midrib down the leaf — pseudo-element scoped to the clip-path */
-.github-card::before {
-    content: '';
-    position: absolute;
-    top: 6%;
-    left: 50%;
-    width: 1px;
-    height: 88%;
-    background-color: var(--leaf-vein, rgba(60, 80, 50, 0.3));
-    transform: translateX(-50%);
-    pointer-events: none;
-}
-
-/* Six leaf shape variations + matching colors, vein tints, and rotations */
-.github-card[data-leaf="1"] {
-    clip-path: ellipse(48% 42% at 50% 50%);
-    --leaf-color: var(--leaf-1);
-    --leaf-vein: rgba(80, 100, 70, 0.32);
-    --leaf-rot: -3deg;
-    --leaf-tag: #6F8264;
-}
-.github-card[data-leaf="2"] {
-    clip-path: polygon(50% 0%, 95% 25%, 100% 60%, 85% 90%, 50% 100%, 15% 90%, 0% 60%, 5% 25%);
-    --leaf-color: var(--leaf-2);
-    --leaf-vein: rgba(70, 90, 60, 0.32);
-    --leaf-rot: 2deg;
-    --leaf-tag: #5C7350;
-}
-.github-card[data-leaf="3"] {
-    clip-path: polygon(50% 2%, 92% 20%, 98% 55%, 88% 85%, 50% 100%, 12% 85%, 2% 55%, 8% 20%);
-    --leaf-color: var(--leaf-3);
-    --leaf-vein: rgba(60, 78, 52, 0.34);
-    --leaf-rot: -1.5deg;
-    --leaf-tag: #4F6948;
-}
-.github-card[data-leaf="4"] {
-    clip-path: polygon(45% 0%, 94% 22%, 100% 58%, 82% 92%, 50% 100%, 18% 92%, 0% 58%, 6% 22%);
-    --leaf-color: var(--leaf-4);
-    --leaf-vein: rgba(85, 95, 60, 0.30);
-    --leaf-rot: 3deg;
-    --leaf-tag: #7B855F;
-}
-.github-card[data-leaf="5"] {
-    clip-path: polygon(50% 0%, 90% 30%, 92% 65%, 75% 92%, 50% 100%, 25% 92%, 8% 65%, 10% 30%);
-    --leaf-color: var(--leaf-5);
-    --leaf-vein: rgba(70, 88, 56, 0.32);
-    --leaf-rot: -2deg;
-    --leaf-tag: #687855;
-}
-.github-card[data-leaf="6"] {
-    clip-path: polygon(48% 0%, 93% 18%, 100% 55%, 86% 88%, 50% 100%, 14% 88%, 0% 55%, 7% 18%);
-    --leaf-color: var(--leaf-6);
-    --leaf-vein: rgba(95, 100, 70, 0.30);
-    --leaf-rot: 1.5deg;
-    --leaf-tag: #8A8E60;
-}
+/* Six pastel note colors + slight hand-pinned rotations */
+.github-card[data-leaf="1"] { --note-color: #FAD2DC; --note-rot: -3deg; }
+.github-card[data-leaf="2"] { --note-color: #FAEDC8; --note-rot: 2deg; }
+.github-card[data-leaf="3"] { --note-color: #D8E5C8; --note-rot: -1.5deg; }
+.github-card[data-leaf="4"] { --note-color: #D3E1E8; --note-rot: 3deg; }
+.github-card[data-leaf="5"] { --note-color: #E0D5E8; --note-rot: -2deg; }
+.github-card[data-leaf="6"] { --note-color: #FAD8C5; --note-rot: 1.5deg; }
 
 .github-card h4 {
     font-family: var(--font-handwritten);
-    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
     line-height: 1.15;
-    /* Truncate very long repo names to one line */
-    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+/* Hide the leaf-era divider — sticky notes don't have one */
 .github-card .github-rule {
-    width: 60%;
-    height: 1px;
-    background-color: var(--leaf-vein, rgba(60, 80, 50, 0.3));
-    opacity: 0.7;
+    display: none;
 }
 
 .github-card p {
     font-family: var(--font-body);
-    font-size: 0.75rem;
-    line-height: 1.5;
+    font-size: 0.66rem;
+    line-height: 1.4;
     color: var(--text-secondary);
     margin: 0;
+    flex: 1;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
 .github-meta {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    margin-top: 0.15rem;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
 }
 
 .github-lang {
     font-family: var(--font-body);
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--bg-primary);
-    background-color: var(--leaf-tag, var(--leaf-3));
-    padding: 0.18rem 0.5rem;
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.55);
+    padding: 0.15rem 0.42rem;
 }
 
 .github-stars {
     font-family: var(--font-body);
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 600;
-    color: var(--bg-primary);
-    opacity: 0.85;
+    color: var(--text-secondary);
     display: inline-flex;
     align-items: center;
     gap: 0.18rem;
@@ -1598,8 +1536,8 @@ section {
     .github-card,
     .github-card.is-visible,
     .github-card:hover {
-        transition: filter 0.15s ease !important;
-        transform: rotate(var(--leaf-rot, 0deg)) !important;
+        transition: box-shadow 0.15s ease !important;
+        transform: rotate(var(--note-rot, 0deg)) !important;
         opacity: 1 !important;
     }
 }
@@ -2706,9 +2644,9 @@ section {
         grid-template-columns: 1fr;
     }
 
-    /* On small mobile, drop the leaf rotations so the cards sit flat */
+    /* On small mobile, drop the rotations so notes sit flat */
     .github-card {
-        --leaf-rot: 0deg;
+        --note-rot: 0deg;
     }
     .github-card,
     .github-card.is-visible,
