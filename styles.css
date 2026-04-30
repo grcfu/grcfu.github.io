@@ -1496,21 +1496,24 @@ section {
     animation: skills-paint-drift 13s ease-in-out infinite alternate;
 }
 
+/* Blobs are corner-anchored and pulled away from the center where the
+   bag image sits — the bag uses mix-blend-mode: multiply, so any
+   non-uniform color behind it bleeds through its white background. */
 .skills-paint-1 {
-    top: 4%;
-    left: -6%;
-    width: 50%;
-    height: 55%;
+    top: -4%;
+    left: -10%;
+    width: 38%;
+    height: 45%;
     background-color: rgba(244, 201, 214, 0.45);
     border-radius: 62% 38% 55% 45% / 48% 56% 44% 52%;
     animation-duration: 14s;
 }
 
 .skills-paint-2 {
-    top: 10%;
-    right: -5%;
-    width: 45%;
-    height: 60%;
+    top: -2%;
+    right: -10%;
+    width: 36%;
+    height: 50%;
     background-color: rgba(238, 220, 200, 0.4);
     border-radius: 48% 52% 43% 57% / 58% 44% 56% 42%;
     animation-duration: 12s;
@@ -1518,20 +1521,20 @@ section {
 }
 
 .skills-paint-3 {
-    bottom: 4%;
-    left: 28%;
-    width: 40%;
-    height: 45%;
+    bottom: -4%;
+    right: -8%;
+    width: 32%;
+    height: 38%;
     background-color: rgba(232, 166, 184, 0.3);
     border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
     animation-duration: 15s;
 }
 
 .skills-paint-4 {
-    top: 38%;
-    left: 6%;
-    width: 30%;
-    height: 35%;
+    bottom: -2%;
+    left: -6%;
+    width: 28%;
+    height: 32%;
     background-color: rgba(250, 242, 235, 0.55);
     border-radius: 58% 42% 45% 55% / 44% 58% 42% 56%;
     animation-duration: 11s;
