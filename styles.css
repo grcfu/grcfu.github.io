@@ -1480,15 +1480,74 @@ section {
    SKILLS SECTION — WHAT'S IN MY BAG
    ============================================ */
 .skills {
-    background-image: url('skills-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    position: relative;
+    background-color: var(--bg-primary);
     padding: var(--section-padding) 0;
     overflow: hidden;
 }
 
+/* Soft watercolor blobs drifting in the background */
+.skills-paint {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(50px);
+    opacity: 0.55;
+    animation: skills-paint-drift 13s ease-in-out infinite alternate;
+}
+
+.skills-paint-1 {
+    top: 4%;
+    left: -6%;
+    width: 50%;
+    height: 55%;
+    background-color: rgba(244, 201, 214, 0.45);
+    border-radius: 62% 38% 55% 45% / 48% 56% 44% 52%;
+    animation-duration: 14s;
+}
+
+.skills-paint-2 {
+    top: 10%;
+    right: -5%;
+    width: 45%;
+    height: 60%;
+    background-color: rgba(238, 220, 200, 0.4);
+    border-radius: 48% 52% 43% 57% / 58% 44% 56% 42%;
+    animation-duration: 12s;
+    animation-direction: alternate-reverse;
+}
+
+.skills-paint-3 {
+    bottom: 4%;
+    left: 28%;
+    width: 40%;
+    height: 45%;
+    background-color: rgba(232, 166, 184, 0.3);
+    border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+    animation-duration: 15s;
+}
+
+.skills-paint-4 {
+    top: 38%;
+    left: 6%;
+    width: 30%;
+    height: 35%;
+    background-color: rgba(250, 242, 235, 0.55);
+    border-radius: 58% 42% 45% 55% / 44% 58% 42% 56%;
+    animation-duration: 11s;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes skills-paint-drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(12px, -10px) scale(1.03); }
+    100% { transform: translate(-14px, 12px) scale(0.97); }
+}
+
 /* Title */
 .skills-title {
+    position: relative;
+    z-index: 1;
     text-align: center;
     margin-bottom: 2rem;
 }
@@ -1527,6 +1586,7 @@ section {
 /* Bag Canvas */
 .bag-canvas {
     position: relative;
+    z-index: 1;
     width: 100%;
     max-width: none;
     height: clamp(550px, 85vh, 900px);
@@ -1781,6 +1841,8 @@ section {
 
 /* Languages spoken */
 .skills-languages {
+    position: relative;
+    z-index: 1;
     text-align: center;
     font-family: var(--font-body);
     font-size: clamp(0.8rem, 1vw, 0.9rem);
@@ -1807,6 +1869,21 @@ section {
 
     .cat-label {
         font-size: 0.7rem;
+    }
+}
+
+/* Hide the smaller paint blobs on tiny screens to keep things clean —
+   matches the same pattern used for hero paint blobs. */
+@media (max-width: 599px) {
+    .skills-paint-3,
+    .skills-paint-4 {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skills-paint {
+        animation: none;
     }
 }
 
