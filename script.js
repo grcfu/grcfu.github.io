@@ -745,13 +745,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 'PHP': '#4F5D95'
             };
 
-            githubGrid.innerHTML = repos.map(repo => {
+            githubGrid.innerHTML = repos.map((repo, index) => {
                 const langColor = langColors[repo.language] || '#8b949e';
                 const description = repo.description || 'No description available';
+                const leaf = (index % 6) + 1;
 
                 return `
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="github-card">
+                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="github-card" data-leaf="${leaf}">
                         <h4>${repo.name}</h4>
+                        <span class="github-rule" aria-hidden="true"></span>
                         <p>${description}</p>
                         <div class="github-meta">
                             ${repo.language ? `
@@ -760,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </span>
                             ` : ''}
                             <span class="github-stars">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                 </svg>
                                 ${repo.stargazers_count}
@@ -769,6 +771,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 `;
             }).join('');
+
+            // Staggered scroll-in: each leaf "falls" into place 80ms after
+            // the previous. One-shot — observer disconnects after firing.
+            const cards = githubGrid.querySelectorAll('.github-card');
+            const leafObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    cards.forEach((card, i) => {
+                        setTimeout(() => card.classList.add('is-visible'), i * 80);
+                    });
+                    leafObserver.disconnect();
+                });
+            }, { threshold: 0.15 });
+            leafObserver.observe(githubGrid);
 
         } catch (error) {
             console.error('GitHub API error:', error);
