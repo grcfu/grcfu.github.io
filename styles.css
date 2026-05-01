@@ -19,14 +19,22 @@
     --text-light-muted: #C4B8AE;
     --white: #FFFFFF;
 
-    /* Typography */
+    /* Typography
+       --font-script and --font-handwritten previously pointed at Dancing
+       Script and Caveat. Both were replaced with DM Sans for readability —
+       cursive scripts read fine at large display sizes but get squinty at
+       the smaller sizes we use for subtitles, year tags, hints, etc. The
+       prior italic feel is preserved by using `font-style: italic` in the
+       relevant rules. */
     --font-display: 'Playfair Display', Georgia, serif;
-    --font-script: 'Dancing Script', cursive;
+    --font-script: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-handwritten: 'Caveat', cursive;
+    --font-handwritten: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    /* Spacing */
-    --section-padding: clamp(4rem, 10vw, 8rem);
+    /* Spacing — slightly tighter than before to compensate for the larger
+       base font size (see html font-size below) so vertical rhythm stays
+       balanced rather than ballooning. */
+    --section-padding: clamp(3.25rem, 8vw, 6.5rem);
     --container-max: 1200px;
     --container-padding: clamp(1rem, 5vw, 3rem);
 
@@ -51,7 +59,10 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px;
+    /* Bumped from the 16px browser default — every rem-based size in the
+       stylesheet (clamp lower bounds, paddings, etc.) scales by the same
+       ~9% so the whole site reads slightly bigger without per-element edits. */
+    font-size: 17.5px;
 }
 
 body {
@@ -457,7 +468,9 @@ section {
 
 .about-greeting {
     font-family: var(--font-script);
-    font-size: clamp(1.85rem, 4.5vw, 4.2rem);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.7rem, 4vw, 3.6rem);
     color: var(--text-primary);
     margin: 0;
     line-height: 1;
@@ -802,7 +815,8 @@ section {
 
 .vine-subtitle {
     font-family: var(--font-script);
-    font-size: clamp(1rem, 1.6vw, 1.55rem);
+    font-style: italic;
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
     color: var(--text-light-muted);
     margin: 0;
     opacity: 0.85;
@@ -995,10 +1009,12 @@ section {
 
 .card-company {
     font-family: var(--font-script);
-    font-size: clamp(1rem, 1.45vw, 1.4rem);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(0.95rem, 1.3vw, 1.2rem);
     color: var(--card-color);
     margin: 0 0 0.4rem;
-    line-height: 1.1;
+    line-height: 1.2;
 }
 
 .card-date {
@@ -1890,9 +1906,10 @@ section {
 }
 
 .bag-hint-text {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(1.5rem, 2.3vw, 2.1rem);
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    font-weight: 600;
     line-height: 1;
     white-space: nowrap;
     /* Tiny shadow so the text reads against any background paint blob */
@@ -1922,9 +1939,10 @@ section {
     position: absolute;
     left: 50%;
     top: 50%;
-    font-family: 'Caveat', cursive;
-    font-size: clamp(0.85rem, 1.4vw, 1.3rem);
+    font-family: var(--font-body);
+    font-size: clamp(0.78rem, 1.05vw, 1rem);
     font-weight: 600;
+    letter-spacing: 0.01em;
     padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.7rem, 1.2vw, 1.2rem);
     border-radius: 50% 40% 55% 45% / 45% 55% 40% 50%;
     white-space: nowrap;
@@ -2063,11 +2081,11 @@ section {
     position: absolute;
     left: 50%;
     top: 50%;
-    font-family: 'Caveat', cursive;
-    font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+    font-family: var(--font-body);
+    font-size: clamp(0.7rem, 0.95vw, 0.92rem);
     font-weight: 700;
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
     white-space: nowrap;
     opacity: 0;
     transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
