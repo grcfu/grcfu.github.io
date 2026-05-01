@@ -790,7 +790,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const flowers  = vineSection.querySelectorAll('.vine-flower');
         const cards    = vineSection.querySelectorAll('.vine-card');
         const sprouts  = vineSection.querySelectorAll('.vine-sprout');
-        const vineIsMobile = window.matchMedia('(max-width: 768px)').matches;
+        // Match the vine-section CSS breakpoint — below this, the staggered
+        // two-column layout overlaps and we fall back to a stacked single
+        // column with the vine hidden.
+        const vineIsMobile = window.matchMedia('(max-width: 1000px)').matches;
         const vineReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const bigScreenMQ = window.matchMedia('(min-width: 1400px)');
         // Far cards (idx 1, 3, 5) attach to the right vine on big screens.

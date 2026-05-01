@@ -1059,6 +1059,19 @@ section {
         display: none;
     }
 
+    /* Narrower cards in dual-vine mode. In single-vine staggering both
+       cards extend rightward from their flowers, but here near and far
+       cards extend toward each other (near rightward from x≈22%, far
+       leftward from x≈78%). With the original 32vw card width that
+       leaves no room — the columns overlap by 100–200px at typical
+       1400–1900px viewports. Slimming to ~24vw keeps a comfortable
+       gap between columns; the 540px cap matches the original max so
+       cards grow back to full width once the viewport (>1750px or so)
+       has room for it again. */
+    .vine-card {
+        width: clamp(300px, 24vw, 540px);
+    }
+
     /* Far-column cards now slide in from the left (since their flower
        is on the right side of the card on big screens). */
     .vine-card[data-idx="1"],
@@ -1074,8 +1087,12 @@ section {
     }
 }
 
-/* Mobile — hide the vine, stack cards in a single column */
-@media (max-width: 768px) {
+/* Narrow — hide the vine, stack cards in a single column.
+   Breakpoint pushed up to 1000px because below that the staggered
+   layout's two columns overlap horizontally (left card's right edge
+   reaches into the right column's flower position when the card's
+   330px min-width can no longer fit alongside the right column). */
+@media (max-width: 1000px) {
     .vine-section {
         height: auto;
         padding: 4rem 0 5rem;
