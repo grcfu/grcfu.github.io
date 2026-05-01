@@ -2636,11 +2636,17 @@ section {
 
 }
 
-/* Projects — Mobile: flat single column, no rotation */
+/* Projects — Mobile: flat single column, no rotation, compact rows.
+   On phones the postcard layout stacked vertically with 260px min-height
+   per card was eating screen real estate (6 cards × ~420px = 2500px of
+   scroll). Compressed below: short coloured title strip on top, body
+   on the bottom, no salutation, tight padding. */
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        padding: 1rem 0;
     }
 
     .project-card,
@@ -2661,23 +2667,50 @@ section {
     .project-card {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
+        min-height: 0;
     }
 
+    /* Drop the postcard "perforation" divider on mobile — title strip
+       above + body below already separate the halves. */
     .project-card::after {
-        left: 10%;
-        right: 10%;
-        top: auto;
-        bottom: auto;
-        width: auto;
-        height: 1px;
-        top: calc(100% / 2.2);
-        background-image: linear-gradient(to right, rgba(62,39,35,0.25) 50%, transparent 50%);
-        background-size: 6px 1px;
+        display: none;
     }
 
     .project-left {
-        padding: 2rem 1.25rem;
-        min-height: 140px;
+        padding: 0.85rem 1.25rem;
+        min-height: 0;
+    }
+
+    .project-name {
+        font-size: 1.15rem;
+    }
+
+    .project-postmark {
+        top: 10px;
+        left: 12px;
+        width: 28px;
+        height: 28px;
+        font-size: 0.6rem;
+    }
+
+    .project-right {
+        padding: 0.95rem 1.1rem 0.9rem;
+    }
+
+    /* "Dear Recruiter," is a flourish — drop it on mobile to save a row. */
+    .project-salutation {
+        display: none;
+    }
+
+    .project-description {
+        font-size: 0.82rem;
+        line-height: 1.5;
+        margin: 0 0 0.55rem;
+        padding-bottom: 0.55rem;
+    }
+
+    .project-tags {
+        margin-bottom: 0.45rem;
     }
 
     .project-card:hover {
