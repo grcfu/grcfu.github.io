@@ -2762,12 +2762,57 @@ section {
         justify-content: center;
     }
 
+    /* Contact — phone layout. The desktop design uses the envelope as
+       a `cover` background with absolutely-positioned dramatic text in
+       opposite corners and the info chips floating top-left. On phones
+       all three pieces collide. Restack as a clean vertical flow:
+       envelope as a contained backdrop sized to the viewport, dramatic
+       text shrunk and pinned at top/bottom, info chips centered in the
+       middle on solid ground. */
     .contact {
-        min-height: 70vh;
+        min-height: auto;
+        padding: clamp(2rem, 7vw, 3.5rem) 1.25rem clamp(2.5rem, 8vw, 4rem);
+        background-size: contain;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.5rem, 2vw, 1rem);
+    }
+
+    .contact-corner-top,
+    .contact-corner-bottom {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        text-align: center;
+        font-size: clamp(2rem, 9vw, 3.5rem);
+        line-height: 0.95;
+    }
+
+    .contact-corner-bottom {
+        font-size: clamp(2.6rem, 12vw, 4.5rem);
     }
 
     .contact-info {
-        top: clamp(1rem, 3vw, 2rem);
+        position: relative;
+        top: auto;
+        left: auto;
+        align-items: center;
+        gap: 0.55rem;
+        margin: clamp(0.5rem, 3vw, 1.25rem) 0;
+    }
+
+    .contact-info-line {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.85rem;
+    }
+
+    .contact-info-line:nth-child(2) {
+        margin-left: 0;
     }
 
     .contact-envelope {
