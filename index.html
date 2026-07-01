@@ -134,9 +134,9 @@
                     <span class="about-card-tape" aria-hidden="true"></span>
                     <h3 class="about-card-title">Currently</h3>
                     <ul class="about-card-list">
-                        <li><span class="about-card-icon" aria-hidden="true">🔬</span> ML pipelines @ WashU McKelvey</li>
-                        <li><span class="about-card-icon" aria-hidden="true">💻</span> PM Lead, Google Dev Group</li>
-                        <li><span class="about-card-icon" aria-hidden="true">✏️</span> TA for 200+ in CSE 2407</li>
+                        <li><span class="about-card-icon" aria-hidden="true">💻</span> SWE Intern @ World Wide Technology</li>
+                        <li><span class="about-card-icon" aria-hidden="true">🦀</span> SWE Intern @ OpsCompanion</li>
+                        <li><span class="about-card-icon" aria-hidden="true">🚀</span> Chapter President, Google Developers Group</li>
                     </ul>
                 </article>
 
@@ -145,14 +145,14 @@
                     <h3 class="about-card-title">Favorite tools</h3>
                     <ul class="about-card-chips">
                         <li>Python</li>
-                        <li>PyTorch</li>
-                        <li>TensorFlow</li>
+                        <li>TypeScript</li>
                         <li>React</li>
                         <li>Next.js</li>
+                        <li>Node.js</li>
                         <li>FastAPI</li>
-                        <li>Swift</li>
-                        <li>TypeScript</li>
-                        <li>Supabase</li>
+                        <li>PostgreSQL</li>
+                        <li>Docker</li>
+                        <li>AWS</li>
                     </ul>
                 </article>
 
@@ -214,6 +214,11 @@
                           vector-effect="non-scaling-stroke"/>
                     <path class="vine-branch" data-idx="5"
                           d="M 14 140 Q 28 137 42 141 T 56 142"
+                          stroke="#A8B89A" stroke-width="1.5" fill="none"
+                          stroke-linecap="round"
+                          vector-effect="non-scaling-stroke"/>
+                    <path class="vine-branch" data-idx="6"
+                          d="M 14 166 Q 18 164 22 167"
                           stroke="#A8B89A" stroke-width="1.5" fill="none"
                           stroke-linecap="round"
                           vector-effect="non-scaling-stroke"/>
@@ -323,10 +328,11 @@
                       vector-effect="non-scaling-stroke"/>
             </svg>
 
-            <!-- Six flowers — each its own SVG, undistorted, positioned absolutely.
-                 data-trigger is the vine progress fraction at which it blooms. -->
+            <!-- Seven flowers — each its own SVG, undistorted, positioned absolutely.
+                 data-trigger is the vine progress fraction at which it blooms.
+                 Flower designs are decorative; card roles are assigned by data-idx. -->
 
-            <!-- 1. Cherry blossom — Google -->
+            <!-- 1. Cherry blossom — World Wide Technology -->
             <svg class="vine-flower" data-idx="0" data-trigger="0.10" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6"/></g>
@@ -350,7 +356,7 @@
                 </g>
             </svg>
 
-            <!-- 2. Daisy — Teaching Assistant -->
+            <!-- 2. Daisy — OpsCompanion -->
             <svg class="vine-flower" data-idx="1" data-trigger="0.245" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7"/></g>
@@ -372,7 +378,7 @@
                 </g>
             </svg>
 
-            <!-- 3. Lavender sprig — ML Research -->
+            <!-- 3. Lavender sprig — Health XR -->
             <svg class="vine-flower" data-idx="2" data-trigger="0.395" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <line x1="0" y1="22" x2="0" y2="-22" stroke="#A8B89A" stroke-width="0.8"/>
@@ -388,7 +394,7 @@
                 </g>
             </svg>
 
-            <!-- 4. Rose — AmeriBakes.
+            <!-- 4. Rose — Teaching Assistant.
                  Five outer petals at cy=-10 rotated 0/72/144/216/288° around
                  the flower center, then three smaller inner petals offset 36°
                  so they fall in the gaps between outer petals — gives the
@@ -407,7 +413,7 @@
                 </g>
             </svg>
 
-            <!-- 5. Wildflower — SLU -->
+            <!-- 5. Wildflower — Capital One -->
             <svg class="vine-flower" data-idx="4" data-trigger="0.69" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0"/></g>
@@ -451,61 +457,74 @@
                 </g>
             </svg>
 
-            <!-- Six experience cards. Each gets a unique --rot for the
+            <!-- 7. Coral blossom — AmeriBakes -->
+            <svg class="vine-flower" data-idx="6" data-trigger="0.84" viewBox="0 0 70 70" aria-hidden="true">
+                <g class="flower-content" transform="translate(35 35)">
+                    <g class="petal" data-p="0"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A"/></g>
+                    <g class="petal" data-p="1"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A" transform="rotate(60)"/></g>
+                    <g class="petal" data-p="2"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A" transform="rotate(120)"/></g>
+                    <g class="petal" data-p="3"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A" transform="rotate(180)"/></g>
+                    <g class="petal" data-p="4"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A" transform="rotate(240)"/></g>
+                    <g class="petal" data-p="5"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A" transform="rotate(300)"/></g>
+                    <g class="petal" data-p="6"><circle cx="0" cy="0" r="4" fill="#C9A84C"/></g>
+                </g>
+            </svg>
+
+            <!-- Seven experience cards. Each gets a unique --rot for the
                  hand-pinned feel. JS adds .is-bloomed when the matching
                  flower triggers, sliding the card in from the right. -->
             <article class="vine-card" data-idx="0" style="--rot: -1.5deg">
-                <span class="card-annotation">— builder —</span>
-                <h3 class="card-role">PM Lead &amp; AI/ML Software Engineer</h3>
-                <p class="card-company">Google Developers Group</p>
-                <p class="card-date">Sep 2025 — Present</p>
+                <span class="card-annotation">— engineer —</span>
+                <h3 class="card-role">Software Engineer Intern</h3>
+                <p class="card-company">World Wide Technology</p>
+                <p class="card-date">May 2026 — Present</p>
                 <span class="card-rule" aria-hidden="true"></span>
-                <p class="card-desc">Wrangling a team of 5 to ship healthxr.ai — HIPAA compliance, privacy pipelines, and all.</p>
+                <p class="card-desc">Shipping an AI audit trail and supply-chain microservices (Vue 3, Node.js, Oracle) for 15+ enterprise clients.</p>
                 <svg class="card-doodle" viewBox="0 0 30 14" aria-hidden="true">
                     <path d="M 2 7 L 24 7 M 19 2 L 25 7 L 19 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </article>
 
             <article class="vine-card" data-idx="1" style="--rot: 1deg">
-                <span class="card-annotation">— mentor —</span>
-                <h3 class="card-role">Teaching Assistant &amp; Grading Lead</h3>
-                <p class="card-company">WashU CSE 2407</p>
-                <p class="card-date">Jan 2026 — Present</p>
+                <span class="card-annotation">— shipper —</span>
+                <h3 class="card-role">Software Engineer Intern</h3>
+                <p class="card-company">OpsCompanion</p>
+                <p class="card-date">May 2026 — Present</p>
                 <span class="card-rule" aria-hidden="true"></span>
-                <p class="card-desc">The person 200+ students email at 11pm before the exam. Worth it.</p>
+                <p class="card-desc">Designing the onboarding flow for a cross-platform Rust + React (Tauri) desktop app with native OS integrations and a GPU-accelerated UI.</p>
             </article>
 
             <article class="vine-card" data-idx="2" style="--rot: -0.5deg">
                 <span class="card-annotation">— researcher —</span>
-                <h3 class="card-role">AI &amp; ML Research Assistant</h3>
-                <p class="card-company">WashU McKelvey School of Engineering</p>
-                <p class="card-date">May 2025 — Present</p>
+                <h3 class="card-role">AI/ML Software Engineer Intern</h3>
+                <p class="card-company">Health XR (DentalTechup)</p>
+                <p class="card-date">Sep 2025 — May 2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
-                <p class="card-desc">Training models to help protect kids. The most meaningful thing I've built.</p>
+                <p class="card-desc">Built a HIPAA-compliant pipeline turning 4,500+ dental visits into secure LLM training data.</p>
                 <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M 8 1 L 9.6 6 L 14.5 6 L 10.5 9.2 L 12 14 L 8 11 L 4 14 L 5.5 9.2 L 1.5 6 L 6.4 6 Z" fill="currentColor"/>
                 </svg>
             </article>
 
             <article class="vine-card" data-idx="3" style="--rot: 1.5deg">
-                <span class="card-annotation">— founder —</span>
-                <h3 class="card-role">Founder &amp; Web Developer</h3>
-                <p class="card-company">AmeriBakes</p>
-                <p class="card-date">Feb 2024 — May 2025</p>
+                <span class="card-annotation">— mentor —</span>
+                <h3 class="card-role">Teaching Assistant &amp; Grading Lead</h3>
+                <p class="card-company">WashU — Data Structures &amp; Algorithms</p>
+                <p class="card-date">Jan 2026 — May 2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
-                <p class="card-desc">Turned a baking obsession into $3,500 in revenue and 150+ happy customers.</p>
-                <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M 8 1 L 9 7 L 15 8 L 9 9 L 8 15 L 7 9 L 1 8 L 7 7 Z" fill="currentColor"/>
-                </svg>
+                <p class="card-desc">Led 15+ graders for 200+ students; automated assignment distribution in Python.</p>
             </article>
 
             <article class="vine-card" data-idx="4" style="--rot: -1deg">
-                <span class="card-annotation">— scientist —</span>
-                <h3 class="card-role">ML &amp; Bioinformatics Intern</h3>
-                <p class="card-company">Saint Louis University</p>
-                <p class="card-date">Dec 2022 — May 2025</p>
+                <span class="card-annotation">— selected —</span>
+                <h3 class="card-role">Technology Summit — 1 of 35 Nationally</h3>
+                <p class="card-company">Capital One</p>
+                <p class="card-date">2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
-                <p class="card-desc">81% accuracy on warfarin dosing. Co-authored a paper. Still can't believe it.</p>
+                <p class="card-desc">Chosen from a national pool to build a C/C++ Arduino IoT sensor bridge in Node.js.</p>
+                <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M 8 1 L 9.6 6 L 14.5 6 L 10.5 9.2 L 12 14 L 8 11 L 4 14 L 5.5 9.2 L 1.5 6 L 6.4 6 Z" fill="currentColor"/>
+                </svg>
             </article>
 
             <article class="vine-card" data-idx="5" style="--rot: 0.5deg">
@@ -515,6 +534,18 @@
                 <p class="card-date">May 2024 — Apr 2025</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">One of 300 chosen from 7,000+ applicants. Flew to D.C. Learned a lot.</p>
+            </article>
+
+            <article class="vine-card" data-idx="6" style="--rot: -1.2deg">
+                <span class="card-annotation">— founder —</span>
+                <h3 class="card-role">Founder &amp; Web Developer</h3>
+                <p class="card-company">AmeriBakes</p>
+                <p class="card-date">Feb 2024 — May 2025</p>
+                <span class="card-rule" aria-hidden="true"></span>
+                <p class="card-desc">Turned a baking obsession into $3,500 in revenue and 150+ happy customers.</p>
+                <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M 8 1 L 9 7 L 15 8 L 9 9 L 8 15 L 7 9 L 1 8 L 7 7 Z" fill="currentColor"/>
+                </svg>
             </article>
         </section>
 
@@ -589,25 +620,6 @@
                                 <span class="stack-item">React Native</span>
                                 <span class="stack-item">Figma</span>
                                 <span class="stack-item">Procreate</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card color-d" data-tags="startup" style="--rot: 3.5deg;">
-                        <div class="project-left">
-                            <span class="project-postmark">'24</span>
-                            <h3 class="project-name">CoursePilot</h3>
-                        </div>
-                        <div class="project-right">
-                            <span class="project-stamp">Startup</span>
-                            <p class="project-salutation">Dear Recruiter,</p>
-                            <p class="project-description">Startup concept addressing college class registration chaos. Won 2nd Place and $1,250 at WashU Olin Elevator Pitch Contest.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Startup</span>
-                            </div>
-                            <div class="project-stack">
-                                <span class="stack-item">Concept</span>
-                                <span class="stack-item">Pitch</span>
                             </div>
                         </div>
                     </article>
@@ -761,30 +773,30 @@
                 <!-- Languages — TOP-LEFT quadrant -->
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -28vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -18vw; --y: -23vh; --r: 2deg; --delay: 1;">Java</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -8vw;  --y: -22vh; --r: 3deg; --delay: 2;">Swift</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -27vw; --y: -13vh; --r: 1deg; --delay: 3;">JavaScript</div>
-                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -13vw; --y: -14vh; --r: -2deg; --delay: 4;">TypeScript</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -8vw;  --y: -22vh; --r: 3deg; --delay: 2;">Rust</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -27vw; --y: -13vh; --r: 1deg; --delay: 3;">TypeScript</div>
+                <div class="skill-blob blob-lang" data-cat="lang" style="--x: -13vw; --y: -14vh; --r: -2deg; --delay: 4;">C/C++</div>
 
                 <!-- Frameworks & Libraries — TOP-RIGHT quadrant -->
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 8vw;  --y: -22vh; --r: -2deg; --delay: 5;">React</div>
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 18vw; --y: -23vh; --r: 1deg; --delay: 6;">Next.js</div>
-                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 28vw; --y: -22vh; --r: -3deg; --delay: 7;">SwiftUI</div>
-                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 13vw; --y: -13vh; --r: 2deg; --delay: 8;">PyTorch</div>
-                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 26vw; --y: -13vh; --r: -1deg; --delay: 9;">React Native</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 28vw; --y: -22vh; --r: -3deg; --delay: 7;">Node.js</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 13vw; --y: -13vh; --r: 2deg; --delay: 8;">FastAPI</div>
+                <div class="skill-blob blob-frame" data-cat="frame" style="--x: 26vw; --y: -13vh; --r: -1deg; --delay: 9;">PyTorch</div>
 
                 <!-- Tools & Platforms — BOTTOM-LEFT quadrant -->
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -28vw; --y: 8vh;  --r: 2deg; --delay: 10;">Git</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -16vw; --y: 8vh;  --r: -2deg; --delay: 11;">Google Cloud</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -16vw; --y: 8vh;  --r: -2deg; --delay: 11;">Docker</div>
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -25vw; --y: 16vh; --r: 3deg; --delay: 12;">PostgreSQL</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -10vw; --y: 16vh; --r: -1deg; --delay: 13;">GitLab CI/CD</div>
-                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -22vw; --y: 23vh; --r: 2deg; --delay: 14;">Vercel</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -10vw; --y: 16vh; --r: -1deg; --delay: 13;">AWS</div>
+                <div class="skill-blob blob-tools" data-cat="tools" style="--x: -22vw; --y: 23vh; --r: 2deg; --delay: 14;">GCP</div>
 
                 <!-- Technical Proficiencies — BOTTOM-RIGHT quadrant -->
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 9vw;  --y: 8vh;  --r: -2deg; --delay: 15;">Native iOS Dev</div>
-                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 25vw; --y: 8vh;  --r: 1deg; --delay: 16;">Mobile UI/UX</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 25vw; --y: 8vh;  --r: 1deg; --delay: 16;">AI Agent Dev</div>
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 14vw; --y: 16vh; --r: -3deg; --delay: 17;">REST APIs</div>
-                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 28vw; --y: 16vh; --r: 2deg; --delay: 18;">JSON</div>
-                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 20vw; --y: 23vh; --r: -1deg; --delay: 19;">Agile/Scrum</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 28vw; --y: 16vh; --r: 2deg; --delay: 18;">Agile/Scrum</div>
+                <div class="skill-blob blob-prof" data-cat="prof" style="--x: 20vw; --y: 23vh; --r: -1deg; --delay: 19;">Prompt Engineering</div>
 
                 <!-- Category labels — one per quadrant, beyond the cluster -->
                 <div class="cat-label cat-label-lang"  style="--x: -22vw; --y: -29vh;">languages</div>
@@ -816,9 +828,9 @@
                 <li class="award-row" data-idx="0">
                     <span class="award-num">01</span>
                     <div class="award-body">
-                        <h3 class="award-title">Congressional Gold Medal</h3>
-                        <p class="award-meta"><span class="award-org">U.S. Congress</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
-                        <p class="award-detail">For 1,000+ hours of service, personal development &amp; fitness.</p>
+                        <h3 class="award-title">Google Cybersecurity Professional Certificate</h3>
+                        <p class="award-meta"><span class="award-org">Google / Coursera</span><span class="award-sep">·</span><span class="award-year">2025</span></p>
+                        <p class="award-detail">8-course program: Python, Linux, SQL, SIEM &amp; IDS tools.</p>
                     </div>
                 </li>
 
@@ -843,18 +855,18 @@
                 <li class="award-row" data-idx="3">
                     <span class="award-num">04</span>
                     <div class="award-body">
-                        <h3 class="award-title">Distinguished Young Woman of Missouri</h3>
-                        <p class="award-meta"><span class="award-org">Distinguished Young Women</span><span class="award-sep">·</span><span class="award-year">2025</span></p>
-                        <p class="award-detail">$5,750 in scholarships across five categories.</p>
+                        <h3 class="award-title">Google Developers Group — Chapter President</h3>
+                        <p class="award-meta"><span class="award-org">WashU</span><span class="award-sep">·</span><span class="award-year">2026</span></p>
+                        <p class="award-detail">Led DevFest WashU 2026: 100+ teams and $5k+ in sponsorships raised.</p>
                     </div>
                 </li>
 
                 <li class="award-row" data-idx="4">
                     <span class="award-num">05</span>
                     <div class="award-body">
-                        <h3 class="award-title">Bank of America Student Leaders</h3>
-                        <p class="award-meta"><span class="award-org">Bank of America</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
-                        <p class="award-detail">300 chosen nationally from 7,000+ applicants.</p>
+                        <h3 class="award-title">Dean's List · 4.0 GPA</h3>
+                        <p class="award-meta"><span class="award-org">Washington University in St. Louis</span><span class="award-sep">·</span><span class="award-year">All Semesters</span></p>
+                        <p class="award-detail">Perfect 4.0 across CS &amp; Business coursework.</p>
                     </div>
                 </li>
 

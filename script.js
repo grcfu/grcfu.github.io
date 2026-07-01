@@ -638,27 +638,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Skill blob tooltips
         const skillDescriptions = {
-            'Python': 'My go-to for ML, scripting, and backend work',
-            'React.js': 'Building interactive UIs and SPAs',
+            // Languages
+            'Python': 'My go-to for ML, backends, and scripting',
+            'TypeScript': 'Typed JavaScript for reliable web apps',
+            'Java': 'OOP fundamentals and coursework',
+            'C/C++': 'Systems + IoT work (Arduino, sensor bridges)',
+            'Rust': 'Fast, safe systems code — Tauri desktop apps',
+            // Frameworks & libraries
+            'React': 'Building interactive UIs',
             'Next.js': 'Full-stack React with SSR',
+            'Node.js': 'JavaScript backends and microservices',
             'FastAPI': 'Async Python APIs, fast and clean',
-            'Swift/SwiftUI': 'Native iOS development',
-            'JavaScript': 'The language of the web',
-            'HTML/CSS': 'Semantic markup + styled layouts',
-            'React Native': 'Cross-platform mobile apps',
-            'p5.js': 'Creative coding and visual sketches',
             'PyTorch': 'Deep learning research and models',
-            'TensorFlow': 'Production ML pipelines',
-            'Scikit-learn': 'Classical ML and data analysis',
-            'Pandas': 'Data wrangling and exploration',
-            'NumPy': 'Numerical computing foundations',
-            'Supabase': 'Open-source Firebase alternative',
+            // Tools & platforms
             'PostgreSQL': 'Relational database design',
-            'GitHub': 'Version control and collaboration',
-            'Firebase': 'Real-time databases and auth',
-            'Tailwind CSS': 'Utility-first styling',
-            'Figma': 'UI/UX design and prototyping',
-            'Vercel': 'Deploy and ship fast'
+            'Docker': 'Containerizing apps for consistent deploys',
+            'AWS': 'Cloud infrastructure and deployment',
+            'GCP': 'Google Cloud services and hosting',
+            'Git': 'Version control and collaboration',
+            // Proficiencies
+            'Native iOS Dev': 'SwiftUI apps for iPhone',
+            'AI Agent Dev': 'Building LLM-powered agents',
+            'Prompt Engineering': 'Getting the most out of LLMs',
+            'REST APIs': 'Designing clean, well-structured endpoints',
+            'Agile/Scrum': 'Sprint-based team development'
         };
 
         let activeTooltip = null;
@@ -769,14 +772,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // which its flower should bloom and its card should slide in.
         // Order matches data-idx in the HTML.
         const EXPERIENCES = [
-            // Triggers track the new branch y-positions in the SVG
+            // Triggers track the branch y-positions in the SVG
             // (viewBox 0–200) so each card blooms as the vine reaches it.
-            { id: 'google',   trigger: 0.06  },
-            { id: 'teach',    trigger: 0.19  },
-            { id: 'research', trigger: 0.315 },
-            { id: 'ameri',    trigger: 0.45  },
-            { id: 'slu',      trigger: 0.575 },
-            { id: 'boa',      trigger: 0.71  }
+            { id: 'wwt',      trigger: 0.06  },
+            { id: 'ops',      trigger: 0.19  },
+            { id: 'healthxr', trigger: 0.315 },
+            { id: 'ta',       trigger: 0.45  },
+            { id: 'capital',  trigger: 0.575 },
+            { id: 'boa',      trigger: 0.71  },
+            { id: 'ameri',    trigger: 0.84  }
         ];
 
         const vineMain = document.getElementById('vineMain');

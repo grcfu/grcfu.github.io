@@ -787,8 +787,10 @@ section {
     background-color: var(--bg-dark);
     color: var(--text-light);
     /* Tighter than 200vh — staggered cards pack into roughly half the
-       previous vertical footprint, so the section can be much shorter. */
-    height: 150vh;
+       previous vertical footprint, so the section can be much shorter.
+       Bumped for the 7th card (idx 6) so the last flower/card has room
+       to bloom above the section's bottom edge. */
+    height: 170vh;
     overflow: hidden;
     padding: 0;
 }
@@ -929,6 +931,7 @@ section {
 .vine-flower[data-idx="3"].is-bloomed .flower-content { animation-duration: 3.5s; animation-direction: alternate-reverse; }
 .vine-flower[data-idx="4"].is-bloomed .flower-content { animation-duration: 4.3s; }
 .vine-flower[data-idx="5"].is-bloomed .flower-content { animation-duration: 3.6s; animation-direction: alternate-reverse; }
+.vine-flower[data-idx="6"].is-bloomed .flower-content { animation-duration: 3.9s; }
 
 /* Per SVG2 spec, a CSS transform on an SVG element REPLACES that element's
    `transform=` attribute (it doesn't compose). Each flower-content has
@@ -989,6 +992,7 @@ section {
 .vine-card[data-idx="3"] { --card-color: #E8A6B8; }
 .vine-card[data-idx="4"] { --card-color: #F0C4A0; }
 .vine-card[data-idx="5"] { --card-color: #A8C4D4; }
+.vine-card[data-idx="6"] { --card-color: #E89A8A; }
 
 .card-annotation {
     display: block;
