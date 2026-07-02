@@ -59,13 +59,9 @@
             <audio id="calmAudio" src="calm-piano.mp3" loop preload="none"></audio>
         </div>
 
-        <!-- Pastel paint stroke blobs -->
-        <div class="hero-paint paint-1" aria-hidden="true" style="top: 5%; left: -5%; width: 55%; height: 60%;"></div>
-        <div class="hero-paint paint-2" aria-hidden="true" style="top: 15%; right: -5%; width: 55%; height: 70%;"></div>
-        <div class="hero-paint paint-3" aria-hidden="true" style="bottom: 5%; right: 15%; width: 35%; height: 40%;"></div>
-        <div class="hero-paint paint-4" aria-hidden="true" style="top: 10%; right: 25%; width: 22%; height: 28%;"></div>
-
-        <!-- Collage corner decorations -->
+        <!-- Collage corner decorations — direct children of .hero so they pin
+             to the very edges of the hero (the washi tapes stay in the corners
+             of the screen, above the band included). -->
         <div class="collage collage-tl" aria-hidden="true">
             <div class="washi washi-tl"></div>
             <svg class="doodle doodle-star" viewBox="0 0 24 24" width="22" height="22"><path d="M12 2 L14 9 L22 10 L16 15 L18 22 L12 18 L6 22 L8 15 L2 10 L10 9 Z" fill="#6B504F"/></svg>
@@ -90,8 +86,19 @@
             <svg class="doodle doodle-sparkle" viewBox="0 0 24 24" width="22" height="22"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="#F4C9D6"/></svg>
         </div>
 
+        <!-- Paint blobs live in .hero-inner so they anchor to the image, not
+             the cream band above it (keeps that band a seamless continuation
+             of the image's background). -->
+        <div class="hero-inner">
+        <!-- Pastel paint stroke blobs -->
+        <div class="hero-paint paint-1" aria-hidden="true" style="top: 5%; left: -5%; width: 55%; height: 60%;"></div>
+        <div class="hero-paint paint-2" aria-hidden="true" style="top: 15%; right: -5%; width: 55%; height: 70%;"></div>
+        <div class="hero-paint paint-3" aria-hidden="true" style="bottom: 5%; right: 15%; width: 35%; height: 40%;"></div>
+        <div class="hero-paint paint-4" aria-hidden="true" style="top: 10%; right: 25%; width: 22%; height: 28%;"></div>
+
         <!-- Hero banner image — main element, single full-width layout -->
         <img class="hero-banner" id="heroBanner" src="hero-banner.png" alt="Grace Fu — CS &amp; Business at WashU" />
+        </div>
     </header>
 
     <div class="hero-ticker">

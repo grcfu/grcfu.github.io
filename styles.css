@@ -239,8 +239,16 @@ body::after {
     width: 100%;
     overflow: hidden;
     background-color: #EEEBE7;
-    /* Generous cream band above the banner image on the first screen. */
-    padding-top: clamp(18rem, 46vh, 40rem);
+    /* Cream band above the banner image on the first screen. Same color as
+       the image's background (#EEEBE7) so it reads as a seamless extension. */
+    padding-top: clamp(5.5rem, 14vh, 12rem);
+}
+
+/* Positioning context for the banner's paint blobs + collage decorations,
+   so they anchor to the image and never intrude into the cream band. */
+.hero-inner {
+    position: relative;
+    width: 100%;
 }
 
 /* Hero banner image — main hero element, full width, cinematic entrance */
