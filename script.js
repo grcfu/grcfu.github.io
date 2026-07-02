@@ -101,29 +101,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // SPOTIFY WIDGET
     // ============================================
     const spotifyBtn = document.getElementById('spotifyBtn');
-    const spotifyPlayer = document.getElementById('spotifyPlayer');
-    const spotifyClose = document.getElementById('spotifyClose');
+    const calmAudio = document.getElementById('calmAudio');
     const spotifyBtnText = spotifyBtn?.querySelector('.spotify-btn-text');
 
-    if (spotifyBtn && spotifyPlayer && spotifyClose) {
-        function togglePlayer(open) {
-            if (open) {
-                spotifyPlayer.classList.add('open');
-                spotifyBtnText.textContent = 'now playing \u266A';
-            } else {
-                spotifyPlayer.classList.remove('open');
-                spotifyBtnText.textContent = 'play my fav song';
-            }
+    // Self-hosted audio: the button click is a same-origin user gesture, so
+    // play() is allowed to start audio (unlike a cross-origin Spotify embed).
+    if (spotifyBtn && calmAudio) {
+        function setPlayingUI(playing) {
+            spotifyBtnText.textContent = playing ? 'now playing \u266A' : 'play some calm tunes';
+            spotifyBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+            spotifyBtn.classList.toggle('is-playing', playing);
         }
 
         spotifyBtn.addEventListener('click', () => {
-            togglePlayer(!spotifyPlayer.classList.contains('open'));
+            if (calmAudio.paused) {
+                calmAudio.play()
+                    .then(() => setPlayingUI(true))
+                    .catch((err) => console.warn('calm audio play() blocked:', err));
+            } else {
+                calmAudio.pause();
+                setPlayingUI(false);
+            }
         });
 
-        spotifyClose.addEventListener('click', (e) => {
-            e.stopPropagation();
-            togglePlayer(false);
-        });
+        // Reflect the real audio state in case playback ends or is paused elsewhere.
+        calmAudio.addEventListener('pause', () => setPlayingUI(false));
+        calmAudio.addEventListener('play', () => setPlayingUI(true));
     }
 
     // ============================================

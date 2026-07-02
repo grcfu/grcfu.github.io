@@ -239,6 +239,8 @@ body::after {
     width: 100%;
     overflow: hidden;
     background-color: #EEEBE7;
+    /* Generous cream band above the banner image on the first screen. */
+    padding-top: clamp(18rem, 46vh, 40rem);
 }
 
 /* Hero banner image — main hero element, full width, cinematic entrance */
