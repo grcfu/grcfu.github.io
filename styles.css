@@ -240,8 +240,9 @@ body::after {
     overflow: hidden;
     background-color: #EEEBE7;
     /* Cream band above the banner image on the first screen. Same color as
-       the image's background (#EEEBE7) so it reads as a seamless extension. */
-    padding-top: clamp(5.5rem, 14vh, 12rem);
+       the image's background (#EEEBE7) so it reads as a seamless extension.
+       ~7% of viewport height. */
+    padding-top: 7vh;
 }
 
 /* Positioning context for the banner's paint blobs + collage decorations,
