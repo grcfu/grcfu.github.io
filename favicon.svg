@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Flower">
+  <title>Grace Fu</title>
+  <!-- Five round petals + a rose centre. Deliberately chunky, no strokes and
+       no thin detail, so it still reads as a flower at 16x16 in a browser tab. -->
+  <circle cx="16.00" cy="8.40" r="6.6" fill="#EFB3C6"/>
+  <circle cx="23.23" cy="13.65" r="6.6" fill="#EFB3C6"/>
+  <circle cx="20.47" cy="22.15" r="6.6" fill="#EFB3C6"/>
+  <circle cx="11.53" cy="22.15" r="6.6" fill="#EFB3C6"/>
+  <circle cx="8.77" cy="13.65" r="6.6" fill="#EFB3C6"/>
+  <circle cx="16" cy="16" r="4.6" fill="#D07E9A"/>
+</svg>
