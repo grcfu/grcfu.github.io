@@ -23,7 +23,11 @@ recruiting for SWE roles. Deployed at grcfu.github.io.
 1. Hero — full-width banner image with a timed cinematic entrance (paint blobs → banner → Spotify widget → washi/doodles → scroll hint); working Spotify embed toggle
 2. About — greeting + identity block + three taped index cards; scroll-driven flower rotation
 3. Experience — botanical vine timeline: an SVG vine that grows on scroll, blooming a unique flower + sliding in a card at each trigger. Left vine + right vine on wide screens; stacked fallback on mobile; reduced-motion fallback
-4. Projects — filterable postcard-style card grid + live GitHub contributions heatmap
+4. Projects — "specimen drawer": a horizontally scrolling rail of pressed-botanical
+   plates (8 projects), each framed by four corner sprigs built from one reusable
+   SVG symbol rotated 0/90/180/270°. Arrows, drag-to-scroll, keyboard paging, and a
+   sage "runner" line that doubles as a scroll-position readout. Collapses to a
+   vertical stack under 768px. Followed by the live GitHub contributions heatmap.
 5. Skills — clickable backpack that unzips (curved SVG zipper + 3D flap fold) to float skill blobs into four labeled quadrants; magnetic hover + tooltips
 6. Recognition — staggered editorial award reel + spinning flowers
 7. Contact — envelope image, no form
@@ -38,7 +42,7 @@ recruiting for SWE roles. Deployed at grcfu.github.io.
 - Sticky frosted glass navbar on scroll + mobile hamburger toggle
 - Ink-trail cursor follower (hover-capable devices only)
 - IntersectionObserver scroll animations (about, projects, recognition, contact)
-- Project filter bar (All / Web / iOS / Startup)
+- Project filter bar (All / Web / Mobile / Desktop / Tools) driving the projects rail
 - Scroll-driven vine growth + flower bloom in Experience
 - Clickable unzip animation on the Skills backpack
 - Back to top button + smooth-scroll anchor links

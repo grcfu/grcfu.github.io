@@ -209,31 +209,27 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', throttledScroll, { passive: true });
 
     // ============================================
-    // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
+    // PROJECT PLATES — REVEAL
+    // Watch the rail, not the individual plates. Plates parked off to the
+    // right of a horizontal scroller never intersect the viewport, so a
+    // per-card observer would leave most of them stuck at opacity 0. The
+    // rail enters view once and every plate reveals on a CSS stagger.
     // ============================================
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.1
-    };
+    const projectsRail = document.getElementById('projectsRail');
 
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                scrollObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    if (projectsRail) {
+        const plates = projectsRail.querySelectorAll('.project-card');
 
-    // Observe elements for scroll animations
-    const animatedElements = document.querySelectorAll(
-        '.project-card'
-    );
+        const railReveal = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                plates.forEach(p => p.classList.add('visible'));
+                railReveal.unobserve(entry.target);
+            });
+        }, { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
 
-    animatedElements.forEach(el => {
-        scrollObserver.observe(el);
-    });
+        railReveal.observe(projectsRail);
+    }
 
     // ============================================
     // ABOUT SECTION — SVG PATH DRAW + FADE-INS
@@ -1039,39 +1035,176 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // PROJECT FILTER
+    // PROJECT FILTER + SPECIMEN DRAWER CONTROLS
+    //
+    // The plates live in a horizontally scrolling rail. This block owns the
+    // category filter, the prev/next arrows, drag-to-scroll, the runner line
+    // that doubles as a position readout, and keyboard paging.
     // ============================================
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
     const filterTimeouts = new Map();
+    const railPrev = document.getElementById('railPrev');
+    const railNext = document.getElementById('railNext');
+    const railFill = document.getElementById('railRunnerFill');
+    const railEmpty = document.getElementById('railEmpty');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // How far one arrow press travels: a single plate plus the rail's gap.
+    function railStep() {
+        if (!projectsRail) return 0;
+        const plate = projectsRail.querySelector('.project-card:not(.hidden)');
+        if (!plate) return projectsRail.clientWidth;
+        const gap = parseFloat(getComputedStyle(projectsRail).columnGap) || 0;
+        return plate.getBoundingClientRect().width + gap;
+    }
+
+    // Keep the runner fill and the arrow disabled states in sync with
+    // wherever the rail currently sits.
+    function syncRail() {
+        if (!projectsRail) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = projectsRail;
+        const maxScroll = scrollWidth - clientWidth;
+        // Stacked (mobile) or nothing to scroll: no meaningful position.
+        const scrollable = maxScroll > 1;
+
+        if (railFill) {
+            const visible = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
+            railFill.style.width = `${Math.min(visible, 1) * 100}%`;
+            railFill.style.left = scrollWidth > 0
+                ? `${(scrollLeft / scrollWidth) * 100}%`
+                : '0%';
+        }
+
+        if (railPrev) railPrev.disabled = !scrollable || scrollLeft <= 1;
+        if (railNext) railNext.disabled = !scrollable || scrollLeft >= maxScroll - 1;
+    }
+
+    function railScrollBy(amount) {
+        if (!projectsRail) return;
+        projectsRail.scrollBy({
+            left: amount,
+            behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+    }
+
+    if (projectsRail) {
+        if (railPrev) railPrev.addEventListener('click', () => railScrollBy(-railStep()));
+        if (railNext) railNext.addEventListener('click', () => railScrollBy(railStep()));
+
+        let railTicking = false;
+        projectsRail.addEventListener('scroll', () => {
+            if (railTicking) return;
+            railTicking = true;
+            requestAnimationFrame(() => {
+                syncRail();
+                railTicking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', throttle(syncRail, 150));
+        // Re-sync once webfonts land — they change plate widths, and therefore
+        // whether the rail overflows at all.
+        window.addEventListener('load', syncRail);
+
+        // Keyboard paging — only while the rail itself holds focus, so arrow
+        // keys inside a card's links keep their normal behaviour.
+        projectsRail.addEventListener('keydown', (e) => {
+            if (e.target !== projectsRail) return;
+            const step = railStep();
+            if (e.key === 'ArrowRight') { e.preventDefault(); railScrollBy(step); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); railScrollBy(-step); }
+            else if (e.key === 'Home') { e.preventDefault(); projectsRail.scrollTo({ left: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); }
+            else if (e.key === 'End') { e.preventDefault(); projectsRail.scrollTo({ left: projectsRail.scrollWidth, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); }
+        });
+
+        // ---- Drag to scroll (fine pointers only) ----
+        // A drag past the threshold swallows the click that follows, so
+        // dragging across a card never opens its repo link.
+        let dragging = false;
+        let dragStartX = 0;
+        let dragStartScroll = 0;
+        let dragMoved = 0;
+
+        projectsRail.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse' || e.button !== 0) return;
+            if (window.matchMedia('(max-width: 768px)').matches) return;
+            dragging = true;
+            dragMoved = 0;
+            dragStartX = e.clientX;
+            dragStartScroll = projectsRail.scrollLeft;
+            projectsRail.classList.add('is-dragging');
+        });
+
+        projectsRail.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            const dx = e.clientX - dragStartX;
+            dragMoved = Math.max(dragMoved, Math.abs(dx));
+            if (dragMoved > 4) projectsRail.setPointerCapture(e.pointerId);
+            projectsRail.scrollLeft = dragStartScroll - dx;
+        });
+
+        function endDrag(e) {
+            if (!dragging) return;
+            dragging = false;
+            projectsRail.classList.remove('is-dragging');
+            if (projectsRail.hasPointerCapture?.(e.pointerId)) {
+                projectsRail.releasePointerCapture(e.pointerId);
+            }
+            if (dragMoved > 6) {
+                // Eat exactly one click so the drag doesn't follow a link.
+                projectsRail.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                }, { capture: true, once: true });
+            }
+        }
+
+        projectsRail.addEventListener('pointerup', endDrag);
+        projectsRail.addEventListener('pointercancel', endDrag);
+
+        syncRail();
+    }
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const filter = btn.dataset.filter;
 
-            // Clear any pending hide timeouts
             filterTimeouts.forEach(timeout => clearTimeout(timeout));
             filterTimeouts.clear();
 
-            // Filter cards with animation
-            projectCards.forEach(card => {
-                const tags = card.dataset.tags;
+            let shown = 0;
 
-                if (filter === 'all' || tags.includes(filter)) {
+            projectCards.forEach(card => {
+                const tags = card.dataset.tags || '';
+                // Match whole tags so "web" can't match a hypothetical "webgl".
+                const match = filter === 'all' || tags.split(/\s+/).includes(filter);
+
+                if (match) {
+                    shown++;
                     card.classList.remove('hidden', 'fade-out');
                 } else {
                     card.classList.add('fade-out');
                     const timeout = setTimeout(() => {
                         card.classList.add('hidden');
                         filterTimeouts.delete(card);
+                        syncRail();
                     }, 300);
                     filterTimeouts.set(card, timeout);
                 }
             });
+
+            if (railEmpty) railEmpty.hidden = shown > 0;
+
+            // Send the drawer back to the start so the first match is visible.
+            if (projectsRail) {
+                projectsRail.scrollTo({ left: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+                syncRail();
+            }
         });
     });
 

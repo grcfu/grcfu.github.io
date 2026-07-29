@@ -559,96 +559,286 @@
             <div class="container">
                 <p class="section-label">[ PROJECTS ]</p>
 
-                <div class="filter-bar">
+                <!-- Botanical sprite — one leaf/petal/sprig definition reused by
+                     every specimen plate below, so the ornament costs ~8 nodes
+                     per card instead of a full hand-drawn SVG each. -->
+                <svg class="hb-defs" width="0" height="0" aria-hidden="true" focusable="false">
+                    <defs>
+                        <!-- Colours ride on presentation attributes rather than in
+                             CSS: `use` clones its target into a shadow subtree that
+                             document stylesheets can't reliably select into, so each
+                             part's fill has to travel with the geometry. -->
+                        <path id="hbLeaf" d="M0 0C2.4 -4.2 7.6 -5.2 10.4 -2.4C7.6 1.4 2.4 1.4 0 0Z"
+                              fill="#A8B89A" fill-opacity="0.45"/>
+                        <path id="hbPetal" d="M0 0C1.5 -3 5 -3.6 6.6 -1.6C5 0.8 1.5 1.2 0 0Z"
+                              fill="#E8A6B8" fill-opacity="0.85"/>
+                        <g id="hbBloom">
+                            <use href="#hbPetal" transform="rotate(-90)"/>
+                            <use href="#hbPetal" transform="rotate(-18)"/>
+                            <use href="#hbPetal" transform="rotate(54)"/>
+                            <use href="#hbPetal" transform="rotate(126)"/>
+                            <use href="#hbPetal" transform="rotate(198)"/>
+                            <circle r="1.4" fill="#8C7B6F"/>
+                        </g>
+                        <!-- Corner sprig: one arcing stem, four alternating
+                             leaves, a bloom at the tip. Drawn in the same
+                             hand-wobbled bezier idiom as the experience vine. -->
+                        <g id="hbSprig">
+                            <path d="M2 3C13 6 23 12 31 21C37 28 41 36 43 45"
+                                  fill="none" stroke="#A8B89A" stroke-width="1.15"
+                                  stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+                            <use href="#hbLeaf" transform="translate(11 5) rotate(-40)"/>
+                            <use href="#hbLeaf" transform="translate(19 10) rotate(128) scale(0.85)"/>
+                            <use href="#hbLeaf" transform="translate(29 19) rotate(-18) scale(0.92)"/>
+                            <use href="#hbLeaf" transform="translate(36 29) rotate(150) scale(0.78)"/>
+                            <use href="#hbBloom" transform="translate(43 45)"/>
+                        </g>
+                    </defs>
+                </svg>
+
+                <div class="filter-bar" role="group" aria-label="Filter projects by category">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="web">Web</button>
-                    <button class="filter-btn" data-filter="ios">iOS</button>
-                    <button class="filter-btn" data-filter="startup">Startup</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="desktop">Desktop</button>
+                    <button class="filter-btn" data-filter="tools">Tools</button>
                 </div>
 
-                <div class="projects-grid">
-                    <article class="project-card color-a" data-tags="web" style="--rot: -3deg;">
-                        <div class="project-left">
-                            <span class="project-postmark">'26</span>
+                <!-- Specimen drawer — a horizontal rail of pressed-plate cards.
+                     Scroll-snaps on desktop; collapses to a vertical stack at
+                     narrow widths (see the max-width: 768px block in styles). -->
+                <div class="drawer">
+                    <button class="rail-nav rail-nav-prev" id="railPrev" type="button" aria-label="Scroll to previous projects" aria-controls="projectsRail">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <div class="projects-rail" id="projectsRail" role="region" aria-label="Projects gallery, scrollable horizontally" tabindex="0">
+
+                        <article class="project-card" data-tags="web" style="--i: 0;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 01</span>
+                                <span class="project-stamp">Web</span>
+                            </header>
                             <h3 class="project-name">WashU PointSwap</h3>
-                        </div>
-                        <div class="project-right">
-                            <span class="project-stamp">Web</span>
-                            <p class="project-salutation">Dear reader,</p>
-                            <p class="project-description">Marketplace for WashU's 8,220-student campus to buy and sell MarketPoints (dining currency) — 230+ students onboarded. Google OAuth scoped to @wustl.edu, a JWT-authenticated FastAPI backend, and a real-time listing feed.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Web</span>
-                            </div>
-                            <div class="project-stack">
-                                <span class="stack-item">Next.js</span>
-                                <span class="stack-item">TypeScript</span>
-                                <span class="stack-item">FastAPI</span>
-                                <span class="stack-item">Supabase</span>
-                                <span class="stack-item">PostgreSQL</span>
-                                <span class="stack-item">Tailwind CSS</span>
-                            </div>
-                        </div>
-                    </article>
+                            <p class="plate-kind">Campus marketplace <span class="plate-year">2026</span></p>
+                            <p class="project-description">Buy and sell MarketPoints — WashU's campus dining currency — across an 8,220-student campus, with 230+ students onboarded. Google OAuth scoped to <span class="nowrap">@wustl.edu</span> over a JWT-authenticated FastAPI backend.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">Next.js</span>
+                                    <span class="stack-item">TypeScript</span>
+                                    <span class="stack-item">FastAPI</span>
+                                    <span class="stack-item">Supabase</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://washu-pointswap.vercel.app/" target="_blank" rel="noopener noreferrer">live <span aria-hidden="true">↗</span><span class="sr-only"> site for WashU PointSwap</span></a>
+                                    <a class="plate-link" href="https://github.com/grcfu/washu-pointswap" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for WashU PointSwap</span></a>
+                                </div>
+                            </footer>
+                        </article>
 
-                    <article class="project-card color-b" data-tags="ios" style="--rot: 2deg;">
-                        <div class="project-left">
-                            <span class="project-postmark">'25</span>
-                            <h3 class="project-name">Crumb iOS App</h3>
-                        </div>
-                        <div class="project-right">
-                            <span class="project-stamp">iOS</span>
-                            <p class="project-salutation">Dear reader,</p>
-                            <p class="project-description">Native iOS baking assistant with hands-free Kitchen Mode using Speech Framework and AVKit. Smart pantry algorithm powered by Spoonacular API.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">iOS</span>
-                            </div>
-                            <div class="project-stack">
-                                <span class="stack-item">SwiftUI</span>
-                                <span class="stack-item">MVVM</span>
-                                <span class="stack-item">Supabase</span>
-                            </div>
-                        </div>
-                    </article>
+                        <article class="project-card" data-tags="web tools" style="--i: 1;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 02</span>
+                                <span class="project-stamp">Web</span>
+                            </header>
+                            <h3 class="project-name">EarlyBird</h3>
+                            <p class="plate-kind">Real-time job aggregator <span class="plate-year">2026</span></p>
+                            <p class="project-description">Polls 1,300+ companies' applicant-tracking systems every 15 minutes, surfacing SWE, ML, and data roles days ahead of the community aggregators — plus an email-driven application tracker.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">Next.js 16</span>
+                                    <span class="stack-item">React 19</span>
+                                    <span class="stack-item">Prisma</span>
+                                    <span class="stack-item">Postgres</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://earlybird-apps.vercel.app" target="_blank" rel="noopener noreferrer">live <span aria-hidden="true">↗</span><span class="sr-only"> site for EarlyBird</span></a>
+                                    <a class="plate-link" href="https://github.com/grcfu/earlybird" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for EarlyBird</span></a>
+                                </div>
+                            </footer>
+                        </article>
 
-                    <article class="project-card color-c" data-tags="web startup" style="--rot: -1.5deg;">
-                        <div class="project-left">
-                            <span class="project-postmark">'24</span>
+                        <article class="project-card" data-tags="web tools" style="--i: 2;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 03</span>
+                                <span class="project-stamp">Web</span>
+                            </header>
+                            <h3 class="project-name">TrackLC</h3>
+                            <p class="plate-kind">Spaced-repetition tracker <span class="plate-year">2026</span></p>
+                            <p class="project-description">Spaced repetition for the Blind 75, NeetCode 150, and company lists. Confidence ratings feed a review queue, with streak stats and a contribution heatmap over offline-first storage.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">React</span>
+                                    <span class="stack-item">TypeScript</span>
+                                    <span class="stack-item">Supabase</span>
+                                    <span class="stack-item">Vite</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://tracklc.vercel.app/" target="_blank" rel="noopener noreferrer">live <span aria-hidden="true">↗</span><span class="sr-only"> site for TrackLC</span></a>
+                                    <a class="plate-link" href="https://github.com/grcfu/tracklc" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for TrackLC</span></a>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <article class="project-card" data-tags="desktop tools" style="--i: 3;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 04</span>
+                                <span class="project-stamp">Desktop</span>
+                            </header>
+                            <h3 class="project-name">UniVerse</h3>
+                            <p class="plate-kind">Academic workspace <span class="plate-year">2026</span></p>
+                            <p class="project-description">A local-first Electron study workspace for macOS with Canvas sync, a per-course knowledge base, and a source-grounded AI assistant. I redesigned its visual system, Grades, Calendar, and Study session.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">Electron</span>
+                                    <span class="stack-item">React</span>
+                                    <span class="stack-item">TypeScript</span>
+                                    <span class="stack-item">SQLite</span>
+                                </div>
+                                <div class="plate-links">
+                                    <span class="plate-credit">design &amp; front-end, with Caden Warren</span>
+                                    <a class="plate-link" href="https://github.com/cifyr/UniVerse" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for UniVerse</span></a>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <article class="project-card" data-tags="mobile" style="--i: 4;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 05</span>
+                                <span class="project-stamp">iOS</span>
+                            </header>
+                            <h3 class="project-name">Crumb</h3>
+                            <p class="plate-kind">Native iOS assistant <span class="plate-year">2025</span></p>
+                            <p class="project-description">A native baking assistant built around kitchen workflow friction — hands-free Kitchen Mode via the Speech framework and AVKit, plus a smart pantry algorithm on the Spoonacular API.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">SwiftUI</span>
+                                    <span class="stack-item">MVVM</span>
+                                    <span class="stack-item">Supabase</span>
+                                    <span class="stack-item">Combine</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://github.com/grcfu/crumb" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for Crumb</span></a>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <article class="project-card" data-tags="mobile" style="--i: 5;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 06</span>
+                                <span class="project-stamp">Mobile</span>
+                            </header>
                             <h3 class="project-name">Planetopia</h3>
-                        </div>
-                        <div class="project-right">
-                            <span class="project-stamp">Web</span>
-                            <p class="project-salutation">Dear reader,</p>
-                            <p class="project-description">Gamified sustainability tracker with real-time state sync via Firebase and a live eco-news feed (NewsAPI) aggregating 150+ articles. Won 1st Place at the 2024 Congressional App Challenge; presented at House of Code in Washington D.C.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Web</span>
-                                <span class="project-tag">Startup</span>
-                            </div>
-                            <div class="project-stack">
-                                <span class="stack-item">React Native</span>
-                                <span class="stack-item">Firebase</span>
-                                <span class="stack-item">NewsAPI</span>
-                            </div>
-                        </div>
-                    </article>
+                            <p class="plate-kind">Gamified sustainability <span class="plate-year">2024</span></p>
+                            <p class="project-description">A gamified sustainability tracker with real-time Firebase state sync and a live eco-news feed aggregating 150+ articles. Presented at House of Code in Washington, D.C.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">React Native</span>
+                                    <span class="stack-item">Firebase</span>
+                                    <span class="stack-item">NewsAPI</span>
+                                </div>
+                                <div class="plate-links">
+                                    <span class="plate-award">1st place · Congressional App Challenge</span>
+                                    <a class="plate-link" href="https://github.com/grcfu/planetopia" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for Planetopia</span></a>
+                                </div>
+                            </footer>
+                        </article>
 
-                    <article class="project-card color-a" data-tags="web" style="--rot: -2.5deg;">
-                        <div class="project-left">
-                            <span class="project-postmark">'23</span>
-                            <h3 class="project-name">Bubble Cup Web App</h3>
-                        </div>
-                        <div class="project-right">
-                            <span class="project-stamp">Web</span>
-                            <p class="project-salutation">Dear reader,</p>
-                            <p class="project-description">Recipe translation and instant search app covering 100+ drinks for a multilingual team; reduced recipe lookup time by 90%.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Web</span>
-                            </div>
-                            <div class="project-stack">
-                                <span class="stack-item">React</span>
-                                <span class="stack-item">Firebase</span>
-                            </div>
-                        </div>
-                    </article>
+                        <article class="project-card" data-tags="web" style="--i: 6;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 07</span>
+                                <span class="project-stamp">Web</span>
+                            </header>
+                            <h3 class="project-name">Bubble Cup</h3>
+                            <p class="plate-kind">Recipe search <span class="plate-year">2023</span></p>
+                            <p class="project-description">A recipe translation and instant-search app covering 100+ drinks for a multilingual team, cutting lookup time by 90%.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">React</span>
+                                    <span class="stack-item">Firebase</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://github.com/grcfu/bubblecup" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for Bubble Cup</span></a>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <article class="project-card" data-tags="web" style="--i: 7;">
+                            <span class="plate-tape" aria-hidden="true"></span>
+                            <svg class="plate-sprig plate-sprig-tl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-tr" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
+                            <header class="plate-head">
+                                <span class="plate-no">No. 08</span>
+                                <span class="project-stamp">Web</span>
+                            </header>
+                            <h3 class="project-name">BeMyValentine</h3>
+                            <p class="plate-kind">Interactive scrapbook <span class="plate-year">2026</span></p>
+                            <p class="project-description">A digital scrapbook reimagining the Valentine's card — glassmorphism panels in a responsive bento grid, a heart cursor trail, and burst interactions. No framework at all.</p>
+                            <footer class="plate-foot">
+                                <div class="project-stack">
+                                    <span class="stack-item">HTML5</span>
+                                    <span class="stack-item">CSS3</span>
+                                    <span class="stack-item">Vanilla JS</span>
+                                </div>
+                                <div class="plate-links">
+                                    <a class="plate-link" href="https://github.com/grcfu/bemyvalentine" target="_blank" rel="noopener noreferrer">code <span aria-hidden="true">↗</span><span class="sr-only"> for BeMyValentine</span></a>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <p class="rail-empty" id="railEmpty" role="status" hidden>Nothing pressed in this drawer yet — try another filter.</p>
+                    </div>
+
+                    <button class="rail-nav rail-nav-next" id="railNext" type="button" aria-label="Scroll to more projects" aria-controls="projectsRail">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M9 4 L17 12 L9 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <!-- Drawer runner — doubles as the horizontal scroll position -->
+                    <div class="rail-runner" aria-hidden="true">
+                        <span class="rail-runner-fill" id="railRunnerFill"></span>
+                    </div>
+                    <p class="rail-hint" aria-hidden="true">drag, scroll, or use <kbd>←</kbd> <kbd>→</kbd></p>
                 </div>
 
                 <!-- GitHub Contributions Heatmap -->
