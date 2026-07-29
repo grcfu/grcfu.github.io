@@ -2375,6 +2375,32 @@ section {
     to { opacity: 1; }
 }
 
+/* Side-pocket aside — a quiet note that the bag isn't the exhaustive list.
+   Kept as flowing text (not flex) so it wraps to two lines gracefully on
+   narrow screens with the bloom staying on the first line. */
+.skills-more {
+    position: relative;
+    z-index: 1;
+    max-width: 30rem;
+    margin: 0.7rem auto 0;
+    padding: 0 1.25rem;
+    text-align: center;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(0.74rem, 0.9vw, 0.84rem);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+}
+
+.skills-more-bloom {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-right: 0.3rem;
+    vertical-align: -0.1em;
+    overflow: visible;
+}
+
 /* Languages spoken */
 .skills-languages {
     position: relative;
