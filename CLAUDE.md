@@ -24,7 +24,7 @@ recruiting for SWE roles. Deployed at grcfu.github.io.
 2. About — greeting + identity block + three taped index cards; scroll-driven flower rotation
 3. Experience — botanical vine timeline: an SVG vine that grows on scroll, blooming a unique flower + sliding in a card at each trigger. Left vine + right vine on wide screens; stacked fallback on mobile; reduced-motion fallback
 4. Projects — "specimen drawer": a horizontally scrolling rail of pressed-botanical
-   plates (8 projects), each framed by four corner sprigs built from one reusable
+   plates (9 projects), each framed by four corner sprigs built from one reusable
    SVG symbol rotated 0/90/180/270°. Arrows, drag-to-scroll, keyboard paging, and a
    sage "runner" line that doubles as a scroll-position readout. Collapses to a
    vertical stack under 768px. Followed by the live GitHub contributions heatmap.
