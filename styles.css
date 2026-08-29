@@ -1414,6 +1414,7 @@ section {
    the plate's dashed rule for depth. */
 .plate-sprig {
     --sr: 0deg;
+    color: var(--sprig);
     position: absolute;
     width: 3.3rem;
     height: 3.3rem;
