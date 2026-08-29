@@ -1362,6 +1362,16 @@ section {
     transition-delay: calc(var(--i, 0) * 70ms);
 }
 
+/* Pressed-specimen hues, keyed to category so the color carries information:
+   filter to "Mobile" and the surviving plates read as one set. All four sit in
+   the same low-chroma, mid-value range so the drawer stays editorial rather
+   than novelty. Ordered least- to most-specific: a "web tools" plate takes the
+   web hue, a bare "tools" plate takes slate. */
+.project-card[data-tags~="tools"]   { --sprig: #94A7B0; }
+.project-card[data-tags~="desktop"] { --sprig: #B8A88A; }
+.project-card[data-tags~="mobile"]  { --sprig: #C9A9BC; }
+.project-card[data-tags~="web"]     { --sprig: #A8B89A; }
+
 /* Hand-placed tilt — small enough to stay tidy in a snapping rail. */
 .project-card:nth-child(3n + 1) { --rot: -0.7deg; }
 .project-card:nth-child(3n + 2) { --rot: 0.5deg; }
