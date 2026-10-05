@@ -3124,6 +3124,89 @@ section {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+/* Projects — under 900px a spread can't hold two columns without starving
+   one of them, so the picture stacks above the write-up on every spread
+   (the alternation only makes sense side by side). */
+@media (max-width: 900px) {
+    .project-card.spread {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.75rem;
+        padding: 2.25rem 1.75rem 1.75rem;
+    }
+
+    .spread:nth-child(even) .spread-figure {
+        order: 0;
+    }
+
+    .spread .project-name {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .spreads {
+        gap: 2.25rem;
+        padding-top: 1.75rem;
+    }
+
+    .project-card.spread {
+        padding: 2rem 1.15rem 1.35rem;
+    }
+
+    .project-card:hover,
+    .project-card:focus-within,
+    .project-card.spread:hover,
+    .project-card.spread:focus-within {
+        transform: translateY(-4px) rotate(0deg);
+    }
+
+    .spread .project-name {
+        font-size: 1.5rem;
+    }
+
+    .spread .project-description,
+    .project-description {
+        font-size: 0.84rem;
+        line-height: 1.6;
+    }
+
+    /* Scale the type with the viewport so the longest line (46 chars)
+       still fits a phone-width window instead of scrolling. */
+    .terminal-body {
+        font-size: clamp(0.5rem, 2.15vw, 0.66rem);
+        padding: 0.85rem 0.75rem 1rem;
+    }
+
+    .phone-fan {
+        padding-inline: 0.5rem;
+    }
+
+    .plate-grid .project-card {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Scale the floral frame down with the tighter plate padding. */
+    .plate-sprig-tl {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .plate-sprig-tr,
+    .plate-sprig-br {
+        width: 1.9rem;
+        height: 1.9rem;
+    }
+
+    .plate-sprig-bl {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .plate-grid .plate-head {
+        padding-inline: 1.15rem 1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -3311,6 +3394,15 @@ section {
 
     .plate-sprig {
         transform: rotate(var(--sr)) !important;
+    }
+
+    /* Tipped-in prints keep their angle but stop straightening and fanning
+       on hover. */
+    .tipped-photo,
+    .terminal,
+    .phone,
+    .plate-thumb {
+        transition: none;
     }
 }
 
