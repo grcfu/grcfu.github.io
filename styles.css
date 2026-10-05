@@ -1945,6 +1945,105 @@ section {
     .t-cursor { animation: none; }
 }
 
+/* ============================================
+   PROJECTS — THE PLATE GRID
+
+   Everything past the spreads, all visible at once. Laid out in columns
+   rather than rows so plates with a thumbnail and plates without one pack
+   together like a pinned-up wall instead of leaving ragged row gaps.
+   ============================================ */
+.plate-grid-label {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-handwritten);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+}
+
+.plate-grid-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(168, 184, 154, 0.75) 55%, transparent 55%);
+    background-size: 6px 1px;
+}
+
+.plate-grid {
+    columns: 3 18rem;
+    column-gap: 1.75rem;
+    padding-top: 0.75rem;
+    margin-bottom: 4.5rem;
+}
+
+/* inline-flex rather than break-inside: avoid — Chrome stops balancing the
+   columns when every child asks not to break, and piles them all into the
+   first one. An atomic inline box can't fragment anyway. */
+.plate-grid .project-card {
+    display: inline-flex;
+    width: 100%;
+    min-height: 0;
+    vertical-align: top;
+    margin-bottom: 2rem;
+}
+
+/* .hidden on a plate has to beat the inline-flex above. */
+.plate-grid .project-card.hidden {
+    display: none;
+}
+
+/* Small taped print at the head of a plate. Cropped to the top of the
+   screenshot, where each app's headline lives. */
+.plate-thumb {
+    position: relative;
+    margin: 0.6rem 0.4rem 1.35rem;
+    padding: 0.4rem;
+    background-color: var(--white);
+    box-shadow: 0 1px 2px rgba(62, 39, 35, 0.12), 3px 6px 12px rgba(62, 39, 35, 0.12);
+    transform: rotate(-1deg);
+    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.plate-grid .project-card:nth-child(even) .plate-thumb {
+    transform: rotate(0.9deg);
+}
+
+.plate-thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+}
+
+.plate-grid .project-card:hover .plate-thumb,
+.plate-grid .project-card:focus-within .plate-thumb {
+    transform: rotate(0deg);
+}
+
+/* The thumbnail sits where the plate's own tape would, so the tape moves
+   onto the print itself. */
+.plate-thumb ~ .plate-head {
+    margin-top: 0;
+}
+
+.projects-empty {
+    margin: 0 0 4rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.projects-empty[hidden] {
+    display: none;
+}
+
 /* GitHub Contributions Heatmap */
 .heatmap-section {
     margin-top: 4rem;
