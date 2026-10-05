@@ -211,25 +211,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ============================================
     // PROJECT PLATES — REVEAL
-    // Watch the rail, not the individual plates. Plates parked off to the
-    // right of a horizontal scroller never intersect the viewport, so a
-    // per-card observer would leave most of them stuck at opacity 0. The
-    // rail enters view once and every plate reveals on a CSS stagger.
+    // Spreads and grid plates all stack vertically now, so each plate gets
+    // its own observer entry and lands as it scrolls into view.
     // ============================================
-    const projectsRail = document.getElementById('projectsRail');
+    const projectPlates = document.querySelectorAll('.projects .project-card');
 
-    if (projectsRail) {
-        const plates = projectsRail.querySelectorAll('.project-card');
-
-        const railReveal = new IntersectionObserver((entries) => {
+    if (projectPlates.length) {
+        const plateReveal = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
-                plates.forEach(p => p.classList.add('visible'));
-                railReveal.unobserve(entry.target);
+                entry.target.classList.add('visible');
+                plateReveal.unobserve(entry.target);
             });
         }, { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
 
-        railReveal.observe(projectsRail);
+        projectPlates.forEach(p => plateReveal.observe(p));
     }
 
     // ============================================
@@ -1048,7 +1044,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const railPrev = document.getElementById('railPrev');
     const railNext = document.getElementById('railNext');
     const railFill = document.getElementById('railRunnerFill');
-    const railEmpty = document.getElementById('railEmpty');
+    const railEmpty = document.getElementById('projectsEmpty');
+    const projectsRail = document.getElementById('projectsRail');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     // How far one arrow press travels: a single plate plus the rail's gap.
