@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroBanner    = heroSection.querySelector('.hero-banner');
         const heroPaints    = heroSection.querySelectorAll('.hero-paint');
         const heroCollages  = heroSection.querySelectorAll('.collage');
-        const heroSpotify   = heroSection.querySelector('.spotify-widget');
+        const heroSound     = heroSection.querySelector('.sound-widget');
         const heroScrollHint = heroSection.querySelector('.scroll-hint');
 
         // 100ms — paint blobs fade in (1.2s; 100ms head start so the
@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (heroBanner) heroBanner.classList.add('is-visible');
         }, 200);
 
-        // 600ms — Spotify widget fades in (0.4s).
+        // 600ms — sound button fades in (0.4s).
         setTimeout(() => {
-            if (heroSpotify) heroSpotify.classList.add('is-visible');
+            if (heroSound) heroSound.classList.add('is-visible');
         }, 600);
 
         // 800ms — washi tape & SVG corner decorations fade in (0.6s),
@@ -98,22 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // SPOTIFY WIDGET
+    // SOUND TOGGLE
     // ============================================
-    const spotifyBtn = document.getElementById('spotifyBtn');
+    const soundBtn = document.getElementById('soundBtn');
     const calmAudio = document.getElementById('calmAudio');
-    const spotifyBtnText = spotifyBtn?.querySelector('.spotify-btn-text');
 
     // Self-hosted audio: the button click is a same-origin user gesture, so
     // play() is allowed to start audio (unlike a cross-origin Spotify embed).
-    if (spotifyBtn && calmAudio) {
+    if (soundBtn && calmAudio) {
         function setPlayingUI(playing) {
-            spotifyBtnText.textContent = playing ? 'now playing \u266A' : 'play some calm tunes';
-            spotifyBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
-            spotifyBtn.classList.toggle('is-playing', playing);
+            const label = playing ? 'Pause calm music' : 'Play calm music';
+            soundBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+            soundBtn.setAttribute('aria-label', label);
+            soundBtn.title = label;
+            soundBtn.classList.toggle('is-playing', playing);
         }
 
-        spotifyBtn.addEventListener('click', () => {
+        soundBtn.addEventListener('click', () => {
             if (calmAudio.paused) {
                 calmAudio.play()
                     .then(() => setPlayingUI(true))
