@@ -1683,6 +1683,172 @@ section {
     color: var(--text-secondary);
 }
 
+/* ============================================
+   PROJECTS — FEATURED SPREADS
+
+   The three flagship projects get a whole plate each: the picture tipped in
+   on one side, the write-up on the other. Sides alternate down the stack so
+   it reads like a scrapbook spread rather than a repeated template. Every
+   project stays visible — no carousel, nothing hidden behind arrows.
+   ============================================ */
+.spreads {
+    display: grid;
+    gap: clamp(2.75rem, 5vw, 4rem);
+    padding-top: 2.5rem;
+    margin-bottom: clamp(3.5rem, 6vw, 5rem);
+}
+
+.project-card.spread {
+    width: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    padding: clamp(2rem, 4vw, 3rem);
+}
+
+/* A wide plate needs a gentler tilt than a narrow one to read as the same
+   hand-placed angle. */
+.project-card.spread:nth-child(odd)  { --rot: -0.35deg; }
+.project-card.spread:nth-child(even) { --rot: 0.3deg; }
+
+.project-card.spread:hover,
+.project-card.spread:focus-within {
+    transform: translateY(-5px) rotate(0deg);
+}
+
+.spread:nth-child(even) .spread-figure {
+    order: 2;
+}
+
+.spread-figure {
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spread-figure figcaption {
+    font-family: var(--font-handwritten);
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.spread .plate-head {
+    padding-inline: 0;
+}
+
+.spread .project-name {
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    margin-bottom: 0.65rem;
+}
+
+.spread .project-description {
+    font-size: 0.9rem;
+    line-height: 1.68;
+    margin-bottom: 1.4rem;
+}
+
+/* ---- Tipped-in photo ----
+   A screenshot mounted like a print in an album: white border, four photo
+   corners holding it down, a strip of washi across the top. The corners are
+   one pseudo-element painted with four triangular gradients. */
+.tipped-photo {
+    --tilt: -1.2deg;
+    position: relative;
+    width: 100%;
+    padding: 0.55rem;
+    background-color: var(--white);
+    box-shadow: 0 1px 2px rgba(62, 39, 35, 0.12), 4px 8px 18px rgba(62, 39, 35, 0.14);
+    transform: rotate(var(--tilt));
+    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.spread:nth-child(even) .tipped-photo {
+    --tilt: 1.1deg;
+}
+
+.tipped-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.tipped-photo::before {
+    content: '';
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    width: 5.5rem;
+    height: 1.2rem;
+    transform: translateX(-50%) rotate(2deg);
+    background-color: color-mix(in srgb, var(--accent-pink) 75%, transparent);
+    border-left: 1px dashed rgba(255, 255, 255, 0.6);
+    border-right: 1px dashed rgba(255, 255, 255, 0.6);
+    z-index: 2;
+}
+
+.tipped-photo::after {
+    --corner: color-mix(in srgb, var(--sprig) 45%, var(--text-primary));
+    content: '';
+    position: absolute;
+    inset: 0.2rem;
+    pointer-events: none;
+    background:
+        linear-gradient(135deg, var(--corner) 50%, transparent 50%) top left / 1.2rem 1.2rem no-repeat,
+        linear-gradient(225deg, var(--corner) 50%, transparent 50%) top right / 1.2rem 1.2rem no-repeat,
+        linear-gradient(315deg, var(--corner) 50%, transparent 50%) bottom right / 1.2rem 1.2rem no-repeat,
+        linear-gradient(45deg, var(--corner) 50%, transparent 50%) bottom left / 1.2rem 1.2rem no-repeat;
+    opacity: 0.85;
+}
+
+.spread:hover .tipped-photo,
+.spread:focus-within .tipped-photo {
+    transform: rotate(0deg) scale(1.01);
+}
+
+/* ---- Phone fan (Crumb) ----
+   Three app screens fanned like a hand of prints; they spread a little
+   wider when the plate is hovered. */
+.phone-fan {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0.75rem 0 0.5rem;
+}
+
+.phone {
+    --fan: 0deg;
+    --lift: 0px;
+    --spread: 0px;
+    display: block;
+    width: 31%;
+    height: auto;
+    padding: 0.3rem;
+    background-color: var(--white);
+    box-shadow: 0 1px 2px rgba(62, 39, 35, 0.12), 3px 8px 16px rgba(62, 39, 35, 0.16);
+    transform: translate(var(--spread), var(--lift)) rotate(var(--fan));
+    transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.phone:nth-child(1) { --fan: -7deg; --lift: 14px; margin-right: -6%; }
+.phone:nth-child(2) { --fan: 0deg;  --lift: 0px;  z-index: 1; }
+.phone:nth-child(3) { --fan: 7deg;  --lift: 14px; margin-left: -6%; }
+
+.spread:hover .phone:nth-child(1),
+.spread:focus-within .phone:nth-child(1) { --spread: -10px; --fan: -9deg; }
+.spread:hover .phone:nth-child(2),
+.spread:focus-within .phone:nth-child(2) { --lift: -6px; }
+.spread:hover .phone:nth-child(3),
+.spread:focus-within .phone:nth-child(3) { --spread: 10px; --fan: 9deg; }
+
 /* GitHub Contributions Heatmap */
 .heatmap-section {
     margin-top: 4rem;
