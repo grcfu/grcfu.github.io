@@ -6,7 +6,7 @@
     <meta name="description" content="Personal portfolio of Grace Fu, CS & Business student at Washington University in St. Louis. ML researcher, startup founder, and 2024 Congressional App Challenge winner.">
     <title>Grace Fu</title>
 
-    <!-- Favicon — a little pink flower. The SVG is the real icon; the PNG is
+    <!-- Favicon - a little pink flower. The SVG is the real icon; the PNG is
          declared as "alternate icon" so SVG-capable browsers prefer the vector
          and older ones (and Safari) fall back without downloading both. -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -69,7 +69,7 @@
             <audio id="calmAudio" src="calm-piano.mp3" loop preload="none"></audio>
         </div>
 
-        <!-- Collage corner decorations — direct children of .hero so they pin
+        <!-- Collage corner decorations - direct children of .hero so they pin
              to the very edges of the hero (the washi tapes stay in the corners
              of the screen, above the band included). -->
         <div class="collage collage-tl" aria-hidden="true">
@@ -106,8 +106,8 @@
         <div class="hero-paint paint-3" aria-hidden="true" style="bottom: 5%; right: 15%; width: 35%; height: 40%;"></div>
         <div class="hero-paint paint-4" aria-hidden="true" style="top: 10%; right: 25%; width: 22%; height: 28%;"></div>
 
-        <!-- Hero banner image — main element, single full-width layout -->
-        <img class="hero-banner" id="heroBanner" src="hero-banner.png" alt="Grace Fu — CS &amp; Business at WashU" />
+        <!-- Hero banner image - main element, single full-width layout -->
+        <img class="hero-banner" id="heroBanner" src="hero-banner.png" alt="Grace Fu, CS &amp; Business at WashU" />
         </div>
     </header>
 
@@ -122,7 +122,7 @@
     <main>
         <!-- About Section -->
         <section class="about" id="about">
-            <!-- Decorative flowers — fade in with the section, rotate on scroll -->
+            <!-- Decorative flowers - fade in with the section, rotate on scroll -->
             <div class="about-flower about-flower-l1 about-fade" aria-hidden="true"><img class="about-flower-img" src="f1.png" alt=""></div>
             <div class="about-flower about-flower-l2 about-fade" aria-hidden="true"><img class="about-flower-img" src="f2.png" alt=""></div>
             <div class="about-flower about-flower-l3 about-fade" aria-hidden="true"><img class="about-flower-img" src="f3.png" alt=""></div>
@@ -132,7 +132,7 @@
 
             <p class="about-label">[ ABOUT ]</p>
 
-            <p class="about-greeting about-fade">Hi, I'm Grace —</p>
+            <p class="about-greeting about-fade">Hi, I'm Grace!</p>
 
             <div class="about-id about-fade">
                 <p class="about-id-line">CS &amp; Business @ Washington University in St. Louis · Class of 2028</p>
@@ -183,7 +183,7 @@
             </div>
         </section>
 
-        <!-- Experience Section — Botanical Vine Timeline -->
+        <!-- Experience Section - Botanical Vine Timeline -->
         <section id="experience" class="vine-section" aria-label="Experience">
             <div class="vine-paper" aria-hidden="true"></div>
 
@@ -195,7 +195,7 @@
             <!-- Vine trunk + leaf sprouts + branches. preserveAspectRatio=none
                  stretches geometry; vector-effect=non-scaling-stroke keeps
                  stroke widths consistent across viewports. Leaves are
-                 stroked (no fill) for the same reason — fills would stretch
+                 stroked (no fill) for the same reason - fills would stretch
                  into giant blobs on wide screens. -->
             <svg class="vine-trunk" id="vineTrunk" viewBox="0 0 100 200"
                  preserveAspectRatio="none" aria-hidden="true">
@@ -239,7 +239,7 @@
                           vector-effect="non-scaling-stroke"/>
                 </g>
 
-                <!-- Main vine — wiggly hand-drawn bezier path, x ≈ 9–18% -->
+                <!-- Main vine - wiggly hand-drawn bezier path, x ≈ 9-18% -->
                 <path class="vine-main" id="vineMain"
                       d="M 14 0
                          C 9 8, 19 16, 13 24
@@ -255,7 +255,7 @@
                       stroke-linecap="round" stroke-linejoin="round"
                       vector-effect="non-scaling-stroke"/>
 
-                <!-- Decorative leaf sprouts — tiny stroked outlines that
+                <!-- Decorative leaf sprouts - tiny stroked outlines that
                      don't get stretched into blobs by preserveAspectRatio. -->
                 <g class="vine-sprouts">
                     <path class="vine-sprout" data-trigger="0.04"
@@ -301,7 +301,7 @@
                 </g>
             </svg>
 
-            <!-- Right-side vine — only shown on really big screens via CSS.
+            <!-- Right-side vine - only shown on really big screens via CSS.
                  Far-column cards (1, 3, 5) attach here instead of getting
                  long left-vine branches that cut across the near-column
                  cards above them. Same viewBox/preserveAspectRatio so the
@@ -326,7 +326,7 @@
                           vector-effect="non-scaling-stroke"/>
                 </g>
 
-                <!-- Mirrored main vine on the right (x ≈ 82–91) -->
+                <!-- Mirrored main vine on the right (x ≈ 82-91) -->
                 <path class="vine-main" id="vineMainRight"
                       d="M 86 0
                          C 91 8, 81 16, 87 24
@@ -343,11 +343,11 @@
                       vector-effect="non-scaling-stroke"/>
             </svg>
 
-            <!-- Seven flowers — each its own SVG, undistorted, positioned absolutely.
+            <!-- Seven flowers - each its own SVG, undistorted, positioned absolutely.
                  data-trigger is the vine progress fraction at which it blooms.
                  Flower designs are decorative; card roles are assigned by data-idx. -->
 
-            <!-- 1. Cherry blossom — World Wide Technology -->
+            <!-- 1. Cherry blossom - World Wide Technology -->
             <svg class="vine-flower" data-idx="0" data-trigger="0.10" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><ellipse cx="0" cy="-13" rx="8" ry="11" fill="#F4C9D6"/></g>
@@ -371,7 +371,7 @@
                 </g>
             </svg>
 
-            <!-- 2. Daisy — OpsCompanion -->
+            <!-- 2. Daisy - OpsCompanion -->
             <svg class="vine-flower" data-idx="1" data-trigger="0.245" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><ellipse cx="0" cy="-15" rx="3" ry="11" fill="#EEEBE7"/></g>
@@ -393,7 +393,7 @@
                 </g>
             </svg>
 
-            <!-- 3. Lavender sprig — Health XR -->
+            <!-- 3. Lavender sprig - Health XR -->
             <svg class="vine-flower" data-idx="2" data-trigger="0.395" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <line x1="0" y1="22" x2="0" y2="-22" stroke="#A8B89A" stroke-width="0.8"/>
@@ -409,10 +409,10 @@
                 </g>
             </svg>
 
-            <!-- 4. Rose — Teaching Assistant.
+            <!-- 4. Rose - Teaching Assistant.
                  Five outer petals at cy=-10 rotated 0/72/144/216/288° around
                  the flower center, then three smaller inner petals offset 36°
-                 so they fall in the gaps between outer petals — gives the
+                 so they fall in the gaps between outer petals - gives the
                  layered, spiraling-inward rosette feel. -->
             <svg class="vine-flower" data-idx="3" data-trigger="0.535" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
@@ -428,7 +428,7 @@
                 </g>
             </svg>
 
-            <!-- 5. Wildflower — Capital One -->
+            <!-- 5. Wildflower - Capital One -->
             <svg class="vine-flower" data-idx="4" data-trigger="0.69" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><path d="M 0 -2 C -4 -6, -10 -6, -10 -12 C -10 -16, -4 -18, 0 -14 C 4 -18, 10 -16, 10 -12 C 10 -6, 4 -6, 0 -2 Z" fill="#F0C4A0"/></g>
@@ -439,7 +439,7 @@
                 </g>
             </svg>
 
-            <!-- 6. Forget-me-not cluster — Bank of America -->
+            <!-- 6. Forget-me-not cluster - Bank of America -->
             <svg class="vine-flower" data-idx="5" data-trigger="0.84" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <line x1="-10" y1="12" x2="-10" y2="0" stroke="#A8B89A" stroke-width="0.7"/>
@@ -472,7 +472,7 @@
                 </g>
             </svg>
 
-            <!-- 7. Coral blossom — AmeriBakes -->
+            <!-- 7. Coral blossom - AmeriBakes -->
             <svg class="vine-flower" data-idx="6" data-trigger="0.84" viewBox="0 0 70 70" aria-hidden="true">
                 <g class="flower-content" transform="translate(35 35)">
                     <g class="petal" data-p="0"><ellipse cx="0" cy="-12" rx="6.5" ry="10" fill="#E89A8A"/></g>
@@ -489,10 +489,10 @@
                  hand-pinned feel. JS adds .is-bloomed when the matching
                  flower triggers, sliding the card in from the right. -->
             <article class="vine-card" data-idx="0" style="--rot: -1.5deg">
-                <span class="card-annotation">— engineer —</span>
+                <span class="card-annotation">~ engineer ~</span>
                 <h3 class="card-role">Software Engineer Intern</h3>
                 <p class="card-company">World Wide Technology</p>
-                <p class="card-date">May 2026 — Aug 2026</p>
+                <p class="card-date">May 2026 - Aug 2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">Built &ldquo;Ask Brett,&rdquo; a RAG-optimized AI agent that cut troubleshooting latency 60% with custom audit APIs across 5+ enterprise workflows.</p>
                 <svg class="card-doodle" viewBox="0 0 30 14" aria-hidden="true">
@@ -501,19 +501,19 @@
             </article>
 
             <article class="vine-card" data-idx="1" style="--rot: 1deg">
-                <span class="card-annotation">— shipper —</span>
+                <span class="card-annotation">~ shipper ~</span>
                 <h3 class="card-role">Software Engineer Intern</h3>
                 <p class="card-company">OpsCompanion</p>
-                <p class="card-date">May 2026 — Aug 2026</p>
+                <p class="card-date">May 2026 - Aug 2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">Architected a local-first image PII redaction pipeline in Rust + Tauri, hitting 93% detection accuracy at ~400ms inference latency.</p>
             </article>
 
             <article class="vine-card" data-idx="2" style="--rot: -0.5deg">
-                <span class="card-annotation">— researcher —</span>
+                <span class="card-annotation">~ researcher ~</span>
                 <h3 class="card-role">AI/ML Software Engineer Intern</h3>
                 <p class="card-company">Health XR (DentalTechup)</p>
-                <p class="card-date">Sep 2025 — May 2026</p>
+                <p class="card-date">Sep 2025 - May 2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">Built a HIPAA-compliant pipeline turning 4,500+ dental visits into secure LLM training data.</p>
                 <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
@@ -522,17 +522,17 @@
             </article>
 
             <article class="vine-card" data-idx="3" style="--rot: 1.5deg">
-                <span class="card-annotation">— mentor —</span>
+                <span class="card-annotation">~ mentor ~</span>
                 <h3 class="card-role">Teaching Assistant &amp; Section Lead</h3>
-                <p class="card-company">WashU — Data Structures &amp; Algorithms</p>
-                <p class="card-date">Jan 2026 — Present</p>
+                <p class="card-company">WashU · Data Structures &amp; Algorithms</p>
+                <p class="card-date">Jan 2026 - Present</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">Led 15+ graders for 200+ students; automated assignment distribution in Python.</p>
             </article>
 
             <article class="vine-card" data-idx="4" style="--rot: -1deg">
-                <span class="card-annotation">— selected —</span>
-                <h3 class="card-role">Technology Summit — 1 of 35 Nationally</h3>
+                <span class="card-annotation">~ selected ~</span>
+                <h3 class="card-role">Technology Summit, 1 of 35 Nationally</h3>
                 <p class="card-company">Capital One</p>
                 <p class="card-date">2026</p>
                 <span class="card-rule" aria-hidden="true"></span>
@@ -543,19 +543,19 @@
             </article>
 
             <article class="vine-card" data-idx="5" style="--rot: 0.5deg">
-                <span class="card-annotation">— leader —</span>
+                <span class="card-annotation">~ leader ~</span>
                 <h3 class="card-role">Bank of America Student Leaders Intern</h3>
                 <p class="card-company">United Way of Greater St. Louis</p>
-                <p class="card-date">May 2024 — Apr 2025</p>
+                <p class="card-date">May 2024 - Apr 2025</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">One of 300 chosen from 7,000+ applicants. Flew to D.C. Learned a lot.</p>
             </article>
 
             <article class="vine-card" data-idx="6" style="--rot: -1.2deg">
-                <span class="card-annotation">— founder —</span>
+                <span class="card-annotation">~ founder ~</span>
                 <h3 class="card-role">Founder &amp; Web Developer</h3>
                 <p class="card-company">AmeriBakes</p>
-                <p class="card-date">Feb 2024 — May 2025</p>
+                <p class="card-date">Feb 2024 - May 2025</p>
                 <span class="card-rule" aria-hidden="true"></span>
                 <p class="card-desc">Turned a baking obsession into $3,500 in revenue and 150+ happy customers.</p>
                 <svg class="card-doodle" viewBox="0 0 16 16" aria-hidden="true">
@@ -569,7 +569,7 @@
             <div class="container">
                 <p class="section-label">[ PROJECTS ]</p>
 
-                <!-- Botanical sprite — one leaf/petal/sprig definition reused by
+                <!-- Botanical sprite - one leaf/petal/sprig definition reused by
                      every specimen plate below, so the ornament costs ~8 nodes
                      per card instead of a full hand-drawn SVG each. -->
                 <svg class="hb-defs" width="0" height="0" aria-hidden="true" focusable="false">
@@ -614,7 +614,7 @@
                     <button class="filter-btn" data-filter="tools">Tools</button>
                 </div>
 
-                <!-- Featured spreads — the three flagship projects, each a wide plate
+                <!-- Featured spreads - the three flagship projects, each a wide plate
                      with its picture tipped in beside the write-up. Sides alternate so
                      the stack reads as a scrapbook, not a template. -->
                 <div class="spreads">
@@ -629,7 +629,7 @@
                                 <img src="img/projects/pointswap.jpg" width="1400" height="875" loading="lazy" decoding="async"
                                      alt="WashU PointSwap marketplace: a list-your-points form beside a grid of point listings with prices">
                             </div>
-                            <figcaption>fig. 01 — the marketplace, live</figcaption>
+                            <figcaption>the marketplace, live</figcaption>
                         </figure>
                         <div class="spread-body">
                             <header class="plate-head">
@@ -638,7 +638,7 @@
                             </header>
                             <h3 class="project-name">WashU PointSwap</h3>
                             <p class="plate-kind">Campus marketplace <span class="plate-year">2026</span></p>
-                            <p class="project-description">Buy and sell MarketPoints — WashU's campus dining currency — across an 8,220-student campus, with 230+ students onboarded. Google OAuth scoped to <span class="nowrap">@wustl.edu</span> over a JWT-authenticated FastAPI backend.</p>
+                            <p class="project-description">Buy and sell MarketPoints, WashU's campus dining currency, across an 8,220-student campus, with 230+ students onboarded. Google OAuth scoped to <span class="nowrap">@wustl.edu</span> over a JWT-authenticated FastAPI backend.</p>
                             <footer class="plate-foot">
                                 <div class="project-stack">
                                     <span class="stack-item">Next.js</span>
@@ -664,7 +664,7 @@
                             <div class="terminal">
                                 <div class="terminal-bar" aria-hidden="true">
                                     <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-                                    <span class="terminal-title">~/redline — zsh</span>
+                                    <span class="terminal-title">~/redline · zsh</span>
                                 </div>
 <pre class="terminal-body"><code><span class="t-dim"># a small, isolated metric</span>
 <span class="t-prompt">$</span> curl -X POST :8080/api/v1/change-requests \
@@ -686,7 +686,7 @@
   { <span class="t-key">"valid"</span>: <span class="t-ok">true</span> }  <span class="t-dim"># hash chain intact</span>
 <span class="t-prompt">$</span> <span class="t-cursor" aria-hidden="true"></span></code></pre>
                             </div>
-                            <figcaption>fig. 02 — a change request, end to end</figcaption>
+                            <figcaption>a change request, end to end</figcaption>
                         </figure>
                         <div class="spread-body">
                             <header class="plate-head">
@@ -726,7 +726,7 @@
                                 <img class="phone" src="img/projects/crumb-community.jpg" width="480" height="1043" loading="lazy" decoding="async"
                                      alt="Crumb Community screen with a weekly sourdough challenge and a feed of bakes">
                             </div>
-                            <figcaption>fig. 03 — explore, kitchen mode, community</figcaption>
+                            <figcaption>explore, kitchen mode, community</figcaption>
                         </figure>
                         <div class="spread-body">
                             <header class="plate-head">
@@ -735,7 +735,7 @@
                             </header>
                             <h3 class="project-name">Crumb</h3>
                             <p class="plate-kind">Native iOS assistant <span class="plate-year">2025</span></p>
-                            <p class="project-description">A native baking assistant built around kitchen workflow friction — hands-free Kitchen Mode via the Speech framework and AVKit, plus a smart pantry algorithm on the Spoonacular API.</p>
+                            <p class="project-description">A native baking assistant built around kitchen workflow friction: hands-free Kitchen Mode via the Speech framework and AVKit, plus a smart pantry algorithm on the Spoonacular API.</p>
                             <footer class="plate-foot">
                                 <div class="project-stack">
                                     <span class="stack-item">SwiftUI</span>
@@ -751,7 +751,7 @@
                     </article>
                 </div>
 
-                <!-- The rest of the drawer — smaller plates, all visible at once. -->
+                <!-- The rest of the drawer - smaller plates, all visible at once. -->
                 <p class="plate-grid-label">more from the drawer</p>
                 <div class="plate-grid">
                     <article class="project-card" data-tags="web tools">
@@ -770,7 +770,7 @@
                         </header>
                         <h3 class="project-name">EarlyBird</h3>
                         <p class="plate-kind">Real-time job aggregator <span class="plate-year">2026</span></p>
-                        <p class="project-description">Polls 1,300+ companies' applicant-tracking systems every 15 minutes, surfacing SWE, ML, and data roles days ahead of the community aggregators — plus an email-driven application tracker.</p>
+                        <p class="project-description">Polls 1,300+ companies' applicant-tracking systems every 15 minutes, surfacing SWE, ML, and data roles days ahead of the community aggregators, plus an email-driven application tracker.</p>
                         <footer class="plate-foot">
                             <div class="project-stack">
                                 <span class="stack-item">Next.js 16</span>
@@ -905,7 +905,7 @@
                         </header>
                         <h3 class="project-name">BeMyValentine</h3>
                         <p class="plate-kind">Interactive scrapbook <span class="plate-year">2026</span></p>
-                        <p class="project-description">A digital scrapbook reimagining the Valentine's card — glassmorphism panels in a responsive bento grid, a heart cursor trail, and burst interactions. No framework at all.</p>
+                        <p class="project-description">A digital scrapbook reimagining the Valentine's card: glassmorphism panels in a responsive bento grid, a heart cursor trail, and burst interactions. No framework at all.</p>
                         <footer class="plate-foot">
                             <div class="project-stack">
                                 <span class="stack-item">HTML5</span>
@@ -919,7 +919,7 @@
                     </article>
                 </div>
 
-                <p class="projects-empty" id="projectsEmpty" role="status" hidden>Nothing pressed in this drawer yet — try another filter.</p>
+                <p class="projects-empty" id="projectsEmpty" role="status" hidden>Nothing pressed in this drawer yet. Try another filter.</p>
 
                 <!-- GitHub Contributions Heatmap -->
                 <div class="heatmap-section" id="heatmapSection">
@@ -941,7 +941,7 @@
                     </div>
                 </div>
 
-                <!-- GitHub Section — big cute link to GitHub profile -->
+                <!-- GitHub Section - big cute link to GitHub profile -->
                 <div class="github-section">
                     <a class="github-cta" href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer" aria-label="See more on GitHub">
                         <span class="github-cta-tape" aria-hidden="true"></span>
@@ -988,7 +988,7 @@
                     </svg>
                 </div>
 
-                <!-- Zipper overlay — drawn left-to-right on click, then the
+                <!-- Zipper overlay - drawn left-to-right on click, then the
                      bag flap folds open and the skill blobs rise out. JS
                      positions this absolutely over the bag's top opening
                      after the image has rendered (see positionZipper). -->
@@ -1005,7 +1005,7 @@
                          Same idea for bot offset by 4. -->
                     <path id="zipperTrackTop" class="zipper-track" d="M 0 42 Q 100 -74 200 42"/>
                     <path id="zipperTrackBot" class="zipper-track" d="M 0 46 Q 100 -70 200 46"/>
-                    <!-- Teeth — origin (0, 0). JS sets transform on each so
+                    <!-- Teeth - origin (0, 0). JS sets transform on each so
                          they sit on the curves at evenly-spaced parametric
                          points, alternating above top track / below bot. -->
                     <g id="zipperTeeth">
@@ -1018,7 +1018,7 @@
                         <rect class="zipper-tooth" data-i="6" x="0" y="0" width="4" height="6"/>
                         <rect class="zipper-tooth" data-i="7" x="0" y="0" width="4" height="6"/>
                     </g>
-                    <!-- D-ring pull tab — translates along the top curve via
+                    <!-- D-ring pull tab - translates along the top curve via
                          getPointAtLength as the zip draws. -->
                     <g id="zipperPull">
                         <path d="M -2 6 L 0 6 L 0 14 L -2 14 A 4 4 0 0 1 -2 6 Z"
@@ -1028,35 +1028,35 @@
                     </g>
                 </svg>
 
-                <!-- Languages — TOP-LEFT quadrant -->
+                <!-- Languages - TOP-LEFT quadrant -->
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -28vw; --y: -22vh; --r: -3deg; --delay: 0;">Python</div>
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -18vw; --y: -23vh; --r: 2deg; --delay: 1;">Java</div>
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -8vw;  --y: -22vh; --r: 3deg; --delay: 2;">Rust</div>
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -27vw; --y: -13vh; --r: 1deg; --delay: 3;">TypeScript</div>
                 <div class="skill-blob blob-lang" data-cat="lang" style="--x: -13vw; --y: -14vh; --r: -2deg; --delay: 4;">C/C++</div>
 
-                <!-- Frameworks & Libraries — TOP-RIGHT quadrant -->
+                <!-- Frameworks & Libraries - TOP-RIGHT quadrant -->
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 8vw;  --y: -22vh; --r: -2deg; --delay: 5;">React</div>
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 18vw; --y: -23vh; --r: 1deg; --delay: 6;">Next.js</div>
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 28vw; --y: -22vh; --r: -3deg; --delay: 7;">Node.js</div>
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 13vw; --y: -13vh; --r: 2deg; --delay: 8;">FastAPI</div>
                 <div class="skill-blob blob-frame" data-cat="frame" style="--x: 26vw; --y: -13vh; --r: -1deg; --delay: 9;">PyTorch</div>
 
-                <!-- Tools & Platforms — BOTTOM-LEFT quadrant -->
+                <!-- Tools & Platforms - BOTTOM-LEFT quadrant -->
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -28vw; --y: 8vh;  --r: 2deg; --delay: 10;">Git</div>
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -16vw; --y: 8vh;  --r: -2deg; --delay: 11;">Docker</div>
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -25vw; --y: 16vh; --r: 3deg; --delay: 12;">PostgreSQL</div>
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -10vw; --y: 16vh; --r: -1deg; --delay: 13;">AWS</div>
                 <div class="skill-blob blob-tools" data-cat="tools" style="--x: -22vw; --y: 23vh; --r: 2deg; --delay: 14;">GCP</div>
 
-                <!-- Technical Proficiencies — BOTTOM-RIGHT quadrant -->
+                <!-- Technical Proficiencies - BOTTOM-RIGHT quadrant -->
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 9vw;  --y: 8vh;  --r: -2deg; --delay: 15;">Native iOS Dev</div>
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 25vw; --y: 8vh;  --r: 1deg; --delay: 16;">AI Agent Dev</div>
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 14vw; --y: 16vh; --r: -3deg; --delay: 17;">REST APIs</div>
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 28vw; --y: 16vh; --r: 2deg; --delay: 18;">Agile/Scrum</div>
                 <div class="skill-blob blob-prof" data-cat="prof" style="--x: 20vw; --y: 23vh; --r: -1deg; --delay: 19;">Prompt Engineering</div>
 
-                <!-- Category labels — one per quadrant, beyond the cluster -->
+                <!-- Category labels - one per quadrant, beyond the cluster -->
                 <div class="cat-label cat-label-lang"  style="--x: -22vw; --y: -29vh;">languages</div>
                 <div class="cat-label cat-label-frame" style="--x: 22vw;  --y: -29vh;">frameworks &amp; libraries</div>
                 <div class="cat-label cat-label-tools" style="--x: -22vw; --y: 29vh;">tools &amp; platforms</div>
@@ -1069,16 +1069,16 @@
 
             <!-- Side-pocket aside: signals the bag isn't the whole list without
                  stuffing more blobs into the quadrants. Deliberately not a link
-                 — the résumé isn't hosted on the site, so an arrow or underline
+                 - the résumé isn't hosted on the site, so an arrow or underline
                  would promise something clickable that isn't there.
                  The bloom reuses #hbBloom from the projects sprite. -->
             <p class="skills-more">
                 <svg class="skills-more-bloom" viewBox="-8 -8 16 16" aria-hidden="true" focusable="false"><use href="#hbBloom"/></svg>
-                psst — there's more in the side pocket: the full list lives on my résumé.
+                psst, there's more in the side pocket! The full list lives on my résumé.
             </p>
         </section>
 
-        <!-- Recognition Section — editorial reel of awards -->
+        <!-- Recognition Section - editorial reel of awards -->
         <section class="recognition" id="recognition" aria-label="Recognition">
             <div class="recog-paper" aria-hidden="true"></div>
 
@@ -1114,7 +1114,7 @@
                 <li class="award-row" data-idx="2">
                     <span class="award-num">03</span>
                     <div class="award-body">
-                        <h3 class="award-title">Congressional App Challenge — 1st Place</h3>
+                        <h3 class="award-title">Congressional App Challenge, 1st Place</h3>
                         <p class="award-meta"><span class="award-org">U.S. House of Representatives</span><span class="award-sep">·</span><span class="award-year">2024</span></p>
                         <p class="award-detail">Presented at House of Code in Washington D.C.</p>
                     </div>
@@ -1123,7 +1123,7 @@
                 <li class="award-row" data-idx="3">
                     <span class="award-num">04</span>
                     <div class="award-body">
-                        <h3 class="award-title">Google Developers Group — Chapter President</h3>
+                        <h3 class="award-title">Google Developers Group, Chapter President</h3>
                         <p class="award-meta"><span class="award-org">WashU</span><span class="award-sep">·</span><span class="award-year">2026</span></p>
                         <p class="award-detail">Led DevFest WashU 2026: 100+ teams and $5k+ in sponsorships raised.</p>
                     </div>
@@ -1186,10 +1186,10 @@
         </section>
     </main>
 
-    <!-- Footer — conversation starters in a single, low-key line -->
+    <!-- Footer - conversation starters in a single, low-key line -->
     <footer class="footer">
         <p class="footer-line">
-            <span class="footer-lead">Ask me about —</span>
+            <span class="footer-lead">Ask me about:</span>
             <span class="footer-tag">volleyball</span>·<span class="footer-tag">baking</span>·<span class="footer-tag">pickleball</span>·<span class="footer-tag">violin</span>·<span class="footer-tag">matcha runs</span>·<span class="footer-tag">hiking</span>·<span class="footer-tag">Mandarin sitcoms</span>·<span class="footer-tag">my YouTube cooking channel</span>
         </p>
         <p class="footer-credit">© 2026 Grace Fu</p>

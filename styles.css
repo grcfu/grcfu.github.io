@@ -5,7 +5,7 @@
 
 /* CSS Variables */
 :root {
-    /* Colors — Cream / Blush / Espresso */
+    /* Colors - Cream / Blush / Espresso */
     --bg-primary: #EEEBE7;
     --bg-secondary: #E5E1DC;
     --bg-dark: #442F2A;
@@ -21,7 +21,7 @@
 
     /* Typography
        --font-script and --font-handwritten previously pointed at Dancing
-       Script and Caveat. Both were replaced with DM Sans for readability —
+       Script and Caveat. Both were replaced with DM Sans for readability -
        cursive scripts read fine at large display sizes but get squinty at
        the smaller sizes we use for subtitles, year tags, hints, etc. The
        prior italic feel is preserved by using `font-style: italic` in the
@@ -31,7 +31,7 @@
     --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-handwritten: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    /* Spacing — slightly tighter than before to compensate for the larger
+    /* Spacing - slightly tighter than before to compensate for the larger
        base font size (see html font-size below) so vertical rhythm stays
        balanced rather than ballooning. */
     --section-padding: clamp(3.25rem, 8vw, 6.5rem);
@@ -59,7 +59,7 @@
 
 html {
     scroll-behavior: smooth;
-    /* Bumped from the 16px browser default — every rem-based size in the
+    /* Bumped from the 16px browser default - every rem-based size in the
        stylesheet (clamp lower bounds, paddings, etc.) scales by the same
        ~9% so the whole site reads slightly bigger without per-element edits. */
     font-size: 17.5px;
@@ -248,7 +248,7 @@ body::after {
     width: 100%;
 }
 
-/* Hero banner image — main hero element, full width, cinematic entrance */
+/* Hero banner image - main hero element, full width, cinematic entrance */
 .hero-banner {
     display: block;
     width: 100%;
@@ -267,7 +267,7 @@ body::after {
 }
 
 
-/* Sound Toggle — pinned bottom-left, mirroring the back-to-top button.
+/* Sound Toggle - pinned bottom-left, mirroring the back-to-top button.
    Red speaker-with-x when off, green speaker-with-waves when playing. */
 .sound-widget {
     --sound-off: #B5524A;
@@ -325,7 +325,7 @@ body::after {
 .sound-btn.is-playing .sound-icon-on { display: inline; }
 .sound-btn.is-playing .sound-icon-off { display: none; }
 
-/* Running Ticker Bar — clamp lower bounds dropped so the bar actually
+/* Running Ticker Bar - clamp lower bounds dropped so the bar actually
    shrinks on phones. Border thickness and letter-spacing also scale
    with viewport so the bar reads as "little" instead of chunky. */
 .hero-ticker {
@@ -362,7 +362,7 @@ body::after {
     }
 }
 
-/* Scroll hint — top right of hero */
+/* Scroll hint - top right of hero */
 .scroll-hint {
     position: absolute;
     top: clamp(1rem, 2.5vw, 2rem);
@@ -413,12 +413,12 @@ section {
 }
 
 /* ============================================
-   ABOUT SECTION — TIGHT, RECRUITER-FRIENDLY
+   ABOUT SECTION - TIGHT, RECRUITER-FRIENDLY
    ============================================ */
 .about {
     position: relative;
     background-color: var(--bg-primary);
-    /* about-bg.jpg has subtle stripes — layered cream overlay washes most
+    /* about-bg.jpg has subtle stripes - layered cream overlay washes most
        of it out so the stripes read as a faint texture, not a pattern. */
     background-image:
         linear-gradient(rgba(238, 235, 231, 0.65), rgba(238, 235, 231, 0.65)),
@@ -510,7 +510,7 @@ section {
    transforms across two elements avoids fighting between entrance and spin. */
 .about-flower {
     position: absolute;
-    /* Big on large screens — caps around 360px on the biggest viewports */
+    /* Big on large screens - caps around 360px on the biggest viewports */
     width: clamp(80px, 19vw, 360px);
     height: clamp(80px, 19vw, 360px);
     pointer-events: none;
@@ -541,7 +541,7 @@ section {
 .about-flower-r2 { top: 38%; right: 1.5%; }
 .about-flower-r3 { top: 72%; right: 1.5%; }
 
-/* Phones — too cramped on the sides; hide flowers entirely */
+/* Phones - too cramped on the sides; hide flowers entirely */
 @media (max-width: 480px) {
     .about-flower { display: none; }
 }
@@ -662,7 +662,7 @@ section {
     color: var(--card-accent);
 }
 
-/* Scroll-in fade — same .about-fade hook as the existing observer */
+/* Scroll-in fade - same .about-fade hook as the existing observer */
 .about-fade {
     opacity: 0;
     transform: translateY(14px) rotate(var(--rot, 0deg));
@@ -675,7 +675,7 @@ section {
     transform: translateY(0) rotate(var(--rot, 0deg));
 }
 
-/* Stagger entrance — greeting first, then identity, tagline, then cards */
+/* Stagger entrance - greeting first, then identity, tagline, then cards */
 .about-greeting.visible { transition-delay: 0s; }
 .about-id.visible       { transition-delay: 0.15s; }
 .about-tagline.visible  { transition-delay: 0.3s; }
@@ -683,7 +683,7 @@ section {
 .about-card-sage.visible  { transition-delay: 0.6s; }
 .about-card-cream.visible { transition-delay: 0.7s; }
 
-/* Continuous gentle bob — kicks in after the entrance stagger has finished
+/* Continuous gentle bob - kicks in after the entrance stagger has finished
    so the cards feel alive without competing with the scroll-in animation.
    Different durations + directions per card so they never sync. */
 .about-card.visible {
@@ -698,7 +698,7 @@ section {
     to   { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
 }
 
-/* Hover — lift up, scale slightly, deeper shadow. Animation pauses so the
+/* Hover - lift up, scale slightly, deeper shadow. Animation pauses so the
    bob doesn't fight the lift. */
 .about-card:hover {
     animation-play-state: paused;
@@ -720,7 +720,7 @@ section {
     100% { transform: translateY(0) rotate(0deg); }
 }
 
-/* Mobile — stack cards, drop heavy rotations */
+/* Mobile - stack cards, drop heavy rotations */
 @media (max-width: 768px) {
     .about-cards {
         flex-direction: column;
@@ -736,7 +736,7 @@ section {
     .about-tagline br { display: none; }
 }
 
-/* Tiny screens — tighter padding + slightly smaller hero text */
+/* Tiny screens - tighter padding + slightly smaller hero text */
 @media (max-width: 480px) {
     .about {
         padding: 2.5rem 1rem;
@@ -760,13 +760,13 @@ section {
 }
 
 /* ============================================
-   EXPERIENCE — BOTANICAL VINE TIMELINE
+   EXPERIENCE - BOTANICAL VINE TIMELINE
    ============================================ */
 .vine-section {
     position: relative;
     background-color: var(--bg-dark);
     color: var(--text-light);
-    /* Tighter than 200vh — staggered cards pack into roughly half the
+    /* Tighter than 200vh - staggered cards pack into roughly half the
        previous vertical footprint, so the section can be much shorter.
        Bumped for the 7th card (idx 6) so the last flower/card has room
        to bloom above the section's bottom edge. */
@@ -849,7 +849,7 @@ section {
     opacity: 0.9;
 }
 
-/* Flowers — each its own SVG, undistorted, centered on its anchor */
+/* Flowers - each its own SVG, undistorted, centered on its anchor */
 .vine-flower {
     position: absolute;
     width: clamp(52px, 5vw, 86px);
@@ -861,7 +861,7 @@ section {
 }
 
 /* Flower positions are now set in JS (positionFlowers) by reading the
-   actual rendered branch endpoints — preserveAspectRatio="meet" can shift
+   actual rendered branch endpoints - preserveAspectRatio="meet" can shift
    things based on viewport aspect, so hardcoded percentages would drift. */
 
 /* The flower-content group is the container the sway animation rotates.
@@ -872,7 +872,7 @@ section {
     transform-origin: center;
 }
 
-/* Petal bloom — opacity-only so it works regardless of how the browser
+/* Petal bloom - opacity-only so it works regardless of how the browser
    handles transform-box on nested SVG groups. Stagger comes from the
    transition-delay rules below. */
 .petal {
@@ -884,7 +884,7 @@ section {
     opacity: 1;
 }
 
-/* Per-petal stagger — petals open one at a time, 60ms apart */
+/* Per-petal stagger - petals open one at a time, 60ms apart */
 .vine-flower.is-bloomed .petal[data-p="0"]  { transition-delay: 0ms; }
 .vine-flower.is-bloomed .petal[data-p="1"]  { transition-delay: 60ms; }
 .vine-flower.is-bloomed .petal[data-p="2"]  { transition-delay: 120ms; }
@@ -900,7 +900,7 @@ section {
 .vine-flower.is-bloomed .petal[data-p="12"] { transition-delay: 720ms; }
 
 /* Continuous gentle sway after blooming. Different durations per flower
-   so they never sway in sync. transform only — no layout reflow. */
+   so they never sway in sync. transform only - no layout reflow. */
 .vine-flower.is-bloomed .flower-content {
     animation: flower-sway 3.4s ease-in-out infinite alternate;
     transform-origin: center;
@@ -917,14 +917,14 @@ section {
    `transform=` attribute (it doesn't compose). Each flower-content has
    `transform="translate(35 35)"` to center its petals at viewBox (35, 35).
    The keyframes therefore have to re-include that translate, otherwise the
-   sway wipes the centering and petals render around viewBox (0, 0) — outside
+   sway wipes the centering and petals render around viewBox (0, 0) - outside
    the visible viewBox, leaving only the lower-right quadrant visible. */
 @keyframes flower-sway {
     from { transform: translate(35px, 35px) rotate(-1deg); }
     to   { transform: translate(35px, 35px) rotate(1deg); }
 }
 
-/* Hover — brighten + sway slightly more actively */
+/* Hover - brighten + sway slightly more actively */
 .vine-flower {
     pointer-events: auto;
     transition: filter 0.25s ease;
@@ -933,15 +933,15 @@ section {
     filter: brightness(1.15);
 }
 
-/* Cards — pinned at irregular vertical positions and slight rotations */
+/* Cards - pinned at irregular vertical positions and slight rotations */
 .vine-card {
     position: absolute;
     z-index: 4;
-    /* Narrower than before so two staggered columns fit on 1024–1280
+    /* Narrower than before so two staggered columns fit on 1024-1280
        screens without overlapping each other. */
     width: clamp(330px, 32vw, 540px);
     padding: clamp(1.1rem, 1.5vw, 1.6rem) clamp(1.3rem, 1.7vw, 1.9rem);
-    /* Slightly tinted + backdrop blur — branches that pass behind a card
+    /* Slightly tinted + backdrop blur - branches that pass behind a card
        (the long ones for cards 1/3/5 cross over the near-column cards on
        big screens) get softly diffused instead of cutting through the card. */
     background-color: rgba(255, 255, 255, 0.10);
@@ -1041,7 +1041,7 @@ section {
     opacity: 0.85;
 }
 
-/* Right-side vine — hidden by default. Only appears on really big
+/* Right-side vine - hidden by default. Only appears on really big
    screens, where far-column cards (1, 3, 5) attach to it instead of
    the left vine, so the long left-vine branches don't have to cross
    over the near-column cards above them. */
@@ -1066,8 +1066,8 @@ section {
        cards extend rightward from their flowers, but here near and far
        cards extend toward each other (near rightward from x≈22%, far
        leftward from x≈78%). With the original 32vw card width that
-       leaves no room — the columns overlap by 100–200px at typical
-       1400–1900px viewports. Slimming to ~24vw keeps a comfortable
+       leaves no room - the columns overlap by 100-200px at typical
+       1400-1900px viewports. Slimming to ~24vw keeps a comfortable
        gap between columns; the 540px cap matches the original max so
        cards grow back to full width once the viewport (>1750px or so)
        has room for it again. */
@@ -1090,7 +1090,7 @@ section {
     }
 }
 
-/* Narrow — hide the vine, stack cards in a single column.
+/* Narrow - hide the vine, stack cards in a single column.
    Breakpoint pushed up to 1000px because below that the staggered
    layout's two columns overlap horizontally (left card's right edge
    reaches into the right column's flower position when the card's
@@ -1170,7 +1170,7 @@ section {
     background-color: var(--bg-primary);
 }
 
-/* Screen-reader-only text — used to give the repeated "code ↗" links
+/* Screen-reader-only text - used to give the repeated "code ↗" links
    distinct accessible names without repeating the project name visually. */
 .sr-only {
     position: absolute;
@@ -1188,7 +1188,7 @@ section {
     white-space: nowrap;
 }
 
-/* The botanical sprite is geometry only — never rendered directly. */
+/* The botanical sprite is geometry only - never rendered directly. */
 .hb-defs {
     position: absolute;
     width: 0;
@@ -1278,7 +1278,7 @@ section {
 .project-card[data-tags~="mobile"]  { --sprig: #C9A9BC; }
 .project-card[data-tags~="web"]     { --sprig: #A8B89A; }
 
-/* Hand-placed tilt — small enough to keep the grid tidy. */
+/* Hand-placed tilt - small enough to keep the grid tidy. */
 .project-card:nth-child(3n + 1) { --rot: -0.7deg; }
 .project-card:nth-child(3n + 2) { --rot: 0.5deg; }
 .project-card:nth-child(3n + 3) { --rot: -0.35deg; }
@@ -1323,7 +1323,7 @@ section {
     pointer-events: none;
 }
 
-/* Corner sprigs — the floral frame. One sprig symbol arcs along its own
+/* Corner sprigs - the floral frame. One sprig symbol arcs along its own
    ↘ diagonal, so rotating it 0/90/180/270° walks the same geometry around
    all four corners. Sizes are deliberately unequal so the frame reads
    hand-arranged rather than stencilled, and each sprig is allowed to break
@@ -1395,7 +1395,7 @@ section {
     color: var(--text-muted);
 }
 
-/* Category stamp — dashed like the old postmark, now in the header flow. */
+/* Category stamp - dashed like the old postmark, now in the header flow. */
 .project-stamp {
     font-family: var(--font-body);
     font-size: 0.58rem;
@@ -1506,7 +1506,7 @@ section {
     border-bottom-color: var(--accent-pink-dark);
 }
 
-/* Collaboration credit / award line — small, italic, never a link. */
+/* Collaboration credit / award line - small, italic, never a link. */
 .plate-credit,
 .plate-award {
     flex: 1 0 100%;
@@ -1526,12 +1526,12 @@ section {
 }
 
 /* ============================================
-   PROJECTS — FEATURED SPREADS
+   PROJECTS - FEATURED SPREADS
 
    The three flagship projects get a whole plate each: the picture tipped in
    on one side, the write-up on the other. Sides alternate down the stack so
    it reads like a scrapbook spread rather than a repeated template. Every
-   project stays visible — no carousel, nothing hidden behind arrows.
+   project stays visible - no carousel, nothing hidden behind arrows.
    ============================================ */
 .spreads {
     display: grid;
@@ -1700,7 +1700,7 @@ section {
 
 /* ---- Terminal (Redline) ----
    Redline has no screen to photograph, so it gets a terminal session tipped
-   in instead — espresso window, cream type, the site's pink and sage as the
+   in instead - espresso window, cream type, the site's pink and sage as the
    syntax colours. */
 .terminal {
     --tilt: 1.1deg;
@@ -1795,7 +1795,7 @@ section {
 }
 
 /* ============================================
-   PROJECTS — THE PLATE GRID
+   PROJECTS - THE PLATE GRID
 
    Everything past the spreads, all visible at once. Laid out in columns
    rather than rows so plates with a thumbnail and plates without one pack
@@ -1836,7 +1836,7 @@ section {
     margin-bottom: 4.5rem;
 }
 
-/* inline-flex rather than break-inside: avoid — Chrome stops balancing the
+/* inline-flex rather than break-inside: avoid - Chrome stops balancing the
    columns when every child asks not to break, and piles them all into the
    first one. An atomic inline box can't fragment anyway. */
 .plate-grid .project-card {
@@ -1930,7 +1930,7 @@ section {
     grid-template-rows: repeat(7, clamp(11px, 1.5vw, 20px));
     gap: clamp(3px, 0.4vw, 6px);
     width: 100%;
-    /* Cap how wide the whole strip can spread on big screens — without this,
+    /* Cap how wide the whole strip can spread on big screens - without this,
        space-between would scatter squares across the full container. */
     max-width: 920px;
     margin: 0 auto;
@@ -1972,7 +1972,7 @@ section {
     text-decoration: underline;
 }
 
-/* Heatmap color scale — tight pink gradient + warm espresso peak */
+/* Heatmap color scale - tight pink gradient + warm espresso peak */
 .heatmap-level-0 { background-color: #E8CCD5; }
 .heatmap-level-1 { background-color: #DEAEBC; }
 .heatmap-level-2 { background-color: #D39CAE; }
@@ -1996,7 +1996,7 @@ section {
     display: inline-block;
 }
 
-/* Cell hover tooltip — high z-index + cell lifted to its own stacking
+/* Cell hover tooltip - high z-index + cell lifted to its own stacking
    context so the tooltip floats above neighboring cells, the legend,
    the GitHub CTA, and anything else nearby. */
 .heatmap-cell:hover {
@@ -2058,7 +2058,7 @@ section {
 }
 
 /* ============================================
-   GITHUB SECTION — BIG CUTE LINK
+   GITHUB SECTION - BIG CUTE LINK
    ============================================ */
 .github-section {
     margin-top: clamp(3rem, 5vw, 4.5rem);
@@ -2067,7 +2067,7 @@ section {
     justify-content: center;
 }
 
-/* Big pinned card linking to GitHub — washi tape, slight rotation, lift on
+/* Big pinned card linking to GitHub - washi tape, slight rotation, lift on
    hover, arrow nudges right. Reads as a charming single CTA instead of a
    wall of repo cards. */
 .github-cta {
@@ -2158,7 +2158,7 @@ section {
 }
 
 /* ============================================
-   SKILLS SECTION — WHAT'S IN MY BAG
+   SKILLS SECTION - WHAT'S IN MY BAG
    ============================================ */
 .skills {
     position: relative;
@@ -2197,7 +2197,7 @@ section {
 }
 
 /* Blobs are corner-anchored and pulled away from the center where the
-   bag image sits — the bag uses mix-blend-mode: multiply, so any
+   bag image sits - the bag uses mix-blend-mode: multiply, so any
    non-uniform color behind it bleeds through its white background. */
 .skills-paint-1 {
     top: -4%;
@@ -2286,7 +2286,7 @@ section {
     color: var(--bg-dark);
 }
 
-/* Bag Canvas — sized to comfortably fit the blob explosion. Blobs use
+/* Bag Canvas - sized to comfortably fit the blob explosion. Blobs use
    vh-based offsets, so the canvas just needs to be tall enough to hold
    the spread without bleeding into the title or the bottom squiggle. */
 .bag-canvas {
@@ -2314,7 +2314,7 @@ section {
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Resting state — bag wobbles side to side like something wants out */
+/* Resting state - bag wobbles side to side like something wants out */
 .bag-img.is-wobbling {
     animation: bag-wobble 2.5s ease-in-out infinite alternate;
 }
@@ -2324,7 +2324,7 @@ section {
     100% { transform: translate(calc(-50% + 3px), -50%) rotate(2deg); }
 }
 
-/* Hover state — rapid urgent shake, overrides wobble */
+/* Hover state - rapid urgent shake, overrides wobble */
 .bag-img.is-shaking {
     animation: bag-shake 0.08s ease-in-out infinite alternate;
 }
@@ -2334,7 +2334,7 @@ section {
     100% { transform: translate(calc(-50% + 5px), -50%); }
 }
 
-/* Opened — bag shrinks smoothly first (via the .bag-img transition above),
+/* Opened - bag shrinks smoothly first (via the .bag-img transition above),
    then resumes wobbling at the smaller scale so the user can see it's still
    tappable. The 0.55s animation-delay matches the shrink transition so the
    wobble starts only after the bag has finished shrinking. */
@@ -2352,7 +2352,7 @@ section {
    arrow pointing back toward the zipper. CSS vars feed the keyframes so
    the bob animation and any media-query reposition share one source of
    truth. */
-/* Centered hint — text on top, curling arrow below pointing down at the
+/* Centered hint - text on top, curling arrow below pointing down at the
    zipper. CSS vars feed the keyframes so the bob and any media-query
    reposition share one source of truth. */
 .bag-hint {
@@ -2451,12 +2451,12 @@ section {
     }
     60% {
         opacity: 1;
-        /* Past target by ~10% — overshoot */
+        /* Past target by ~10% - overshoot */
         transform: translate(calc(-50% + var(--x) * 1.1), calc(-50% + var(--y) * 1.1)) scale(1.12) rotate(var(--r));
     }
     80% {
         opacity: 1;
-        /* Back past target the other way — slight undershoot */
+        /* Back past target the other way - slight undershoot */
         transform: translate(calc(-50% + var(--x) * 0.95), calc(-50% + var(--y) * 0.95)) scale(0.95) rotate(var(--r));
     }
     100% {
@@ -2465,7 +2465,7 @@ section {
     }
 }
 
-/* Category colors — four shades of brown, one per quadrant.
+/* Category colors - four shades of brown, one per quadrant.
    top-left: mocha · top-right: espresso · bottom-left: tan · bottom-right: caramel */
 .blob-lang {
     background-color: #6D5D53;
@@ -2499,7 +2499,7 @@ section {
     box-shadow: 3px 3px 0 var(--bg-dark);
 }
 
-/* Inner wrapper carries the wiggle transform — isolated from the
+/* Inner wrapper carries the wiggle transform - isolated from the
    positioning transform on .skill-blob so they don't conflict. */
 .blob-inner {
     display: inline-block;
@@ -2577,7 +2577,7 @@ section {
     to { opacity: 1; }
 }
 
-/* Side-pocket aside — a quiet note that the bag isn't the exhaustive list.
+/* Side-pocket aside - a quiet note that the bag isn't the exhaustive list.
    Kept as flowing text (not flex) so it wraps to two lines gracefully on
    narrow screens with the bloom staying on the first line. */
 .skills-more {
@@ -2642,7 +2642,7 @@ section {
     }
 }
 
-/* Hide the smaller paint blobs on tiny screens to keep things clean —
+/* Hide the smaller paint blobs on tiny screens to keep things clean -
    matches the same pattern used for hero paint blobs. */
 @media (max-width: 599px) {
     .skills-paint-3,
@@ -2659,23 +2659,23 @@ section {
 
 
 /* ============================================
-   RECOGNITION — EDITORIAL REEL
+   RECOGNITION - EDITORIAL REEL
    ============================================
    Magazine-spread treatment: numbered list, italic Playfair titles,
    Caveat numbers, dashed espresso dividers, blush hover bar. Replaces
-   the corkboard polaroids — quieter, more readable, sits cleanly with
+   the corkboard polaroids - quieter, more readable, sits cleanly with
    the typographic hierarchy used in About/Experience. */
 .recognition {
     position: relative;
     background-color: var(--bg-primary);
-    /* Equal breathing room above and below the flower bouquet — the
+    /* Equal breathing room above and below the flower bouquet - the
      * bouquet's margin-top + this padding-bottom should match. */
     padding: clamp(4rem, 9vw, 7rem) 0 clamp(1.5rem, 3vw, 3rem);
     overflow: hidden;
     isolation: isolate;
 }
 
-/* Subtle paper grain — same noise pattern used elsewhere on cream
+/* Subtle paper grain - same noise pattern used elsewhere on cream
    sections so the texture reads as continuous across the page. */
 .recog-paper {
     position: absolute;
@@ -2687,7 +2687,7 @@ section {
     background-size: 256px 256px;
 }
 
-/* Three flowers clustered along the bottom — visual separator between
+/* Three flowers clustered along the bottom - visual separator between
    recognition and contact, in the same hand-picked bouquet language
    used elsewhere on the site. The wrapper is a centered flex row so
    flower sizing scales fluidly with the viewport without manual
@@ -2718,7 +2718,7 @@ section {
     opacity: 0.9;
 }
 
-/* Aggressive negative margin → flowers overlap by ~30–40% so the row
+/* Aggressive negative margin → flowers overlap by ~30-40% so the row
    reads as one tight bouquet rather than spaced-out icons. (CSS `gap`
    doesn't accept negative values, so we use margin.) */
 .recog-flower + .recog-flower {
@@ -2734,7 +2734,7 @@ section {
     filter: drop-shadow(2px 3px 4px rgba(80, 50, 30, 0.10));
 }
 
-/* f2.png (cherry blossom) renders smaller relative to its canvas — same
+/* f2.png (cherry blossom) renders smaller relative to its canvas - same
    trick as the about section keeps it visually balanced. */
 .recog-flower-img[src="f2.png"] {
     --flower-scale: 1.45;
@@ -2816,7 +2816,7 @@ section {
     transform: translateY(0);
 }
 
-/* Blush left bar appears on hover — subtle accent that nods to the rest
+/* Blush left bar appears on hover - subtle accent that nods to the rest
    of the site's pink without making the row feel like a tile. */
 .award-row::before {
     content: '';
@@ -2916,7 +2916,7 @@ section {
     opacity: 0.85;
 }
 
-/* ---- Big screens — two columns to save vertical space ---- */
+/* ---- Big screens - two columns to save vertical space ---- */
 @media (min-width: 1100px) {
     .recog-reel {
         display: grid;
@@ -2927,7 +2927,7 @@ section {
         padding: 0 clamp(1rem, 4vw, 3rem);
     }
     /* The second item sits in the first row's right column, so it needs
-       its own top divider — :first-child only catches item 1. */
+       its own top divider - :first-child only catches item 1. */
     .award-row:nth-child(2) {
         border-top: 1px dashed rgba(62, 39, 35, 0.22);
     }
@@ -2972,7 +2972,7 @@ section {
 }
 
 /* ============================================
-   CONTACT SECTION — "and that's a wrap."
+   CONTACT SECTION - "and that's a wrap."
    ============================================ */
 .contact {
     position: relative;
@@ -3124,7 +3124,7 @@ section {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-/* Projects — under 900px a spread can't hold two columns without starving
+/* Projects - under 900px a spread can't hold two columns without starving
    one of them, so the picture stacks above the write-up on every spread
    (the alternation only makes sense side by side). */
 @media (max-width: 900px) {
@@ -3248,7 +3248,7 @@ section {
         justify-content: center;
     }
 
-    /* Contact — phone layout. The desktop design uses the envelope as
+    /* Contact - phone layout. The desktop design uses the envelope as
        a `cover` background with absolutely-positioned dramatic text in
        opposite corners and the info chips floating top-left. On phones
        all three pieces collide. Restack as a clean vertical flow:
@@ -3407,10 +3407,10 @@ section {
 }
 
 /* ============================================
-   HERO — PASTEL AESTHETIC
+   HERO - PASTEL AESTHETIC
    ============================================ */
 
-/* Pastel paint stroke blobs — sit behind the banner image */
+/* Pastel paint stroke blobs - sit behind the banner image */
 .hero-paint {
     position: absolute;
     z-index: 0;
@@ -3560,10 +3560,10 @@ section {
 }
 
 /* ============================================
-   HERO — RESPONSIVE BREAKPOINTS
+   HERO - RESPONSIVE BREAKPOINTS
    ============================================ */
 
-/* Small desktop / large tablet: 768px–1023px */
+/* Small desktop / large tablet: 768px-1023px */
 @media (max-width: 1023px) and (min-width: 768px) {
     .collage-tl,
     .collage-tr,
@@ -3577,7 +3577,7 @@ section {
     }
 }
 
-/* Tablet portrait: 600px–767px */
+/* Tablet portrait: 600px-767px */
 @media (max-width: 767px) and (min-width: 600px) {
     .collage-bl,
     .collage-br { display: none; }
@@ -3623,7 +3623,7 @@ section {
 }
 
 /* ============================================
-   SKILLS — UNZIP INTERACTION
+   SKILLS - UNZIP INTERACTION
    ============================================
    Replaces the previous instant-fly-out blob animation with an
    orchestrated sequence: zipper draws across bag → bag flap folds
@@ -3631,7 +3631,7 @@ section {
    script.js drives the timing; this stylesheet sets the static
    look + the resting state blobs revert to once they've landed. */
 
-/* Zipper SVG overlay — positioned absolutely over the bag's top
+/* Zipper SVG overlay - positioned absolutely over the bag's top
    opening. JS sets left/top/width/height after the bag image renders
    (positionZipper). overflow:visible so the pull tab can sit a few
    pixels left of the track start before it slides right. */
@@ -3662,7 +3662,7 @@ section {
     transition: opacity 0.12s ease;
 }
 
-/* No CSS transform on #zipperPull — JS uses setAttribute('transform', ...)
+/* No CSS transform on #zipperPull - JS uses setAttribute('transform', ...)
    to translate it along the curved top track via getPointAtLength, and a
    CSS transform rule would override that per the SVG2 cascade. */
 
@@ -3670,7 +3670,7 @@ section {
    from inside the bag rather than behind the zipper. */
 .skill-blob { z-index: 4; }
 
-/* Override the original auto-fly-out keyframe — JS now drives the
+/* Override the original auto-fly-out keyframe - JS now drives the
    stage-A rise + stage-B drift so timing can sync with the unzip.
    This rule is the resting/static state for blobs once they've
    landed; magnetic-hover clears its inline transform back to '' and

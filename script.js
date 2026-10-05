@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // ============================================
-    // HERO — CINEMATIC ENTRANCE
+    // HERO - CINEMATIC ENTRANCE
     // ============================================
     const heroSection = document.getElementById('hero');
     if (heroSection) {
@@ -38,29 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroSound     = heroSection.querySelector('.sound-widget');
         const heroScrollHint = heroSection.querySelector('.scroll-hint');
 
-        // 100ms — paint blobs fade in (1.2s; 100ms head start so the
+        // 100ms - paint blobs fade in (1.2s; 100ms head start so the
         //         atmosphere is already settling when the image appears).
         setTimeout(() => {
             heroPaints.forEach(p => p.classList.add('is-visible'));
         }, 100);
 
-        // 200ms — banner image fades + scales (1.0s, cinematic ease).
+        // 200ms - banner image fades + scales (1.0s, cinematic ease).
         setTimeout(() => {
             if (heroBanner) heroBanner.classList.add('is-visible');
         }, 200);
 
-        // 600ms — sound button fades in (0.4s).
+        // 600ms - sound button fades in (0.4s).
         setTimeout(() => {
             if (heroSound) heroSound.classList.add('is-visible');
         }, 600);
 
-        // 800ms — washi tape & SVG corner decorations fade in (0.6s),
+        // 800ms - washi tape & SVG corner decorations fade in (0.6s),
         //         appearing after the image has mostly settled.
         setTimeout(() => {
             heroCollages.forEach(c => c.classList.add('is-visible'));
         }, 800);
 
-        // 1000ms — scroll hint fades in (0.4s) then continues its bounce.
+        // 1000ms - scroll hint fades in (0.4s) then continues its bounce.
         setTimeout(() => {
             if (heroScrollHint) heroScrollHint.classList.add('is-visible');
         }, 1000);
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', throttledScroll, { passive: true });
 
     // ============================================
-    // PROJECT PLATES — REVEAL
+    // PROJECT PLATES - REVEAL
     // Spreads and grid plates all stack vertically now, so each plate gets
     // its own observer entry and lands as it scrolls into view.
     // ============================================
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // ABOUT SECTION — SVG PATH DRAW + FADE-INS
+    // ABOUT SECTION - SVG PATH DRAW + FADE-INS
     // ============================================
     const aboutSection = document.querySelector('.about');
     if (aboutSection) {
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     // Stagger the entrance via per-element transition-delay
-                    // values defined in CSS — JS just adds the trigger class.
+                    // values defined in CSS - JS just adds the trigger class.
                     fadeEls.forEach(el => el.classList.add('visible'));
                     aboutObserver.unobserve(aboutSection);
                 }
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // SKILLS — BAG CLICK TO OPEN
+    // SKILLS - BAG CLICK TO OPEN
     // ============================================
     const bagImg = document.getElementById('bagImg');
     const bagCanvas = document.querySelector('.bag-canvas');
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allBlobs = bagCanvas.querySelectorAll('.skill-blob');
         const allCatLabels = bagCanvas.querySelectorAll('.cat-label');
 
-        // Zipper elements — may be null if the SVG isn't in DOM (defensive)
+        // Zipper elements - may be null if the SVG isn't in DOM (defensive)
         const zipperSvg     = document.getElementById('zipperSvg');
         const zipperTrackTop = document.getElementById('zipperTrackTop');
         const zipperTrackBot = document.getElementById('zipperTrackBot');
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // stroke-dash math still operates in viewBox units.
         const TRACK_LEN = 200;
 
-        // Sequence timings — open
+        // Sequence timings - open
         const ZIPPER_DRAW_MS    = 750;
         const FOLD_START_MS     = 800;
         const FOLD_MS           = 400;
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const BLOB_RISE_MS      = 280;
         const BLOB_DRIFT_MS     = 380;
         const BLOB_STAGGER_MS   = 75;
-        // Sequence timings — close
+        // Sequence timings - close
         const CLOSE_FOLD_MS     = 380;
         const ZIPPER_REDRAW_MS  = 600;
         const ZIPPER_REDRAW_AT  = 800;
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Position the zipper SVG over the top opening of the bag image.
         // Called on init, on window.load (image dims now final), and on
-        // resize (debounced). Uses BCR relative to the canvas — wobble
+        // resize (debounced). Uses BCR relative to the canvas - wobble
         // class is removed during measurement so the static layout is read.
         function positionZipper() {
             if (!zipperSvg || !bagImg || !bagCanvas) return;
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // hold a dramatic backpack-top arch without clipping.
             const zipperH = zipperW * 0.25;
             // Biased slightly left of center so the right end pulls in more
-            // than the left as the total length shrinks — the bag's opening
+            // than the left as the total length shrinks - the bag's opening
             // on rebag.png sits a touch left of true center anyway.
             const zipperLeft = bagLeft + (bagWidth - zipperW) / 2 - bagWidth * 0.03 - 4;
             // Sit at the very top edge of the bag (where a real zipper opening is),
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (zipperTrackBot) zipperTrackBot.style.strokeDashoffset = botLen * (1 - drawP);
                 if (zipperPull && zipperTrackTop) {
                     // Pull rides the top track. Its content is drawn around
-                    // y=6–14 with the line at y=10; subtract 8 so the track
+                    // y=6-14 with the line at y=10; subtract 8 so the track
                     // passes through the upper portion of the D-ring.
                     const pt = zipperTrackTop.getPointAtLength(topLen * drawP);
                     zipperPull.setAttribute('transform', `translate(${pt.x}, ${pt.y - 8})`);
@@ -511,10 +511,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Phase 1 (0ms): zipper visible
             if (zipperSvg) zipperSvg.style.opacity = '1';
 
-            // Phase 2 (0–750ms): zipper draws left→right
+            // Phase 2 (0-750ms): zipper draws left→right
             animateZipper('open', ZIPPER_DRAW_MS);
 
-            // Phase 3 (800–1200ms): bag flap folds open
+            // Phase 3 (800-1200ms): bag flap folds open
             zipTimeouts.push(setTimeout(foldBagOpen, FOLD_START_MS));
 
             // Defer the cat-label fade-in until 1.5s after the last blob
@@ -530,13 +530,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Phase 4 (1200ms+): blobs rise + drift, staggered
             allBlobs.forEach((blob, idx) => {
                 const startAt = BLOB_RISE_START + idx * BLOB_STAGGER_MS;
-                // Stage A — rise out of the bag opening
+                // Stage A - rise out of the bag opening
                 zipTimeouts.push(setTimeout(() => {
                     blob.style.transition = 'transform ' + BLOB_RISE_MS + 'ms ease-out, opacity ' + BLOB_RISE_MS + 'ms ease-out';
                     blob.style.opacity = '1';
                     blob.style.transform = 'translate(-50%, calc(-50% - 55px)) scale(0.6) rotate(0deg)';
                 }, startAt));
-                // Stage B — drift to the final --x/--y with spring easing
+                // Stage B - drift to the final --x/--y with spring easing
                 zipTimeouts.push(setTimeout(() => {
                     const cs = getComputedStyle(blob);
                     const x = cs.getPropertyValue('--x').trim();
@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Phase 2 (~immediate, 380ms duration): bag flap closes
             foldBagClose();
-            // Restore wobble after the unfold completes — also clear the
+            // Restore wobble after the unfold completes - also clear the
             // inline `animation: none` that suppressed wobble-shrunk during open.
             zipTimeouts.push(setTimeout(() => {
                 bagImg.style.transition = '';
@@ -606,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start bag in resting wobble state
         bagImg.classList.add('is-wobbling');
 
-        // Hover: swap wobble for urgent shake — only while bag is closed
+        // Hover: swap wobble for urgent shake - only while bag is closed
         bagImg.addEventListener('mouseenter', () => {
             if (bagCanvas.classList.contains('opened')) return;
             bagImg.classList.remove('is-wobbling');
@@ -639,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'TypeScript': 'Typed JavaScript for reliable web apps',
             'Java': 'OOP fundamentals and coursework',
             'C/C++': 'Systems + IoT work (Arduino, sensor bridges)',
-            'Rust': 'Fast, safe systems code — Tauri desktop apps',
+            'Rust': 'Fast, safe systems code for Tauri desktop apps',
             // Frameworks & libraries
             'React': 'Building interactive UIs',
             'Next.js': 'Full-stack React with SSR',
@@ -699,10 +699,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Magnetic hover effect — blobs pull toward cursor
+        // Magnetic hover effect - blobs pull toward cursor
         bagCanvas.addEventListener('mousemove', (e) => {
             if (!bagCanvas.classList.contains('opened')) return;
-            // Don't yank blobs around mid-rise — wait until they've landed.
+            // Don't yank blobs around mid-rise - wait until they've landed.
             if (!bagCanvas.classList.contains('blobs-ready')) return;
 
             const canvasRect = bagCanvas.getBoundingClientRect();
@@ -740,7 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Observe the contact section — slide text in/out as user scrolls to/from it
+    // Observe the contact section - slide text in/out as user scrolls to/from it
     const contactSection = document.querySelector('.contact');
     if (contactSection) {
         const cornerTop = contactSection.querySelector('.contact-corner-top');
@@ -760,16 +760,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // EXPERIENCE — BOTANICAL VINE TIMELINE
+    // EXPERIENCE - BOTANICAL VINE TIMELINE
     // ============================================
     const vineSection = document.getElementById('experience');
     if (vineSection && vineSection.classList.contains('vine-section')) {
-        // Each entry's `trigger` is the vine-progress fraction (0–1) at
+        // Each entry's `trigger` is the vine-progress fraction (0-1) at
         // which its flower should bloom and its card should slide in.
         // Order matches data-idx in the HTML.
         const EXPERIENCES = [
             // Triggers track the branch y-positions in the SVG
-            // (viewBox 0–200) so each card blooms as the vine reaches it.
+            // (viewBox 0-200) so each card blooms as the vine reaches it.
             { id: 'wwt',      trigger: 0.06  },
             { id: 'ops',      trigger: 0.19  },
             { id: 'healthxr', trigger: 0.315 },
@@ -785,12 +785,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // attach to far-column cards (data-idx 1, 3, 5).
         const leftBranches  = vineSection.querySelectorAll('.vine-trunk:not(.vine-trunk-right) .vine-branch');
         const rightBranches = vineSection.querySelectorAll('.vine-trunk-right .vine-branch');
-        // Combined list — used by .is-drawn animations + reduced-motion path.
+        // Combined list - used by .is-drawn animations + reduced-motion path.
         const branches = vineSection.querySelectorAll('.vine-branch');
         const flowers  = vineSection.querySelectorAll('.vine-flower');
         const cards    = vineSection.querySelectorAll('.vine-card');
         const sprouts  = vineSection.querySelectorAll('.vine-sprout');
-        // Match the vine-section CSS breakpoint — below this, the staggered
+        // Match the vine-section CSS breakpoint - below this, the staggered
         // two-column layout overlaps and we fall back to a stacked single
         // column with the vine hidden.
         const vineIsMobile = window.matchMedia('(max-width: 1000px)').matches;
@@ -893,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function bloom(idx) {
             if (flowers[idx]) flowers[idx].classList.add('is-bloomed');
             if (cards[idx])   cards[idx].classList.add('is-bloomed');
-            // Mark both left and right branches for this idx as drawn —
+            // Mark both left and right branches for this idx as drawn -
             // CSS hides whichever isn't active for the current breakpoint.
             if (leftBranches[idx]) leftBranches[idx].classList.add('is-drawn');
             const rb = rightBranchFor(idx);
@@ -901,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (vineIsMobile) {
-            // Vine is hidden on mobile — fade cards in as they enter.
+            // Vine is hidden on mobile - fade cards in as they enter.
             const cardObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -916,14 +916,14 @@ document.addEventListener('DOMContentLoaded', () => {
             EXPERIENCES.forEach((_, i) => bloom(i));
             sprouts.forEach(s => s.classList.add('is-shown'));
         } else {
-            // Scroll-driven vine growth — rAF-throttled for smoothness.
+            // Scroll-driven vine growth - rAF-throttled for smoothness.
             let vineTicking = false;
 
             function updateVine() {
                 const rect = vineSection.getBoundingClientRect();
                 const sectionH = rect.height || 1;
                 const viewportH = window.innerHeight || 1;
-                // Map scroll-within-section to 0–1:
+                // Map scroll-within-section to 0-1:
                 //   section top hits viewport top → 0
                 //   section bottom hits viewport bottom → 1
                 const range = Math.max(1, sectionH - viewportH);
@@ -989,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // RECOGNITION — EDITORIAL REEL REVEAL
+    // RECOGNITION - EDITORIAL REEL REVEAL
     // ============================================
     // When the reel scrolls into view, fade each award row in with a
     // small stagger so the list reads top-down rather than slamming in
@@ -1008,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
         recogObserver.observe(recognitionSection);
 
-        // Scroll-driven flower spin for the three bottom flowers — same
+        // Scroll-driven flower spin for the three bottom flowers - same
         // pattern as the About section's --spin var, rAF-throttled.
         const recogFlowerImgs = recognitionSection.querySelectorAll('.recog-flower-img');
         if (recogFlowerImgs.length) {
@@ -1205,7 +1205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heatmapStats) heatmapStats.textContent = '';
         heatmapGrid.innerHTML = `
             <div class="heatmap-loading">
-                Couldn't load activity right now — <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer">visit github.com/grcfu</a> to see my commits!
+                Couldn't load activity right now. <a href="https://github.com/grcfu" target="_blank" rel="noopener noreferrer">visit github.com/grcfu</a> to see my commits!
             </div>
         `;
     }
@@ -1264,6 +1264,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // CONSOLE EASTER EGG
     // ============================================
     console.log('%c Hi there, recruiter!', 'font-size: 20px; font-weight: bold; color: #B8D8E8;');
-    console.log('%cThanks for checking out my portfolio. I built this with vanilla HTML, CSS, and JS — no frameworks needed when you know the fundamentals!', 'font-size: 14px; color: #4A4A5E;');
+    console.log('%cThanks for checking out my portfolio. I built this with vanilla HTML, CSS, and JS. No frameworks needed when you know the fundamentals!', 'font-size: 14px; color: #4A4A5E;');
     console.log('%cWant to see more? Visit https://github.com/grcfu', 'font-size: 12px; color: #7A7A8E;');
 });
