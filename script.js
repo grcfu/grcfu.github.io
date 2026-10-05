@@ -211,21 +211,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ============================================
     // PROJECT PLATES - REVEAL
-    // Spreads and grid plates all stack vertically now, so each plate gets
-    // its own observer entry and lands as it scrolls into view.
+    // Spreads reveal one by one as they scroll in. Rail plates are revealed
+    // together when the rail enters view: plates parked off to the right of
+    // a horizontal scroller never intersect the viewport, so a per-card
+    // observer would leave them stuck at opacity 0.
     // ============================================
-    const projectPlates = document.querySelectorAll('.projects .project-card');
+    const revealOptions = { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 };
 
-    if (projectPlates.length) {
-        const plateReveal = new IntersectionObserver((entries) => {
+    const spreadReveal = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            spreadReveal.unobserve(entry.target);
+        });
+    }, revealOptions);
+
+    document.querySelectorAll('.spreads .project-card').forEach(p => spreadReveal.observe(p));
+
+    const revealRail = document.getElementById('projectsRail');
+    if (revealRail) {
+        const railReveal = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
-                entry.target.classList.add('visible');
-                plateReveal.unobserve(entry.target);
+                revealRail.querySelectorAll('.project-card').forEach(p => p.classList.add('visible'));
+                railReveal.unobserve(entry.target);
             });
-        }, { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
+        }, revealOptions);
 
-        projectPlates.forEach(p => plateReveal.observe(p));
+        railReveal.observe(revealRail);
     }
 
     // ============================================
@@ -1032,6 +1045,136 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
+    // SPECIMEN DRAWER CONTROLS
+    //
+    // The grid plates live in a horizontally scrolling rail. This block owns
+    // the prev/next arrows, drag-to-scroll, the runner line that doubles as a
+    // position readout, and keyboard paging.
+    // ============================================
+    const projectsRail = document.getElementById('projectsRail');
+    const railPrev = document.getElementById('railPrev');
+    const railNext = document.getElementById('railNext');
+    const railFill = document.getElementById('railRunnerFill');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // How far one arrow press travels: a single plate plus the rail's gap.
+    function railStep() {
+        if (!projectsRail) return 0;
+        const plate = projectsRail.querySelector('.project-card:not(.hidden)');
+        if (!plate) return projectsRail.clientWidth;
+        const gap = parseFloat(getComputedStyle(projectsRail).columnGap) || 0;
+        return plate.getBoundingClientRect().width + gap;
+    }
+
+    // Keep the runner fill and the arrow disabled states in sync with
+    // wherever the rail currently sits.
+    function syncRail() {
+        if (!projectsRail) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = projectsRail;
+        const maxScroll = scrollWidth - clientWidth;
+        // Stacked (mobile) or nothing to scroll: no meaningful position.
+        const scrollable = maxScroll > 1;
+
+        if (railFill) {
+            const visible = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
+            railFill.style.width = `${Math.min(visible, 1) * 100}%`;
+            railFill.style.left = scrollWidth > 0
+                ? `${(scrollLeft / scrollWidth) * 100}%`
+                : '0%';
+        }
+
+        if (railPrev) railPrev.disabled = !scrollable || scrollLeft <= 1;
+        if (railNext) railNext.disabled = !scrollable || scrollLeft >= maxScroll - 1;
+    }
+
+    function railScrollBy(amount) {
+        if (!projectsRail) return;
+        projectsRail.scrollBy({
+            left: amount,
+            behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+    }
+
+    if (projectsRail) {
+        if (railPrev) railPrev.addEventListener('click', () => railScrollBy(-railStep()));
+        if (railNext) railNext.addEventListener('click', () => railScrollBy(railStep()));
+
+        let railTicking = false;
+        projectsRail.addEventListener('scroll', () => {
+            if (railTicking) return;
+            railTicking = true;
+            requestAnimationFrame(() => {
+                syncRail();
+                railTicking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', throttle(syncRail, 150));
+        // Re-sync once webfonts land - they change plate widths, and therefore
+        // whether the rail overflows at all.
+        window.addEventListener('load', syncRail);
+
+        // Keyboard paging - only while the rail itself holds focus, so arrow
+        // keys inside a card's links keep their normal behaviour.
+        projectsRail.addEventListener('keydown', (e) => {
+            if (e.target !== projectsRail) return;
+            const step = railStep();
+            if (e.key === 'ArrowRight') { e.preventDefault(); railScrollBy(step); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); railScrollBy(-step); }
+            else if (e.key === 'Home') { e.preventDefault(); projectsRail.scrollTo({ left: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); }
+            else if (e.key === 'End') { e.preventDefault(); projectsRail.scrollTo({ left: projectsRail.scrollWidth, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); }
+        });
+
+        // ---- Drag to scroll (fine pointers only) ----
+        // A drag past the threshold swallows the click that follows, so
+        // dragging across a card never opens its repo link.
+        let dragging = false;
+        let dragStartX = 0;
+        let dragStartScroll = 0;
+        let dragMoved = 0;
+
+        projectsRail.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse' || e.button !== 0) return;
+            if (window.matchMedia('(max-width: 768px)').matches) return;
+            dragging = true;
+            dragMoved = 0;
+            dragStartX = e.clientX;
+            dragStartScroll = projectsRail.scrollLeft;
+            projectsRail.classList.add('is-dragging');
+        });
+
+        projectsRail.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            const dx = e.clientX - dragStartX;
+            dragMoved = Math.max(dragMoved, Math.abs(dx));
+            if (dragMoved > 4) projectsRail.setPointerCapture(e.pointerId);
+            projectsRail.scrollLeft = dragStartScroll - dx;
+        });
+
+        function endDrag(e) {
+            if (!dragging) return;
+            dragging = false;
+            projectsRail.classList.remove('is-dragging');
+            if (projectsRail.hasPointerCapture?.(e.pointerId)) {
+                projectsRail.releasePointerCapture(e.pointerId);
+            }
+            if (dragMoved > 6) {
+                // Eat exactly one click so the drag doesn't follow a link.
+                projectsRail.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                }, { capture: true, once: true });
+            }
+        }
+
+        projectsRail.addEventListener('pointerup', endDrag);
+        projectsRail.addEventListener('pointercancel', endDrag);
+
+        syncRail();
+    }
+
+    // ============================================
     // PROJECT FILTER
     //
     // One filter bar drives both the featured spreads and the plate grid.
@@ -1044,6 +1187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spreads = document.querySelector('.spreads');
     const plateGrid = document.querySelector('.plate-grid');
     const plateGridLabel = document.querySelector('.plate-grid-label');
+    const drawer = document.querySelector('.drawer');
     const projectsEmpty = document.getElementById('projectsEmpty');
     const filterTimeouts = new Map();
 
@@ -1062,6 +1206,30 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
     });
 
+    // Fold either half away when nothing in it is showing. Reads the live
+    // DOM, so it stays right after a swap moves plates between the halves.
+    function syncProjectHalves(filter) {
+        let shown = 0;
+        let shownInSpreads = 0;
+        let shownInGrid = 0;
+
+        projectCards.forEach(card => {
+            if (!matchesFilter(card, filter)) return;
+            shown++;
+            if (spreads && spreads.contains(card)) shownInSpreads++;
+            if (plateGrid && plateGrid.contains(card)) shownInGrid++;
+        });
+
+        if (spreads) spreads.hidden = shownInSpreads === 0;
+        if (plateGridLabel) plateGridLabel.hidden = shownInGrid === 0;
+        if (drawer) drawer.hidden = shownInGrid === 0;
+        if (projectsEmpty) projectsEmpty.hidden = shown > 0;
+    }
+
+    function activeFilter() {
+        return document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    }
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => {
@@ -1076,29 +1244,89 @@ document.addEventListener('DOMContentLoaded', () => {
             filterTimeouts.forEach(timeout => clearTimeout(timeout));
             filterTimeouts.clear();
 
-            let shown = 0;
-            let shownInSpreads = 0;
-            let shownInGrid = 0;
-
             projectCards.forEach(card => {
                 if (matchesFilter(card, filter)) {
-                    shown++;
-                    if (spreads && spreads.contains(card)) shownInSpreads++;
-                    if (plateGrid && plateGrid.contains(card)) shownInGrid++;
                     card.classList.remove('hidden', 'fade-out');
                 } else {
                     card.classList.add('fade-out');
                     const timeout = setTimeout(() => {
                         card.classList.add('hidden');
                         filterTimeouts.delete(card);
+                        syncRail();
                     }, 300);
                     filterTimeouts.set(card, timeout);
                 }
             });
 
-            if (spreads) spreads.hidden = shownInSpreads === 0;
-            if (plateGridLabel) plateGridLabel.hidden = shownInGrid === 0;
-            if (projectsEmpty) projectsEmpty.hidden = shown > 0;
+            syncProjectHalves(filter);
+
+            // Send the drawer back to the start so the first match is visible.
+            if (projectsRail) {
+                projectsRail.scrollTo({ left: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+                syncRail();
+            }
+        });
+    });
+
+    // ============================================
+    // PROJECT SWAP
+    //
+    // The first two spreads are fixed. A grid plate with a picture can
+    // "expand" into the third slot; whatever was there drops into the grid
+    // where the expanded plate used to sit. The plate element itself moves,
+    // so its figure, links and filter state all travel with it.
+    // ============================================
+    const SWAP_FADE_MS = 250;
+
+    // Catalogue numbers follow reading order, so they're redrawn after a swap.
+    function renumberPlates() {
+        document.querySelectorAll('.projects .project-card .plate-no').forEach((el, i) => {
+            el.textContent = `No. ${String(i + 1).padStart(2, '0')}`;
+        });
+    }
+
+    function expandIntoSpread(card) {
+        if (!spreads || !plateGrid) return;
+        const outgoing = [...spreads.querySelectorAll(':scope > .project-card')].pop();
+        if (!outgoing || outgoing === card) return;
+
+        const fadeMs = reduceMotion.matches ? 0 : SWAP_FADE_MS;
+        card.classList.add('is-swapping');
+        outgoing.classList.add('is-swapping');
+
+        setTimeout(() => {
+            const marker = document.createComment('');
+            card.replaceWith(marker);
+            outgoing.replaceWith(card);
+            marker.replaceWith(outgoing);
+
+            card.classList.add('spread');
+            outgoing.classList.remove('spread');
+            renumberPlates();
+            syncProjectHalves(activeFilter());
+            syncRail();
+
+            // Let the new layout land at opacity 0, then fade both back in.
+            requestAnimationFrame(() => {
+                card.classList.remove('is-swapping');
+                outgoing.classList.remove('is-swapping');
+            });
+
+            // The spread opens above the grid, so take the reader (and focus)
+            // to it rather than leaving them looking at the plate that left.
+            card.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+            const heading = card.querySelector('.project-name');
+            if (heading) {
+                heading.tabIndex = -1;
+                heading.focus({ preventScroll: true });
+            }
+        }, fadeMs);
+    }
+
+    document.querySelectorAll('.projects .plate-expand').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const card = btn.closest('.project-card');
+            if (card) expandIntoSpread(card);
         });
     });
 

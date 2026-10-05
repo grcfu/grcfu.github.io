@@ -1797,9 +1797,10 @@ section {
 /* ============================================
    PROJECTS - THE PLATE GRID
 
-   Everything past the spreads, all visible at once. Laid out in columns
-   rather than rows so plates with a thumbnail and plates without one pack
-   together like a pinned-up wall instead of leaving ragged row gaps.
+   Everything past the spreads, as compact text-only plates on a horizontal
+   rail (the specimen drawer) so the section stays short. Plates that have a picture (data-swappable)
+   carry an "expand" button that trades places with the bottom spread; the
+   figure travels with the plate and only shows once it's a spread.
    ============================================ */
 .plate-grid-label {
     display: flex;
@@ -1829,62 +1830,231 @@ section {
     background-size: 6px 1px;
 }
 
-.plate-grid {
-    columns: 3 18rem;
-    column-gap: 1.75rem;
-    padding-top: 0.75rem;
+/* Grid areas let the arrows sit in the bottom control strip while staying
+   in a sensible DOM order (prev, rail, next). */
+.drawer {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas:
+        "rail   rail rail"
+        "hint   prev next"
+        "runner runner runner";
+    align-items: center;
+    column-gap: 0.5rem;
+    row-gap: 0.9rem;
     margin-bottom: 4.5rem;
 }
 
-/* inline-flex rather than break-inside: avoid - Chrome stops balancing the
-   columns when every child asks not to break, and piles them all into the
-   first one. An atomic inline box can't fragment anyway. */
-.plate-grid .project-card {
-    display: inline-flex;
-    width: 100%;
-    vertical-align: top;
-    margin-bottom: 2rem;
-}
-
-/* .hidden on a plate has to beat the inline-flex above. */
-.plate-grid .project-card.hidden {
+.drawer[hidden] {
     display: none;
 }
 
-/* Small taped print at the head of a plate. Cropped to the top of the
-   screenshot, where each app's headline lives. */
-.plate-thumb {
+.projects-rail {
+    grid-area: rail;
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* proximity, not mandatory: mandatory forces the scroller to rest on a
+       snap point immediately, which on load scrolled the rail past its own
+       left padding (misaligning the first plate) and pulled the scroller
+       back from the true end so the last plate was unreachable. */
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    /* Bleed past the container so the rail reads as continuing offscreen,
+       while the first card still lines up with the section label. */
+    margin-inline: calc(var(--container-padding) * -1);
+    padding-inline: var(--container-padding);
+    /* Inset the snapport to match the padding, or snap-align: start lines
+       the first plate up with the scrollport edge and the rail scrolls its
+       own left padding away on load. */
+    scroll-padding-inline: var(--container-padding);
+    padding-block: 1.5rem 1.4rem;
+    /* Hidden scrollbar: the runner line below is the position indicator. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.projects-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.projects-rail:focus-visible {
+    outline: 2px solid var(--accent-pink-dark);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .projects-rail {
+        cursor: grab;
+    }
+    .projects-rail.is-dragging {
+        cursor: grabbing;
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+        user-select: none;
+    }
+}
+
+.plate-grid .project-card {
+    flex: 0 0 auto;
+    width: clamp(17.5rem, 78vw, 20.5rem);
+    scroll-snap-align: start;
+    padding: 1.7rem 1.5rem 1.15rem;
+}
+
+/* ---- Drawer controls: arrows, runner, hint ---- */
+.rail-nav {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid rgba(62, 39, 35, 0.2);
+    border-radius: 0;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast),
+                opacity var(--transition-fast);
+}
+
+.rail-nav-prev { grid-area: prev; }
+.rail-nav-next { grid-area: next; }
+
+.rail-nav svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.rail-nav:hover:not(:disabled) {
+    background-color: var(--bg-dark);
+    border-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.rail-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* The runner the drawer slides on, also the scroll position readout. */
+.rail-runner {
+    grid-area: runner;
     position: relative;
-    margin: 0.6rem 0.4rem 1.35rem;
-    padding: 0.4rem;
-    background-color: var(--white);
-    box-shadow: 0 1px 2px rgba(62, 39, 35, 0.12), 3px 6px 12px rgba(62, 39, 35, 0.12);
-    transform: rotate(-1deg);
-    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+    height: 2px;
+    background-color: rgba(62, 39, 35, 0.1);
 }
 
-.plate-grid .project-card:nth-child(even) .plate-thumb {
-    transform: rotate(0.9deg);
-}
-
-.plate-thumb img {
+.rail-runner-fill {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
     display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
+    width: 12%;
+    min-width: 2rem;
+    background-color: #A8B89A;
+    transition: width 0.15s linear, left 0.15s linear;
 }
 
-.plate-grid .project-card:hover .plate-thumb,
-.plate-grid .project-card:focus-within .plate-thumb {
-    transform: rotate(0deg);
+.rail-hint {
+    grid-area: hint;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0;
 }
 
-/* The thumbnail sits where the plate's own tape would, so the tape moves
-   onto the print itself. */
-.plate-thumb ~ .plate-head {
-    margin-top: 0;
+.rail-hint kbd {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 0.66rem;
+    padding: 0.05rem 0.3rem;
+    border: 1px solid rgba(62, 39, 35, 0.22);
+    color: var(--text-secondary);
+}
+
+.plate-grid .plate-head {
+    margin-bottom: 0.75rem;
+}
+
+.plate-grid .project-name {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.plate-grid .plate-kind {
+    margin-bottom: 0.7rem;
+}
+
+.plate-grid .project-description {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    margin-bottom: 0.85rem;
+}
+
+.plate-grid .plate-foot {
+    padding-top: 0.7rem;
+}
+
+.plate-grid .project-stack {
+    margin-bottom: 0.6rem;
+}
+
+/* A swappable plate keeps its figure in the markup; in the grid it stays
+   tucked away and the text block fills the plate like any other. */
+.project-card:not(.spread) .spread-figure {
+    display: none;
+}
+
+.project-card:not(.spread) .spread-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* "expand" reads as a sibling of the live/code links, set apart in pink. */
+.plate-expand {
+    padding: 0 0 2px;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-pink-dark);
+    background: none;
+    border: none;
+    border-bottom: 1px dashed var(--accent-pink-dark);
+    border-radius: 0;
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.plate-expand:hover,
+.plate-expand:focus-visible {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+
+.spread .plate-expand {
+    display: none;
+}
+
+/* Focus lands on the heading after a swap so screen readers announce the
+   new spread; it isn't interactive, so it doesn't need a ring. */
+.project-name[tabindex="-1"]:focus {
+    outline: none;
+}
+
+/* Both plates fade out, trade places, and fade back in. */
+.project-card.is-swapping {
+    opacity: 0;
+    transition: opacity 0.25s ease;
 }
 
 .projects-empty {
@@ -3181,10 +3351,6 @@ section {
         padding-inline: 0.5rem;
     }
 
-    .plate-grid .project-card {
-        margin-bottom: 1.5rem;
-    }
-
     /* Scale the floral frame down with the tighter plate padding. */
     .plate-sprig-tl {
         width: 2.5rem;
@@ -3204,6 +3370,35 @@ section {
 
     .plate-grid .plate-head {
         padding-inline: 1.15rem 1rem;
+    }
+
+    /* A horizontal rail on a phone fights the page's own vertical scroll
+       and hides most of the set behind a swipe, so the drawer collapses
+       into a plain stack and its controls drop away. */
+    .drawer {
+        display: block;
+        margin-bottom: 3rem;
+    }
+
+    .projects-rail {
+        flex-direction: column;
+        gap: 1rem;
+        overflow: visible;
+        scroll-snap-type: none;
+        margin-inline: 0;
+        padding-inline: 0;
+        padding-block: 0.75rem 0;
+        cursor: auto;
+    }
+
+    .plate-grid .project-card {
+        width: 100%;
+    }
+
+    .rail-nav,
+    .rail-runner,
+    .rail-hint {
+        display: none;
     }
 }
 
@@ -3338,6 +3533,10 @@ section {
         padding: 2rem 2.5rem;
     }
 
+    .plate-grid .project-card {
+        width: clamp(19rem, 26vw, 23rem);
+    }
+
     .contact-btn {
         padding: 1rem 2rem;
     }
@@ -3384,7 +3583,13 @@ section {
         animation: none;
     }
 
-    /* Plates land flat and un-tilted. */
+    /* Smooth programmatic scrolling and snap both read as motion; the
+       arrows still work, they just jump. Plates land flat and un-tilted. */
+    .projects-rail {
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+    }
+
     .project-card,
     .project-card.visible {
         --rot: 0deg;
@@ -3400,8 +3605,7 @@ section {
        on hover. */
     .tipped-photo,
     .terminal,
-    .phone,
-    .plate-thumb {
+    .phone {
         transition: none;
     }
 }
