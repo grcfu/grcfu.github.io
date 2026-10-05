@@ -661,6 +661,30 @@
                         <svg class="plate-sprig plate-sprig-br" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
                         <svg class="plate-sprig plate-sprig-bl" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><use href="#hbSprig"/></svg>
                         <figure class="spread-figure">
+                            <div class="terminal">
+                                <div class="terminal-bar" aria-hidden="true">
+                                    <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                                    <span class="terminal-title">~/redline — zsh</span>
+                                </div>
+<pre class="terminal-body"><code><span class="t-dim"># a small, isolated metric</span>
+<span class="t-prompt">$</span> curl -X POST :8080/api/v1/change-requests \
+    -H 'Idempotency-Key: demo-1' -d @metric-49992.json
+<span class="t-ok">202 Accepted</span>  state <span class="t-key">SUBMITTED</span>
+
+<span class="t-prompt">$</span> curl :8080/api/v1/change-requests/&lt;id&gt;
+  riskTier   <span class="t-ok">LOW</span>
+  state      <span class="t-key">AUTO_APPROVED → APPLIED</span>  <span class="t-dim"># &lt;1s</span>
+
+<span class="t-dim"># metric 1, the biggest hub in the graph</span>
+<span class="t-prompt">$</span> curl -X POST … -d @metric-1.json
+  blast      <span class="t-warn">49,999 downstream metrics</span>
+  riskTier   <span class="t-warn">HIGH</span>
+  approvals  OWNER → STEWARD → RISK_COMMITTEE
+
+<span class="t-prompt">$</span> curl …/&lt;id&gt;/audit/verify
+  { <span class="t-key">"valid"</span>: <span class="t-ok">true</span> }  <span class="t-dim"># hash chain intact</span>
+<span class="t-prompt">$</span> <span class="t-cursor" aria-hidden="true"></span></code></pre>
+                            </div>
                             <figcaption>fig. 02 — a change request, end to end</figcaption>
                         </figure>
                         <div class="spread-body">
